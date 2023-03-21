@@ -1,0 +1,15 @@
+---
+title: "R & RStudio Workshop"
+author: "Mohd Azmi"
+format: revealjs
+embed-resources: true
+---
+
+## About Me
+
+## Introduction to R
+
+- why R
+
+
+## Introduction to RStudio
