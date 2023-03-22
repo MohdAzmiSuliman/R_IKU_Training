@@ -1,0 +1,161 @@
+---
+title: "Survey Data Self Tutorial"
+format: html
+---
+
+# surveydata package
+
+https://github.com/andrie/surveydata
+
+## Library
+
+```{r}
+pacman::p_load(tidyverse, surveydata)
+```
+
+## simple try
+
+create data.frame - tibble also can
+
+```{r}
+sdat <- tibble(
+   id   = 1:4,
+   Q1   = c("Yes", "No", "Yes", "Yes"),
+   Q4_1 = c(1, 2, 1, 2), 
+   Q4_2 = c(3, 4, 4, 3), 
+   Q4_3 = c(5, 5, 6, 6), 
+   Q10 = factor(c("Male", "Female", "Female", "Male")),
+   crossbreak  = c("A", "A", "B", "B"), 
+   weight      = c(0.9, 1.1, 0.8, 1.2)
+)
+
+sdat
+```
+
+label the dataset
+
+```{r}
+varlabels(sdat) <- c(
+   "RespID",
+   "Question 1", 
+   "Question 4: red", "Question 4: green", "Question 4: blue", 
+   "Question 10",
+   "crossbreak",
+   "weight"
+)
+
+sdat
+```
+
+convert dataset into surveydata format
+
+```{r}
+sv <- as.surveydata(sdat, renameVarlabels = TRUE)
+
+sv
+```
+
+extract specific question
+
+note: must use ``[]``  symbol
+
+```{r}
+sv[, "Q4"]
+
+```
+
+question
+
+```{r}
+questions(sv)
+
+which.q(x = sv, Q = "Q1")
+
+which.q(x = sv, Q = "Q4")
+
+question_text(sv, "Q4")
+
+question_text_common(sv, "Q4")
+
+question_text_unique(sv, "Q4")
+
+
+```
+
+
+## other
+
+```{r}
+sv[, "Q4"] %>% 
+  summarytools::descr()
+```
+
+# survey package
+
+## library
+
+```{r}
+pacman::p_load(survey)
+```
+
+## estimate in subpopulation
+
+https://cran.r-project.org/web/packages/survey/vignettes/domain.pdf
+
+```{r}
+data(fpc)
+
+fpc
+
+dfpc <- svydesign(id=~psuid,strat=~stratid,weight=~weight,data=fpc,nest=TRUE)
+
+dfpc %>% gtsummary::tbl_svysummary()
+
+
+svymean(~x, design = dfpc)
+
+dsub <- subset(dfpc, x > 4)
+
+svymean(~x, design = dsub)
+
+svyby(~x, ~I(x > 4), design = dfpc, svymean)
+
+svyglm(x~I(x > 4) + 0, design = dfpc)
+
+svyglm(x~I(x > 4) + 0, design = dfpc) %>% summary()
+
+svyglm(x~I(x > 4) + 0, design = dfpc) %>% broom::tidy()
+
+svyglm(x~I(x > 4) + 0, design = dfpc) %>% jtools::summ()
+
+
+svyratio(numerator = ~I(x*(x > 4)),
+         denominator = ~as.numeric(x > 4), 
+         design = dfpc)
+
+```
+
+## subpopulation example 2
+
+```{r}
+data(api)
+
+apiclus1$pw
+
+dclus1 <- svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
+
+dclus1
+
+pop.totals <- c(`(Intercept)` = 6194, stypeH = 755, stypeM = 1018)
+
+pop.totals
+
+gclus1 <- calibrate(dclus1, ~stype + api99, c(pop.totals, api99 = 3914069))
+
+gclus1
+
+svymean(~api00, subset(gclus1, comp.imp == "Yes"))
+
+svyratio(~I(api00*(comp.imp == "Yes")), ~as.numeric(comp.imp == "Yes"), gclus1)
+```
+
