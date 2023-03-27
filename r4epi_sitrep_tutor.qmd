@@ -1,0 +1,112 @@
+---
+title: "sitrep package"
+format: html
+---
+
+# setup
+
+https://r4epi.github.io/sitrep/articles/Surveys_Walkthrough.html
+
+## package
+
+```{r}
+#| label: setup
+
+pacman::p_load(
+  here,        # find your files
+  rio,         # for importing data
+  janitor,     # clean/shape data
+  tidyverse,       # clean/shape data
+#  forcats,     # manipulate and rearrange factors
+#  stringr,     # manipulate texts
+  ggalluvial,  # for visualising population flows
+  apyramid,    # plotting age pyramids
+  sitrep,      # MSF field epi functions
+  survey,      # for survey functions
+  srvyr,       # dplyr wrapper for survey package
+  gtsummary,   # produce tables
+  labelled,    # add labels to variables
+  matchmaker,  # recode datasets with dictionaries
+#  lubridate,   # working with dates
+  parsedate,   # guessing dates
+  DT           # interactive tables for this walkthrough
+  )
+```
+
+## download data
+
+```{r}
+#download_survey()
+```
+
+## data import
+
+```{r}
+survey_data_hh <- import("mortality_survey_data.xlsx", 
+                         which = "Mortality Survey",
+                         na = "")
+
+survey_data_ind <- import("mortality_survey_data.xlsx", 
+                         which = "hh_member",
+                         na = "")
+
+study_data_raw <- left_join(survey_data_hh, survey_data_ind,
+                             by = c("_index" = "_parent_index")) %>% tibble()
+
+study_data_raw
+```
+
+## data cleaning
+
+```{r}
+study_data_cleaned <- study_data_raw %>% 
+  rename(uid = "_index.y",
+         consent = household_consents_to_particip,
+         age_years = age_in_years,
+         age_months = age_in_months,
+         date_arrived = doa,
+         date_birth = dob,
+         date_left = dod,
+         date_death = dodeath,
+         member_number = no_household,
+         health_district = location
+         ) %>% 
+  clean_names()
+```
+
+## cluster count
+
+```{r}
+study_data_cleaned %>% 
+  tabyl(cluster_number, health_district)
+```
+
+
+# Example 2
+
+## generate population data
+
+```{r}
+pop_data_age_district_a <- gen_population(total_pop = 10000,
+                                          groups = c("0-2", "3-14", "15-29", "30-44", "45+"),
+                                          proportions = c(0.0340, 0.1811, 0.1380, 0.0808, 0.0661),
+                                          strata = c("Male", "Female")) %>% 
+  rename(age_group = groups, gender = strata, population = n) %>% 
+  mutate(health_district = "Town A")
+
+pop_data_age_district_b <- gen_population(total_pop = 10000,
+                                          groups = c("0-2", "3-14", "15-29", "30-44", "45+"),
+                                          proportions = c(0.0340, 0.1811, 0.1380, 0.0808, 0.0661),
+                                          strata = c("Male", "Female")) %>% 
+  rename(age_group = groups, gender = strata, population = n) %>% 
+  mutate(health_district = "Town B")
+
+pop_data_age <- bind_rows(pop_data_age_district_a, pop_data_age_district_b)
+
+```
+
+## cluster count
+
+```{r}
+```
+
