@@ -159,3 +159,301 @@ svymean(~api00, subset(gclus1, comp.imp == "Yes"))
 svyratio(~I(api00*(comp.imp == "Yes")), ~as.numeric(comp.imp == "Yes"), gclus1)
 ```
 
+
+
+# UCLA Tutorial
+
+source: https://stats.oarc.ucla.edu/r/seminars/survey-data-analysis-with-r/
+
+## Theory
+
+- survey = rarely use simple random sampling
+  - nearly impossible & inefficient financially and statistically
+- analysis need to consider the sampling design
+  - if ignore the sampling design - point estimate and standard errors likely be calculated incorrectly
+  - sampling weight affect point estimate
+  - stratification/clustering affect standard error
+  - ignore clustering lead to underestimation of standard error (i.e. result will be significant when in fact they are not)
+- features of sampling design
+  - sampling weight
+    - probability weight with one or more adjustment
+    - probability weight = inverse probability include in the sample due to sampling design
+    - if two stage = probability weight 1st stage times probability weight 2nd stage
+    - final weight = inverse of the sampling fraction - incorporate with several other values (e.g. correction for non-response, calibration and trimming)
+  - strata
+    - each element of the pop must belong to one strata
+    - samples taken from each stratum as if it werre independent of all of the other strata
+    - implication: probability weight for one strata (e.g. urban) will likely be different from the probability weight for another strata (e.g. rural)
+    - may need more than one primary sampling unit (PSUs) in each stratum
+    - propose: reduce SE of the estimate
+  - Primary Sampling Unit (PSU)
+    - first unit that is sampled in the design 
+      - (e.g. the state in national survey)
+      - (e.g. the district in state survey)
+    - may not be same sampling method at all level
+    - accounting for the clustering in the data (i.e. using the PSUs) will increase the SE
+    - ignoring the PSUE lead to false positive
+  - Finite Population Correction (FPC)
+    - sampling fraction becomes large
+      - sampling fraction = number of respondents sampled relative to the population
+    - calculation of SE require FPC: if FPC close to 1, little impact and can be safely ignored
+  - Replicate weight
+    - series of weight variables that used to correct the SE for the sampling plan
+    - serve same function as the PSU and strata variables
+- sampling with and without replacement
+  - most survey stdy collected without replacement
+  - once respondent has been selected to be in the sample, that particular respondent cannot be selected again to be in the sample
+  
+    
+# NHANES Tutorial
+
+Source: https://wwwn.cdc.gov/nchs/nhanes/tutorials/default.aspx
+
+## Import data
+
+### example 1
+
+```{r}
+pacman::p_load(tidyverse, rio, skimr)
+
+download.file("https://wwwn.cdc.gov/nchs/nhanes/2015-2016/DEMO_I.XPT", 
+              tf <- tempfile(), mode="wb")
+
+demo_ds <- import(tf, format = "xpt")
+
+skim(demo_ds)
+
+
+```
+
+## Example 2
+
+https://wwwn.cdc.gov/nchs/nhanes/tutorials/samplecode.aspx
+
+### Downloading and Importing Data files
+
+prevalence of depression among adults age 20 and over, US 2013-2016
+NCHS Data Brief No.303, Figures 1
+
+```{r}
+pacman::p_load(tidyverse, survey, rio)
+
+options(survey.lonely.psu = "adjust")
+#?survey.lonely.psu
+```
+
+display version information
+
+```{r}
+cat("R package versions:\n")
+for (p in c("base", "survey","dplyr")) {
+cat(p, ": ", as.character(packageVersion(p)), "\n")
+}
+
+```
+
+data prep
+
+demographic data
+
+```{r}
+download.file("https://wwwn.cdc.gov/nchs/nhanes/2013-2014/DEMO_H.XPT", 
+              demo_h_tf <- tempfile(), mode="wb")
+
+demo_h <- import(demo_h_tf, format = "xpt") %>% 
+  select(SEQN, RIAGENDR, RIDAGEYR, SDMVSTRA, SDMVPSU, WTMEC2YR)
+
+download.file("https://wwwn.cdc.gov/nchs/nhanes/2015-2016/DEMO_I.XPT", 
+              demo_i_tf <- tempfile(), mode="wb")
+
+demo_i <- import(demo_i_tf, format = "xpt") %>% 
+  select(SEQN, RIAGENDR, RIDAGEYR, SDMVSTRA, SDMVPSU, WTMEC2YR)
+
+```
+
+Mental health - depression screener (DPQ) data
+
+```{r}
+download.file("https://wwwn.cdc.gov/nchs/nhanes/2013-2014/DPQ_H.XPT", 
+              dpq_h_tf <- tempfile(), mode="wb")
+
+dpq_h <- import(dpq_h_tf, format = "xpt")
+
+download.file("https://wwwn.cdc.gov/nchs/nhanes/2015-2016/DPQ_I.XPT", 
+              dpq_i_tf <- tempfile(), mode="wb")
+
+dpq_i <- import(dpq_i_tf, format = "xpt")
+
+```
+
+combine dataset
+
+```{r}
+demo_comb <- bind_rows(demo_h, demo_i)
+
+dpq_comb <- bind_rows(dpq_h, dpq_i)
+
+ds_comb <- left_join(demo_comb, dpq_comb, by = "SEQN") %>% 
+  mutate(across(.cols = c(DPQ010:DPQ090),
+                ~ fauxnaif::na_if_in(., c(7,9))),
+         one = 1,
+         deprscore = rowSums(pick(DPQ010:DPQ090)),
+         # deprscore = rowSums(select(., DPQ010:DPQ090)),
+         # other alternative: mutate(deprscore = sum(c_across(DPQ010:DPQ090))) but 
+         # require rowwise() and slower
+         deprscat = cut(deprscore, breaks = c(-Inf,9,100), labels = c(0,100)),
+         deprscat = as.double(as.character(deprscat)),
+         # deprscat = if_else(deprscore >= 10, 100, 0),
+         gender = factor(RIAGENDR, labels = c("Men", "Women")),
+         age_g = cut(RIDAGEYR, breaks = c(-Inf, 19, 39, 59, Inf), 
+                     labels = c("Under 20", "20-39", "40-59", "60 and above")),
+         WTMEC4YR = WTMEC2YR/2,
+         inAnalysis = RIDAGEYR >= 20 & !is.na(deprscore)) %>% 
+  select(-starts_with("DPQ"))
+
+ds_comb
+
+```
+
+
+### using correct sample weight
+
+define survey design
+
+```{r}
+nhanes_all <- svydesign(data = ds_comb, id = ~ SDMVPSU, strata = ~ SDMVSTRA, 
+                        weights = ~ WTMEC4YR, nest = T)
+
+nhanes_adultval <- subset(nhanes_all, inAnalysis)
+```
+
+analysis
+
+### descriptive statistic
+
+create function to call svymean and unweighted count
+
+```{r}
+getSummary <- function(varformula, byformula, design){
+  c <- svyby(varformula, byformula, design, unwtd.count)
+  p <- svyby(varformula, byformula, design, svymean)
+  outSum <- left_join(select(c, -se), p)
+  outSum
+}
+```
+
+prevalence of depression
+
+- overall
+- by gender
+- by age group
+- by age and gender
+
+
+```{r}
+getSummary(~deprscat, ~one, nhanes_adultval)
+getSummary(~deprscat, ~gender, nhanes_adultval)
+getSummary(~deprscat, ~age_g, nhanes_adultval)
+getSummary(~deprscat, ~gender+age_g, nhanes_adultval)
+
+```
+
+### Hypothesis testing
+
+compare depression score
+
+```{r}
+svyttest(deprscore ~ gender, nhanes_adultval)
+svyttest(deprscore ~ gender, subset(nhanes_adultval, age_g == "20-39"))
+svyttest(deprscore ~ gender, subset(nhanes_adultval, age_g == "40-59"))
+svyttest(deprscore ~ gender, subset(nhanes_adultval, age_g == "60 and above"))
+
+```
+
+
+
+pairwise compare depression score
+
+```{r}
+svyttest(deprscore ~ age_g, subset(nhanes_adultval, 
+                                   age_g == "20-39" | age_g == "40-59"))
+svyttest(deprscore ~ age_g, subset(nhanes_adultval, 
+                                   age_g == "20-39" | age_g == "60 and above"))
+svyttest(deprscore ~ age_g, subset(nhanes_adultval, 
+                                   age_g == "40-59" | age_g == "60 and above"))
+```
+
+pairwise comparison by age group, among men
+
+```{r}
+svyttest(deprscore ~ age_g, subset(nhanes_adultval,  
+                                   gender == "Men" & (age_g == "20-39" | age_g == "40-59")))
+svyttest(deprscore ~ age_g, subset(nhanes_adultval, 
+                                   gender == "Men" & (age_g == "20-39" | age_g == "60 and above")))
+svyttest(deprscore ~ age_g, subset(nhanes_adultval, 
+                                   gender == "Men" & (age_g == "40-59" | age_g == "60 and above")))
+```
+
+
+### original 
+
+
+```{r}
+library(dplyr)
+library(survey)
+options(survey.lonely.psu='adjust')
+
+cat("R package versions:\n")
+for (p in c("base", "survey","dplyr")) { 
+  cat(p, ": ", as.character(packageVersion(p)), "\n")
+}
+
+download.file("https://wwwn.cdc.gov/nchs/nhanes/2013-2014/DEMO_H.XPT", tf <- tempfile(), mode="wb")
+DEMO_H <- foreign::read.xport(tf)[,c("SEQN","RIAGENDR","RIDAGEYR","SDMVSTRA","SDMVPSU","WTMEC2YR")]
+download.file("https://wwwn.cdc.gov/nchs/nhanes/2015-2016/DEMO_I.XPT", tf <- tempfile(), mode="wb")
+DEMO_I <- foreign::read.xport(tf)[,c("SEQN","RIAGENDR","RIDAGEYR","SDMVSTRA","SDMVPSU","WTMEC2YR")]
+download.file("http://wwwn.cdc.gov/nchs/nhanes/2013-2014/DPQ_H.XPT", tf <- tempfile(), mode="wb")
+DPQ_H <- foreign::read.xport(tf)
+download.file("http://wwwn.cdc.gov/nchs/nhanes/2015-2016/DPQ_I.XPT", tf <- tempfile(), mode="wb")
+DPQ_I <- foreign::read.xport(tf)
+
+DEMO <- bind_rows(DEMO_H, DEMO_I)
+DPQ <- bind_rows(DPQ_H, DPQ_I)
+
+One <- left_join(DEMO, DPQ, by="SEQN") %>%
+  mutate_at(vars(DPQ010:DPQ090), ~ifelse(. >=7, NA, .)) %>%
+  mutate(. , 
+         one = 1,
+         Depression.Score = rowSums(select(. , DPQ010:DPQ090)),
+         Depression= ifelse(Depression.Score >=10, 100, 0), 
+         Gender = factor(RIAGENDR, labels=c("Men", "Women")),
+         Age.Group = cut(RIDAGEYR, breaks=c(-Inf,19,39,59,Inf),labels=c("Under 20", "20-39","40-59","60 and over")),
+         WTMEC4YR = WTMEC2YR/2 ,
+         inAnalysis= (RIDAGEYR >= 20 & !is.na(Depression.Score))
+         ) %>% 
+  select(., -starts_with("DPQ"))
+
+NHANES_all <- svydesign(data=One, id=~SDMVPSU, strata=~SDMVSTRA, weights=~WTMEC4YR, nest=TRUE)
+NHANES <- subset(NHANES_all, inAnalysis)
+
+getSummary <- function(varformula, byformula, design){
+  c <- svyby(varformula, byformula, design, unwtd.count ) 
+  p <- svyby(varformula, byformula, design, svymean ) 
+  outSum <- left_join(select(c,-se), p) 
+  outSum
+}
+
+getSummary(~Depression, ~one, NHANES)
+getSummary(~Depression, ~Gender, NHANES)
+getSummary(~Depression, ~Age.Group, NHANES)
+getSummary(~Depression, ~Gender + Age.Group, NHANES)
+
+```
+
+
+
+
+
+
+
+
