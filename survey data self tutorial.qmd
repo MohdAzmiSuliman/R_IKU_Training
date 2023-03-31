@@ -182,7 +182,7 @@ source: https://stats.oarc.ucla.edu/r/seminars/survey-data-analysis-with-r/
     - final weight = inverse of the sampling fraction - incorporate with several other values (e.g. correction for non-response, calibration and trimming)
   - strata
     - each element of the pop must belong to one strata
-    - samples taken from each stratum as if it werre independent of all of the other strata
+    - samples taken from each stratum as if it were independent of all of the other strata
     - implication: probability weight for one strata (e.g. urban) will likely be different from the probability weight for another strata (e.g. rural)
     - may need more than one primary sampling unit (PSUs) in each stratum
     - propose: reduce SE of the estimate
@@ -428,7 +428,7 @@ One <- left_join(DEMO, DPQ, by="SEQN") %>%
          Depression= ifelse(Depression.Score >=10, 100, 0), 
          Gender = factor(RIAGENDR, labels=c("Men", "Women")),
          Age.Group = cut(RIDAGEYR, breaks=c(-Inf,19,39,59,Inf),labels=c("Under 20", "20-39","40-59","60 and over")),
-         WTMEC4YR = WTMEC2YR/2 ,
+         WTMEC4YR = WTMEC2YR/2,
          inAnalysis= (RIDAGEYR >= 20 & !is.na(Depression.Score))
          ) %>% 
   select(., -starts_with("DPQ"))
@@ -437,8 +437,8 @@ NHANES_all <- svydesign(data=One, id=~SDMVPSU, strata=~SDMVSTRA, weights=~WTMEC4
 NHANES <- subset(NHANES_all, inAnalysis)
 
 getSummary <- function(varformula, byformula, design){
-  c <- svyby(varformula, byformula, design, unwtd.count ) 
-  p <- svyby(varformula, byformula, design, svymean ) 
+  c <- svyby(varformula, byformula, design, unwtd.count) 
+  p <- svyby(varformula, byformula, design, svymean) 
   outSum <- left_join(select(c,-se), p) 
   outSum
 }
@@ -451,9 +451,148 @@ getSummary(~Depression, ~Gender + Age.Group, NHANES)
 ```
 
 
+# NHIS tutorial
+
+source: http://asdfree.com/national-health-interview-survey-nhis.html
 
 
+```{r}
+# remotes::install_github("ajdamico/lodown", dependencies = T) 
+
+pacman::p_load(lodown)
+```
+
+## download data
+
+may take very long time
+
+```{r}
+# lodown("nhis", output_dir = file.path(path.expand("~"), "NHIS"))
+```
 
 
+get catalog
 
+```{r}
+nhis_cat <- get_catalog("nhis", output_dir = file.path(path.expand("~"), "NHIS"))
+```
+
+download specific year
+
+```{r}
+nhis_cat16 <- subset(nhis_cat, year == 2016)
+
+nhis_ds16 <- lodown("nhis", nhis_cat16)
+
+```
+
+
+## example using survey library
+
+### data prep
+
+```{r}
+options(survey.lonely.psu = "adjust")
+
+pacman::p_load(tidyverse, survey, mitools, rio)
+
+nhis_personsx_df <- import(file.path(path.expand("~"), "NHIS", "2016/personsx.rds")) %>% 
+  as_tibble()
+head(nhis_personsx_df)
+
+nhis_income_list <- import(file.path(path.expand("~"), "NHIS", "2016/incmimp.rds")) %>% 
+  map(., as_tibble)
+head(nhis_income_list)
+
+merge_variables <- c("hhx", "fmx", "fpx")
+
+nhis_personsx_df[merge_variables] <- 
+    sapply(nhis_personsx_df[merge_variables], as.numeric)
+
+inc_vars_to_keep <- c(merge_variables, 
+                      setdiff(names(nhis_income_list[[1]]), 
+                              names(nhis_personsx_df)))
+
+vars_to_keep <- c(merge_variables, "ppsu", "pstrat", "wtfa", 'phstat', 
+                  'sex', 'hospno', 'age_p', 'hinotmyr', 'notcov')
+
+nhis_personsx_df <- nhis_personsx_df[vars_to_keep]
+
+nhis_personsx_list <- lapply(nhis_income_list, function(w){ 
+  w <- w[inc_vars_to_keep]
+  w[merge_variables] <- sapply(w[merge_variables], as.numeric)
+  result <- merge(nhis_personsx_df, w)
+  stopifnot(nrow(result) == nrow(nhis_personsx_df))
+  result
+  })
+
+```
+
+### survey design
+
+```{r}
+nhis_design <- svydesign(id = ~ppsu, strata =  ~pstrat, nest = T,
+                         weights = ~wtfa, data = imputationList(nhis_personsx_list))
+```
+
+### Add new column
+
+```{r}
+nhis_design <- update(nhis_design, one = 1, 
+                      poverty_category = factor(findInterval(povrati3, 1:4),
+                                                labels = c("below poverty", 
+                                                           "100-199%", "200-299%", 
+                                                           "300-399%" , "400%+")),
+                      fair_or_poor_reported_health = 
+                        ifelse(phstat %in% 1:5, as.numeric(phstat >= 4), NA),
+                      sex = factor(sex, labels = c("male", "female")),
+                      hospno = ifelse(hospno > 366, NA, hospno))
+```
+
+### Unweighted Count
+
+```{r}
+MIcombine(with(nhis_design, svyby(~one, ~one, unwtd.count)))
+
+MIcombine(with(nhis_design, svyby(~one, ~poverty_category, unwtd.count)))
+
+```
+
+### Weighted Count
+
+```{r}
+MIcombine(with(nhis_design, svytotal(~one)))
+
+MIcombine(with(nhis_design, svyby(~one, ~poverty_category, svytotal)))
+
+```
+
+### Descriptive Statistic
+
+```{r}
+MIcombine(with(nhis_design, svymean(~age_p)))
+MIcombine(with(nhis_design, svyby(~age_p, ~poverty_category, svymean)))
+
+MIcombine(with(nhis_design, svymean(~sex)))
+MIcombine(with(nhis_design, svyby(~sex, ~poverty_category, svymean)))
+
+MIcombine(with(nhis_design, svytotal(~age_p)))
+MIcombine(with(nhis_design, svyby(~age_p, ~poverty_category, svytotal)))
+
+MIcombine(with(nhis_design, 
+               svyratio(numerator = ~hinotmyr, denominator = ~hospno, na.rm = TRUE)))
+
+```
+
+### regression models and test of assoication
+
+```{r}
+lodown::MIsvyttest(age_p ~ fair_or_poor_reported_health, nhis_design)
+
+lodown::MIsvychisq(~fair_or_poor_reported_health + sex , nhis_design)
+
+MIcombine(with(nhis_design, svyglm(age_p ~ fair_or_poor_reported_health + sex))) %>% 
+  summary()
+
+```
 
