@@ -159,6 +159,139 @@ svymean(~api00, subset(gclus1, comp.imp == "Yes"))
 svyratio(~I(api00*(comp.imp == "Yes")), ~as.numeric(comp.imp == "Yes"), gclus1)
 ```
 
+# srvyr package
+
+## intro
+
+```{r}
+pacman::p_load(survey, tidyverse, srvyr)
+
+data(api)
+
+out <- apistrat %>% 
+  mutate(hs_grad_pct = cut(hsg, c(0, 20,100), include.lowest = T, 
+                           labels = c("<20%", "\u226520%"))) %>% 
+  group_by(stype, hs_grad_pct) %>% 
+  summarise(api_diff = weighted.mean(api00 - api99, pw),
+            n = n())
+out
+
+out %>% 
+  ggplot(aes(x = stype, y = api_diff, group = hs_grad_pct, fill = hs_grad_pct)) +
+  geom_col(stat = "identity", position = "dodge") +
+  geom_text(aes(y = 0, label = n), position = position_dodge(width = .9), 
+            vjust = -1)
+
+
+```
+
+
+## data prep
+
+```{r}
+srs_design_srvyr <- apisrs %>% as_survey_design(ids = 1, fpc = fpc)
+
+srs_design_survey <- svydesign(ids = ~1, fpc = ~fpc, data = apisrs)
+
+srs_design_srvyr2 <- apisrs %>% as_survey(ids = 1, fpc = fpc)
+```
+
+
+```{r}
+strat_design_srvyr <- apistrat %>% 
+  as_survey_design(1, strata = stype, fpc = fpc, weights = pw, 
+                   variables = c(stype, starts_with("api")))
+
+strat_design_survey <- svydesign(ids = ~1, strata = ~stype, fpc = ~fpc, 
+                                 variables = ~stype + api99 + api00 + api.stu,
+                                 weights = ~pw, data = apistrat)
+```
+
+```{r}
+strat_design_srvyr <- strat_design_srvyr %>% 
+  mutate(api_diff = api00 - api99) %>% 
+  rename(api_students = api.stu)
+
+strat_design_survey$variables$api_diff <- 
+  strat_design_survey$variables$api00 - strat_design_survey$variables$api99
+names(strat_design_survey$variables)[names(strat_design_survey$variables) == "api.stu"] <-
+  "api_students"
+```
+
+## Summary statistic
+
+```{r}
+strat_design_srvyr %>% 
+  summarise(api_diff = survey_mean(api_diff, vartype = "ci"))
+
+svymean(~api_diff, strat_design_survey)
+```
+
+
+```{r}
+strat_design_srvyr %>% 
+  group_by(stype) %>% 
+  summarise(api_increase = survey_total(api_diff >= 0),
+            api_decrease = survey_total(api_diff < 0))
+
+svyby(~api_diff >= 0, ~stype, strat_design_survey, svytotal)
+```
+
+
+```{r}
+srs_design_srvyr %>% 
+  group_by(awards) %>% 
+  summarise(prop = survey_mean(), 
+            total = survey_total())
+
+svymean(~awards, srs_design_survey)
+svytotal(~awards, srs_design_survey)
+```
+
+
+```{r}
+strat_design_srvyr %>% 
+  group_by(stype) %>% 
+  summarise(n = unweighted(n()))
+
+svyby(~api99, ~stype, strat_design_survey, unwtd.count)
+```
+
+
+```{r}
+strat_design <- apistrat %>% 
+  as_survey(strata = stype, fpc = fpc, weight =fpc)
+
+strat_design_out <- strat_design %>% 
+  mutate(hs_grad_pct = cut(hsg, c(0, 20,100), include.lowest = T, 
+                           labels = c("<20%", "\u226520%"))) %>% 
+  group_by(stype, hs_grad_pct) %>% 
+  summarise(api_diff = survey_mean(api00 - api99, vartype = "ci"),
+            n = unweighted(n()))
+
+strat_design_out
+
+strat_design_out %>% 
+  ggplot(aes(x = stype, y = api_diff, group = hs_grad_pct, fill = hs_grad_pct,
+             ymax = api_diff_upp, ymin = api_diff_low)) +
+  geom_col(stat = "identity", position = "dodge") +
+  geom_errorbar(position = position_dodge(width = 0.9), width = 0.1) +
+  geom_text(aes(y = 0, label = n), position = position_dodge(width = 0.9), 
+            vjust = -1)
+
+```
+
+## stratified
+
+```{r}
+strat_design %>%
+  group_by(stype, awards) %>%
+  summarize(prop = survey_prop())
+
+strat_design %>%
+  group_by(interact(stype, awards)) %>% #compare ith above - no interact
+  summarize(prop = survey_prop())
+```
 
 
 # UCLA Tutorial
