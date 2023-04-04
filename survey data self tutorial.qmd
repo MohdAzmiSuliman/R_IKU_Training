@@ -729,3 +729,15 @@ MIcombine(with(nhis_design, svyglm(age_p ~ fair_or_poor_reported_health + sex)))
 
 ```
 
+# tidy survey github tutorial
+
+source: https://tidy-survey-r.github.io/tidy-survey-short-course/
+
+## Day 1 Module
+
+### design object
+
+```{r}
+
+```
+

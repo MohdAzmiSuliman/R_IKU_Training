@@ -1,0 +1,36 @@
+---
+title: "train_chol"
+format: html
+df-print: paged
+---
+
+# Setup
+
+```{r}
+#| label: setup
+
+pacman::p_load(tidyverse, survey, srvyr, here, haven)
+
+chol_ds <- read_sav(here("train_chol", "NHMS 2019 hyperchol_training.sav")) %>% 
+  mutate_if(is.labelled, ~as_factor(.)) %>% 
+  mutate(one = 1)
+
+chol_ds
+```
+
+# Design
+
+```{r}
+chol_design <- svydesign(id = ~EBID, strata = ~State_St, nest = T,
+                         weights = ~WtFinal_NCD, data = chol_ds)
+
+```
+
+```{r}
+svymean(~sex, chol_design)
+
+svytotal(~sex, chol_design)
+
+
+```
+
