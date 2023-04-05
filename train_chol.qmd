@@ -62,3 +62,13 @@ chol_design_srvyr %>%
 
 ```
 
+
+# Subpopulation
+
+```{r}
+dsub <- subset(chol_design, Overall_Chol == "Yes")
+
+svymean(~sex, design = dsub, deff = T)
+
+```
+
