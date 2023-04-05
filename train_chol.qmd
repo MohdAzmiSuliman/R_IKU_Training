@@ -13,6 +13,7 @@ pacman::p_load(tidyverse, survey, srvyr, here, haven)
 
 chol_ds <- read_sav(here("train_chol", "NHMS 2019 hyperchol_training.sav")) %>% 
   mutate_if(is.labelled, ~as_factor(.)) %>% 
+#  mutate_if(is.labelled, ~zap_label(.)) %>% 
   mutate(one = 1)
 
 chol_ds
@@ -24,13 +25,22 @@ chol_ds
 chol_design <- svydesign(id = ~EBID, strata = ~State_St, nest = T,
                          weights = ~WtFinal_NCD, data = chol_ds)
 
+chol_design_srvyr <- chol_ds %>% 
+  as_survey_design(ids = EBID, strata = State_St, nest = T, 
+                   weights = WtFinal_NCD)
+
 ```
 
+# Analysis
+
 ```{r}
-svymean(~sex, chol_design)
+svymean(~Overall_Chol, chol_design, na.rm = T)
 
-svytotal(~sex, chol_design)
+svytotal(~Overall_Chol, chol_design, na.rm = T)
 
+
+chol_design_srvyr %>% 
+  summarise(Chol_Total = survey_mean(Overall_Chol, vartype = "ci", na.rm = T))
 
 ```
 
