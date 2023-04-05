@@ -34,13 +34,31 @@ chol_design_srvyr <- chol_ds %>%
 # Analysis
 
 ```{r}
-svymean(~Overall_Chol, chol_design, na.rm = T)
+svymean(~Overall_Chol, chol_design, na.rm = T) 
 
-svytotal(~Overall_Chol, chol_design, na.rm = T)
+svytotal(~Overall_Chol, chol_design, na.rm = T) 
+
+chol_design_srvyr %>%
+  drop_na(Overall_Chol) %>% 
+  group_by(Overall_Chol) %>%
+  summarize(n_unw = unweighted(n()),
+            proportion = survey_mean(vartype = c("se", "ci", "cv"), deff = T),
+            total = survey_total(vartype = c("se", "ci", "cv"), deff = T))
 
 
-chol_design_srvyr %>% 
-  summarise(Chol_Total = survey_mean(Overall_Chol, vartype = "ci", na.rm = T))
+chol_design_srvyr %>%
+  drop_na(Overall_Chol) %>% 
+  group_by(sex, Overall_Chol) %>%
+  summarize(n_unw = unweighted(n()),
+            proportion = survey_mean(vartype = c("se", "ci", "cv"), deff = T),
+            total = survey_total(vartype = c("se", "ci", "cv"), deff = T))
+
+chol_design_srvyr %>%
+  drop_na(Overall_Chol) %>% 
+  group_by(state, Overall_Chol) %>%
+  summarize(n_unw = unweighted(n()),
+            proportion = survey_mean(vartype = c("se", "ci", "cv"), deff = T),
+            total = survey_total(vartype = c("se", "ci", "cv"), deff = T))
 
 ```
 
