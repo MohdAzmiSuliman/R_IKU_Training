@@ -60,5 +60,10 @@ chol_design_srvyr %>%
             proportion = survey_mean(vartype = c("se", "ci", "cv"), deff = T),
             total = survey_total(vartype = c("se", "ci", "cv"), deff = T))
 
-```
+svyglm(Overall_Chol ~ sex, design = chol_design, family = quasibinomial()) %>% 
+  summary()
 
+svyglm(Overall_Chol ~ sex, design = chol_design_srvyr, family = quasibinomial()) %>% 
+  summary()
+
+```
