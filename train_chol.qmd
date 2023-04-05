@@ -63,20 +63,20 @@ chol_design_srvyr %>%
 svyglm(Overall_Chol ~ sex, design = chol_design, family = quasibinomial()) %>% 
   summary()
 
-<<<<<<< HEAD
 svyglm(Overall_Chol ~ sex, design = chol_design_srvyr, family = quasibinomial()) %>% 
   summary()
 
 ```
-=======
 
 # Subpopulation
 
 ```{r}
-dsub <- subset(chol_design, Overall_Chol == "Yes")
+dsub <- subset(chol_design, sex == "male")
 
-svymean(~sex, design = dsub, deff = T)
+svymean(~Overall_Chol, design = dsub, deff = T)
+
+
+svyby(~Overall_Chol, ~sex, chol_design, svymean, deff=TRUE)
 
 ```
 
->>>>>>> e5303c54631c9c4bc0f19d2116c33ebc2e1d8d28
