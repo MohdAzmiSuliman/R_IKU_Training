@@ -1,0 +1,88 @@
+---
+title: "Setup & Introduction"
+author: "Mohd Azmi"
+format: revealjs
+embed-resources: true
+---
+
+## Introducation: R
+
+- R is a programming language specifically designed for statistical computing and data analysis. 
+- It was created by statisticians and data analysts for tasks ranging from basic data manipulation to advanced statistical modeling. 
+- Widely used in academia, industry, and research for its flexibility and extensive package ecosystem.
+
+## R Key Features
+
+- Open-source and freely available. 
+- Rich statistical and graphical capabilities. 
+- Active and supportive user community. 
+- Cross-platform compatibility (Windows, macOS, Linux).
+
+
+## R Use Cases
+
+- Data cleaning and manipulation. 
+- Statistical analysis and hypothesis testing. 
+- Data visualization with customizable plots. 
+
+## RStudio: IDE for R
+
+Overview
+
+- RStudio is an integrated development environment (IDE) that enhances the R programming experience. 
+- It provides a user-friendly interface, making it easier to write, test, and debug R code. 
+
+Workflow 
+
+- Creating and running scripts. 
+- Managing projects for better organization.
+- Utilizing the built-in version control (Git).
+
+## RStudio Key Features
+
+- **Script Editor**: Write and execute R scripts.
+- **Console**: Interact with R in real-time.
+- **Environment Pane**: View and manage objects in your workspace.
+- **Plots Pane**: Instantly visualize data and plots.
+- **Packages and Help**: Easily install and access R packages.
+
+## Quarto
+
+What is Quarto? 
+
+- Open-source scientific and technical publishing system
+- Author can use any favourite editor (**RStudio**, Jupyter & VScode)
+- Create dynamic content with **R**, Python, Julia & Observable
+- Publish reproducible, production quality articles, presentations, dashboards, websites, blogs, and books in HTML, PDF, MS Word, ePub, and more.
+- Write using Pandoc markdown, including equations, citations, crossrefs, figure panels, callouts, advanced layout, and more.
+
+## Quarto Advantage
+
+- **Reproducibility**: Easily reproduce analyses with the same code and data. 
+- **Communication**: Share insights with colleagues and stakeholders by creating reports and documents.
+- **Flexibility**: Create interactive documents, presentations, and dashboards.
+
+
+## Before we start
+
+- Different people may use R and RStudio differently
+- Having a sensible workflow can improve you work
+
+## Workflow thinking
+
+- treat individual R process and the associated workspace is disposable
+- dont treat your workspace as a pet, i.e. it hold precious objects and you arent 100% sure you can reproduce them.
+- if you have this attachment, that inidcate you have a non-reproducible workflow.
+
+further reading: https://rstats.wtf/
+
+## Prerequisite for workflow thinking
+
+- Use IDE. 
+  - Use ID with proper support for project
+- Always start R with blank state. 
+  - when quit R, do not save workspace to an .Rdata file. 
+  - when launch R, do not reload the workspace from .Rdata file. 
+- Restart R often during development. 
+  - avoid rm(list = ls())
+  - develop cripts in fresh R process
