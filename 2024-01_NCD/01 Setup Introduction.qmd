@@ -1,7 +1,9 @@
 ---
 title: "Setup & Introduction"
 author: "Mohd Azmi"
-format: revealjs
+format:
+  revealjs: 
+    theme: moon
 embed-resources: true
 ---
 
@@ -24,6 +26,29 @@ embed-resources: true
 - Data cleaning and manipulation. 
 - Statistical analysis and hypothesis testing. 
 - Data visualization with customizable plots. 
+
+## Installing R
+
+- If you already have R and RStudio, reinstall the latest version is recommended
+
+::: columns
+
+::: {.column width="60%"}
+
+- Download R from CRAN website
+- Install R
+- Accept default
+
+Next: RStudio
+
+:::
+::: {.column width="40%"}
+
+![](images/cran_mainpage.png)
+
+:::
+
+:::
 
 ## RStudio: IDE for R
 
@@ -63,6 +88,9 @@ What is Quarto?
 - **Flexibility**: Create interactive documents, presentations, and dashboards.
 
 
+
+
+
 ## Before we start
 
 - Different people may use R and RStudio differently
@@ -86,3 +114,4 @@ further reading: https://rstats.wtf/
 - Restart R often during development. 
   - avoid rm(list = ls())
   - develop cripts in fresh R process
+
