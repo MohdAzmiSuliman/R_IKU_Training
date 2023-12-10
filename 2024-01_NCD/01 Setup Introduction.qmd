@@ -71,6 +71,31 @@ Workflow
 - **Plots Pane**: Instantly visualize data and plots.
 - **Packages and Help**: Easily install and access R packages.
 
+## Installing RStudio
+
+- If you already have R and RStudio, reinstall the latest version is recommended
+
+::: columns
+
+::: {.column width="60%"}
+
+- Download RStudio Desktop from posit website
+- Install RStudio
+- Accept default
+
+Next: Quarto
+
+:::
+::: {.column width="40%"}
+
+![](images/rstudio_downloadpage.png)
+
+:::
+
+:::
+
+
+
 ## Quarto
 
 What is Quarto? 
@@ -86,6 +111,9 @@ What is Quarto?
 - **Reproducibility**: Easily reproduce analyses with the same code and data. 
 - **Communication**: Share insights with colleagues and stakeholders by creating reports and documents.
 - **Flexibility**: Create interactive documents, presentations, and dashboards.
+
+
+## Publishing with Quarto
 
 
 
