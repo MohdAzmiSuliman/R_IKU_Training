@@ -115,7 +115,9 @@ What is Quarto?
 
 ## Publishing with Quarto
 
+Quarto Ouput
 
+- html
 
 
 
