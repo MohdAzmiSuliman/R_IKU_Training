@@ -48,8 +48,8 @@ pacman::p_load(tidyverse, labelled, gtsummary, survey, gt, stringi, summarytools
 ```{r}
 set.seed(123)
 
-tibble(id = paste0(stri_rand_strings(350, length = 2, pattern = "[A-Fd-h]"),
-                   stri_rand_strings(350, length = 2, pattern = "[0-9]"))) %>% 
+chol_rawds <- tibble(id = paste0(stri_rand_strings(350, length = 2, pattern = "[A-Fd-h]"), 
+                                 stri_rand_strings(350, length = 2, pattern = "[0-9]"))) %>% 
   mutate(age_mod1 = as.integer(runif(n = 350, min = -10, max = 25)),
          age_mod2 = as.integer(runif(n = 350, min = -10, max = 35)),
          age_mod3 = rpois(n = 350, lambda = 5),
@@ -61,8 +61,6 @@ tibble(id = paste0(stri_rand_strings(350, length = 2, pattern = "[A-Fd-h]"),
          age = age_mod1+age_mod2+age_mod3+age_mod4,
          ethnic = sample(c("Malay", "Chinese", "Indian"),
                          size = 350, replace = T, prob = c(.5, .3, .2))) %>% 
-  filter(age >= 18) %>% 
-  slice_sample(n = 250) %>% 
   rowwise() %>% 
   mutate(height = round(case_when(gender == "M" ~ runif(n = 1, min = 1.55, max = 1.75), 
                                   gender == "F" ~ runif(n = 1, min = 1.45, max = 1.65)), 2), 
@@ -70,9 +68,33 @@ tibble(id = paste0(stri_rand_strings(350, length = 2, pattern = "[A-Fd-h]"),
                          bmi_cat == 1 ~ runif(n = 1, min = 17.5, max = 23.9),
                          bmi_cat == 2 ~ runif(n = 1, min = 22.0, max = 25.9),
                          bmi_cat == 3 ~ runif(n = 1, min = 24.0, max = 36.0)),
-         weight = round(bmi*(height^2)), digits = 1)  %>% 
-  select(id, ethnic, age, gender, weight, height)
+         weight = round(bmi*(height^2), digits = 1),
+         tc_lvl = round(case_when(age >= 18 & age <= 39 ~ 
+                              rnorm(n = 1, mean = 4.5, sd = 1),
+                            age >= 40 & age <= 59 ~ 
+                              rnorm(n = 1, mean = 5, sd = 1.2),
+                            age >= 60 ~ rnorm(n = 1, mean = 5.2, sd = 1.3)), 2))  %>% 
+  ungroup() %>% 
+  mutate(kc_prob1 = case_when(age >= 18 & age <= 25 ~ .1,
+                              age >= 26 & age <= 40 ~ .3,
+                              age >= 41 ~ .4),
+         kc_prob2 = case_when(tc_lvl >= 5.2 ~ .1,
+                              tc_lvl < 5.2 ~ 0),
+         kc_prob = kc_prob1+kc_prob2,
+         known_chol = case_when(runif(n()) < kc_prob ~ "Yes", 
+                                TRUE ~ "No"),
+         ct_prob = as.numeric(case_when(known_chol == "No" ~ NA_character_, 
+                                        age >= 18 & age <= 25 ~ ".1", 
+                                        age >= 26 & age <= 40 ~ ".4", 
+                                        age >= 41 ~ ".7")),
+         curr_tx = case_when(is.na(ct_prob) ~ NA_character_, 
+                             runif(n()) < ct_prob ~ "Yes", 
+                             TRUE ~ "No")) %>% 
+  filter(age >= 18,
+         tc_lvl >= 2.5 & tc_lvl <= 12) %>% 
+  slice_sample(n = 250) %>% 
+  select(id, ethnic, age, gender, weight, height, tc_lvl, known_chol, curr_tx)
 
-
+write_csv(chol_rawds, "dataset/01_chol_rawds.csv")
 ```
 
