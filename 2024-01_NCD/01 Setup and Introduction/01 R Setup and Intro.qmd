@@ -43,7 +43,7 @@ embed-resources: true
 :::
 ::: {.column width="40%"}
 
-![](images/cran_mainpage.png)
+![](../images/cran_mainpage.png)
 
 :::
 
@@ -97,7 +97,7 @@ class(c("azmi", "kimsui", "liana"))
 ```{r}
 #| echo: fenced
 
-class(c(T, F, T, T))
+class(c(TRUE, FALSE, TRUE, TRUE))
 ```
 
 . . .
@@ -195,5 +195,30 @@ ncd <- data.frame(name, gender, score)
 ncd
 ```
 
+## What's More?
 
-## Import dataset
+further concept in R will be explain using RStudio & Quarto
+
+- import dataset
+- package
+- data wrangling
+- data vizualization
+
+and many more
+
+
+## Package
+
+- R have worldwide user and contributors
+- R is modular, and use package ecosystems
+- Package: collection of R functions, data and compiled code designed to perform specific set of task
+- Package play crucial role in extending R functionality
+- need to be install
+
+## Common R package
+
+1. dplyr: data manipulation and tranformation
+2. ggplot2: data vizualization
+3. tidyr : data reshaping
+4. caret: machine learning
+5. haven: import data from SAS, SPSS, STATA

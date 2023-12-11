@@ -35,7 +35,7 @@ dpi: 320
 #| label: setup
 
 pacman::p_load(tidyverse, labelled, gtsummary, survey, gt, stringi, summarytools, 
-               simstudy)
+               haven)
 
 
 ```
@@ -45,10 +45,12 @@ pacman::p_load(tidyverse, labelled, gtsummary, survey, gt, stringi, summarytools
 
 ## Random CSV file
 
+### dataset with label
+
 ```{r}
 set.seed(123)
 
-chol_rawds <- tibble(id = paste0(stri_rand_strings(350, length = 2, pattern = "[A-Fd-h]"), 
+chol_labds <- tibble(id = paste0(stri_rand_strings(350, length = 2, pattern = "[A-Fd-h]"), 
                                  stri_rand_strings(350, length = 2, pattern = "[0-9]"))) %>% 
   mutate(age_mod1 = as.integer(runif(n = 350, min = -10, max = 25)),
          age_mod2 = as.integer(runif(n = 350, min = -10, max = 35)),
@@ -56,19 +58,21 @@ chol_rawds <- tibble(id = paste0(stri_rand_strings(350, length = 2, pattern = "[
          age_mod4 = as.integer(rnorm(350, mean = 20, sd = 2.5)),
          bmi_cat = sample(0:3, size = 350, replace = T, 
                           prob = c(.15, .15, .2, .5)),
-         gender = sample(c("M", "F"), size = 350, replace = T, 
-                         prob = c(.55,.45)), 
+         gender = sample(c("Male", "Female"), size = 350, replace = T, 
+                         prob = c(.55,.45)),
+         gender = fct_relevel(gender, "Male", "Female"), 
          age = age_mod1+age_mod2+age_mod3+age_mod4,
          ethnic = sample(c("Malay", "Chinese", "Indian"),
-                         size = 350, replace = T, prob = c(.5, .3, .2))) %>% 
+                         size = 350, replace = T, prob = c(.5, .3, .2)),
+         ethnic = fct_relevel(ethnic, "Malay", "Chinese", "Indian")) %>% 
   rowwise() %>% 
-  mutate(height = round(case_when(gender == "M" ~ runif(n = 1, min = 1.55, max = 1.75), 
-                                  gender == "F" ~ runif(n = 1, min = 1.45, max = 1.65)), 2), 
+  mutate(height = as.integer(case_when(gender == "Male" ~ runif(n = 1, min = 155, max = 175), 
+                                       gender == "Female" ~ runif(n = 1, min = 145, max = 165))), 
          bmi = case_when(bmi_cat == 0 ~ runif(n = 1, min = 16.0, max = 19.4),
                          bmi_cat == 1 ~ runif(n = 1, min = 17.5, max = 23.9),
                          bmi_cat == 2 ~ runif(n = 1, min = 22.0, max = 25.9),
                          bmi_cat == 3 ~ runif(n = 1, min = 24.0, max = 36.0)),
-         weight = round(bmi*(height^2), digits = 1),
+         weight = round(bmi*(height/100)^2, digits = 1),
          tc_lvl = round(case_when(age >= 18 & age <= 39 ~ 
                               rnorm(n = 1, mean = 4.5, sd = 1),
                             age >= 40 & age <= 59 ~ 
@@ -89,12 +93,78 @@ chol_rawds <- tibble(id = paste0(stri_rand_strings(350, length = 2, pattern = "[
                                         age >= 41 ~ ".7")),
          curr_tx = case_when(is.na(ct_prob) ~ NA_character_, 
                              runif(n()) < ct_prob ~ "Yes", 
-                             TRUE ~ "No")) %>% 
+                             TRUE ~ "No"),
+         across(.cols = c(known_chol, curr_tx),
+                .fns = ~ fct_relevel(., "No", "Yes"))) %>% 
   filter(age >= 18,
          tc_lvl >= 2.5 & tc_lvl <= 12) %>% 
   slice_sample(n = 250) %>% 
   select(id, ethnic, age, gender, weight, height, tc_lvl, known_chol, curr_tx)
 
-write_csv(chol_rawds, "dataset/01_chol_rawds.csv")
+chol_labds
+
+# write_csv(chol_labds, "dataset/01_chol_labds.csv")
+```
+
+### dataset with numeric only
+
+```{r}
+chol_rawds <- chol_labds %>% 
+  mutate(across(.cols = ethnic:curr_tx,
+                .fns = ~ as.numeric(.)),
+         across(.cols = c(ethnic, gender, known_chol, curr_tx),
+                .fns = ~ .-1))
+
+chol_rawds
+
+# write_csv(chol_rawds, "dataset/01_chol_rawds.csv")
+
+chol_raw_dict <- tribble(~Variable, ~Code, ~Label, ~Description, 
+                         "id", "-", "-", "unique ID", 
+                         "ethnic", "0", "Malay", "Ethnicity", 
+                         "", "1", "Chinese", "", 
+                         "", "1", "Indian", "", 
+                         "age", "-", "-", "Age (year)", 
+                         "gender", "0", "Male", "Gender", 
+                         "", "1", "Female", "", 
+                         "weight", "-", "-", "Body Weight (kg)", 
+                         "height", "-", "-", "Body Height (cm)", 
+                         "tc_lvl", "-", "-", "Capillary Total Cholesterol Level (mmol/L)", 
+                         "known_chol", "0", "No", "already diagnosed with", 
+                         "", "1", "Yes", "hypercholesterolaemia", 
+                         "curr_tx", "0", "No", "Currently on Treatment", 
+                         "", "1", "Yes", "")
+
+chol_raw_dict 
+
+# write_csv(chol_raw_dict, "dataset/01_chol_raw_dict.csv")
+
+```
+
+## Random SPSS file
+
+### SPSS
+
+```{r}
+chol_spssds <- chol_rawds %>% 
+  mutate(curr_tx = case_when(is.na(curr_tx) ~ 9999,
+                             TRUE ~ curr_tx)) %>% 
+  set_value_labels(ethnic = c("Malay" = 0, "Chinese" = 1, "Indian" = 2),
+                   gender = c("Male" = 0, "Female" = 1), 
+                   known_chol = c("No" = 0, "Yes" = 1), 
+                   curr_tx = c("No" = 0, "Yes" = 1, "N/A" = 9999)) %>% 
+  set_na_values(curr_tx = 9999) %>% 
+  set_variable_labels(ethnic = "Ethnicity",
+                      age = "Age (year)",
+                      gender = "Gender",
+                      weight = "Body Weight (kg)",
+                      height = "Body Height (cm)",
+                      tc_lvl = "Capillary Total Cholesterol Level (mmol/L)",
+                      known_chol = "Already Diagnosed with Hypercholesterolaemia",
+                      curr_tx = "Currently on Treatment")
+
+chol_spssds
+
+# write_sav(chol_spssds, "dataset/chol_spssds.sav")
 ```
 
