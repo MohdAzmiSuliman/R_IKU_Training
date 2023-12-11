@@ -39,3 +39,40 @@ pacman::p_load(tidyverse, labelled, gtsummary, survey, gt, stringi, summarytools
 
 
 ```
+
+
+# Intro Data
+
+## Random CSV file
+
+```{r}
+set.seed(123)
+
+tibble(id = paste0(stri_rand_strings(350, length = 2, pattern = "[A-Fd-h]"),
+                   stri_rand_strings(350, length = 2, pattern = "[0-9]"))) %>% 
+  mutate(age_mod1 = as.integer(runif(n = 350, min = -10, max = 25)),
+         age_mod2 = as.integer(runif(n = 350, min = -10, max = 35)),
+         age_mod3 = rpois(n = 350, lambda = 5),
+         age_mod4 = as.integer(rnorm(350, mean = 20, sd = 2.5)),
+         bmi_cat = sample(0:3, size = 350, replace = T, 
+                          prob = c(.15, .15, .2, .5)),
+         gender = sample(c("M", "F"), size = 350, replace = T, 
+                         prob = c(.55,.45)), 
+         age = age_mod1+age_mod2+age_mod3+age_mod4,
+         ethnic = sample(c("Malay", "Chinese", "Indian"),
+                         size = 350, replace = T, prob = c(.5, .3, .2))) %>% 
+  filter(age >= 18) %>% 
+  slice_sample(n = 250) %>% 
+  rowwise() %>% 
+  mutate(height = round(case_when(gender == "M" ~ runif(n = 1, min = 1.55, max = 1.75), 
+                                  gender == "F" ~ runif(n = 1, min = 1.45, max = 1.65)), 2), 
+         bmi = case_when(bmi_cat == 0 ~ runif(n = 1, min = 16.0, max = 19.4),
+                         bmi_cat == 1 ~ runif(n = 1, min = 17.5, max = 23.9),
+                         bmi_cat == 2 ~ runif(n = 1, min = 22.0, max = 25.9),
+                         bmi_cat == 3 ~ runif(n = 1, min = 24.0, max = 36.0)),
+         weight = round(bmi*(height^2)), digits = 1)  %>% 
+  select(id, ethnic, age, gender, weight, height)
+
+
+```
+

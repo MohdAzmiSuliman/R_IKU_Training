@@ -1,0 +1,199 @@
+---
+title: "R: A Powerful Language for Data Analysis"
+author: "Mohd Azmi"
+format:
+  revealjs: 
+    theme: moon
+embed-resources: true
+---
+
+## Introducation: R
+
+- R is a programming language specifically designed for statistical computing and data analysis. 
+- It was created by statisticians and data analysts for tasks ranging from basic data manipulation to advanced statistical modeling. 
+- Widely used in academia, industry, and research for its flexibility and extensive package ecosystem.
+
+## R Key Features
+
+- Open-source and freely available. 
+- Rich statistical and graphical capabilities. 
+- Active and supportive user community. 
+- Cross-platform compatibility (Windows, macOS, Linux).
+
+
+## R Use Cases
+
+- Data cleaning and manipulation. 
+- Statistical analysis and hypothesis testing. 
+- Data visualization with customizable plots. 
+
+## Installing R
+
+- If you already have R and RStudio, reinstall the latest version is recommended
+
+::: columns
+
+::: {.column width="60%"}
+
+- Download R from CRAN website
+- Install R
+- Accept default
+
+
+:::
+::: {.column width="40%"}
+
+![](images/cran_mainpage.png)
+
+:::
+
+:::
+
+## Basic (1)
+
+- R is a programming language specifically designed for statistical computing and data analysis.
+
+```{r}
+#| echo: fenced
+
+1 + 2
+```
+
+. . . 
+
+- We can assign values to variable
+
+```{r}
+#| echo: fenced
+
+one <- 1
+two <- 2
+
+one + two
+```
+
+
+## Data Type (2)
+
+- R recognize various data type
+
+```{r}
+#| echo: fenced
+
+class(c(1, 2, 3))
+```
+
+. . . 
+
+```{r}
+#| echo: fenced
+
+class(c("azmi", "kimsui", "liana"))
+```
+
+. . . 
+
+
+```{r}
+#| echo: fenced
+
+class(c(T, F, T, T))
+```
+
+. . .
+
+other data type: integer, date, time-date, factor
+
+## Vector, Array, List??? (3)
+
+- vector: one dimensional array
+  - must be same data type
+
+```{r}
+#| echo: true
+#| eval: false
+
+# Numeric vector
+numeric_vector <- c(1, 2, 3, 4, 5)
+
+# Character vector
+character_vector <- c("apple", "orange", "banana")
+
+# Logical vector
+logical_vector <- c(TRUE, FALSE, TRUE)
+```
+
+## Vector, Array, List??? (3)
+
+- Array: multidimensional extension of a vector.
+  - two or more dimension, but need same length
+
+```{r}
+#| echo: true
+#| eval: true
+
+# Create a 2x3 array with numeric values
+numeric_array <- array(c(1, 2, 3, 4, 5, 6), dim = c(2, 3))
+
+# Display the array
+numeric_array
+```
+
+## Vector, Array, List??? (3)
+
+- List: versatile data structure
+  - can hold different data types and different length
+  - can contain vectors, array, list or any combination
+
+```{r}
+#| echo: true
+#| eval: true
+
+# Create a list with different types of elements
+my_list <- list(
+  numeric_vector = c(1, 2, 3),
+  character_vector = c("apple", "orange"),
+  logical_vector = c(TRUE, FALSE),
+  numeric_matrix = matrix(1:4, nrow = 2),
+  nested_list = list(a = 10, b = "hello")
+)
+
+```
+
+## Vector, Array, List??? (3)
+
+- List: versatile data structure
+  - can hold different data types and different length
+  - can contain vectors, array, list or any combination
+
+```{r}
+#| echo: true
+#| eval: true
+
+# Display the list
+my_list
+
+```
+
+
+## Dataframe (4)
+
+- most common data structure
+- two dimensional tabular data structure
+
+
+```{r}
+#| echo: true
+#| eval: true
+
+name <- c("azmi", "kimsui", "liana")
+gender <- factor(c("M", "M", "F"), levels = c("M", "F"))
+score <- c(75, 95, 85)
+
+ncd <- data.frame(name, gender, score)
+
+ncd
+```
+
+
+## Import dataset
