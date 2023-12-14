@@ -35,7 +35,7 @@ dpi: 320
 #| label: setup
 
 pacman::p_load(tidyverse, labelled, gtsummary, survey, gt, stringi, summarytools, 
-               haven)
+               haven, simstudy)
 
 
 ```
@@ -43,7 +43,7 @@ pacman::p_load(tidyverse, labelled, gtsummary, survey, gt, stringi, summarytools
 
 # Intro Data
 
-## Random CSV file
+## Short Hypercholesterolaemia
 
 ### dataset with label
 
@@ -141,9 +141,7 @@ chol_raw_dict
 
 ```
 
-## Random SPSS file
-
-### SPSS
+### export SPSS
 
 ```{r}
 chol_spssds <- chol_rawds %>% 
@@ -168,3 +166,5 @@ chol_spssds
 # write_sav(chol_spssds, "dataset/chol_spssds.sav")
 ```
 
+
+## Asthma
