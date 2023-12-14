@@ -8,7 +8,7 @@ gender,0,Male,Gender
 ,1,Female,
 weight,-,-,Body Weight (kg)
 height,-,-,Body Height (cm)
-tc_lvl,-,-,capillary total cholesterol level (mmol/L)
+tc_lvl,-,-,Capillary Total Cholesterol Level (mmol/L)
 known_chol,0,No,already diagnosed with
 ,1,Yes,hypercholesterolaemia
 curr_tx,0,No,Currently on Treatment

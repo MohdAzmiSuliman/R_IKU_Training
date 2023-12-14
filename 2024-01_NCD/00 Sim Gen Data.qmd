@@ -168,3 +168,145 @@ chol_spssds
 
 
 ## Asthma
+
+### Definition
+
+```{r}
+asthma_def <- defData(varname = "Gender", dist = "binary", 
+                      formula = .5, link = "identity") %>% 
+  defData(varname = "Age", dist = "uniform", 
+          formula = "25;35", link = "identity") %>% 
+  defData(varname = "Height", dist = "normal",
+          formula = "1.5 + (1-Gender)/4", variance = .01, 
+          link = "identity") %>% 
+  defData(varname = "BMI_Base", dist = "categorical", 
+          formula = ".2;.3;.3;.2", link = "identity") %>% 
+  defData(varname = "BMI_Pre", dist = "normal",
+          formula = "BMI_Base*5+15", variance = 5, link = "identity") %>% 
+  defData(varname = "Weight_Pre", dist = "nonrandom",
+          formula = "BMI_Pre * Height^2") %>% 
+  defData(varname = "BMIreduction", dist = "normal",
+          formula = 4, variance = 3, link = "identity") %>% 
+  defData(varname = "PA_Base", dist = "categorical",
+          formula = ".5;.3;.2") %>% 
+  defData(varname = "PA_HW", dist = "poisson",
+          formula = "(((PA_Base+1)^2)/3)", variance = 1, link = "identity") %>% 
+  defData(varname = "BMI_Post", dist = "nonrandom",
+          formula = "BMI_Pre - (BMIreduction+PA_HW+BMI_Pre/20)/3") %>% 
+  defData(varname = "Weight_Post", dist = "nonrandom",
+          formula = "BMI_Post * Height^2") %>% 
+  defData(varname = "Tx2", dist = "categorical",
+          formula = ".46;.27;.27", link = "identity") %>% 
+  defData(varname = "PEFR_Pre", dist = "normal",
+          formula = "455 - 50*Gender", variance = 500, 
+          link = "identity") %>% 
+  defData(varname = "DrugEffect", dist = "nonrandom",
+          formula = "sqrt(sqrt(Tx2-1))") %>% 
+  defData(varname = "PEFR_Post", dist = "normal",
+          formula = "PEFR_Pre + 50*DrugEffect", variance = 1000, 
+          link = "identity") %>% 
+  defData(varname = "SxWheeze_Pre", dist = "binary",
+          formula = .65, link = "identity") %>% 
+  # defData(varname = "SxWProb", dist = "nonrandom",
+  #         formula = "(2+SxWheeze_Pre)/3*0.6/sqrt(sqrt(DrugEffect+1))") %>% 
+  defData(varname = "SxWProb", dist = "nonrandom",
+          formula = "(2+SxWheeze_Pre)/3*0.6/(DrugEffect+1)") %>% 
+  defData(varname = "SxWheeze_Post", dist = "binary",
+          formula = "SxWProb", link = "identity") %>% 
+  defData(varname = "PS_Pre", dist = "uniformInt",
+          formula = "4;6", link = "identity") %>% 
+  defData(varname = "PS_improvement", dist = "uniformInt",
+          formula = "0;2", link = "identity")
+asthma_def
+```
+
+### Simulate
+
+```{r}
+set.seed(245)
+asthma_ds0 <- genData(150, asthma_def) %>% 
+  as_tibble() %>% 
+  rowwise() %>% 
+  mutate(idR = stri_rand_strings(1, 4)) %>% 
+  ungroup() %>% 
+  mutate(Gender = fct_recode(as.character(Gender), 
+                             "Male" = "0", "Female" = "1"),
+         Age = round(Age, 0),
+         Height = round(Height*100),
+         PA_HW = round(PA_HW),
+         Tx2 = fct_recode(as.character(Tx2), 
+                          "Placebo" = "1", 
+                          "Drug A" = "2", 
+                          "Drug B" = "3"),
+         Tx1 = fct_recode(Tx2,
+                          "Drug" = "Drug A", 
+                          "Drug" = "Drug B"),
+         across(.cols = starts_with("SxWheeze"),
+                .fns = ~ fct_recode(as.character(.),
+                                    "No" = "0",
+                                    "Yes" = "1")),
+         PS_Post = PS_Pre - PS_improvement,
+         across(.cols = starts_with("Weight"),
+                .fns = ~ round(.,1)),
+         across(.cols = starts_with("PEFR"),
+                .fns = ~ round(.,0)))
+asthma_ds <- asthma_ds0 %>% 
+  select(id, idR, Gender:Height, Weight_Pre, PA_HW, Weight_Post, Tx1, Tx2, 
+         PEFR_Pre, PEFR_Post, SxWheeze_Pre, SxWheeze_Post, 
+         PS_Pre, PS_Post) %>% 
+  set_variable_labels(Age = "Age (year)",
+                      Height = "Height (cm)",
+                      Weight_Pre = "Weight (kg) - before",
+                      PA_HW = "Physical Activity (total hour per week)",
+                      Weight_Post = "Weight (kg) - after",
+                      Tx1 = "Intervention Status",
+                      Tx2 = "Treatment Group",
+                      PEFR_Pre = "PEFR (L/min) - before",
+                      PEFR_Post = "PEFR (L/min) - after",
+                      SxWheeze_Pre = "Symptom Wheezing - before",
+                      SxWheeze_Post = "Symptom Wheezing - after",
+                      PS_Pre = "Pains Score - before",
+                      PS_Post = "Pains Score - after")
+asthma_ds
+
+set.seed(245)
+asthma24_wide <- asthma_ds %>% 
+  slice_sample(n = 24) %>% 
+  ungroup() %>% 
+  select(id:Height, Weight_Pre, Tx1, Tx2, PEFR_Pre, PEFR_Post,
+         SxWheeze_Pre, SxWheeze_Post, PS_Pre, PS_Post) %>% 
+  rename(Weight = Weight_Pre)
+asthma24_wide
+
+set.seed(245)
+asthma24_long <- asthma24_wide %>% 
+  pivot_longer(cols = starts_with("PEFR"),
+               names_to = "PEFRTime", 
+               values_to = "PEFR") %>% 
+  pivot_longer(cols = starts_with("SxW"),
+               names_to = "SxWheezeTime", 
+               values_to = "SxWheeze") %>% 
+  pivot_longer(cols = starts_with("PS"),
+               names_to = "PSTime",
+               values_to = "PS") %>% 
+  mutate(Time = case_when(
+    PEFRTime == "PEFR_Pre" & SxWheezeTime == "SxWheeze_Pre" & PSTime == "PS_Pre" ~ "Pre",
+    PEFRTime == "PEFR_Post" & SxWheezeTime == "SxWheeze_Post" & PSTime == "PS_Post" ~ "Post"),
+         Time = fct_relevel(factor(Time), "Pre"),
+         SxWheeze = fct_relevel(SxWheeze, "No")) %>% 
+  drop_na(Time) %>% 
+  select(-c(PEFRTime, SxWheezeTime, PSTime)) %>% 
+  relocate(Time, .after = Weight) %>% 
+  set_variable_labels(SxWheeze = "Wheezing Symptom",
+                      PS = "Pain Score")
+asthma24_long
+```
+
+### Export SPSS
+
+```{r}
+# write_sav(asthma_ds, "asthma_ds.sav")
+# write_sav(asthma24_long, "asthma24_long.sav")
+# write_sav(asthma24_wide, "asthma24_wide.sav")
+
+```
