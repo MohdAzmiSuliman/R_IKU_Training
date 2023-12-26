@@ -1,0 +1,45 @@
+---
+title: "Basic Descripive Analysis"
+date: last-modified
+date-format: "dddd, DD/MM/YYYY"
+format: 
+  html:
+    theme: sandstone
+    code-fold: show
+    code-copy: hover
+    code-overflow: wrap
+    code-tools: true
+    df-print: paged
+    default-image-extension: svg
+    embed-resources: true
+    page-layout: full
+    reference-location: margin
+    title-block-banner: true
+    title-block-style: default
+    fontsize: 1.2em
+    monofont: 'Fira Code'
+number-sections: true
+toc: true
+fig-dpi: 320
+dpi: 320
+code-annotations: select
+---
+
+# Preamble
+
+## Library & Data
+
+```{r}
+#| label: setup
+
+pacman::p_load(tidyverse, haven, summarytools, gtsummary)
+
+asthma_ds <- read_sav("../asthma_ds.sav") %>% 
+  as_factor()
+
+```
+
+
+# Part 1: Descriptive Analysis
+
+# Part 2: Render Report with Quarto

@@ -1,0 +1,546 @@
+---
+title: "Data Wrangling"
+date: last-modified
+date-format: "dddd, DD/MM/YYYY"
+format: 
+  html:
+    theme: sandstone
+    code-fold: show
+    code-copy: hover
+    code-overflow: wrap
+    code-tools: true
+    df-print: paged
+    default-image-extension: svg
+    embed-resources: true
+    page-layout: full
+    reference-location: margin
+    title-block-banner: true
+    title-block-style: default
+    fontsize: 1.2em
+    monofont: 'Fira Code'
+number-sections: true
+toc: true
+fig-dpi: 320
+dpi: 320
+code-annotations: select
+---
+
+# Preamble
+
+## Library & Data
+
+```{r}
+#| label: setup
+
+pacman::p_load(tidyverse, haven, summarytools)
+
+```
+
+
+# Part 1: What is Data Wrangling?
+
+- Common data analysis look like this
+
+![source: r4ds.hadley.nz](../images/R4DS_wrangling.png)
+
+- real world data commonly messy!
+- 80% of time taken spend on data cleaning
+- improving data quality --> improving the accuracy & efficiency
+- data wrangling involving **tidying** and **transforming** data, from raw form to analysis-ready data.
+- common data wrangling action
+  - label data
+  - recategorise categorical variable - usually collapsing groups
+  - binning continuous variable
+
+# Part 2: Practical
+
+1. Open RStudio
+2. Create New Project
+  1. select `New Directory`
+  2. select `New Project`
+  3. set the `Directory name:`, e.g. `RTrainingCNCDR`
+  4. select the subdirectory, click n `Browse...`, e.g. Desktop, My Document etc
+  5. click `Create Project`
+
+## Data Import
+
+- Commonly data were collected & stored elsewhere, with various format
+- Data sources includes:
+  - Surveys and questionnaires
+  - epidemiological studies
+  - governments and health agencies record
+  - electronic health records
+  - Clinical trials
+- Common File Formats
+  - CSV (comma-separated values), text file
+  - Excel file
+  - SPSS, SAS and STATA files
+  - JSON (javascript object notion)
+  - Databases, SQL
+- in R, various package can be use to import data
+  - `base`: import csv file using `read.csv(_)` function
+  - `readxl`: import excel file using `read_excel(_)` function
+  - `haven`: 
+    - import SAS file using `read_sas(_)` function
+    - import SPSS file using `read_sav(_)` function
+    - import STATA file uisng `read_dta(_)` function
+  - `rio`: simplify importing file using `import(_)` function
+- RStudio User: simplest method is by clicking at the file
+
+Lets Practice!
+
+### SPSS file
+
+1. ensure you have the dataset `asthma_ds.sav` file in your working directory
+2. import the spss file
+  - option 1: using `haven::read_sav(_)` and `haven::as_factor(_)` function
+  
+```{r}
+library(haven)
+
+asthmads_savh <- read_sav("../asthma_ds.sav")
+asthmads_savh <- as_factor(asthmads_savh)
+
+asthmads_savh <- haven::read_sav("../asthma_ds.sav") # also achieve same
+asthmads_savh <- haven::as_factor(asthmads_savh)
+
+asthmads_savh
+```
+
+
+  - option 2: using `rio::import(_)` function
+  
+```{r}
+library(rio)
+
+asthmads_savr <- import("../asthma_ds.sav")
+asthmads_savr <- rio::import("../asthma_ds.sav") # also achieve same
+
+asthmads_savr
+```
+
+
+  - option 3: using RStudio point and click
+    1. Go to `Files` tab
+    2. Click at `asthma_ds.sav` file
+    3. Select `Import Dataset...`
+    4. Choose appropriate option
+
+
+### CSV file
+
+
+1. ensure you have the dataset `asthma_ds.csv` file in your working directory
+2. import the csv file
+  - option 1: using `read.csv(_)`` function
+  
+```{r}
+asthmads_csv <- read.csv("../asthma_ds.csv")
+
+asthmads_csv
+```
+
+
+  - option 2: using `rio::import(_)` function
+  
+```{r}
+asthmads_csv <- rio::import("../asthma_ds.csv")
+
+asthmads_csv
+```
+
+
+  - option 3: using RStudio point and click
+    1. Go to `Files` tab
+    2. Click at `asthma_ds.csv` file
+    3. Select `Import Dataset...`
+    4. Choose appropriate option
+
+
+## Data Wrangling
+
+- All data must have context, and understanding the context of the data is important in data wrangling.
+- in this practical the dataset `asthma_ds` is a simulated (i.e. fake) data, which can be used for 2 research
+  - physical activity effect on weight loss
+    - variable: physical activity, body weight (pre & post)
+  - bronchodilator effect on asthmatic patient
+    - variable: bronchodilator (placebo, drug A & drug B), PEFR (pre & post), wheezing symptom (pre & post), pain score (pre & post)
+  
+
+### Select Variable
+
+- Data can be very large - lots of variable (high dimension), and lots of observation (high volume)
+- occasionally we may only want to select specific variable
+- in this practical, we want to select the variable related to physical activity part
+  - idR, Gender, Age, Height, Weight_Pre, PA_HW, Weight_Post
+
+```{r}
+select(asthmads_savr, idR, Gender, Age, Height, Weight_Pre, PA_HW, 
+                      Weight_Post)
+
+select(asthmads_savr, idR:Weight_Post)
+
+```
+
+
+### Sorting by Variable
+
+- We can also sort our data, using `arrange(_)` function
+  - `arrange(_)` function sort by ascending value
+  - to sort by descending value, add `desc` parameter
+  
+```{r}
+arrange(asthmads_savr, Height)
+
+arrange(asthmads_savr, desc(Height))
+```
+
+
+
+### Filter/Subset Data
+
+- We may also wanted to subset our data, analysing data that fulfil our criteria
+- for example, we want to analyse among the male only.
+- filtering data using function `filter`
+
+```{r}
+filter(asthmads_savr, Age >= 15 & Age <= 64)
+```
+
+
+
+### Recode Data
+
+- occasionally, you will get raw data with number & we need to label the code
+- example, data `asthma_ds_nolab.csv`
+- in this practical, we want to recode gender with 1 for male and 2 for female
+- from package `tidyverse`, we will use function `fct_recode(_)`
+
+:::{.callout-note}
+1. refer data dictionary `asthma_data_dictionary.docx`
+2. the gender is in integer, and `fct_recode(_)` can only recode factor or string. so we have to convert to string using `as.character(_)` function
+:::
+
+```{r}
+asthma_ds <- read.csv("../asthma_ds_nolab.csv")
+
+asthma_ds$Gender <- as.character(asthma_ds$Gender)
+asthma_ds$Gender <- fct_recode(asthma_ds$Gender, "Male" = "1", "Female" = "2")
+
+asthma_ds
+```
+
+
+- now is your turn. please recode Tx2.
+  - 1: Placebo
+  - 2: Drug A
+  - 3: Drug B
+  
+```{r}
+#| code-fold: true
+
+asthma_ds$Tx2 <- as.character(asthma_ds$Tx2)
+asthma_ds$Tx2 <- fct_recode(asthma_ds$Tx2, 
+                            "Placebo" = "1", "Drug A" = "2", "Drug B" = "3")
+
+asthma_ds
+```
+
+
+### Factor Level Order
+
+- R recognize unordered string, and ordered factor
+- commonly, we want to reorder the factor, for example we want female first, then male
+- to reorder factor level, we will use function `fct_relevel(_)` from `tidyverse` package
+
+
+:::{.callout-note}
+to check level, use `str(_)` function or `levels(_)` function
+:::
+
+```{r}
+asthma_ds$Gender <- fct_relevel(asthma_ds$Gender, "Female", "Male")
+
+levels(asthma_ds$Gender)
+```
+
+
+### Group combine (collapse factor)
+
+- combine group using `fct_collapse(_)` function
+- we will recode treatment group to intervention group (tx1), in which
+  - Drug A and Drug B collapse into intervention
+  - placebo collapse into control
+
+```{r}
+asthma_ds$Tx1 <- fct_collapse(asthma_ds$Tx2, 
+                              "Intervention" = c("Drug A", "Drug B"), 
+                              "Control" = "Placebo")
+
+select(asthma_ds, Tx1, Tx2)
+```
+
+
+### Basic Numerical Transformation
+
+- Occasionally, the dataset only have raw numerical value, in which we may want to transform it.
+- for example, we may want to transform the height, which recorded in cm, to height in m.
+
+```{r}
+asthma_ds$Ht_m <- asthma_ds$Height/100
+
+select(asthma_ds, Height, Ht_m)
+```
+
+- we can also transform based on more than single column
+
+```{r}
+asthma_ds$BMI_Pre <- asthma_ds$Weight_Pre/(asthma_ds$Ht_m^2)
+
+select(asthma_ds, Weight_Pre, Ht_m, BMI_Pre)
+```
+
+- to many digits? we can round them
+
+```{r}
+asthma_ds$BMI_Pre <- round(asthma_ds$BMI_Pre, digits = 1)
+
+select(asthma_ds, Weight_Pre, Ht_m, BMI_Pre)
+```
+
+
+### Binning: Categorizing Numerical Variable
+
+- apart from numerical transformation, we can also bin the numerical variable
+- for example, we want to categorized the BMI to asian category
+  - underweight: < 18.5
+  - normal: 18.5 - 22.9
+  - overweight: 23.0 - 24.9
+  - obese: >= 25.0
+  
+  
+```{r}
+asthma_ds$BMI_PreCat <- cut(asthma_ds$BMI_Pre, 
+                            breaks = c(0, 18.49, 22.99, 24.99, 100), 
+                            labels = c("Underweight", "Normal", "Overweight", "Obese"))
+
+select(asthma_ds, BMI_Pre, BMI_PreCat)
+```
+
+
+### Reshape Dataset
+
+- Dataframe Structure: Rows and columns represent observations and variables.
+  - Rows: Individual records or observations.
+  - Columns: Different attributes or variables.
+- Wide Format: Single rows, multiple measurement columns.
+  - Each row: One subject/sample.
+  - Columns: Different time points or conditions.
+- Long Format: Repeated rows, time/condition column.
+  - Multiple rows: Same subject/sample.
+  - Specific column: Indicates time or condition.
+
+```{r}
+asthma_wide <- read_sav("../asthma24_wide.sav")
+asthma_wide <- as_factor(asthma_wide)
+asthma_wide <- select(asthma_wide, idR:Weight, PEFR_Pre, PEFR_Post)
+
+asthma_wide
+
+asthma_long <- pivot_longer(data = asthma_wide, 
+                            cols = c(PEFR_Pre, PEFR_Post), 
+                            names_to = "Time", 
+                            values_to = "PEFR")
+
+asthma_long
+```
+
+
+```{r}
+asthma_wide <- pivot_wider(data = asthma_long, 
+                           names_from = Time, 
+                           values_from = PEFR)
+
+asthma_wide
+```
+
+### Join Dataset
+
+- Sometimes, you may want to join several dataset
+- For example, you have database that cover cholesterol module, and another dataset cover diabetes module. both have anonymized identifier, that you can match. and you want to combine them into one dataset.
+- in this practical, the measurements (PEFR, SxWheeze & PS) were measured twice (Pre & Post), but were stored in different file. they however have anonymized identifier that can be use to matched them.
+- joining dataset using `__join(_)`
+
+```{r}
+asthma_pre <- read_sav("../asthma_pre.sav")
+asthma_pre <- as_factor(asthma_pre)
+asthma_pre
+asthma_post <- read_sav("../asthma_post.sav")
+asthma_post <- as_factor(asthma_post)
+asthma_post
+
+
+left_join(asthma_pre, asthma_post)
+```
+
+
+## Data Exploration
+
+- understanding our data
+  - data structure and content
+  - summary statistics
+  - visualization
+  - identifying relationship and correlation
+- iterative and interactive process
+  - post-import
+  - during data wrangling
+  - before analysis
+
+### Examine Structure
+
+- dataset structure can be view using `str` function
+
+```{r}
+str(asthmads_savh)
+
+str(asthmads_savh$Gender)
+```
+
+
+### Summarise data
+
+::: {.callout-note}
+Redundant with descriptive analysis
+:::
+
+
+# Part 3: Tidyverse Style
+
+
+## Pipe & Mutate
+
+- functional programming operators, `%>%` called pipe, allow for chaining functions in sequence
+  - result of left-hand side is passed as the first argument to the function of right-hand side
+- in tidyverse, wrangling data can be done simultaneously using mutate function
+  - the code can be more *elegant*
+
+
+
+```{r}
+asthma_ds <- read.csv("../asthma_ds_nolab.csv")
+
+
+asthma_ds$Gender <- as.character(asthma_ds$Gender)
+asthma_ds$Gender <- fct_recode(asthma_ds$Gender, "Male" = "1", "Female" = "2")
+
+asthma_ds$Gender <- fct_relevel(asthma_ds$Gender, "Female", "Male")
+
+asthma_ds$Tx2 <- as.character(asthma_ds$Tx2)
+asthma_ds$Tx2 <- fct_recode(asthma_ds$Tx2, 
+                            "Placebo" = "1", "Drug A" = "2", "Drug B" = "3")
+
+
+asthma_ds$Tx1 <- fct_collapse(asthma_ds$Tx2, 
+                              "Intervention" = c("Drug A", "Drug B"), 
+                              "Control" = "Placebo")
+
+
+asthma_ds$Ht_m <- asthma_ds$Height/100
+
+
+asthma_ds$BMI_Pre <- asthma_ds$Weight_Pre/(asthma_ds$Ht_m^2)
+asthma_ds$BMI_Pre <- round(asthma_ds$BMI_Pre, digits = 1)
+
+asthma_ds$BMI_PreCat <- cut(asthma_ds$BMI_Pre, 
+                            breaks = c(0, 18.49, 22.99, 24.99, 100), 
+                            labels = c("Underweight", "Normal", "Overweight", "Obese"))
+
+
+asthma_ds
+```
+
+- we can streamline above code with tidyverse
+
+```{r}
+asthma_ds0 <- read.csv("../asthma_ds_nolab.csv") 
+
+asthma_ds <- asthma_ds0 %>% 
+  mutate(Gender = as.character(Gender), 
+         Gender = fct_recode(Gender, "Male" = "1", "Female" = "2"), 
+         Gender = fct_relevel(Gender, "Female", "Male"),
+         Tx2 = fct_recode(as.character(Tx2), 
+                          "Placebo" = "1", "Drug A" = "2", "Drug B" = "3"), 
+         Tx1 = fct_collapse(Tx2, 
+                            "Intervention" = c("Drug A", "Drug B"), 
+                            "Control" = "Placebo"),
+         Ht_m = Height/100, 
+         BMI_Pre = round(Weight_Pre/(Ht_m^2), digits = 2), 
+         BMI_PreCat = cut(BMI_Pre, 
+                          breaks = c(0, 18.49, 22.99, 24.99, 100), 
+                          labels = c("Underweight", "Normal", "Overweight", "Obese")))
+
+asthma_ds
+```
+
+
+## Relocate Column
+
+- in R, any new column will be in the last column
+- we can relocate column using `relocate` function
+
+```{r}
+asthma_ds <- asthma_ds %>% 
+  relocate(Ht_m, BMI_Pre, BMI_PreCat, .after = Weight_Pre)
+
+asthma_ds
+```
+
+- we can also use `select` function
+
+```{r}
+asthma_ds %>% 
+  select(idR, Gender, Age, Height, Ht_m, Weight_Pre, BMI_Pre, BMI_PreCat)
+```
+
+
+
+# Part 4: Do it yourself
+
+Task:
+
+(@) Label all variable, based on data dictionary
+
+::: {.callout-tip collapse="true"}
+1. recode using `fct_recode(_)` function
+2. `fct_recode(_)` function can only recode factor or string, so don't forget to convert to string using `as.character(_)` function
+:::
+
+
+(@) Calculate weight change
+
+::: {.callout-tip collapse="true"}
+1. you can use any name like `Weight_Change`
+2. change is post minus pre. use mathematical operator to calculate
+:::
+
+(@) Calculate BMI_Post
+(@) Categorize the BMI_Post according to Asian Classification
+(@) filter the data to only elderly (age 60 years old and above)
+
+
+
+
+# Part 5: Use Addins!
+
+- for data wrangling, I use `questionr` package
+
+
+
+
+# Homework?
+
+using ChatGPT or Google's Bard, try to do these:
+
+1. reshape asthma24_long into wide format
+  - please note, there are 3 pair of pre-post measuremen including PEFR, SxWheeze and PS
+2. Stuck with any of these steps? I might be wrong/typo. You can try to ask ChatGPT or Bard, and see if they can detect any error, and what their solution.

@@ -104,7 +104,9 @@ class(c(TRUE, FALSE, TRUE, TRUE))
 
 other data type: integer, date, time-date, factor
 
-## Vector, Array, List??? (3)
+## Operator (3)
+
+## Vector, Array, List??? (4)
 
 - vector: one dimensional array
   - must be same data type
@@ -123,7 +125,7 @@ character_vector <- c("apple", "orange", "banana")
 logical_vector <- c(TRUE, FALSE, TRUE)
 ```
 
-## Vector, Array, List??? (3)
+## Vector, Array, List??? (4)
 
 - Array: multidimensional extension of a vector.
   - two or more dimension, but need same length
@@ -139,7 +141,7 @@ numeric_array <- array(c(1, 2, 3, 4, 5, 6), dim = c(2, 3))
 numeric_array
 ```
 
-## Vector, Array, List??? (3)
+## Vector, Array, List??? (4)
 
 - List: versatile data structure
   - can hold different data types and different length
@@ -160,7 +162,7 @@ my_list <- list(
 
 ```
 
-## Vector, Array, List??? (3)
+## Vector, Array, List??? (4)
 
 - List: versatile data structure
   - can hold different data types and different length
@@ -176,7 +178,7 @@ my_list
 ```
 
 
-## Dataframe (4)
+## Dataframe (5)
 
 - most common data structure
 - two dimensional tabular data structure
@@ -194,6 +196,8 @@ ncd <- data.frame(name, gender, score)
 
 ncd
 ```
+
+
 
 ## What's More?
 
@@ -222,3 +226,4 @@ and many more
 3. tidyr : data reshaping
 4. caret: machine learning
 5. haven: import data from SAS, SPSS, STATA
+

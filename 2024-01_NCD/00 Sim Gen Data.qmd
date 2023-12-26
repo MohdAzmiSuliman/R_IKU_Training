@@ -251,7 +251,7 @@ asthma_ds0 <- genData(150, asthma_def) %>%
          across(.cols = starts_with("PEFR"),
                 .fns = ~ round(.,0)))
 asthma_ds <- asthma_ds0 %>% 
-  select(id, idR, Gender:Height, Weight_Pre, PA_HW, Weight_Post, Tx1, Tx2, 
+  select(id, idR, Gender:Height, Weight_Pre, PA_HW, Weight_Post, Tx2, 
          PEFR_Pre, PEFR_Post, SxWheeze_Pre, SxWheeze_Post, 
          PS_Pre, PS_Post) %>% 
   set_variable_labels(Age = "Age (year)",
@@ -259,7 +259,6 @@ asthma_ds <- asthma_ds0 %>%
                       Weight_Pre = "Weight (kg) - before",
                       PA_HW = "Physical Activity (total hour per week)",
                       Weight_Post = "Weight (kg) - after",
-                      Tx1 = "Intervention Status",
                       Tx2 = "Treatment Group",
                       PEFR_Pre = "PEFR (L/min) - before",
                       PEFR_Post = "PEFR (L/min) - after",
@@ -273,7 +272,7 @@ set.seed(245)
 asthma24_wide <- asthma_ds %>% 
   slice_sample(n = 24) %>% 
   ungroup() %>% 
-  select(id:Height, Weight_Pre, Tx1, Tx2, PEFR_Pre, PEFR_Post,
+  select(id:Height, Weight_Pre, Tx2, PEFR_Pre, PEFR_Post,
          SxWheeze_Pre, SxWheeze_Post, PS_Pre, PS_Post) %>% 
   rename(Weight = Weight_Pre)
 asthma24_wide
@@ -300,6 +299,14 @@ asthma24_long <- asthma24_wide %>%
   set_variable_labels(SxWheeze = "Wheezing Symptom",
                       PS = "Pain Score")
 asthma24_long
+
+
+asthma_pre <- asthma_ds %>% 
+  select(id, idR, Gender:Height, Weight_Pre, Tx2, PEFR_Pre, SxWheeze_Pre, PS_Pre)
+
+asthma_post <- asthma_ds %>% 
+  select(id, idR, PEFR_Post, SxWheeze_Post, PS_Post)
+
 ```
 
 ### Export SPSS
@@ -309,4 +316,52 @@ asthma24_long
 # write_sav(asthma24_long, "asthma24_long.sav")
 # write_sav(asthma24_wide, "asthma24_wide.sav")
 
+# write_sav(asthma_pre, "asthma_pre.sav")
+# write_sav(asthma_post, "asthma_post.sav")
+
+asthmads_sav <- read_sav("asthma_ds.sav")
+
+asthma_ds_colnamelabel <- map(asthmads_sav, possibly(label, NA)) %>% 
+  enframe(name = "col_name", value = "col_lab") %>% 
+  mutate(col_lab = unlist(col_lab))
+
+asthma_ds_vallabel <-map(asthmads_sav, ~ attr(.x, "labels")) 
+
+lab_ext <- function(column) {
+    lbls <- attr(column, "labels")
+    if (!is.null(lbls)) {
+        paste(as.character(lbls), names(lbls), sep = ": ", collapse = "; ")
+    } else {
+        NA_character_
+    }
+}
+
+asthma_ds_vallabel <- map(asthmads_sav, lab_ext) %>% 
+  enframe(name = "col_name", value = "val_lab") %>% 
+  mutate(val_lab = unlist(val_lab))
+
+asthma_ds_dict <- left_join(asthma_ds_colnamelabel, 
+                            asthma_ds_vallabel)
+
+# gt(asthma_ds_dict) %>%
+#   cols_label(col_name = "Column Name", 
+#              col_lab = "Column Label", 
+#              val_lab = "Value Label") %>% 
+#   gtsave(., filename = "asthma_data_dictionary.docx")
+
+
 ```
+
+
+### Export CSV
+
+```{r}
+# write.csv(asthma_ds, "asthma_ds.csv")
+ 
+# write.csv(zap_labels(asthmads_sav), "asthma_ds_nolab.csv")
+
+```
+
+
+
+
