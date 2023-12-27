@@ -312,14 +312,14 @@ asthma_post <- asthma_ds %>%
 ### Export SPSS
 
 ```{r}
-# write_sav(asthma_ds, "asthma_ds.sav")
-# write_sav(asthma24_long, "asthma24_long.sav")
-# write_sav(asthma24_wide, "asthma24_wide.sav")
+# write_sav(asthma_ds, "dataset/asthma_ds.sav")
+# write_sav(asthma24_long, "dataset/asthma24_long.sav")
+# write_sav(asthma24_wide, "dataset/asthma24_wide.sav")
 
-# write_sav(asthma_pre, "asthma_pre.sav")
-# write_sav(asthma_post, "asthma_post.sav")
+# write_sav(asthma_pre, "dataset/asthma_pre.sav")
+# write_sav(asthma_post, "dataset/asthma_post.sav")
 
-asthmads_sav <- read_sav("asthma_ds.sav")
+asthmads_sav <- read_sav("dataset/asthma_ds.sav")
 
 asthma_ds_colnamelabel <- map(asthmads_sav, possibly(label, NA)) %>% 
   enframe(name = "col_name", value = "col_lab") %>% 
@@ -347,7 +347,7 @@ asthma_ds_dict <- left_join(asthma_ds_colnamelabel,
 #   cols_label(col_name = "Column Name", 
 #              col_lab = "Column Label", 
 #              val_lab = "Value Label") %>% 
-#   gtsave(., filename = "asthma_data_dictionary.docx")
+#   gtsave(., filename = "dataset/asthma_data_dictionary.docx")
 
 
 ```
@@ -356,9 +356,9 @@ asthma_ds_dict <- left_join(asthma_ds_colnamelabel,
 ### Export CSV
 
 ```{r}
-# write.csv(asthma_ds, "asthma_ds.csv")
+# write.csv(asthma_ds, "dataset/asthma_ds.csv")
  
-# write.csv(zap_labels(asthmads_sav), "asthma_ds_nolab.csv")
+# write.csv(zap_labels(asthmads_sav), "dataset/asthma_ds_nolab.csv")
 
 ```
 

@@ -98,10 +98,10 @@ Lets Practice!
 ```{r}
 library(haven)
 
-asthmads_savh <- read_sav("../asthma_ds.sav")
+asthmads_savh <- read_sav("../dataset/asthma_ds.sav")
 asthmads_savh <- as_factor(asthmads_savh)
 
-asthmads_savh <- haven::read_sav("../asthma_ds.sav") # also achieve same
+asthmads_savh <- haven::read_sav("../dataset/asthma_ds.sav") # also achieve same
 asthmads_savh <- haven::as_factor(asthmads_savh)
 
 asthmads_savh
@@ -113,8 +113,8 @@ asthmads_savh
 ```{r}
 library(rio)
 
-asthmads_savr <- import("../asthma_ds.sav")
-asthmads_savr <- rio::import("../asthma_ds.sav") # also achieve same
+asthmads_savr <- import("../dataset/asthma_ds.sav")
+asthmads_savr <- rio::import("../dataset/asthma_ds.sav") # also achieve same
 
 asthmads_savr
 ```
@@ -135,7 +135,7 @@ asthmads_savr
   - option 1: using `read.csv(_)`` function
   
 ```{r}
-asthmads_csv <- read.csv("../asthma_ds.csv")
+asthmads_csv <- read.csv("../dataset/asthma_ds.csv")
 
 asthmads_csv
 ```
@@ -144,7 +144,7 @@ asthmads_csv
   - option 2: using `rio::import(_)` function
   
 ```{r}
-asthmads_csv <- rio::import("../asthma_ds.csv")
+asthmads_csv <- rio::import("../dataset/asthma_ds.csv")
 
 asthmads_csv
 ```
@@ -222,7 +222,7 @@ filter(asthmads_savr, Age >= 15 & Age <= 64)
 :::
 
 ```{r}
-asthma_ds <- read.csv("../asthma_ds_nolab.csv")
+asthma_ds <- read.csv("../dataset/asthma_ds_nolab.csv")
 
 asthma_ds$Gender <- as.character(asthma_ds$Gender)
 asthma_ds$Gender <- fct_recode(asthma_ds$Gender, "Male" = "1", "Female" = "2")
@@ -341,7 +341,7 @@ select(asthma_ds, BMI_Pre, BMI_PreCat)
   - Specific column: Indicates time or condition.
 
 ```{r}
-asthma_wide <- read_sav("../asthma24_wide.sav")
+asthma_wide <- read_sav("../dataset/asthma24_wide.sav")
 asthma_wide <- as_factor(asthma_wide)
 asthma_wide <- select(asthma_wide, idR:Weight, PEFR_Pre, PEFR_Post)
 
@@ -372,10 +372,10 @@ asthma_wide
 - joining dataset using `__join(_)`
 
 ```{r}
-asthma_pre <- read_sav("../asthma_pre.sav")
+asthma_pre <- read_sav("../dataset/asthma_pre.sav")
 asthma_pre <- as_factor(asthma_pre)
 asthma_pre
-asthma_post <- read_sav("../asthma_post.sav")
+asthma_post <- read_sav("../dataset/asthma_post.sav")
 asthma_post <- as_factor(asthma_post)
 asthma_post
 
@@ -451,7 +451,7 @@ summary(asthmads_savh$Age)
 
 
 ```{r}
-asthma_ds <- read.csv("../asthma_ds_nolab.csv")
+asthma_ds <- read.csv("../dataset/asthma_ds_nolab.csv")
 
 
 asthma_ds$Gender <- as.character(asthma_ds$Gender)
@@ -486,7 +486,7 @@ asthma_ds
 - we can streamline above code with tidyverse
 
 ```{r}
-asthma_ds0 <- read.csv("../asthma_ds_nolab.csv") 
+asthma_ds0 <- read.csv("../dataset/asthma_ds_nolab.csv") 
 
 asthma_ds <- asthma_ds0 %>% 
   mutate(Gender = as.character(Gender), 
