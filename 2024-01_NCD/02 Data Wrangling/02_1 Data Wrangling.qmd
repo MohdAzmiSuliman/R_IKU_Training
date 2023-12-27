@@ -384,6 +384,25 @@ left_join(asthma_pre, asthma_post)
 ```
 
 
+## Save/Export Dataset
+
+- R allow to save/export file to various format
+  - CSV file: flexible and cross platforms
+  - RDS & RData file: specific to R
+  - XLSX, SPSS's SAV, Stata's DTA, etc
+  - JSON, XML
+
+### RDS: Single File, R Specific
+
+- save single R objects
+- preserve R data types and structure
+- `saveRDS` function from `base::` package 
+
+```{r}
+
+```
+
+
 ## Data Exploration
 
 - understanding our data
@@ -409,10 +428,15 @@ str(asthmads_savh$Gender)
 
 ### Summarise data
 
-::: {.callout-note}
-Redundant with descriptive analysis
-:::
+- simplest way to have summary of the data, is use `summary(_)` function
 
+```{r}
+summary(asthmads_savh)
+summary(asthmads_savh$Gender)
+summary(asthmads_savh$Age)
+```
+
+- more on data summary will be covered in descriptive analysis
 
 # Part 3: Tidyverse Style
 
@@ -515,6 +539,64 @@ Task:
 2. `fct_recode(_)` function can only recode factor or string, so don't forget to convert to string using `as.character(_)` function
 :::
 
+(@) Calculate BMI_Post
+(@) Categorize the BMI_Post according to Asian Classification
+(@) relocate column to appropriate sort, preferable pre and post variables were near to each other
+
+::: {.callout-tip collapse="true"}
+two ways to relocate column
+- `relocate(_)` function
+- `select(_)` function
+:::
+
+(@) write continuous syntax, using pipe `%>%` operator
+
+::: {.callout-tip collapse="true"}
+can write to new object name, e.g. asthmads_clean
+:::
+
+(@) save the dataset to SPSS's sav file (e.g. `asthmads_clean.sav`)
+
+::: {.callout-note}
+or any other name, up to you
+:::
+
+
+```{r}
+#| echo: false
+
+asthmads_clean <- asthma_ds0 %>% 
+  mutate(Gender = as.character(Gender), 
+         Gender = fct_recode(Gender, "Male" = "1", "Female" = "2"), 
+         Gender = fct_relevel(Gender, "Female", "Male"),
+         Tx2 = fct_recode(as.character(Tx2), 
+                          "Placebo" = "1", "Drug A" = "2", "Drug B" = "3"), 
+         Tx1 = fct_collapse(Tx2, 
+                            "Intervention" = c("Drug A", "Drug B"), 
+                            "Control" = "Placebo"),
+         Ht_m = Height/100, 
+         BMI_Pre = round(Weight_Pre/(Ht_m^2), digits = 2), 
+         BMI_PreCat = cut(BMI_Pre, 
+                          breaks = c(0, 18.49, 22.99, 24.99, 100), 
+                          labels = c("Underweight", "Normal", "Overweight", "Obese")), 
+         BMI_Post = round(Weight_Post/(Ht_m^2), digits = 2), 
+         BMI_PostCat = cut(BMI_Post, 
+                           breaks = c(0, 18.49, 22.99, 24.99, 100), 
+                           labels = c("Underweight", "Normal", "Overweight", "Obese")),
+         across(.cols = starts_with("SxWheeze"),
+                .fns = ~ as.character(.)),
+         across(.cols = starts_with("SxWheeze"),
+                .fns = ~ fct_recode(., "No" = "1", "Yes" = "2"))) %>% 
+  relocate(Tx1, .before = Tx2) %>% 
+  relocate(Ht_m, .after = Height) %>% 
+  relocate(BMI_Pre, BMI_PreCat, .after = Weight_Pre) %>% 
+  relocate(BMI_Post, BMI_PostCat, .after = Weight_Post)
+
+# write_sav(asthmads_clean, "asthmads_clean.sav")
+
+
+```
+
 
 (@) Calculate weight change
 
@@ -523,10 +605,7 @@ Task:
 2. change is post minus pre. use mathematical operator to calculate
 :::
 
-(@) Calculate BMI_Post
-(@) Categorize the BMI_Post according to Asian Classification
 (@) filter the data to only elderly (age 60 years old and above)
-
 
 
 

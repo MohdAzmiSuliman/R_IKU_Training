@@ -34,12 +34,230 @@ code-annotations: select
 
 pacman::p_load(tidyverse, haven, summarytools, gtsummary)
 
-asthma_ds <- read_sav("../asthma_ds.sav") %>% 
+asthmads_clean <- read_sav("../02 Data Wrangling/asthmads_clean.sav") %>% 
   as_factor()
 
 ```
 
 
+
 # Part 1: Descriptive Analysis
 
+- Descriptive Analysis cover both summary statistics and visualization. 
+  - But in this practical, we will cover summary statistics only
+- Descriptive analysis are to summarised our data
+  - categorical: frequency distribution
+  - numerical: measurement of 
+    - central tendency
+    - dispersion
+    - position
+    - distribution shape
+
+## Categorical Variable
+
+- Categorical variables summary
+  - count & percentage
+  - Frequency table: relative frequency, cumulative frequency
+- Example:
+  - **“What was the proportion of females among the research participants?”**
+  - **“How many of the participant by BMI category?”**
+
+Lets Try!
+
+- To calculate frequency, we will use `count(_)` function from `tidyverse`
+- For more advance, function `summarise(_)` can be used
+
+```{r}
+asthmads_clean
+
+asthmads_clean %>% 
+  count(Gender)
+
+asthmads_clean %>% 
+  group_by(Gender) %>% 
+  summarise(n = n()) %>% 
+  mutate(rel_freq = n / sum(n), 
+         cum_freq = cumsum(n)/sum(n))
+```
+
+Now is your turn
+
+- try to repeat for BMI_PreCat column
+
+## Continuous Variable
+
+- there are 4+1 measurement in descriptive summary for continuous variable
+  - measurement of central tendency - mean, median, mode
+  - measurement of dispersion - SD, variance, range, IQR
+  - measurement of position - percentile, quartile, quintile
+  - measurement of shape distribution - skewness, kurtosis
+
+  
+```{r}
+library(moments)
+
+asthmads_clean
+
+mean(asthmads_clean$Age)
+median(asthmads_clean$Age)
+sd(asthmads_clean$Age)
+var(asthmads_clean$Age)
+quantile(asthmads_clean$Age, probs = seq(0,1,.25))
+min(asthmads_clean$Age)
+max(asthmads_clean$Age)
+skewness(asthmads_clean$Age)
+kurtosis(asthmads_clean$Age)
+
+asthmads_clean %>%
+  summarise(mean_age = mean(Age), 
+            median_age = median(Age), 
+            sd_age = sd(Age), 
+            min_age = min(Age), 
+            max_age = max(Age), 
+            IQR_age = IQR(Age), 
+            p25 = quantile(Age, 0.25), 
+            p75 = quantile(Age, 0.75), 
+            skewness_age = skewness(Age), 
+            kurtosis_age = kurtosis(Age))
+
+```
+
+## Using packages
+
+- there are several packages to make us easier
+  - `summarytools` : `descr(_)` function for numerical, `freq(_)` function for categorical
+  - `gtsummary`: `tbl_summary`
+  - `skimr`
+
+```{r}
+#| eval: false
+
+library(summarytools)
+
+descr(asthmads_clean)
+freq(asthmads_clean)
+
+asthmads_clean %>% 
+  select(Age, BMI_Post, BMI_Pre, PEFR_Pre) %>% 
+  descr()
+
+asthmads_clean %>% 
+  select(where(is.factor)) %>% 
+  freq()
+```
+
+```{r}
+#| eval: false
+
+library(gtsummary)
+
+tbl_summary(data = asthmads_clean, include = -idR)
+
+asthmads_clean %>% 
+  select(-idR) %>% 
+  tbl_summary()
+```
+
+
+```{r}
+#| eval: false
+
+
+library(skimr)
+
+skim(asthmads_clean)
+```
+
+
+
 # Part 2: Render Report with Quarto
+
+- one of reason why I prefer Quarto (or previously R Markdown) rather than r script, is that it is flexible publishing system
+  - allow me to render or generate result directly to my report
+- for report, i prefer to use `gtsummary` package for it ready looking table
+  - alternative include `stargazer` 
+
+should we try?
+
+1. first, create new quarto document
+  - give appropriate title
+  - click on Create
+
+2. Edit the YAML (optional, but highly recommended). 
+
+> format: 
+
+>   html: 
+
+>     df-print: paged
+
+>     embed-resources: true
+
+3. Write 1st header (Level 1 header). 
+
+> \# Setup
+
+4. Add setup code chunk
+```{r}
+#| echo: fenced
+#| label: -setup
+
+library(tidyverse)
+library(haven)
+
+asthmads_clean <- read_sav("../02 Data Wrangling/asthmads_clean.sav") %>% 
+  as_factor()
+```
+
+5. Add another headers (Level 1 header & Level 2 header). 
+
+> \# Analysis
+
+> \#\# Overall
+
+
+6. Add code chunk for analysis
+```{r}
+#| echo: fenced
+
+asthmads_clean %>% 
+  select(-idR) %>% 
+  tbl_summary()
+```
+
+7. Compare between Intervention group
+
+```{r}
+#| echo: fenced
+
+asthmads_clean %>% 
+  select(-idR) %>% 
+  tbl_summary(by = Tx1)
+```
+
+
+
+
+# Homework?
+
+## ChatGPT/Bard
+
+- if you notice, for the example of descriptive analysis, the analysis was done on single variable/column
+  - e.g., for the frequency example, i analyse Gender only
+  - what if you want to analyse several categorical variables together?, and have them in single table.
+  
+::: {.callout-tip collapse="true"}
+- try to think on your own prompt.
+- compare with my prompt
+  - using R
+  - descriptive summary
+    - dataframe "asthmads_clean"
+    - package "tidyverse", use pipe %>%
+    - variable: all factor type only, exclude other type (e.g. dbl or int)
+    - summary: count, relative frequency, cumulative frequency using summarise function
+    - single output table/dataframe
+- if you get error, paste the error report and see how they troubleshoot
+
+:::
+
+
