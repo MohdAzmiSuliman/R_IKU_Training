@@ -106,6 +106,12 @@ other data type: integer, date, time-date, factor
 
 ## Operator (3)
 
+- R have different types of operator
+  - arithmetic operator: `+`, `-`, `*`, `/`
+  - logical operator: `>`, `<`, `>=`, `<=`, `!=`, `&`, `!`
+  - assignment operator: `=`, `<-`
+  - special: `%>%`, `%in`
+
 ## Vector, Array, List??? (4)
 
 - vector: one dimensional array
