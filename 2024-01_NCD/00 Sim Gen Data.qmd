@@ -363,5 +363,8 @@ asthma_ds_dict <- left_join(asthma_ds_colnamelabel,
 ```
 
 
+## NHMS 2019 Known DM
+
+extracted from page 36 of the report, using excel
 
 

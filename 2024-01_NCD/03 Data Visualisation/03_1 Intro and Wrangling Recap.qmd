@@ -1,0 +1,282 @@
+---
+title: "Last Session Recap"
+date: last-modified
+date-format: "dddd, DD/MM/YYYY"
+format: 
+  html:
+    theme: sandstone
+    code-fold: show
+    code-copy: hover
+    code-overflow: wrap
+    code-tools: true
+    df-print: paged
+    default-image-extension: svg
+    embed-resources: true
+    page-layout: full
+    reference-location: margin
+    title-block-banner: true
+    title-block-style: default
+    fontsize: 1.2em
+    monofont: 'Fira Code'
+number-sections: true
+toc: true
+fig-dpi: 320
+dpi: 320
+---
+
+
+# Preamble
+
+## Library & Data
+
+```{r}
+pacman::p_load(tidyverse, haven, summarytools)
+```
+
+**Please check you have the latest R and RStudio**
+
+1. R
+  - Open R
+  - Help -> About
+  - R version 4.3.2 (January 2024)
+  - Download link: https://cran.r-project.org/
+
+2. RStudio
+  - Open R
+  - Help -> Check for Updates
+  - Download link: https://posit.co/download/rstudio-desktop/
+
+3. (Optional) Update Packages
+  - at RStudio, go to `Packages` pane
+  - click `Update`
+
+# Recap
+
+## Introduction
+
+1. What is R?
+  - programming language and environment commonly used for statistical computing and graphics.
+  - provides an extensive array of statistical and graphical techniques
+  - highly extensible, allowing users to create new functions and contribute packages
+  - popular choice for data analysis and research in various scientific disciplines
+
+![R Main Window](../images/R main window.png)
+
+
+2. What is RStudio?
+  - an IDE (integrated development environment) for R (and other languages too!)
+  - provide user-friendly interface with tools for script editing, data visualization, debugging and project management
+  - if R is the engine, RStudio is the car
+
+![RStudio Main Window](../images/RStudio main window.png)
+
+
+3. What is Quarto?
+  - open-source scientific and technical publishing system
+  - allow user to create **dynamic report**, presentation and publication
+  - support multiple language including R, Python, Julia
+  - integrate with RStudio, Juptyer
+
+4. Using R (and RStudio), Quarto allow for
+  - weave seamlessly narrative text and R code within document
+  - produce elegantly formatted output: live analysis result, visualisation
+
+![Quarto Example](../images/quarto main.png)
+
+## Introduction Practical
+
+### Basic R and some concepts related
+
+1. Open your `R`
+2. R allow for mathematical operation
+  - enter `1 + 2` in your consoles, and press enter
+  - try any other mathematical operation
+3. R recognised various data type
+  - number, e.g. `1`, `2`. use `class(_)` function to check data type
+  - string/character. need `"` symbols. e.g. `"car"`, `"orange"`, `"male"`
+4. We can "store" items in object
+  - enter `one`, then write 1 into object name one `one <- 1`, then call back the object `one`
+  - write array e.g. list of numbers `list_num <- c(1,2,3)`
+  - write array e.g. list of strings `my_cars <- c("merc", "bimmer", "supra")`
+5. Close your `R` (Ctrl+Q)
+
+
+### Basic RStudio
+
+1. Open your `RStudio`
+2. (new) Change setting
+  - Tools -> Global Option -> General. 
+  - Change default working directory
+  - Untick "Restore..." and Never "Save workspace"
+  - These setting is to ensure clean workspace in each new session
+  - p/s: can read further [What They Forgot to Teach You About R: https://rstats.wtf/](https://rstats.wtf/)
+3. Open Previous Project
+  - File -> Recent Projects
+4. (new) Create New Project
+  - File -> New Project... -> New Directory -> New Project. Write Directory Name, e.g. "NCD R Train"
+5. Getting familiarise with the 3+1 Panes
+  - R-U: Console pane
+  - R-L: Files pane
+  - L(-L): Environment pane
+  - (L-U): Source pane
+6. Repeat R recap just now, but now in RStudio console
+  - enter `1 + 2` in your consoles, and press enter
+  - enter `class(1)`, `class("car")`
+  - enter `one <- 1`
+  - enter `list_num <- c(1,2,3)`, `list_num`
+  - enter `my_cars <- c("merc", "bimmer", "supra")`, `my_cars`
+7. Close your project (Ctrl+Q)
+
+### Basic R Script
+
+:::{.callout-note}
+- I didn't teach this previously, because I skip to Quarto. 
+- My 1st class in R does not cover R script, we went straight to RMarkdown (the precursor for Quarto)
+- At first, I want to skip this altogether, but when I think back, teach R script may provide context need when writing Quarto
+:::
+
+1. R scrip allow us to save the syntax
+2. Open Project
+3. Create new R script
+  - File -> New File... -> R Scrip (Ctrl+Shift+N)
+4. Write the syntax
+
+```{r}
+#| eval: false
+
+1
+1 + 2
+one <- 1
+list_num <- c(1,2,3)
+my_cars <- c("merc", "bimmer", "supra")
+
+```
+
+5. You can run line by line (Ctrl+Enter) or source everything (Ctrl+Shift+Enter)
+
+## Data Wrangling
+
+1. 80-90% of data analysis consist of data cleaning
+
+![source: r4ds.hadley.nz](../images/R4DS_wrangling.png)
+
+2. Example 1: Import Dataset - SPSS
+
+```{r}
+library(haven)
+
+asthmads_savh <- haven::read_sav("../dataset/asthma_ds.sav") # also achieve same
+asthmads_savh <- haven::as_factor(asthmads_savh)
+asthmads_savh
+```
+
+3. Example 2: Import Dataset - CSV
+
+```{r}
+asthma_ds0 <- read.csv("../dataset/asthma_ds_nolab.csv")
+asthma_ds0
+```
+
+4. Example 3: Select Column
+
+```{r}
+select(asthmads_savh, idR:Weight_Post)
+```
+
+
+5. Example 4: Basic Numerical Transformation
+
+```{r}
+asthma_ds0$Ht_m <- asthma_ds0$Height/100
+select(asthma_ds0, Height, Ht_m)
+```
+
+
+6. Example 5: Binning
+
+```{r}
+asthma_ds0$BMI_Pre <- asthma_ds0$Weight_Pre/(asthma_ds0$Ht_m^2)
+
+asthma_ds0$BMI_PreCat <- cut(asthma_ds0$BMI_Pre, 
+                             breaks = c(0, 18.49, 22.99, 24.99, 100), 
+                             labels = c("Underweight", "Normal", "Overweight", "Obese"))
+
+select(asthma_ds0, BMI_Pre, BMI_PreCat)
+```
+
+
+7. Tidyverse allow for pipe operation. 
+
+```{r}
+asthma_ds0 <- read.csv("../dataset/asthma_ds_nolab.csv")
+asthma_ds0
+asthmads_clean <- asthma_ds0 %>%
+  mutate(Gender = as.character(Gender),
+         Gender = fct_recode(Gender, "Male" = "1", "Female" = "2"),
+         Gender = fct_relevel(Gender, "Female", "Male"),
+         Tx2 = fct_recode(as.character(Tx2),
+                          "Placebo" = "1", "Drug A" = "2", "Drug B" = "3"),
+         Tx1 = fct_collapse(Tx2,
+                            "Intervention" = c("Drug A", "Drug B"),
+                            "Control" = "Placebo"),
+         Ht_m = Height/100,
+         BMI_Pre = round(Weight_Pre/(Ht_m^2), digits = 2),
+         BMI_PreCat = cut(BMI_Pre,
+                          breaks = c(0, 18.49, 22.99, 24.99, 100),
+                          labels = c("Underweight", "Normal", "Overweight", "Obese")),
+         BMI_Post = round(Weight_Post/(Ht_m^2), digits = 2),
+         BMI_PostCat = cut(BMI_Post,
+                           breaks = c(0, 18.49, 22.99, 24.99, 100),
+                           labels = c("Underweight", "Normal", "Overweight", "Obese")),
+         across(.cols = starts_with("SxWheeze"),
+                .fns = ~ as.character(.)),
+         across(.cols = starts_with("SxWheeze"),
+                .fns = ~ fct_recode(., "No" = "1", "Yes" = "2"))) %>%
+  relocate(Tx1, .before = Tx2) %>%
+  relocate(Ht_m, .after = Height) %>%
+  relocate(BMI_Pre, BMI_PreCat, .after = Weight_Pre) %>%
+  relocate(BMI_Post, BMI_PostCat, .after = Weight_Post)
+
+asthmads_clean
+```
+
+## Descriptive Analysis
+
+1. List of packages use.
+  - if unavailable, please install
+
+```{r}
+library(tidyverse)
+library(haven)
+library(summarytools)
+library(gtsummary)
+```
+
+2. Import dataset
+
+```{r}
+asthmads_clean <- read_sav("asthmads_clean.sav") %>% 
+  as_factor()
+asthmads_clean
+```
+
+3. using function `descr(_)` and `freq(_)` from `summarytools::` package
+
+```{r}
+descr(asthmads_clean)
+asthmads_clean %>%
+  select_if(~ !is.numeric(.)) %>% 
+  select(-idR) %>% 
+  freq()
+```
+
+
+4. using function `tbl_summary(_)` from `gtsummary::` package to create publicatiton ready table
+
+```{r}
+asthmads_clean %>%
+  select(-idR) %>% 
+  tbl_summary()
+```
+
+

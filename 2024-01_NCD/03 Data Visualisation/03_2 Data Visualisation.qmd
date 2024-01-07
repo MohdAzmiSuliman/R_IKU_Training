@@ -1,0 +1,372 @@
+---
+title: "Data Visualization"
+date: last-modified
+date-format: "dddd, DD/MM/YYYY"
+format: 
+  html:
+    theme: sandstone
+    code-fold: show
+    code-copy: hover
+    code-overflow: wrap
+    code-tools: true
+    df-print: paged
+    default-image-extension: svg
+    embed-resources: true
+    page-layout: full
+    reference-location: margin
+    title-block-banner: true
+    title-block-style: default
+    fontsize: 1.2em
+    monofont: 'Fira Code'
+number-sections: true
+toc: true
+fig-dpi: 320
+dpi: 320
+---
+
+# Data Visualization with Base R
+
+- Data visualisation important in understanding our data
+- Base R have a good graphing capability
+
+## Practical
+
+- generate some random number e.g. normal distribution with `rnorm(_)` function
+
+```{r}
+rand_ds <- data.frame(x = rnorm(1000, mean = 10, sd = 1), 
+                      y = rnorm(1000, mean = 5, sd = 2))
+rand_ds
+```
+
+- plot scatterplot using `plot(_)` function
+
+```{r}
+plot(x = rand_ds$x, y = rand_ds$y)
+```
+
+
+# Data Visualization with ggplot2
+
+- There are various packages that offer powerful graphing capabilities, most famous is `ggplot2::` package
+- `ggplot2` were initially developed independently, but later harmonised with `tidyverse` packages
+- based on "grammar of graphics" philosophy: 
+  - specifying datasets, 
+  - aesthetic mappings, 
+  - geometric objects, 
+  - statistical transformations, 
+  - etc: scales, coordinate systems, and facets
+  
+```{r}
+library(ggplot2)
+
+ggplot(rand_ds, aes(x, y)) + geom_point()
+```
+
+  
+## Practical
+
+In this practical, we will use data `asthmads_clean.sav` from dataset folder
+
+0. Load related packages
+0. Import dataset
+  - Create new column, to calculate weight difference
+
+```{r}
+library(tidyverse)
+library(haven)
+
+asthmads_clean <- read_sav("asthmads_clean.sav") %>% 
+  as_factor() %>% 
+  mutate(Wt_Diff = Weight_Post - Weight_Pre)
+asthmads_clean
+```
+
+
+1. With ggplot2, you begin a plot with the function `ggplot(_)`, defining a plot object that you then add layers to.
+
+```{r}
+ggplot(data = asthmads_clean)
+
+asthmads_clean %>% 
+  ggplot(data = .)
+```
+
+2. Next, we need to tell `ggplot(_)` how the information from our data will be visually represented. 
+  - The mapping argument defines how variables are mapped to visual properties (aesthetics) of the plot. 
+  - The mapping argument is always defined in the `aes(_)` function, 
+  - the x and y arguments of `aes(_)` specify which variables to map to the x and y axes.
+  
+```{r}
+asthmads_clean %>% 
+  ggplot(data = ., 
+         mapping = aes(x = PA_HW, 
+                       y = Wt_Diff))
+```
+
+
+3. Our "empty canvas" now has more structure - Physical Activity in x-axes and Weight Difference in y-axis
+4. We then need to define a geometrical object that a plot use to represent data
+  - in ggplot2, function start with `geom_`
+  - to plot scatter plot, we use `geom_point(_)` function
+  
+
+```{r}
+asthmads_clean %>% 
+  ggplot(data = ., 
+         mapping = aes(x = PA_HW, 
+                       y = Wt_Diff)) + 
+  geom_point()
+```
+
+
+5. We can add aesthetics and layers
+  - for example, we want to layer the plot by gender
+  - to add layer, we need to modify the aesthetic (rather than geom)
+
+
+```{r}
+asthmads_clean %>% 
+  ggplot(data = ., 
+         mapping = aes(x = PA_HW, 
+                       y = Wt_Diff,
+                       colour = Gender)) + 
+  geom_point()
+```
+
+
+# Other Charts
+
+## Bar Chart
+
+- suitable for categorical data
+
+```{r}
+asthmads_clean %>% 
+  ggplot(aes(Gender)) + 
+  geom_bar()
+```
+
+- add colour with fill parameter
+
+```{r}
+asthmads_clean %>% 
+  ggplot(aes(x = Gender, fill = Gender)) + 
+  geom_bar()
+```
+
+
+## Histogram
+
+- unlike categorical variables, numerical variables use histogram instead
+- commonly used to visualised the data distribution
+
+```{r}
+asthmads_clean %>% 
+  ggplot(aes(Weight_Pre)) + 
+  geom_histogram()
+```
+
+- we can adjust fill to make clearer
+
+```{r}
+asthmads_clean %>% 
+  ggplot(aes(x = Weight_Pre)) + 
+  geom_histogram(fill = "white", colour = "black")
+```
+
+- we can also set the bin width size
+
+```{r}
+asthmads_clean %>% 
+  ggplot(aes(x = Weight_Pre)) + 
+  geom_histogram(fill = "white", colour = "black", binwidth = 2)
+```
+
+
+
+## Line chart (1)
+
+- Line chart usually use to visualised trend
+- we use newly form data in this example
+
+```{r}
+time_ds <- tibble(time = 1:10, 
+                     value = c(2, 3, 5, 7, 8, 9, 10, 12, 14, 15))
+time_ds
+```
+
+
+- here, we want to plot the value by time
+
+```{r}
+time_ds %>% 
+  ggplot(aes(x = time, y = value)) +
+  geom_line()
+```
+
+
+
+## Line chart (2)
+
+- create line chart, visualising the weight changes
+- however we need to wrangle, in long format
+
+```{r}
+asthmads_clean %>% 
+  select(idR, Gender, Weight_Pre, Weight_Post) %>% 
+  pivot_longer(cols = starts_with("Weight"), 
+               names_to = "event",
+               values_to = "weight")
+```
+
+- add `geom_point(_)`
+- add `geom_line(_)
+  - add group parameter, the line "grouped" by idR
+
+```{r}
+asthmads_clean %>% 
+  select(idR, Gender, Weight_Pre, Weight_Post) %>% 
+  pivot_longer(cols = starts_with("Weight"), 
+               names_to = "event",
+               values_to = "weight") %>% 
+  ggplot(aes(x = event,
+             y = weight)) +
+  geom_point() + 
+  geom_line(aes(group = idR))
+
+```
+
+- we can add gender as layer, adjusting the aes
+
+
+```{r}
+asthmads_clean %>% 
+  select(idR, Gender, Weight_Pre, Weight_Post) %>% 
+  pivot_longer(cols = starts_with("Weight"), 
+               names_to = "event",
+               values_to = "weight") %>% 
+  ggplot(aes(x = event,
+             y = weight, 
+             colour = Gender)) +
+  geom_point() + 
+  geom_line(aes(group = idR))
+```
+
+# Bonus: Malaysia Map
+
+- load the prevalence of Known DM among Malaysian (data source: NHMS 2019 report, page 36)
+
+```{r}
+nhms19_adm <- read_csv("../dataset/nhms19_adm.csv")
+nhms19_adm
+```
+
+- download geojson file from dosm github
+
+```{r}
+download.file(
+  url = "https://raw.githubusercontent.com/dosm-malaysia/data-open/main/datasets/geodata/administrative_1_state.geojson",
+  destfile = "administrative_1_state.geojson",
+  mode = "wb")
+```
+
+- load `sf` package
+
+```{r}
+library(sf)
+```
+
+- harmonised (wrangling) the data
+  - load the map
+
+```{r}
+my_state_sf <- read_sf("administrative_1_state.geojson")
+my_state_sf
+```
+
+  - combine prevalence dataset with map dataset
+  
+```{r}
+#| eval: false
+
+left_join(nhms19_adm, my_state_sf)
+```
+
+  - adjustment maybe needed due to differing column name
+
+```{r}
+my_state_sf <- my_state_sf %>% 
+  rename(State = state)
+my_state_sf
+
+full_join(nhms19_adm, my_state_sf)
+```
+
+  - the data didnt join for WP. further adjustment should be made
+  
+```{r}
+my_state_sf <- my_state_sf %>% 
+  mutate(State = fct_recode(State,
+                            "WP Kuala Lumpur" = "W.P. Kuala Lumpur", 
+                            "WP Putrajaya" = "W.P. Putrajaya", 
+                            "WP Labuan" = "W.P. Labuan"))
+
+nhms19_adm_m <- full_join(nhms19_adm, my_state_sf)
+nhms19_adm_m
+```
+
+  - Plotting with `geom_sf(_)` function
+
+```{r}
+#| eval: false
+
+nhms19_adm_m %>% 
+  ggplot(aes(fill = Prevalence)) + 
+  geom_sf()
+```
+
+  - seems our dataframe is not sf object.
+  
+```{r}
+nhms19_adm_sf <- st_as_sf(nhms19_adm_m)
+nhms19_adm_sf
+```
+
+
+  - Plotting with `geom_sf(_)` function
+
+```{r}
+nhms19_adm_sf %>% 
+  ggplot(aes(fill = Prevalence)) + 
+  geom_sf()
+```
+
+
+
+  - we can also change colour to look like heat map
+  
+```{r}
+nhms19_adm_sf %>% 
+  ggplot(aes(fill = Prevalence)) + 
+  geom_sf() + 
+  scale_fill_gradient(low = "green", high = "red")
+ 
+```
+
+  - we can also remove the element
+
+```{r}
+nhms19_adm_sf %>% 
+  ggplot(aes(fill = Prevalence)) + 
+  geom_sf() + 
+  scale_fill_gradient(low = "green", high = "red") +
+  theme_bw() +
+  theme(axis.text = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks = element_blank(),
+        panel.grid = element_blank(),
+        panel.border = element_blank())
+ 
+```
+
