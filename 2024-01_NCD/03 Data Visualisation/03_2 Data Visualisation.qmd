@@ -6,7 +6,7 @@ format:
   html:
     theme: sandstone
     code-fold: show
-    code-copy: hover
+    code-copy: true
     code-overflow: wrap
     code-tools: true
     df-print: paged
@@ -22,6 +22,8 @@ number-sections: true
 toc: true
 fig-dpi: 320
 dpi: 320
+execute: 
+  echo: fenced
 ---
 
 # Data Visualization with Base R

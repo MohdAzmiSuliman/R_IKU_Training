@@ -22,6 +22,8 @@ number-sections: true
 toc: true
 fig-dpi: 320
 dpi: 320
+execute: 
+  echo: fenced
 ---
 
 

@@ -4303,7 +4303,7 @@ window.onload = function() {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">Sunday, 07/01/2024</p>
+        <p class="date">Monday, 08/01/2024</p>
       </div>
     </div>
     
@@ -4348,7 +4348,9 @@ window.onload = function() {
 <div class="cell">
 <details open>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, haven, summarytools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, haven, summarytools)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p><strong>Please check you have the latest R and RStudio</strong></p>
@@ -4546,11 +4548,15 @@ Note
 <div class="cell">
 <details open>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>one <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>list_num <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>my_cars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;merc&quot;</span>, <span class="st">&quot;bimmer&quot;</span>, <span class="st">&quot;supra&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>one <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>list_num <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>my_cars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;merc&quot;</span>, <span class="st">&quot;bimmer&quot;</span>, <span class="st">&quot;supra&quot;</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <ol start="5" type="1">
@@ -4575,11 +4581,13 @@ Note
 <div class="cell">
 <details open>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>asthmads_savh <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_sav</span>(<span class="st">&quot;../dataset/asthma_ds.sav&quot;</span>) <span class="co"># also achieve same</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>asthmads_savh <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(asthmads_savh)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>asthmads_savh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>asthmads_savh <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_sav</span>(<span class="st">&quot;../dataset/asthma_ds.sav&quot;</span>) <span class="co"># also achieve same</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>asthmads_savh <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(asthmads_savh)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>asthmads_savh</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 
@@ -4596,8 +4604,10 @@ Note
 <div class="cell">
 <details open>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>asthma_ds0 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../dataset/asthma_ds_nolab.csv&quot;</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>asthma_ds0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>asthma_ds0 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../dataset/asthma_ds_nolab.csv&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>asthma_ds0</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 
@@ -4614,7 +4624,9 @@ Note
 <div class="cell">
 <details open>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(asthmads_savh, idR<span class="sc">:</span>Weight_Post)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(asthmads_savh, idR<span class="sc">:</span>Weight_Post)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 
@@ -4631,8 +4643,10 @@ Note
 <div class="cell">
 <details open>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>asthma_ds0<span class="sc">$</span>Ht_m <span class="ot">&lt;-</span> asthma_ds0<span class="sc">$</span>Height<span class="sc">/</span><span class="dv">100</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(asthma_ds0, Height, Ht_m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>asthma_ds0<span class="sc">$</span>Ht_m <span class="ot">&lt;-</span> asthma_ds0<span class="sc">$</span>Height<span class="sc">/</span><span class="dv">100</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(asthma_ds0, Height, Ht_m)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 
@@ -4649,13 +4663,15 @@ Note
 <div class="cell">
 <details open>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>asthma_ds0<span class="sc">$</span>BMI_Pre <span class="ot">&lt;-</span> asthma_ds0<span class="sc">$</span>Weight_Pre<span class="sc">/</span>(asthma_ds0<span class="sc">$</span>Ht_m<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>asthma_ds0<span class="sc">$</span>BMI_PreCat <span class="ot">&lt;-</span> <span class="fu">cut</span>(asthma_ds0<span class="sc">$</span>BMI_Pre, </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">18.49</span>, <span class="fl">22.99</span>, <span class="fl">24.99</span>, <span class="dv">100</span>), </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Underweight&quot;</span>, <span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Overweight&quot;</span>, <span class="st">&quot;Obese&quot;</span>))</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(asthma_ds0, BMI_Pre, BMI_PreCat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>asthma_ds0<span class="sc">$</span>BMI_Pre <span class="ot">&lt;-</span> asthma_ds0<span class="sc">$</span>Weight_Pre<span class="sc">/</span>(asthma_ds0<span class="sc">$</span>Ht_m<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>asthma_ds0<span class="sc">$</span>BMI_PreCat <span class="ot">&lt;-</span> <span class="fu">cut</span>(asthma_ds0<span class="sc">$</span>BMI_Pre, </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">18.49</span>, <span class="fl">22.99</span>, <span class="fl">24.99</span>, <span class="dv">100</span>), </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                             <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Underweight&quot;</span>, <span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Overweight&quot;</span>, <span class="st">&quot;Obese&quot;</span>))</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(asthma_ds0, BMI_Pre, BMI_PreCat)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 
@@ -4672,8 +4688,38 @@ Note
 <div class="cell">
 <details open>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>asthma_ds0 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../dataset/asthma_ds_nolab.csv&quot;</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>asthma_ds0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>asthma_ds0 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../dataset/asthma_ds_nolab.csv&quot;</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>asthma_ds0</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>asthmads_clean <span class="ot">&lt;-</span> asthma_ds0 <span class="sc">%&gt;%</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">as.character</span>(Gender),</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">Gender =</span> <span class="fu">fct_recode</span>(Gender, <span class="st">&quot;Male&quot;</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span>, <span class="st">&quot;Female&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>),</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">Gender =</span> <span class="fu">fct_relevel</span>(Gender, <span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>),</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">Tx2 =</span> <span class="fu">fct_recode</span>(<span class="fu">as.character</span>(Tx2),</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&quot;Placebo&quot;</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span>, <span class="st">&quot;Drug A&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>, <span class="st">&quot;Drug B&quot;</span> <span class="ot">=</span> <span class="st">&quot;3&quot;</span>),</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">Tx1 =</span> <span class="fu">fct_collapse</span>(Tx2,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;Intervention&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Drug A&quot;</span>, <span class="st">&quot;Drug B&quot;</span>),</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;Control&quot;</span> <span class="ot">=</span> <span class="st">&quot;Placebo&quot;</span>),</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">Ht_m =</span> Height<span class="sc">/</span><span class="dv">100</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_Pre =</span> <span class="fu">round</span>(Weight_Pre<span class="sc">/</span>(Ht_m<span class="sc">^</span><span class="dv">2</span>), <span class="at">digits =</span> <span class="dv">2</span>),</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_PreCat =</span> <span class="fu">cut</span>(BMI_Pre,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>                          <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">18.49</span>, <span class="fl">22.99</span>, <span class="fl">24.99</span>, <span class="dv">100</span>),</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Underweight&quot;</span>, <span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Overweight&quot;</span>, <span class="st">&quot;Obese&quot;</span>)),</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_Post =</span> <span class="fu">round</span>(Weight_Post<span class="sc">/</span>(Ht_m<span class="sc">^</span><span class="dv">2</span>), <span class="at">digits =</span> <span class="dv">2</span>),</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_PostCat =</span> <span class="fu">cut</span>(BMI_Post,</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>                           <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">18.49</span>, <span class="fl">22.99</span>, <span class="fl">24.99</span>, <span class="dv">100</span>),</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>                           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Underweight&quot;</span>, <span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Overweight&quot;</span>, <span class="st">&quot;Obese&quot;</span>)),</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;SxWheeze&quot;</span>),</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>                <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">as.character</span>(.)),</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;SxWheeze&quot;</span>),</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>                <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">fct_recode</span>(., <span class="st">&quot;No&quot;</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span>, <span class="st">&quot;Yes&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Tx1, <span class="at">.before =</span> Tx2) <span class="sc">%&gt;%</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Ht_m, <span class="at">.after =</span> Height) <span class="sc">%&gt;%</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(BMI_Pre, BMI_PreCat, <span class="at">.after =</span> Weight_Pre) <span class="sc">%&gt;%</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(BMI_Post, BMI_PostCat, <span class="at">.after =</span> Weight_Post)</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>asthmads_clean</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 
@@ -4681,42 +4727,7 @@ Note
   <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["idR"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Gender"],"name":[2],"type":["int"],"align":["right"]},{"label":["Age"],"name":[3],"type":["int"],"align":["right"]},{"label":["Height"],"name":[4],"type":["int"],"align":["right"]},{"label":["Weight_Pre"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["PA_HW"],"name":[6],"type":["int"],"align":["right"]},{"label":["Weight_Post"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["Tx2"],"name":[8],"type":["int"],"align":["right"]},{"label":["PEFR_Pre"],"name":[9],"type":["int"],"align":["right"]},{"label":["PEFR_Post"],"name":[10],"type":["int"],"align":["right"]},{"label":["SxWheeze_Pre"],"name":[11],"type":["int"],"align":["right"]},{"label":["SxWheeze_Post"],"name":[12],"type":["int"],"align":["right"]},{"label":["PS_Pre"],"name":[13],"type":["int"],"align":["right"]},{"label":["PS_Post"],"name":[14],"type":["int"],"align":["right"]}],"data":[{"1":"8pg4","2":"2","3":"34","4":"134","5":"47.5","6":"3","7":"42.4","8":"3","9":"434","10":"428","11":"1","12":"1","13":"5","14":"5"},{"1":"VOPL","2":"1","3":"31","4":"161","5":"59.8","6":"8","7":"49.4","8":"2","9":"484","10":"525","11":"2","12":"1","13":"6","14":"5"},{"1":"Y3Gs","2":"1","3":"25","4":"184","5":"91.2","6":"3","7":"78.3","8":"2","9":"464","10":"525","11":"2","12":"2","13":"5","14":"5"},{"1":"0vTK","2":"2","3":"33","4":"141","5":"60.4","6":"2","7":"53.4","8":"3","9":"434","10":"521","11":"1","12":"1","13":"5","14":"4"},{"1":"jNUd","2":"1","3":"28","4":"174","5":"96.4","6":"1","7":"88.1","8":"2","9":"484","10":"560","11":"2","12":"1","13":"5","14":"4"},{"1":"ax87","2":"1","3":"33","4":"189","5":"76.4","6":"0","7":"70.3","8":"1","9":"474","10":"471","11":"2","12":"2","13":"6","14":"6"},{"1":"Hndi","2":"2","3":"31","4":"172","5":"58.2","6":"4","7":"47.5","8":"2","9":"394","10":"438","11":"2","12":"1","13":"4","14":"4"},{"1":"YCkg","2":"2","3":"34","4":"159","5":"52.8","6":"3","7":"47.0","8":"2","9":"426","10":"515","11":"2","12":"1","13":"4","14":"4"},{"1":"aJX5","2":"1","3":"31","4":"192","5":"83.5","6":"4","7":"70.0","8":"3","9":"447","10":"515","11":"2","12":"1","13":"5","14":"4"},{"1":"d5NA","2":"1","3":"28","4":"168","5":"60.4","6":"2","7":"52.8","8":"1","9":"427","10":"471","11":"2","12":"1","13":"4","14":"4"},{"1":"y4NK","2":"1","3":"34","4":"170","5":"99.6","6":"5","7":"87.5","8":"1","9":"466","10":"473","11":"1","12":"2","13":"6","14":"5"},{"1":"c1ic","2":"2","3":"25","4":"148","5":"56.0","6":"5","7":"50.5","8":"2","9":"407","10":"448","11":"2","12":"1","13":"6","14":"5"},{"1":"BuQm","2":"1","3":"31","4":"182","5":"82.0","6":"1","7":"73.0","8":"1","9":"495","10":"506","11":"2","12":"2","13":"6","14":"6"},{"1":"WXx2","2":"1","3":"35","4":"175","5":"53.3","6":"2","7":"46.0","8":"2","9":"455","10":"513","11":"1","12":"2","13":"6","14":"5"},{"1":"WA7q","2":"2","3":"32","4":"151","5":"72.9","6":"0","7":"68.5","8":"1","9":"429","10":"464","11":"1","12":"2","13":"5","14":"5"},{"1":"mXB4","2":"2","3":"34","4":"152","5":"65.5","6":"2","7":"59.3","8":"1","9":"387","10":"358","11":"2","12":"1","13":"4","14":"3"},{"1":"w3IC","2":"1","3":"30","4":"175","5":"83.7","6":"5","7":"69.8","8":"2","9":"461","10":"518","11":"1","12":"1","13":"6","14":"4"},{"1":"vlB6","2":"1","3":"26","4":"172","5":"74.5","6":"4","7":"66.6","8":"1","9":"443","10":"430","11":"2","12":"1","13":"5","14":"3"},{"1":"6eHs","2":"1","3":"32","4":"178","5":"81.6","6":"5","7":"67.8","8":"2","9":"426","10":"437","11":"2","12":"1","13":"4","14":"3"},{"1":"ceTF","2":"2","3":"34","4":"147","5":"60.9","6":"4","7":"53.8","8":"2","9":"401","10":"491","11":"2","12":"1","13":"4","14":"4"},{"1":"3E18","2":"1","3":"32","4":"185","5":"117.6","6":"1","7":"108.0","8":"2","9":"446","10":"520","11":"1","12":"1","13":"4","14":"3"},{"1":"vdOv","2":"2","3":"32","4":"156","5":"56.1","6":"2","7":"50.5","8":"3","9":"405","10":"483","11":"2","12":"1","13":"5","14":"5"},{"1":"nAfE","2":"2","3":"34","4":"135","5":"43.1","6":"3","7":"38.1","8":"2","9":"340","10":"385","11":"2","12":"1","13":"6","14":"6"},{"1":"tP3Y","2":"1","3":"26","4":"163","5":"99.8","6":"0","7":"95.0","8":"2","9":"458","10":"474","11":"2","12":"1","13":"6","14":"4"},{"1":"UoA8","2":"1","3":"25","4":"165","5":"54.1","6":"0","7":"51.8","8":"2","9":"429","10":"481","11":"2","12":"2","13":"5","14":"5"},{"1":"zGcV","2":"1","3":"26","4":"171","5":"88.1","6":"0","7":"79.4","8":"3","9":"458","10":"604","11":"2","12":"1","13":"5","14":"5"},{"1":"OSXH","2":"1","3":"32","4":"158","5":"33.9","6":"3","7":"28.0","8":"3","9":"467","10":"524","11":"2","12":"1","13":"5","14":"4"},{"1":"TZ9R","2":"1","3":"31","4":"170","5":"72.2","6":"2","7":"64.1","8":"2","9":"426","10":"436","11":"1","12":"1","13":"4","14":"2"},{"1":"6LrD","2":"2","3":"26","4":"139","5":"54.0","6":"2","7":"49.7","8":"1","9":"424","10":"460","11":"2","12":"1","13":"4","14":"4"},{"1":"xODx","2":"2","3":"34","4":"145","5":"54.0","6":"2","7":"50.1","8":"1","9":"404","10":"382","11":"2","12":"1","13":"4","14":"2"},{"1":"P2dV","2":"1","3":"35","4":"155","5":"60.4","6":"1","7":"53.8","8":"2","9":"501","10":"580","11":"1","12":"2","13":"5","14":"3"},{"1":"51DX","2":"1","3":"33","4":"191","5":"97.4","6":"0","7":"89.5","8":"1","9":"475","10":"423","11":"2","12":"1","13":"6","14":"6"},{"1":"P0Q7","2":"2","3":"31","4":"165","5":"73.0","6":"3","7":"68.1","8":"2","9":"370","10":"381","11":"2","12":"1","13":"4","14":"4"},{"1":"peFX","2":"2","3":"31","4":"143","5":"61.0","6":"1","7":"56.9","8":"2","9":"371","10":"427","11":"2","12":"2","13":"4","14":"2"},{"1":"57qU","2":"2","3":"31","4":"139","5":"56.5","6":"4","7":"51.8","8":"2","9":"396","10":"461","11":"2","12":"1","13":"4","14":"2"},{"1":"LqnX","2":"2","3":"28","4":"161","5":"57.8","6":"4","7":"48.2","8":"1","9":"425","10":"403","11":"1","12":"1","13":"6","14":"4"},{"1":"Swyg","2":"2","3":"30","4":"154","5":"77.6","6":"0","7":"72.4","8":"1","9":"404","10":"363","11":"1","12":"2","13":"5","14":"3"},{"1":"2tQB","2":"2","3":"33","4":"145","5":"48.8","6":"3","7":"44.5","8":"1","9":"410","10":"377","11":"2","12":"1","13":"4","14":"2"},{"1":"W42x","2":"2","3":"29","4":"155","5":"65.0","6":"3","7":"56.8","8":"2","9":"431","10":"508","11":"1","12":"1","13":"6","14":"5"},{"1":"2SmO","2":"1","3":"32","4":"192","5":"114.2","6":"1","7":"106.5","8":"1","9":"464","10":"410","11":"2","12":"2","13":"6","14":"5"},{"1":"nnD3","2":"2","3":"26","4":"155","5":"52.9","6":"1","7":"48.1","8":"3","9":"406","10":"438","11":"2","12":"2","13":"6","14":"4"},{"1":"slle","2":"2","3":"27","4":"143","5":"60.1","6":"1","7":"56.0","8":"3","9":"451","10":"509","11":"2","12":"2","13":"6","14":"5"},{"1":"6jr3","2":"2","3":"26","4":"145","5":"80.0","6":"2","7":"74.5","8":"3","9":"415","10":"493","11":"2","12":"1","13":"5","14":"3"},{"1":"gC3T","2":"2","3":"33","4":"163","5":"57.0","6":"8","7":"44.7","8":"3","9":"438","10":"478","11":"2","12":"2","13":"6","14":"6"},{"1":"ytcm","2":"1","3":"29","4":"175","5":"57.8","6":"1","7":"49.1","8":"2","9":"469","10":"547","11":"1","12":"2","13":"5","14":"5"},{"1":"KF2z","2":"2","3":"28","4":"139","5":"46.8","6":"7","7":"40.8","8":"2","9":"414","10":"489","11":"2","12":"1","13":"6","14":"5"},{"1":"wY7c","2":"2","3":"35","4":"143","5":"63.1","6":"1","7":"59.5","8":"2","9":"439","10":"513","11":"1","12":"1","13":"6","14":"5"},{"1":"AHIT","2":"1","3":"27","4":"179","5":"98.8","6":"5","7":"89.1","8":"2","9":"437","10":"517","11":"2","12":"1","13":"6","14":"5"},{"1":"U4zR","2":"1","3":"31","4":"177","5":"78.1","6":"3","7":"71.8","8":"3","9":"476","10":"527","11":"1","12":"1","13":"6","14":"5"},{"1":"sxWW","2":"1","3":"28","4":"178","5":"83.7","6":"5","7":"68.8","8":"1","9":"458","10":"503","11":"1","12":"2","13":"4","14":"4"},{"1":"jVZI","2":"1","3":"34","4":"173","5":"112.2","6":"2","7":"107.4","8":"1","9":"482","10":"551","11":"2","12":"2","13":"4","14":"4"},{"1":"INpF","2":"2","3":"35","4":"135","5":"54.2","6":"2","7":"50.3","8":"3","9":"403","10":"472","11":"2","12":"2","13":"5","14":"5"},{"1":"hnA7","2":"1","3":"29","4":"178","5":"77.7","6":"1","7":"74.7","8":"2","9":"469","10":"507","11":"1","12":"2","13":"5","14":"5"},{"1":"MyiU","2":"1","3":"33","4":"177","5":"85.2","6":"5","7":"71.1","8":"2","9":"489","10":"527","11":"2","12":"2","13":"6","14":"5"},{"1":"GhYg","2":"2","3":"30","4":"137","5":"55.2","6":"7","7":"48.0","8":"2","9":"391","10":"451","11":"1","12":"1","13":"4","14":"3"},{"1":"1SM4","2":"1","3":"29","4":"181","5":"112.3","6":"1","7":"102.9","8":"1","9":"451","10":"469","11":"2","12":"2","13":"4","14":"3"},{"1":"uhBR","2":"1","3":"30","4":"176","5":"73.4","6":"3","7":"61.1","8":"1","9":"436","10":"428","11":"1","12":"2","13":"6","14":"6"},{"1":"tKbM","2":"2","3":"32","4":"143","5":"78.7","6":"8","7":"68.6","8":"1","9":"388","10":"379","11":"1","12":"2","13":"4","14":"2"},{"1":"sjTx","2":"2","3":"28","4":"130","5":"38.8","6":"5","7":"34.0","8":"3","9":"422","10":"423","11":"1","12":"1","13":"6","14":"6"},{"1":"AD3E","2":"2","3":"29","4":"144","5":"56.0","6":"0","7":"52.6","8":"1","9":"369","10":"396","11":"2","12":"2","13":"5","14":"5"},{"1":"ILug","2":"2","3":"29","4":"151","5":"67.0","6":"4","7":"59.5","8":"1","9":"409","10":"427","11":"1","12":"1","13":"5","14":"5"},{"1":"VfIn","2":"2","3":"27","4":"158","5":"61.5","6":"2","7":"55.5","8":"1","9":"368","10":"340","11":"2","12":"1","13":"6","14":"6"},{"1":"V9xY","2":"1","3":"25","4":"171","5":"64.8","6":"3","7":"59.0","8":"1","9":"434","10":"416","11":"1","12":"2","13":"6","14":"5"},{"1":"t5EQ","2":"2","3":"29","4":"153","5":"68.3","6":"7","7":"58.9","8":"1","9":"399","10":"389","11":"1","12":"1","13":"5","14":"3"},{"1":"BNaT","2":"2","3":"27","4":"129","5":"34.3","6":"2","7":"29.7","8":"1","9":"375","10":"395","11":"2","12":"2","13":"4","14":"3"},{"1":"mj86","2":"1","3":"27","4":"177","5":"66.4","6":"2","7":"56.9","8":"1","9":"432","10":"422","11":"1","12":"1","13":"6","14":"6"},{"1":"XTw7","2":"1","3":"26","4":"190","5":"127.4","6":"0","7":"121.4","8":"1","9":"476","10":"438","11":"2","12":"2","13":"5","14":"5"},{"1":"tcmS","2":"1","3":"34","4":"175","5":"102.5","6":"3","7":"91.7","8":"2","9":"468","10":"492","11":"2","12":"2","13":"6","14":"5"},{"1":"Bdd8","2":"1","3":"31","4":"194","5":"113.4","6":"3","7":"105.2","8":"2","9":"457","10":"545","11":"2","12":"1","13":"4","14":"3"},{"1":"X3ku","2":"1","3":"30","4":"162","5":"64.4","6":"3","7":"59.2","8":"2","9":"488","10":"529","11":"2","12":"1","13":"5","14":"3"},{"1":"SC0q","2":"1","3":"27","4":"183","5":"71.3","6":"1","7":"62.9","8":"1","9":"474","10":"442","11":"2","12":"1","13":"6","14":"4"},{"1":"KdQc","2":"1","3":"35","4":"170","5":"61.7","6":"2","7":"55.3","8":"1","9":"451","10":"443","11":"1","12":"2","13":"4","14":"2"},{"1":"YSPX","2":"1","3":"28","4":"190","5":"93.8","6":"0","7":"89.5","8":"1","9":"477","10":"460","11":"2","12":"2","13":"5","14":"3"},{"1":"HvdM","2":"2","3":"29","4":"150","5":"78.9","6":"4","7":"72.3","8":"1","9":"367","10":"367","11":"2","12":"1","13":"5","14":"3"},{"1":"VQei","2":"1","3":"32","4":"178","5":"69.5","6":"1","7":"63.5","8":"1","9":"490","10":"438","11":"2","12":"1","13":"4","14":"3"},{"1":"Iard","2":"1","3":"31","4":"204","5":"121.2","6":"1","7":"115.2","8":"1","9":"488","10":"509","11":"2","12":"2","13":"6","14":"5"},{"1":"bgvV","2":"1","3":"32","4":"169","5":"78.5","6":"1","7":"71.1","8":"3","9":"428","10":"468","11":"2","12":"1","13":"4","14":"4"},{"1":"eWHr","2":"1","3":"27","4":"164","5":"99.2","6":"5","7":"89.8","8":"1","9":"500","10":"530","11":"2","12":"1","13":"4","14":"2"},{"1":"nvWc","2":"2","3":"35","4":"136","5":"42.9","6":"3","7":"38.6","8":"3","9":"393","10":"490","11":"2","12":"1","13":"5","14":"3"},{"1":"iYbB","2":"1","3":"26","4":"172","5":"77.3","6":"4","7":"71.3","8":"3","9":"424","10":"532","11":"2","12":"1","13":"6","14":"5"},{"1":"bTud","2":"2","3":"34","4":"153","5":"67.1","6":"2","7":"61.2","8":"3","9":"355","10":"415","11":"1","12":"1","13":"5","14":"4"},{"1":"Hcnh","2":"1","3":"25","4":"165","5":"75.6","6":"0","7":"72.3","8":"2","9":"478","10":"578","11":"2","12":"1","13":"4","14":"3"},{"1":"KtR1","2":"2","3":"29","4":"140","5":"56.4","6":"4","7":"49.8","8":"2","9":"392","10":"437","11":"1","12":"1","13":"6","14":"5"},{"1":"W40A","2":"2","3":"34","4":"146","5":"40.7","6":"0","7":"36.5","8":"3","9":"399","10":"453","11":"1","12":"1","13":"4","14":"2"},{"1":"cWcd","2":"1","3":"34","4":"163","5":"87.2","6":"5","7":"78.5","8":"3","9":"439","10":"504","11":"2","12":"1","13":"4","14":"4"},{"1":"CddG","2":"2","3":"25","4":"139","5":"48.2","6":"3","7":"42.7","8":"1","9":"391","10":"367","11":"1","12":"1","13":"6","14":"6"},{"1":"lJXL","2":"1","3":"26","4":"174","5":"91.5","6":"1","7":"83.6","8":"1","9":"448","10":"431","11":"2","12":"1","13":"6","14":"6"},{"1":"mRHC","2":"2","3":"31","4":"162","5":"54.0","6":"3","7":"47.3","8":"3","9":"439","10":"508","11":"2","12":"1","13":"6","14":"5"},{"1":"lu1U","2":"1","3":"34","4":"175","5":"60.7","6":"3","7":"51.5","8":"1","9":"474","10":"482","11":"2","12":"2","13":"6","14":"4"},{"1":"yJoM","2":"1","3":"34","4":"172","5":"109.4","6":"5","7":"97.9","8":"1","9":"445","10":"417","11":"2","12":"1","13":"5","14":"5"},{"1":"xcFV","2":"1","3":"25","4":"172","5":"92.2","6":"3","7":"81.7","8":"2","9":"441","10":"519","11":"1","12":"1","13":"4","14":"3"},{"1":"xqkc","2":"2","3":"30","4":"154","5":"51.1","6":"3","7":"43.3","8":"2","9":"378","10":"441","11":"1","12":"1","13":"4","14":"4"},{"1":"WYH6","2":"1","3":"35","4":"186","5":"67.0","6":"2","7":"62.5","8":"1","9":"424","10":"416","11":"1","12":"2","13":"6","14":"5"},{"1":"JDmR","2":"1","3":"30","4":"174","5":"82.7","6":"2","7":"74.0","8":"3","9":"438","10":"464","11":"1","12":"2","13":"4","14":"3"},{"1":"n4qr","2":"2","3":"33","4":"151","5":"80.7","6":"1","7":"76.0","8":"3","9":"416","10":"503","11":"1","12":"1","13":"6","14":"5"},{"1":"p2zP","2":"1","3":"33","4":"173","5":"58.0","6":"1","7":"52.0","8":"1","9":"454","10":"413","11":"2","12":"2","13":"4","14":"4"},{"1":"xlnd","2":"2","3":"32","4":"138","5":"56.9","6":"4","7":"51.7","8":"3","9":"405","10":"410","11":"2","12":"2","13":"4","14":"3"},{"1":"BKW8","2":"1","3":"35","4":"171","5":"48.6","6":"6","7":"36.1","8":"2","9":"493","10":"506","11":"1","12":"1","13":"5","14":"5"},{"1":"TtFH","2":"1","3":"27","4":"175","5":"81.5","6":"3","7":"74.7","8":"1","9":"444","10":"510","11":"2","12":"1","13":"6","14":"5"},{"1":"PDh4","2":"1","3":"29","4":"183","5":"57.6","6":"3","7":"50.7","8":"2","9":"453","10":"478","11":"2","12":"1","13":"6","14":"6"},{"1":"63w4","2":"1","3":"26","4":"178","5":"73.0","6":"3","7":"62.3","8":"1","9":"435","10":"475","11":"2","12":"2","13":"6","14":"6"},{"1":"rBeP","2":"2","3":"26","4":"138","5":"54.2","6":"3","7":"47.4","8":"1","9":"408","10":"379","11":"1","12":"2","13":"4","14":"4"},{"1":"HidY","2":"1","3":"32","4":"183","5":"56.8","6":"2","7":"48.9","8":"3","9":"488","10":"548","11":"2","12":"1","13":"5","14":"3"},{"1":"sv8H","2":"1","3":"34","4":"178","5":"95.7","6":"2","7":"88.2","8":"1","9":"441","10":"395","11":"2","12":"1","13":"5","14":"4"},{"1":"OoGl","2":"1","3":"26","4":"172","5":"99.1","6":"4","7":"91.6","8":"1","9":"437","10":"448","11":"1","12":"1","13":"6","14":"6"},{"1":"LEWx","2":"2","3":"33","4":"157","5":"61.4","6":"7","7":"49.8","8":"3","9":"380","10":"433","11":"2","12":"1","13":"6","14":"5"},{"1":"WICO","2":"1","3":"27","4":"178","5":"51.2","6":"0","7":"45.1","8":"1","9":"456","10":"499","11":"1","12":"1","13":"6","14":"4"},{"1":"at4e","2":"2","3":"32","4":"161","5":"72.2","6":"0","7":"69.9","8":"1","9":"409","10":"417","11":"2","12":"1","13":"5","14":"4"},{"1":"SD7V","2":"2","3":"28","4":"159","5":"62.8","6":"2","7":"57.8","8":"1","9":"378","10":"428","11":"1","12":"2","13":"5","14":"4"},{"1":"yedB","2":"1","3":"34","4":"188","5":"59.6","6":"2","7":"53.7","8":"1","9":"473","10":"508","11":"2","12":"2","13":"4","14":"4"},{"1":"AQFs","2":"2","3":"29","4":"164","5":"68.3","6":"0","7":"64.2","8":"3","9":"406","10":"457","11":"2","12":"1","13":"4","14":"2"},{"1":"UcMc","2":"1","3":"27","4":"166","5":"78.6","6":"2","7":"70.3","8":"3","9":"448","10":"559","11":"2","12":"2","13":"6","14":"6"},{"1":"9ttM","2":"1","3":"33","4":"168","5":"91.2","6":"1","7":"85.2","8":"1","9":"462","10":"468","11":"1","12":"1","13":"6","14":"4"},{"1":"TMMv","2":"2","3":"32","4":"143","5":"46.4","6":"1","7":"40.5","8":"1","9":"376","10":"360","11":"2","12":"1","13":"5","14":"4"},{"1":"ghC7","2":"2","3":"27","4":"146","5":"46.2","6":"3","7":"40.4","8":"1","9":"396","10":"414","11":"1","12":"2","13":"5","14":"5"},{"1":"fhXU","2":"1","3":"26","4":"202","5":"101.2","6":"6","7":"85.5","8":"3","9":"446","10":"527","11":"2","12":"1","13":"5","14":"4"},{"1":"MDjT","2":"2","3":"32","4":"152","5":"69.6","6":"0","7":"65.1","8":"1","9":"401","10":"404","11":"2","12":"2","13":"4","14":"4"},{"1":"PyzF","2":"1","3":"27","4":"179","5":"89.2","6":"1","7":"81.5","8":"3","9":"442","10":"501","11":"2","12":"1","13":"4","14":"3"},{"1":"LYex","2":"2","3":"33","4":"148","5":"68.2","6":"3","7":"62.1","8":"2","9":"391","10":"413","11":"1","12":"1","13":"6","14":"6"},{"1":"UmBf","2":"1","3":"29","4":"187","5":"80.5","6":"1","7":"72.5","8":"2","9":"446","10":"511","11":"1","12":"1","13":"5","14":"5"},{"1":"V4AB","2":"1","3":"25","4":"186","5":"114.8","6":"8","7":"98.1","8":"3","9":"461","10":"575","11":"1","12":"1","13":"4","14":"4"},{"1":"3zeb","2":"1","3":"30","4":"165","5":"65.5","6":"4","7":"56.7","8":"1","9":"430","10":"447","11":"2","12":"2","13":"4","14":"4"},{"1":"DVoc","2":"1","3":"30","4":"182","5":"109.9","6":"1","7":"100.0","8":"2","9":"433","10":"484","11":"2","12":"2","13":"6","14":"6"},{"1":"EffX","2":"2","3":"30","4":"154","5":"81.7","6":"4","7":"75.1","8":"1","9":"378","10":"404","11":"1","12":"2","13":"4","14":"4"},{"1":"VNGJ","2":"2","3":"29","4":"146","5":"51.9","6":"3","7":"47.5","8":"3","9":"447","10":"521","11":"2","12":"1","13":"4","14":"2"},{"1":"yqWZ","2":"2","3":"26","4":"140","5":"62.6","6":"0","7":"57.0","8":"3","9":"397","10":"446","11":"2","12":"1","13":"5","14":"3"},{"1":"PFPu","2":"1","3":"28","4":"164","5":"96.2","6":"2","7":"91.0","8":"3","9":"446","10":"407","11":"2","12":"2","13":"5","14":"3"},{"1":"TDu6","2":"1","3":"30","4":"173","5":"78.8","6":"0","7":"75.5","8":"1","9":"457","10":"512","11":"2","12":"2","13":"6","14":"6"},{"1":"mqjd","2":"1","3":"30","4":"188","5":"125.6","6":"2","7":"115.6","8":"3","9":"445","10":"475","11":"1","12":"1","13":"5","14":"5"},{"1":"cPby","2":"1","3":"30","4":"192","5":"98.9","6":"10","7":"76.9","8":"1","9":"467","10":"517","11":"2","12":"1","13":"4","14":"2"},{"1":"4J4u","2":"1","3":"29","4":"177","5":"92.0","6":"3","7":"83.4","8":"1","9":"459","10":"509","11":"2","12":"2","13":"5","14":"4"},{"1":"WlzS","2":"1","3":"29","4":"170","5":"106.7","6":"7","7":"93.9","8":"2","9":"487","10":"539","11":"1","12":"1","13":"4","14":"3"},{"1":"GwwI","2":"2","3":"27","4":"139","5":"63.7","6":"5","7":"57.4","8":"1","9":"427","10":"459","11":"2","12":"1","13":"6","14":"4"},{"1":"TopH","2":"1","3":"33","4":"157","5":"88.2","6":"1","7":"82.8","8":"1","9":"473","10":"476","11":"1","12":"1","13":"5","14":"5"},{"1":"raxM","2":"1","3":"31","4":"177","5":"74.7","6":"1","7":"67.2","8":"2","9":"453","10":"556","11":"2","12":"2","13":"5","14":"4"},{"1":"Fo9d","2":"2","3":"34","4":"146","5":"64.0","6":"4","7":"54.7","8":"3","9":"370","10":"403","11":"2","12":"2","13":"5","14":"3"},{"1":"DkiX","2":"1","3":"26","4":"180","5":"114.4","6":"3","7":"103.6","8":"1","9":"485","10":"511","11":"1","12":"2","13":"4","14":"2"},{"1":"r6dT","2":"2","3":"30","4":"167","5":"59.6","6":"2","7":"52.3","8":"1","9":"421","10":"429","11":"1","12":"1","13":"6","14":"4"},{"1":"9Cmu","2":"2","3":"32","4":"163","5":"72.4","6":"9","7":"58.5","8":"1","9":"425","10":"431","11":"2","12":"1","13":"4","14":"4"},{"1":"yjGQ","2":"1","3":"33","4":"169","5":"82.1","6":"0","7":"75.4","8":"3","9":"464","10":"515","11":"2","12":"1","13":"4","14":"2"},{"1":"g5ms","2":"1","3":"26","4":"167","5":"48.3","6":"1","7":"43.3","8":"3","9":"491","10":"510","11":"1","12":"2","13":"4","14":"3"},{"1":"9jOU","2":"1","3":"32","4":"177","5":"79.0","6":"1","7":"73.0","8":"2","9":"476","10":"493","11":"2","12":"1","13":"6","14":"5"},{"1":"Q7uM","2":"2","3":"35","4":"138","5":"58.9","6":"1","7":"52.7","8":"2","9":"413","10":"433","11":"1","12":"2","13":"5","14":"3"},{"1":"NMW9","2":"1","3":"27","4":"177","5":"71.3","6":"3","7":"65.2","8":"3","9":"436","10":"529","11":"1","12":"2","13":"6","14":"4"},{"1":"gSzG","2":"1","3":"26","4":"177","5":"86.1","6":"0","7":"78.0","8":"3","9":"441","10":"465","11":"1","12":"1","13":"4","14":"4"},{"1":"8pI7","2":"1","3":"30","4":"151","5":"50.6","6":"3","7":"44.8","8":"1","9":"455","10":"445","11":"2","12":"1","13":"6","14":"5"},{"1":"9IW0","2":"2","3":"32","4":"139","5":"36.1","6":"9","7":"26.1","8":"2","9":"430","10":"478","11":"2","12":"2","13":"4","14":"2"},{"1":"CsPJ","2":"2","3":"31","4":"140","5":"65.6","6":"2","7":"60.7","8":"3","9":"406","10":"514","11":"2","12":"1","13":"4","14":"2"},{"1":"Kqqv","2":"2","3":"32","4":"138","5":"64.9","6":"5","7":"57.9","8":"2","9":"372","10":"434","11":"1","12":"2","13":"5","14":"5"},{"1":"NvUe","2":"1","3":"34","4":"171","5":"111.8","6":"5","7":"102.0","8":"1","9":"465","10":"444","11":"2","12":"1","13":"4","14":"2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
-</div>
-</div>
-<details open>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>asthmads_clean <span class="ot">&lt;-</span> asthma_ds0 <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">as.character</span>(Gender),</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">Gender =</span> <span class="fu">fct_recode</span>(Gender, <span class="st">&quot;Male&quot;</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span>, <span class="st">&quot;Female&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>),</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">Gender =</span> <span class="fu">fct_relevel</span>(Gender, <span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>),</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">Tx2 =</span> <span class="fu">fct_recode</span>(<span class="fu">as.character</span>(Tx2),</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&quot;Placebo&quot;</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span>, <span class="st">&quot;Drug A&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>, <span class="st">&quot;Drug B&quot;</span> <span class="ot">=</span> <span class="st">&quot;3&quot;</span>),</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">Tx1 =</span> <span class="fu">fct_collapse</span>(Tx2,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;Intervention&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Drug A&quot;</span>, <span class="st">&quot;Drug B&quot;</span>),</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;Control&quot;</span> <span class="ot">=</span> <span class="st">&quot;Placebo&quot;</span>),</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">Ht_m =</span> Height<span class="sc">/</span><span class="dv">100</span>,</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_Pre =</span> <span class="fu">round</span>(Weight_Pre<span class="sc">/</span>(Ht_m<span class="sc">^</span><span class="dv">2</span>), <span class="at">digits =</span> <span class="dv">2</span>),</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_PreCat =</span> <span class="fu">cut</span>(BMI_Pre,</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>                          <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">18.49</span>, <span class="fl">22.99</span>, <span class="fl">24.99</span>, <span class="dv">100</span>),</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Underweight&quot;</span>, <span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Overweight&quot;</span>, <span class="st">&quot;Obese&quot;</span>)),</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_Post =</span> <span class="fu">round</span>(Weight_Post<span class="sc">/</span>(Ht_m<span class="sc">^</span><span class="dv">2</span>), <span class="at">digits =</span> <span class="dv">2</span>),</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_PostCat =</span> <span class="fu">cut</span>(BMI_Post,</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>                           <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">18.49</span>, <span class="fl">22.99</span>, <span class="fl">24.99</span>, <span class="dv">100</span>),</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>                           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Underweight&quot;</span>, <span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Overweight&quot;</span>, <span class="st">&quot;Obese&quot;</span>)),</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;SxWheeze&quot;</span>),</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>                <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">as.character</span>(.)),</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;SxWheeze&quot;</span>),</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>                <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">fct_recode</span>(., <span class="st">&quot;No&quot;</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span>, <span class="st">&quot;Yes&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Tx1, <span class="at">.before =</span> Tx2) <span class="sc">%&gt;%</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Ht_m, <span class="at">.after =</span> Height) <span class="sc">%&gt;%</span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(BMI_Pre, BMI_PreCat, <span class="at">.after =</span> Weight_Pre) <span class="sc">%&gt;%</span></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(BMI_Post, BMI_PostCat, <span class="at">.after =</span> Weight_Post)</span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>asthmads_clean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-
-<div data-pagedtable="false">
+</div><div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["idR"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Gender"],"name":[2],"type":["fct"],"align":["left"]},{"label":["Age"],"name":[3],"type":["int"],"align":["right"]},{"label":["Height"],"name":[4],"type":["int"],"align":["right"]},{"label":["Ht_m"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Weight_Pre"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["BMI_Pre"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["BMI_PreCat"],"name":[8],"type":["fct"],"align":["left"]},{"label":["PA_HW"],"name":[9],"type":["int"],"align":["right"]},{"label":["Weight_Post"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["BMI_Post"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["BMI_PostCat"],"name":[12],"type":["fct"],"align":["left"]},{"label":["Tx1"],"name":[13],"type":["fct"],"align":["left"]},{"label":["Tx2"],"name":[14],"type":["fct"],"align":["left"]},{"label":["PEFR_Pre"],"name":[15],"type":["int"],"align":["right"]},{"label":["PEFR_Post"],"name":[16],"type":["int"],"align":["right"]},{"label":["SxWheeze_Pre"],"name":[17],"type":["fct"],"align":["left"]},{"label":["SxWheeze_Post"],"name":[18],"type":["fct"],"align":["left"]},{"label":["PS_Pre"],"name":[19],"type":["int"],"align":["right"]},{"label":["PS_Post"],"name":[20],"type":["int"],"align":["right"]}],"data":[{"1":"8pg4","2":"Female","3":"34","4":"134","5":"1.34","6":"47.5","7":"26.45","8":"Obese","9":"3","10":"42.4","11":"23.61","12":"Overweight","13":"Intervention","14":"Drug B","15":"434","16":"428","17":"No","18":"No","19":"5","20":"5"},{"1":"VOPL","2":"Male","3":"31","4":"161","5":"1.61","6":"59.8","7":"23.07","8":"Overweight","9":"8","10":"49.4","11":"19.06","12":"Normal","13":"Intervention","14":"Drug A","15":"484","16":"525","17":"Yes","18":"No","19":"6","20":"5"},{"1":"Y3Gs","2":"Male","3":"25","4":"184","5":"1.84","6":"91.2","7":"26.94","8":"Obese","9":"3","10":"78.3","11":"23.13","12":"Overweight","13":"Intervention","14":"Drug A","15":"464","16":"525","17":"Yes","18":"Yes","19":"5","20":"5"},{"1":"0vTK","2":"Female","3":"33","4":"141","5":"1.41","6":"60.4","7":"30.38","8":"Obese","9":"2","10":"53.4","11":"26.86","12":"Obese","13":"Intervention","14":"Drug B","15":"434","16":"521","17":"No","18":"No","19":"5","20":"4"},{"1":"jNUd","2":"Male","3":"28","4":"174","5":"1.74","6":"96.4","7":"31.84","8":"Obese","9":"1","10":"88.1","11":"29.10","12":"Obese","13":"Intervention","14":"Drug A","15":"484","16":"560","17":"Yes","18":"No","19":"5","20":"4"},{"1":"ax87","2":"Male","3":"33","4":"189","5":"1.89","6":"76.4","7":"21.39","8":"Normal","9":"0","10":"70.3","11":"19.68","12":"Normal","13":"Control","14":"Placebo","15":"474","16":"471","17":"Yes","18":"Yes","19":"6","20":"6"},{"1":"Hndi","2":"Female","3":"31","4":"172","5":"1.72","6":"58.2","7":"19.67","8":"Normal","9":"4","10":"47.5","11":"16.06","12":"Underweight","13":"Intervention","14":"Drug A","15":"394","16":"438","17":"Yes","18":"No","19":"4","20":"4"},{"1":"YCkg","2":"Female","3":"34","4":"159","5":"1.59","6":"52.8","7":"20.89","8":"Normal","9":"3","10":"47.0","11":"18.59","12":"Normal","13":"Intervention","14":"Drug A","15":"426","16":"515","17":"Yes","18":"No","19":"4","20":"4"},{"1":"aJX5","2":"Male","3":"31","4":"192","5":"1.92","6":"83.5","7":"22.65","8":"Normal","9":"4","10":"70.0","11":"18.99","12":"Normal","13":"Intervention","14":"Drug B","15":"447","16":"515","17":"Yes","18":"No","19":"5","20":"4"},{"1":"d5NA","2":"Male","3":"28","4":"168","5":"1.68","6":"60.4","7":"21.40","8":"Normal","9":"2","10":"52.8","11":"18.71","12":"Normal","13":"Control","14":"Placebo","15":"427","16":"471","17":"Yes","18":"No","19":"4","20":"4"},{"1":"y4NK","2":"Male","3":"34","4":"170","5":"1.70","6":"99.6","7":"34.46","8":"Obese","9":"5","10":"87.5","11":"30.28","12":"Obese","13":"Control","14":"Placebo","15":"466","16":"473","17":"No","18":"Yes","19":"6","20":"5"},{"1":"c1ic","2":"Female","3":"25","4":"148","5":"1.48","6":"56.0","7":"25.57","8":"Obese","9":"5","10":"50.5","11":"23.06","12":"Overweight","13":"Intervention","14":"Drug A","15":"407","16":"448","17":"Yes","18":"No","19":"6","20":"5"},{"1":"BuQm","2":"Male","3":"31","4":"182","5":"1.82","6":"82.0","7":"24.76","8":"Overweight","9":"1","10":"73.0","11":"22.04","12":"Normal","13":"Control","14":"Placebo","15":"495","16":"506","17":"Yes","18":"Yes","19":"6","20":"6"},{"1":"WXx2","2":"Male","3":"35","4":"175","5":"1.75","6":"53.3","7":"17.40","8":"Underweight","9":"2","10":"46.0","11":"15.02","12":"Underweight","13":"Intervention","14":"Drug A","15":"455","16":"513","17":"No","18":"Yes","19":"6","20":"5"},{"1":"WA7q","2":"Female","3":"32","4":"151","5":"1.51","6":"72.9","7":"31.97","8":"Obese","9":"0","10":"68.5","11":"30.04","12":"Obese","13":"Control","14":"Placebo","15":"429","16":"464","17":"No","18":"Yes","19":"5","20":"5"},{"1":"mXB4","2":"Female","3":"34","4":"152","5":"1.52","6":"65.5","7":"28.35","8":"Obese","9":"2","10":"59.3","11":"25.67","12":"Obese","13":"Control","14":"Placebo","15":"387","16":"358","17":"Yes","18":"No","19":"4","20":"3"},{"1":"w3IC","2":"Male","3":"30","4":"175","5":"1.75","6":"83.7","7":"27.33","8":"Obese","9":"5","10":"69.8","11":"22.79","12":"Normal","13":"Intervention","14":"Drug A","15":"461","16":"518","17":"No","18":"No","19":"6","20":"4"},{"1":"vlB6","2":"Male","3":"26","4":"172","5":"1.72","6":"74.5","7":"25.18","8":"Obese","9":"4","10":"66.6","11":"22.51","12":"Normal","13":"Control","14":"Placebo","15":"443","16":"430","17":"Yes","18":"No","19":"5","20":"3"},{"1":"6eHs","2":"Male","3":"32","4":"178","5":"1.78","6":"81.6","7":"25.75","8":"Obese","9":"5","10":"67.8","11":"21.40","12":"Normal","13":"Intervention","14":"Drug A","15":"426","16":"437","17":"Yes","18":"No","19":"4","20":"3"},{"1":"ceTF","2":"Female","3":"34","4":"147","5":"1.47","6":"60.9","7":"28.18","8":"Obese","9":"4","10":"53.8","11":"24.90","12":"Overweight","13":"Intervention","14":"Drug A","15":"401","16":"491","17":"Yes","18":"No","19":"4","20":"4"},{"1":"3E18","2":"Male","3":"32","4":"185","5":"1.85","6":"117.6","7":"34.36","8":"Obese","9":"1","10":"108.0","11":"31.56","12":"Obese","13":"Intervention","14":"Drug A","15":"446","16":"520","17":"No","18":"No","19":"4","20":"3"},{"1":"vdOv","2":"Female","3":"32","4":"156","5":"1.56","6":"56.1","7":"23.05","8":"Overweight","9":"2","10":"50.5","11":"20.75","12":"Normal","13":"Intervention","14":"Drug B","15":"405","16":"483","17":"Yes","18":"No","19":"5","20":"5"},{"1":"nAfE","2":"Female","3":"34","4":"135","5":"1.35","6":"43.1","7":"23.65","8":"Overweight","9":"3","10":"38.1","11":"20.91","12":"Normal","13":"Intervention","14":"Drug A","15":"340","16":"385","17":"Yes","18":"No","19":"6","20":"6"},{"1":"tP3Y","2":"Male","3":"26","4":"163","5":"1.63","6":"99.8","7":"37.56","8":"Obese","9":"0","10":"95.0","11":"35.76","12":"Obese","13":"Intervention","14":"Drug A","15":"458","16":"474","17":"Yes","18":"No","19":"6","20":"4"},{"1":"UoA8","2":"Male","3":"25","4":"165","5":"1.65","6":"54.1","7":"19.87","8":"Normal","9":"0","10":"51.8","11":"19.03","12":"Normal","13":"Intervention","14":"Drug A","15":"429","16":"481","17":"Yes","18":"Yes","19":"5","20":"5"},{"1":"zGcV","2":"Male","3":"26","4":"171","5":"1.71","6":"88.1","7":"30.13","8":"Obese","9":"0","10":"79.4","11":"27.15","12":"Obese","13":"Intervention","14":"Drug B","15":"458","16":"604","17":"Yes","18":"No","19":"5","20":"5"},{"1":"OSXH","2":"Male","3":"32","4":"158","5":"1.58","6":"33.9","7":"13.58","8":"Underweight","9":"3","10":"28.0","11":"11.22","12":"Underweight","13":"Intervention","14":"Drug B","15":"467","16":"524","17":"Yes","18":"No","19":"5","20":"4"},{"1":"TZ9R","2":"Male","3":"31","4":"170","5":"1.70","6":"72.2","7":"24.98","8":"Overweight","9":"2","10":"64.1","11":"22.18","12":"Normal","13":"Intervention","14":"Drug A","15":"426","16":"436","17":"No","18":"No","19":"4","20":"2"},{"1":"6LrD","2":"Female","3":"26","4":"139","5":"1.39","6":"54.0","7":"27.95","8":"Obese","9":"2","10":"49.7","11":"25.72","12":"Obese","13":"Control","14":"Placebo","15":"424","16":"460","17":"Yes","18":"No","19":"4","20":"4"},{"1":"xODx","2":"Female","3":"34","4":"145","5":"1.45","6":"54.0","7":"25.68","8":"Obese","9":"2","10":"50.1","11":"23.83","12":"Overweight","13":"Control","14":"Placebo","15":"404","16":"382","17":"Yes","18":"No","19":"4","20":"2"},{"1":"P2dV","2":"Male","3":"35","4":"155","5":"1.55","6":"60.4","7":"25.14","8":"Obese","9":"1","10":"53.8","11":"22.39","12":"Normal","13":"Intervention","14":"Drug A","15":"501","16":"580","17":"No","18":"Yes","19":"5","20":"3"},{"1":"51DX","2":"Male","3":"33","4":"191","5":"1.91","6":"97.4","7":"26.70","8":"Obese","9":"0","10":"89.5","11":"24.53","12":"Overweight","13":"Control","14":"Placebo","15":"475","16":"423","17":"Yes","18":"No","19":"6","20":"6"},{"1":"P0Q7","2":"Female","3":"31","4":"165","5":"1.65","6":"73.0","7":"26.81","8":"Obese","9":"3","10":"68.1","11":"25.01","12":"Obese","13":"Intervention","14":"Drug A","15":"370","16":"381","17":"Yes","18":"No","19":"4","20":"4"},{"1":"peFX","2":"Female","3":"31","4":"143","5":"1.43","6":"61.0","7":"29.83","8":"Obese","9":"1","10":"56.9","11":"27.83","12":"Obese","13":"Intervention","14":"Drug A","15":"371","16":"427","17":"Yes","18":"Yes","19":"4","20":"2"},{"1":"57qU","2":"Female","3":"31","4":"139","5":"1.39","6":"56.5","7":"29.24","8":"Obese","9":"4","10":"51.8","11":"26.81","12":"Obese","13":"Intervention","14":"Drug A","15":"396","16":"461","17":"Yes","18":"No","19":"4","20":"2"},{"1":"LqnX","2":"Female","3":"28","4":"161","5":"1.61","6":"57.8","7":"22.30","8":"Normal","9":"4","10":"48.2","11":"18.59","12":"Normal","13":"Control","14":"Placebo","15":"425","16":"403","17":"No","18":"No","19":"6","20":"4"},{"1":"Swyg","2":"Female","3":"30","4":"154","5":"1.54","6":"77.6","7":"32.72","8":"Obese","9":"0","10":"72.4","11":"30.53","12":"Obese","13":"Control","14":"Placebo","15":"404","16":"363","17":"No","18":"Yes","19":"5","20":"3"},{"1":"2tQB","2":"Female","3":"33","4":"145","5":"1.45","6":"48.8","7":"23.21","8":"Overweight","9":"3","10":"44.5","11":"21.17","12":"Normal","13":"Control","14":"Placebo","15":"410","16":"377","17":"Yes","18":"No","19":"4","20":"2"},{"1":"W42x","2":"Female","3":"29","4":"155","5":"1.55","6":"65.0","7":"27.06","8":"Obese","9":"3","10":"56.8","11":"23.64","12":"Overweight","13":"Intervention","14":"Drug A","15":"431","16":"508","17":"No","18":"No","19":"6","20":"5"},{"1":"2SmO","2":"Male","3":"32","4":"192","5":"1.92","6":"114.2","7":"30.98","8":"Obese","9":"1","10":"106.5","11":"28.89","12":"Obese","13":"Control","14":"Placebo","15":"464","16":"410","17":"Yes","18":"Yes","19":"6","20":"5"},{"1":"nnD3","2":"Female","3":"26","4":"155","5":"1.55","6":"52.9","7":"22.02","8":"Normal","9":"1","10":"48.1","11":"20.02","12":"Normal","13":"Intervention","14":"Drug B","15":"406","16":"438","17":"Yes","18":"Yes","19":"6","20":"4"},{"1":"slle","2":"Female","3":"27","4":"143","5":"1.43","6":"60.1","7":"29.39","8":"Obese","9":"1","10":"56.0","11":"27.39","12":"Obese","13":"Intervention","14":"Drug B","15":"451","16":"509","17":"Yes","18":"Yes","19":"6","20":"5"},{"1":"6jr3","2":"Female","3":"26","4":"145","5":"1.45","6":"80.0","7":"38.05","8":"Obese","9":"2","10":"74.5","11":"35.43","12":"Obese","13":"Intervention","14":"Drug B","15":"415","16":"493","17":"Yes","18":"No","19":"5","20":"3"},{"1":"gC3T","2":"Female","3":"33","4":"163","5":"1.63","6":"57.0","7":"21.45","8":"Normal","9":"8","10":"44.7","11":"16.82","12":"Underweight","13":"Intervention","14":"Drug B","15":"438","16":"478","17":"Yes","18":"Yes","19":"6","20":"6"},{"1":"ytcm","2":"Male","3":"29","4":"175","5":"1.75","6":"57.8","7":"18.87","8":"Normal","9":"1","10":"49.1","11":"16.03","12":"Underweight","13":"Intervention","14":"Drug A","15":"469","16":"547","17":"No","18":"Yes","19":"5","20":"5"},{"1":"KF2z","2":"Female","3":"28","4":"139","5":"1.39","6":"46.8","7":"24.22","8":"Overweight","9":"7","10":"40.8","11":"21.12","12":"Normal","13":"Intervention","14":"Drug A","15":"414","16":"489","17":"Yes","18":"No","19":"6","20":"5"},{"1":"wY7c","2":"Female","3":"35","4":"143","5":"1.43","6":"63.1","7":"30.86","8":"Obese","9":"1","10":"59.5","11":"29.10","12":"Obese","13":"Intervention","14":"Drug A","15":"439","16":"513","17":"No","18":"No","19":"6","20":"5"},{"1":"AHIT","2":"Male","3":"27","4":"179","5":"1.79","6":"98.8","7":"30.84","8":"Obese","9":"5","10":"89.1","11":"27.81","12":"Obese","13":"Intervention","14":"Drug A","15":"437","16":"517","17":"Yes","18":"No","19":"6","20":"5"},{"1":"U4zR","2":"Male","3":"31","4":"177","5":"1.77","6":"78.1","7":"24.93","8":"Overweight","9":"3","10":"71.8","11":"22.92","12":"Normal","13":"Intervention","14":"Drug B","15":"476","16":"527","17":"No","18":"No","19":"6","20":"5"},{"1":"sxWW","2":"Male","3":"28","4":"178","5":"1.78","6":"83.7","7":"26.42","8":"Obese","9":"5","10":"68.8","11":"21.71","12":"Normal","13":"Control","14":"Placebo","15":"458","16":"503","17":"No","18":"Yes","19":"4","20":"4"},{"1":"jVZI","2":"Male","3":"34","4":"173","5":"1.73","6":"112.2","7":"37.49","8":"Obese","9":"2","10":"107.4","11":"35.88","12":"Obese","13":"Control","14":"Placebo","15":"482","16":"551","17":"Yes","18":"Yes","19":"4","20":"4"},{"1":"INpF","2":"Female","3":"35","4":"135","5":"1.35","6":"54.2","7":"29.74","8":"Obese","9":"2","10":"50.3","11":"27.60","12":"Obese","13":"Intervention","14":"Drug B","15":"403","16":"472","17":"Yes","18":"Yes","19":"5","20":"5"},{"1":"hnA7","2":"Male","3":"29","4":"178","5":"1.78","6":"77.7","7":"24.52","8":"Overweight","9":"1","10":"74.7","11":"23.58","12":"Overweight","13":"Intervention","14":"Drug A","15":"469","16":"507","17":"No","18":"Yes","19":"5","20":"5"},{"1":"MyiU","2":"Male","3":"33","4":"177","5":"1.77","6":"85.2","7":"27.20","8":"Obese","9":"5","10":"71.1","11":"22.69","12":"Normal","13":"Intervention","14":"Drug A","15":"489","16":"527","17":"Yes","18":"Yes","19":"6","20":"5"},{"1":"GhYg","2":"Female","3":"30","4":"137","5":"1.37","6":"55.2","7":"29.41","8":"Obese","9":"7","10":"48.0","11":"25.57","12":"Obese","13":"Intervention","14":"Drug A","15":"391","16":"451","17":"No","18":"No","19":"4","20":"3"},{"1":"1SM4","2":"Male","3":"29","4":"181","5":"1.81","6":"112.3","7":"34.28","8":"Obese","9":"1","10":"102.9","11":"31.41","12":"Obese","13":"Control","14":"Placebo","15":"451","16":"469","17":"Yes","18":"Yes","19":"4","20":"3"},{"1":"uhBR","2":"Male","3":"30","4":"176","5":"1.76","6":"73.4","7":"23.70","8":"Overweight","9":"3","10":"61.1","11":"19.72","12":"Normal","13":"Control","14":"Placebo","15":"436","16":"428","17":"No","18":"Yes","19":"6","20":"6"},{"1":"tKbM","2":"Female","3":"32","4":"143","5":"1.43","6":"78.7","7":"38.49","8":"Obese","9":"8","10":"68.6","11":"33.55","12":"Obese","13":"Control","14":"Placebo","15":"388","16":"379","17":"No","18":"Yes","19":"4","20":"2"},{"1":"sjTx","2":"Female","3":"28","4":"130","5":"1.30","6":"38.8","7":"22.96","8":"Normal","9":"5","10":"34.0","11":"20.12","12":"Normal","13":"Intervention","14":"Drug B","15":"422","16":"423","17":"No","18":"No","19":"6","20":"6"},{"1":"AD3E","2":"Female","3":"29","4":"144","5":"1.44","6":"56.0","7":"27.01","8":"Obese","9":"0","10":"52.6","11":"25.37","12":"Obese","13":"Control","14":"Placebo","15":"369","16":"396","17":"Yes","18":"Yes","19":"5","20":"5"},{"1":"ILug","2":"Female","3":"29","4":"151","5":"1.51","6":"67.0","7":"29.38","8":"Obese","9":"4","10":"59.5","11":"26.10","12":"Obese","13":"Control","14":"Placebo","15":"409","16":"427","17":"No","18":"No","19":"5","20":"5"},{"1":"VfIn","2":"Female","3":"27","4":"158","5":"1.58","6":"61.5","7":"24.64","8":"Overweight","9":"2","10":"55.5","11":"22.23","12":"Normal","13":"Control","14":"Placebo","15":"368","16":"340","17":"Yes","18":"No","19":"6","20":"6"},{"1":"V9xY","2":"Male","3":"25","4":"171","5":"1.71","6":"64.8","7":"22.16","8":"Normal","9":"3","10":"59.0","11":"20.18","12":"Normal","13":"Control","14":"Placebo","15":"434","16":"416","17":"No","18":"Yes","19":"6","20":"5"},{"1":"t5EQ","2":"Female","3":"29","4":"153","5":"1.53","6":"68.3","7":"29.18","8":"Obese","9":"7","10":"58.9","11":"25.16","12":"Obese","13":"Control","14":"Placebo","15":"399","16":"389","17":"No","18":"No","19":"5","20":"3"},{"1":"BNaT","2":"Female","3":"27","4":"129","5":"1.29","6":"34.3","7":"20.61","8":"Normal","9":"2","10":"29.7","11":"17.85","12":"Underweight","13":"Control","14":"Placebo","15":"375","16":"395","17":"Yes","18":"Yes","19":"4","20":"3"},{"1":"mj86","2":"Male","3":"27","4":"177","5":"1.77","6":"66.4","7":"21.19","8":"Normal","9":"2","10":"56.9","11":"18.16","12":"Underweight","13":"Control","14":"Placebo","15":"432","16":"422","17":"No","18":"No","19":"6","20":"6"},{"1":"XTw7","2":"Male","3":"26","4":"190","5":"1.90","6":"127.4","7":"35.29","8":"Obese","9":"0","10":"121.4","11":"33.63","12":"Obese","13":"Control","14":"Placebo","15":"476","16":"438","17":"Yes","18":"Yes","19":"5","20":"5"},{"1":"tcmS","2":"Male","3":"34","4":"175","5":"1.75","6":"102.5","7":"33.47","8":"Obese","9":"3","10":"91.7","11":"29.94","12":"Obese","13":"Intervention","14":"Drug A","15":"468","16":"492","17":"Yes","18":"Yes","19":"6","20":"5"},{"1":"Bdd8","2":"Male","3":"31","4":"194","5":"1.94","6":"113.4","7":"30.13","8":"Obese","9":"3","10":"105.2","11":"27.95","12":"Obese","13":"Intervention","14":"Drug A","15":"457","16":"545","17":"Yes","18":"No","19":"4","20":"3"},{"1":"X3ku","2":"Male","3":"30","4":"162","5":"1.62","6":"64.4","7":"24.54","8":"Overweight","9":"3","10":"59.2","11":"22.56","12":"Normal","13":"Intervention","14":"Drug A","15":"488","16":"529","17":"Yes","18":"No","19":"5","20":"3"},{"1":"SC0q","2":"Male","3":"27","4":"183","5":"1.83","6":"71.3","7":"21.29","8":"Normal","9":"1","10":"62.9","11":"18.78","12":"Normal","13":"Control","14":"Placebo","15":"474","16":"442","17":"Yes","18":"No","19":"6","20":"4"},{"1":"KdQc","2":"Male","3":"35","4":"170","5":"1.70","6":"61.7","7":"21.35","8":"Normal","9":"2","10":"55.3","11":"19.13","12":"Normal","13":"Control","14":"Placebo","15":"451","16":"443","17":"No","18":"Yes","19":"4","20":"2"},{"1":"YSPX","2":"Male","3":"28","4":"190","5":"1.90","6":"93.8","7":"25.98","8":"Obese","9":"0","10":"89.5","11":"24.79","12":"Overweight","13":"Control","14":"Placebo","15":"477","16":"460","17":"Yes","18":"Yes","19":"5","20":"3"},{"1":"HvdM","2":"Female","3":"29","4":"150","5":"1.50","6":"78.9","7":"35.07","8":"Obese","9":"4","10":"72.3","11":"32.13","12":"Obese","13":"Control","14":"Placebo","15":"367","16":"367","17":"Yes","18":"No","19":"5","20":"3"},{"1":"VQei","2":"Male","3":"32","4":"178","5":"1.78","6":"69.5","7":"21.94","8":"Normal","9":"1","10":"63.5","11":"20.04","12":"Normal","13":"Control","14":"Placebo","15":"490","16":"438","17":"Yes","18":"No","19":"4","20":"3"},{"1":"Iard","2":"Male","3":"31","4":"204","5":"2.04","6":"121.2","7":"29.12","8":"Obese","9":"1","10":"115.2","11":"27.68","12":"Obese","13":"Control","14":"Placebo","15":"488","16":"509","17":"Yes","18":"Yes","19":"6","20":"5"},{"1":"bgvV","2":"Male","3":"32","4":"169","5":"1.69","6":"78.5","7":"27.49","8":"Obese","9":"1","10":"71.1","11":"24.89","12":"Overweight","13":"Intervention","14":"Drug B","15":"428","16":"468","17":"Yes","18":"No","19":"4","20":"4"},{"1":"eWHr","2":"Male","3":"27","4":"164","5":"1.64","6":"99.2","7":"36.88","8":"Obese","9":"5","10":"89.8","11":"33.39","12":"Obese","13":"Control","14":"Placebo","15":"500","16":"530","17":"Yes","18":"No","19":"4","20":"2"},{"1":"nvWc","2":"Female","3":"35","4":"136","5":"1.36","6":"42.9","7":"23.19","8":"Overweight","9":"3","10":"38.6","11":"20.87","12":"Normal","13":"Intervention","14":"Drug B","15":"393","16":"490","17":"Yes","18":"No","19":"5","20":"3"},{"1":"iYbB","2":"Male","3":"26","4":"172","5":"1.72","6":"77.3","7":"26.13","8":"Obese","9":"4","10":"71.3","11":"24.10","12":"Overweight","13":"Intervention","14":"Drug B","15":"424","16":"532","17":"Yes","18":"No","19":"6","20":"5"},{"1":"bTud","2":"Female","3":"34","4":"153","5":"1.53","6":"67.1","7":"28.66","8":"Obese","9":"2","10":"61.2","11":"26.14","12":"Obese","13":"Intervention","14":"Drug B","15":"355","16":"415","17":"No","18":"No","19":"5","20":"4"},{"1":"Hcnh","2":"Male","3":"25","4":"165","5":"1.65","6":"75.6","7":"27.77","8":"Obese","9":"0","10":"72.3","11":"26.56","12":"Obese","13":"Intervention","14":"Drug A","15":"478","16":"578","17":"Yes","18":"No","19":"4","20":"3"},{"1":"KtR1","2":"Female","3":"29","4":"140","5":"1.40","6":"56.4","7":"28.78","8":"Obese","9":"4","10":"49.8","11":"25.41","12":"Obese","13":"Intervention","14":"Drug A","15":"392","16":"437","17":"No","18":"No","19":"6","20":"5"},{"1":"W40A","2":"Female","3":"34","4":"146","5":"1.46","6":"40.7","7":"19.09","8":"Normal","9":"0","10":"36.5","11":"17.12","12":"Underweight","13":"Intervention","14":"Drug B","15":"399","16":"453","17":"No","18":"No","19":"4","20":"2"},{"1":"cWcd","2":"Male","3":"34","4":"163","5":"1.63","6":"87.2","7":"32.82","8":"Obese","9":"5","10":"78.5","11":"29.55","12":"Obese","13":"Intervention","14":"Drug B","15":"439","16":"504","17":"Yes","18":"No","19":"4","20":"4"},{"1":"CddG","2":"Female","3":"25","4":"139","5":"1.39","6":"48.2","7":"24.95","8":"Overweight","9":"3","10":"42.7","11":"22.10","12":"Normal","13":"Control","14":"Placebo","15":"391","16":"367","17":"No","18":"No","19":"6","20":"6"},{"1":"lJXL","2":"Male","3":"26","4":"174","5":"1.74","6":"91.5","7":"30.22","8":"Obese","9":"1","10":"83.6","11":"27.61","12":"Obese","13":"Control","14":"Placebo","15":"448","16":"431","17":"Yes","18":"No","19":"6","20":"6"},{"1":"mRHC","2":"Female","3":"31","4":"162","5":"1.62","6":"54.0","7":"20.58","8":"Normal","9":"3","10":"47.3","11":"18.02","12":"Underweight","13":"Intervention","14":"Drug B","15":"439","16":"508","17":"Yes","18":"No","19":"6","20":"5"},{"1":"lu1U","2":"Male","3":"34","4":"175","5":"1.75","6":"60.7","7":"19.82","8":"Normal","9":"3","10":"51.5","11":"16.82","12":"Underweight","13":"Control","14":"Placebo","15":"474","16":"482","17":"Yes","18":"Yes","19":"6","20":"4"},{"1":"yJoM","2":"Male","3":"34","4":"172","5":"1.72","6":"109.4","7":"36.98","8":"Obese","9":"5","10":"97.9","11":"33.09","12":"Obese","13":"Control","14":"Placebo","15":"445","16":"417","17":"Yes","18":"No","19":"5","20":"5"},{"1":"xcFV","2":"Male","3":"25","4":"172","5":"1.72","6":"92.2","7":"31.17","8":"Obese","9":"3","10":"81.7","11":"27.62","12":"Obese","13":"Intervention","14":"Drug A","15":"441","16":"519","17":"No","18":"No","19":"4","20":"3"},{"1":"xqkc","2":"Female","3":"30","4":"154","5":"1.54","6":"51.1","7":"21.55","8":"Normal","9":"3","10":"43.3","11":"18.26","12":"Underweight","13":"Intervention","14":"Drug A","15":"378","16":"441","17":"No","18":"No","19":"4","20":"4"},{"1":"WYH6","2":"Male","3":"35","4":"186","5":"1.86","6":"67.0","7":"19.37","8":"Normal","9":"2","10":"62.5","11":"18.07","12":"Underweight","13":"Control","14":"Placebo","15":"424","16":"416","17":"No","18":"Yes","19":"6","20":"5"},{"1":"JDmR","2":"Male","3":"30","4":"174","5":"1.74","6":"82.7","7":"27.32","8":"Obese","9":"2","10":"74.0","11":"24.44","12":"Overweight","13":"Intervention","14":"Drug B","15":"438","16":"464","17":"No","18":"Yes","19":"4","20":"3"},{"1":"n4qr","2":"Female","3":"33","4":"151","5":"1.51","6":"80.7","7":"35.39","8":"Obese","9":"1","10":"76.0","11":"33.33","12":"Obese","13":"Intervention","14":"Drug B","15":"416","16":"503","17":"No","18":"No","19":"6","20":"5"},{"1":"p2zP","2":"Male","3":"33","4":"173","5":"1.73","6":"58.0","7":"19.38","8":"Normal","9":"1","10":"52.0","11":"17.37","12":"Underweight","13":"Control","14":"Placebo","15":"454","16":"413","17":"Yes","18":"Yes","19":"4","20":"4"},{"1":"xlnd","2":"Female","3":"32","4":"138","5":"1.38","6":"56.9","7":"29.88","8":"Obese","9":"4","10":"51.7","11":"27.15","12":"Obese","13":"Intervention","14":"Drug B","15":"405","16":"410","17":"Yes","18":"Yes","19":"4","20":"3"},{"1":"BKW8","2":"Male","3":"35","4":"171","5":"1.71","6":"48.6","7":"16.62","8":"Underweight","9":"6","10":"36.1","11":"12.35","12":"Underweight","13":"Intervention","14":"Drug A","15":"493","16":"506","17":"No","18":"No","19":"5","20":"5"},{"1":"TtFH","2":"Male","3":"27","4":"175","5":"1.75","6":"81.5","7":"26.61","8":"Obese","9":"3","10":"74.7","11":"24.39","12":"Overweight","13":"Control","14":"Placebo","15":"444","16":"510","17":"Yes","18":"No","19":"6","20":"5"},{"1":"PDh4","2":"Male","3":"29","4":"183","5":"1.83","6":"57.6","7":"17.20","8":"Underweight","9":"3","10":"50.7","11":"15.14","12":"Underweight","13":"Intervention","14":"Drug A","15":"453","16":"478","17":"Yes","18":"No","19":"6","20":"6"},{"1":"63w4","2":"Male","3":"26","4":"178","5":"1.78","6":"73.0","7":"23.04","8":"Overweight","9":"3","10":"62.3","11":"19.66","12":"Normal","13":"Control","14":"Placebo","15":"435","16":"475","17":"Yes","18":"Yes","19":"6","20":"6"},{"1":"rBeP","2":"Female","3":"26","4":"138","5":"1.38","6":"54.2","7":"28.46","8":"Obese","9":"3","10":"47.4","11":"24.89","12":"Overweight","13":"Control","14":"Placebo","15":"408","16":"379","17":"No","18":"Yes","19":"4","20":"4"},{"1":"HidY","2":"Male","3":"32","4":"183","5":"1.83","6":"56.8","7":"16.96","8":"Underweight","9":"2","10":"48.9","11":"14.60","12":"Underweight","13":"Intervention","14":"Drug B","15":"488","16":"548","17":"Yes","18":"No","19":"5","20":"3"},{"1":"sv8H","2":"Male","3":"34","4":"178","5":"1.78","6":"95.7","7":"30.20","8":"Obese","9":"2","10":"88.2","11":"27.84","12":"Obese","13":"Control","14":"Placebo","15":"441","16":"395","17":"Yes","18":"No","19":"5","20":"4"},{"1":"OoGl","2":"Male","3":"26","4":"172","5":"1.72","6":"99.1","7":"33.50","8":"Obese","9":"4","10":"91.6","11":"30.96","12":"Obese","13":"Control","14":"Placebo","15":"437","16":"448","17":"No","18":"No","19":"6","20":"6"},{"1":"LEWx","2":"Female","3":"33","4":"157","5":"1.57","6":"61.4","7":"24.91","8":"Overweight","9":"7","10":"49.8","11":"20.20","12":"Normal","13":"Intervention","14":"Drug B","15":"380","16":"433","17":"Yes","18":"No","19":"6","20":"5"},{"1":"WICO","2":"Male","3":"27","4":"178","5":"1.78","6":"51.2","7":"16.16","8":"Underweight","9":"0","10":"45.1","11":"14.23","12":"Underweight","13":"Control","14":"Placebo","15":"456","16":"499","17":"No","18":"No","19":"6","20":"4"},{"1":"at4e","2":"Female","3":"32","4":"161","5":"1.61","6":"72.2","7":"27.85","8":"Obese","9":"0","10":"69.9","11":"26.97","12":"Obese","13":"Control","14":"Placebo","15":"409","16":"417","17":"Yes","18":"No","19":"5","20":"4"},{"1":"SD7V","2":"Female","3":"28","4":"159","5":"1.59","6":"62.8","7":"24.84","8":"Overweight","9":"2","10":"57.8","11":"22.86","12":"Normal","13":"Control","14":"Placebo","15":"378","16":"428","17":"No","18":"Yes","19":"5","20":"4"},{"1":"yedB","2":"Male","3":"34","4":"188","5":"1.88","6":"59.6","7":"16.86","8":"Underweight","9":"2","10":"53.7","11":"15.19","12":"Underweight","13":"Control","14":"Placebo","15":"473","16":"508","17":"Yes","18":"Yes","19":"4","20":"4"},{"1":"AQFs","2":"Female","3":"29","4":"164","5":"1.64","6":"68.3","7":"25.39","8":"Obese","9":"0","10":"64.2","11":"23.87","12":"Overweight","13":"Intervention","14":"Drug B","15":"406","16":"457","17":"Yes","18":"No","19":"4","20":"2"},{"1":"UcMc","2":"Male","3":"27","4":"166","5":"1.66","6":"78.6","7":"28.52","8":"Obese","9":"2","10":"70.3","11":"25.51","12":"Obese","13":"Intervention","14":"Drug B","15":"448","16":"559","17":"Yes","18":"Yes","19":"6","20":"6"},{"1":"9ttM","2":"Male","3":"33","4":"168","5":"1.68","6":"91.2","7":"32.31","8":"Obese","9":"1","10":"85.2","11":"30.19","12":"Obese","13":"Control","14":"Placebo","15":"462","16":"468","17":"No","18":"No","19":"6","20":"4"},{"1":"TMMv","2":"Female","3":"32","4":"143","5":"1.43","6":"46.4","7":"22.69","8":"Normal","9":"1","10":"40.5","11":"19.81","12":"Normal","13":"Control","14":"Placebo","15":"376","16":"360","17":"Yes","18":"No","19":"5","20":"4"},{"1":"ghC7","2":"Female","3":"27","4":"146","5":"1.46","6":"46.2","7":"21.67","8":"Normal","9":"3","10":"40.4","11":"18.95","12":"Normal","13":"Control","14":"Placebo","15":"396","16":"414","17":"No","18":"Yes","19":"5","20":"5"},{"1":"fhXU","2":"Male","3":"26","4":"202","5":"2.02","6":"101.2","7":"24.80","8":"Overweight","9":"6","10":"85.5","11":"20.95","12":"Normal","13":"Intervention","14":"Drug B","15":"446","16":"527","17":"Yes","18":"No","19":"5","20":"4"},{"1":"MDjT","2":"Female","3":"32","4":"152","5":"1.52","6":"69.6","7":"30.12","8":"Obese","9":"0","10":"65.1","11":"28.18","12":"Obese","13":"Control","14":"Placebo","15":"401","16":"404","17":"Yes","18":"Yes","19":"4","20":"4"},{"1":"PyzF","2":"Male","3":"27","4":"179","5":"1.79","6":"89.2","7":"27.84","8":"Obese","9":"1","10":"81.5","11":"25.44","12":"Obese","13":"Intervention","14":"Drug B","15":"442","16":"501","17":"Yes","18":"No","19":"4","20":"3"},{"1":"LYex","2":"Female","3":"33","4":"148","5":"1.48","6":"68.2","7":"31.14","8":"Obese","9":"3","10":"62.1","11":"28.35","12":"Obese","13":"Intervention","14":"Drug A","15":"391","16":"413","17":"No","18":"No","19":"6","20":"6"},{"1":"UmBf","2":"Male","3":"29","4":"187","5":"1.87","6":"80.5","7":"23.02","8":"Overweight","9":"1","10":"72.5","11":"20.73","12":"Normal","13":"Intervention","14":"Drug A","15":"446","16":"511","17":"No","18":"No","19":"5","20":"5"},{"1":"V4AB","2":"Male","3":"25","4":"186","5":"1.86","6":"114.8","7":"33.18","8":"Obese","9":"8","10":"98.1","11":"28.36","12":"Obese","13":"Intervention","14":"Drug B","15":"461","16":"575","17":"No","18":"No","19":"4","20":"4"},{"1":"3zeb","2":"Male","3":"30","4":"165","5":"1.65","6":"65.5","7":"24.06","8":"Overweight","9":"4","10":"56.7","11":"20.83","12":"Normal","13":"Control","14":"Placebo","15":"430","16":"447","17":"Yes","18":"Yes","19":"4","20":"4"},{"1":"DVoc","2":"Male","3":"30","4":"182","5":"1.82","6":"109.9","7":"33.18","8":"Obese","9":"1","10":"100.0","11":"30.19","12":"Obese","13":"Intervention","14":"Drug A","15":"433","16":"484","17":"Yes","18":"Yes","19":"6","20":"6"},{"1":"EffX","2":"Female","3":"30","4":"154","5":"1.54","6":"81.7","7":"34.45","8":"Obese","9":"4","10":"75.1","11":"31.67","12":"Obese","13":"Control","14":"Placebo","15":"378","16":"404","17":"No","18":"Yes","19":"4","20":"4"},{"1":"VNGJ","2":"Female","3":"29","4":"146","5":"1.46","6":"51.9","7":"24.35","8":"Overweight","9":"3","10":"47.5","11":"22.28","12":"Normal","13":"Intervention","14":"Drug B","15":"447","16":"521","17":"Yes","18":"No","19":"4","20":"2"},{"1":"yqWZ","2":"Female","3":"26","4":"140","5":"1.40","6":"62.6","7":"31.94","8":"Obese","9":"0","10":"57.0","11":"29.08","12":"Obese","13":"Intervention","14":"Drug B","15":"397","16":"446","17":"Yes","18":"No","19":"5","20":"3"},{"1":"PFPu","2":"Male","3":"28","4":"164","5":"1.64","6":"96.2","7":"35.77","8":"Obese","9":"2","10":"91.0","11":"33.83","12":"Obese","13":"Intervention","14":"Drug B","15":"446","16":"407","17":"Yes","18":"Yes","19":"5","20":"3"},{"1":"TDu6","2":"Male","3":"30","4":"173","5":"1.73","6":"78.8","7":"26.33","8":"Obese","9":"0","10":"75.5","11":"25.23","12":"Obese","13":"Control","14":"Placebo","15":"457","16":"512","17":"Yes","18":"Yes","19":"6","20":"6"},{"1":"mqjd","2":"Male","3":"30","4":"188","5":"1.88","6":"125.6","7":"35.54","8":"Obese","9":"2","10":"115.6","11":"32.71","12":"Obese","13":"Intervention","14":"Drug B","15":"445","16":"475","17":"No","18":"No","19":"5","20":"5"},{"1":"cPby","2":"Male","3":"30","4":"192","5":"1.92","6":"98.9","7":"26.83","8":"Obese","9":"10","10":"76.9","11":"20.86","12":"Normal","13":"Control","14":"Placebo","15":"467","16":"517","17":"Yes","18":"No","19":"4","20":"2"},{"1":"4J4u","2":"Male","3":"29","4":"177","5":"1.77","6":"92.0","7":"29.37","8":"Obese","9":"3","10":"83.4","11":"26.62","12":"Obese","13":"Control","14":"Placebo","15":"459","16":"509","17":"Yes","18":"Yes","19":"5","20":"4"},{"1":"WlzS","2":"Male","3":"29","4":"170","5":"1.70","6":"106.7","7":"36.92","8":"Obese","9":"7","10":"93.9","11":"32.49","12":"Obese","13":"Intervention","14":"Drug A","15":"487","16":"539","17":"No","18":"No","19":"4","20":"3"},{"1":"GwwI","2":"Female","3":"27","4":"139","5":"1.39","6":"63.7","7":"32.97","8":"Obese","9":"5","10":"57.4","11":"29.71","12":"Obese","13":"Control","14":"Placebo","15":"427","16":"459","17":"Yes","18":"No","19":"6","20":"4"},{"1":"TopH","2":"Male","3":"33","4":"157","5":"1.57","6":"88.2","7":"35.78","8":"Obese","9":"1","10":"82.8","11":"33.59","12":"Obese","13":"Control","14":"Placebo","15":"473","16":"476","17":"No","18":"No","19":"5","20":"5"},{"1":"raxM","2":"Male","3":"31","4":"177","5":"1.77","6":"74.7","7":"23.84","8":"Overweight","9":"1","10":"67.2","11":"21.45","12":"Normal","13":"Intervention","14":"Drug A","15":"453","16":"556","17":"Yes","18":"Yes","19":"5","20":"4"},{"1":"Fo9d","2":"Female","3":"34","4":"146","5":"1.46","6":"64.0","7":"30.02","8":"Obese","9":"4","10":"54.7","11":"25.66","12":"Obese","13":"Intervention","14":"Drug B","15":"370","16":"403","17":"Yes","18":"Yes","19":"5","20":"3"},{"1":"DkiX","2":"Male","3":"26","4":"180","5":"1.80","6":"114.4","7":"35.31","8":"Obese","9":"3","10":"103.6","11":"31.98","12":"Obese","13":"Control","14":"Placebo","15":"485","16":"511","17":"No","18":"Yes","19":"4","20":"2"},{"1":"r6dT","2":"Female","3":"30","4":"167","5":"1.67","6":"59.6","7":"21.37","8":"Normal","9":"2","10":"52.3","11":"18.75","12":"Normal","13":"Control","14":"Placebo","15":"421","16":"429","17":"No","18":"No","19":"6","20":"4"},{"1":"9Cmu","2":"Female","3":"32","4":"163","5":"1.63","6":"72.4","7":"27.25","8":"Obese","9":"9","10":"58.5","11":"22.02","12":"Normal","13":"Control","14":"Placebo","15":"425","16":"431","17":"Yes","18":"No","19":"4","20":"4"},{"1":"yjGQ","2":"Male","3":"33","4":"169","5":"1.69","6":"82.1","7":"28.75","8":"Obese","9":"0","10":"75.4","11":"26.40","12":"Obese","13":"Intervention","14":"Drug B","15":"464","16":"515","17":"Yes","18":"No","19":"4","20":"2"},{"1":"g5ms","2":"Male","3":"26","4":"167","5":"1.67","6":"48.3","7":"17.32","8":"Underweight","9":"1","10":"43.3","11":"15.53","12":"Underweight","13":"Intervention","14":"Drug B","15":"491","16":"510","17":"No","18":"Yes","19":"4","20":"3"},{"1":"9jOU","2":"Male","3":"32","4":"177","5":"1.77","6":"79.0","7":"25.22","8":"Obese","9":"1","10":"73.0","11":"23.30","12":"Overweight","13":"Intervention","14":"Drug A","15":"476","16":"493","17":"Yes","18":"No","19":"6","20":"5"},{"1":"Q7uM","2":"Female","3":"35","4":"138","5":"1.38","6":"58.9","7":"30.93","8":"Obese","9":"1","10":"52.7","11":"27.67","12":"Obese","13":"Intervention","14":"Drug A","15":"413","16":"433","17":"No","18":"Yes","19":"5","20":"3"},{"1":"NMW9","2":"Male","3":"27","4":"177","5":"1.77","6":"71.3","7":"22.76","8":"Normal","9":"3","10":"65.2","11":"20.81","12":"Normal","13":"Intervention","14":"Drug B","15":"436","16":"529","17":"No","18":"Yes","19":"6","20":"4"},{"1":"gSzG","2":"Male","3":"26","4":"177","5":"1.77","6":"86.1","7":"27.48","8":"Obese","9":"0","10":"78.0","11":"24.90","12":"Overweight","13":"Intervention","14":"Drug B","15":"441","16":"465","17":"No","18":"No","19":"4","20":"4"},{"1":"8pI7","2":"Male","3":"30","4":"151","5":"1.51","6":"50.6","7":"22.19","8":"Normal","9":"3","10":"44.8","11":"19.65","12":"Normal","13":"Control","14":"Placebo","15":"455","16":"445","17":"Yes","18":"No","19":"6","20":"5"},{"1":"9IW0","2":"Female","3":"32","4":"139","5":"1.39","6":"36.1","7":"18.68","8":"Normal","9":"9","10":"26.1","11":"13.51","12":"Underweight","13":"Intervention","14":"Drug A","15":"430","16":"478","17":"Yes","18":"Yes","19":"4","20":"2"},{"1":"CsPJ","2":"Female","3":"31","4":"140","5":"1.40","6":"65.6","7":"33.47","8":"Obese","9":"2","10":"60.7","11":"30.97","12":"Obese","13":"Intervention","14":"Drug B","15":"406","16":"514","17":"Yes","18":"No","19":"4","20":"2"},{"1":"Kqqv","2":"Female","3":"32","4":"138","5":"1.38","6":"64.9","7":"34.08","8":"Obese","9":"5","10":"57.9","11":"30.40","12":"Obese","13":"Intervention","14":"Drug A","15":"372","16":"434","17":"No","18":"Yes","19":"5","20":"5"},{"1":"NvUe","2":"Male","3":"34","4":"171","5":"1.71","6":"111.8","7":"38.23","8":"Obese","9":"5","10":"102.0","11":"34.88","12":"Obese","13":"Control","14":"Placebo","15":"465","16":"444","17":"Yes","18":"No","19":"4","20":"2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
@@ -4735,10 +4746,12 @@ Note
 <div class="cell">
 <details open>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(summarytools)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(summarytools)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <ol start="2" type="1">
@@ -4747,9 +4760,11 @@ Note
 <div class="cell">
 <details open>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>asthmads_clean <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;asthmads_clean.sav&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_factor</span>()</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>asthmads_clean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>asthmads_clean <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;asthmads_clean.sav&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_factor</span>()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>asthmads_clean</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 
@@ -4766,11 +4781,22 @@ Note
 <div class="cell">
 <details open>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">descr</span>(asthmads_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">descr</span>(asthmads_clean)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stderr">
 <pre><code>Non-numerical variable(s) ignored: idR, Gender, BMI_PreCat, BMI_PostCat, Tx1, Tx2, SxWheeze_Pre, SxWheeze_Post</code></pre>
 </div>
+<details open>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>asthmads_clean <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_if</span>(<span class="sc">~</span> <span class="sc">!</span><span class="fu">is.numeric</span>(.)) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>idR) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq</span>()</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Descriptive Statistics  
 asthmads_clean  
@@ -4814,17 +4840,8 @@ Table: Table continues below
       SE.Skewness      0.20     0.20          0.20         0.20
          Kurtosis     -0.87    -1.59         -0.16        -0.34
           N.Valid    150.00   150.00        150.00       150.00
-        Pct.Valid    100.00   100.00        100.00       100.00</code></pre>
-</div>
-<details open>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>asthmads_clean <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_if</span>(<span class="sc">~</span> <span class="sc">!</span><span class="fu">is.numeric</span>(.)) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>idR) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Frequencies  
+        Pct.Valid    100.00   100.00        100.00       100.00
+Frequencies  
 asthmads_clean$Gender  
 Type: Factor  
 
@@ -4907,26 +4924,28 @@ Type: Factor
 <div class="cell">
 <details open>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>asthmads_clean <span class="sc">%&gt;%</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>idR) <span class="sc">%&gt;%</span> </span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>asthmads_clean <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>idR) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>()</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 
-<div id="axrzmwewdq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#axrzmwewdq table {
+<div id="kluodnyqnm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kluodnyqnm table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#axrzmwewdq thead, #axrzmwewdq tbody, #axrzmwewdq tfoot, #axrzmwewdq tr, #axrzmwewdq td, #axrzmwewdq th {
+#kluodnyqnm thead, #kluodnyqnm tbody, #kluodnyqnm tfoot, #kluodnyqnm tr, #kluodnyqnm td, #kluodnyqnm th {
 border-style: none;
 }
-#axrzmwewdq p {
+#kluodnyqnm p {
 margin: 0;
 padding: 0;
 }
-#axrzmwewdq .gt_table {
+#kluodnyqnm .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -4951,11 +4970,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#axrzmwewdq .gt_caption {
+#kluodnyqnm .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#axrzmwewdq .gt_title {
+#kluodnyqnm .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -4966,7 +4985,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#axrzmwewdq .gt_subtitle {
+#kluodnyqnm .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -4977,7 +4996,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#axrzmwewdq .gt_heading {
+#kluodnyqnm .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -4988,12 +5007,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#axrzmwewdq .gt_bottom_border {
+#kluodnyqnm .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#axrzmwewdq .gt_col_headings {
+#kluodnyqnm .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -5007,7 +5026,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#axrzmwewdq .gt_col_heading {
+#kluodnyqnm .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -5026,7 +5045,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#axrzmwewdq .gt_column_spanner_outer {
+#kluodnyqnm .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -5037,13 +5056,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#axrzmwewdq .gt_column_spanner_outer:first-child {
+#kluodnyqnm .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#axrzmwewdq .gt_column_spanner_outer:last-child {
+#kluodnyqnm .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#axrzmwewdq .gt_column_spanner {
+#kluodnyqnm .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -5054,10 +5073,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#axrzmwewdq .gt_spanner_row {
+#kluodnyqnm .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#axrzmwewdq .gt_group_heading {
+#kluodnyqnm .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5082,7 +5101,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#axrzmwewdq .gt_empty_group_heading {
+#kluodnyqnm .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -5096,13 +5115,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#axrzmwewdq .gt_from_md > :first-child {
+#kluodnyqnm .gt_from_md > :first-child {
 margin-top: 0;
 }
-#axrzmwewdq .gt_from_md > :last-child {
+#kluodnyqnm .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#axrzmwewdq .gt_row {
+#kluodnyqnm .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5120,7 +5139,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#axrzmwewdq .gt_stub {
+#kluodnyqnm .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -5132,7 +5151,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#axrzmwewdq .gt_stub_row_group {
+#kluodnyqnm .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -5145,13 +5164,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#axrzmwewdq .gt_row_group_first td {
+#kluodnyqnm .gt_row_group_first td {
 border-top-width: 2px;
 }
-#axrzmwewdq .gt_row_group_first th {
+#kluodnyqnm .gt_row_group_first th {
 border-top-width: 2px;
 }
-#axrzmwewdq .gt_summary_row {
+#kluodnyqnm .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -5160,14 +5179,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#axrzmwewdq .gt_first_summary_row {
+#kluodnyqnm .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#axrzmwewdq .gt_first_summary_row.thick {
+#kluodnyqnm .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#axrzmwewdq .gt_last_summary_row {
+#kluodnyqnm .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5176,7 +5195,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#axrzmwewdq .gt_grand_summary_row {
+#kluodnyqnm .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -5185,7 +5204,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#axrzmwewdq .gt_first_grand_summary_row {
+#kluodnyqnm .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5194,7 +5213,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#axrzmwewdq .gt_last_grand_summary_row_top {
+#kluodnyqnm .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5203,10 +5222,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#axrzmwewdq .gt_striped {
+#kluodnyqnm .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#axrzmwewdq .gt_table_body {
+#kluodnyqnm .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -5214,7 +5233,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#axrzmwewdq .gt_footnotes {
+#kluodnyqnm .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -5227,7 +5246,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#axrzmwewdq .gt_footnote {
+#kluodnyqnm .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -5235,7 +5254,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#axrzmwewdq .gt_sourcenotes {
+#kluodnyqnm .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -5248,57 +5267,57 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#axrzmwewdq .gt_sourcenote {
+#kluodnyqnm .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#axrzmwewdq .gt_left {
+#kluodnyqnm .gt_left {
 text-align: left;
 }
-#axrzmwewdq .gt_center {
+#kluodnyqnm .gt_center {
 text-align: center;
 }
-#axrzmwewdq .gt_right {
+#kluodnyqnm .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#axrzmwewdq .gt_font_normal {
+#kluodnyqnm .gt_font_normal {
 font-weight: normal;
 }
-#axrzmwewdq .gt_font_bold {
+#kluodnyqnm .gt_font_bold {
 font-weight: bold;
 }
-#axrzmwewdq .gt_font_italic {
+#kluodnyqnm .gt_font_italic {
 font-style: italic;
 }
-#axrzmwewdq .gt_super {
+#kluodnyqnm .gt_super {
 font-size: 65%;
 }
-#axrzmwewdq .gt_footnote_marks {
+#kluodnyqnm .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#axrzmwewdq .gt_asterisk {
+#kluodnyqnm .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#axrzmwewdq .gt_indent_1 {
+#kluodnyqnm .gt_indent_1 {
 text-indent: 5px;
 }
-#axrzmwewdq .gt_indent_2 {
+#kluodnyqnm .gt_indent_2 {
 text-indent: 10px;
 }
-#axrzmwewdq .gt_indent_3 {
+#kluodnyqnm .gt_indent_3 {
 text-indent: 15px;
 }
-#axrzmwewdq .gt_indent_4 {
+#kluodnyqnm .gt_indent_4 {
 text-indent: 20px;
 }
-#axrzmwewdq .gt_indent_5 {
+#kluodnyqnm .gt_indent_5 {
 text-indent: 25px;
 }
 </style>
@@ -5697,287 +5716,289 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class>
-<div class="sourceCode" id="cb18" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Last Session Recap&quot;</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> last-modified</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="an">date-format:</span><span class="co"> &quot;dddd, DD/MM/YYYY&quot;</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: sandstone</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: show</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: hover</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-overflow: wrap</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co">    df-print: paged</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co">    default-image-extension: svg</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co">    embed-resources: true</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co">    page-layout: full</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co">    reference-location: margin</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co">    title-block-banner: true</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co">    title-block-style: default</span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co">    fontsize: 1.2em</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co">    monofont: &#39;Fira Code&#39;</span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="an">number-sections:</span><span class="co"> true</span></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="an">fig-dpi:</span><span class="co"> 320</span></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="an">dpi:</span><span class="co"> 320</span></span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="fu"># Preamble</span></span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Library &amp; Data</span></span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, haven, summarytools)</span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>**Please check you have the latest R and RStudio**</span>
-<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>R</span>
-<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Open R</span>
-<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Help -&gt; About</span>
-<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>R version 4.3.2 (January 2024)</span>
-<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Download link: https://cran.r-project.org/</span>
-<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>RStudio</span>
-<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Open R</span>
-<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Help -&gt; Check for Updates</span>
-<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Download link: https://posit.co/download/rstudio-desktop/</span>
-<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>(Optional) Update Packages</span>
-<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>at RStudio, go to <span class="in">`Packages`</span> pane</span>
-<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>click <span class="in">`Update`</span></span>
-<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a><span class="fu"># Recap</span></span>
-<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
-<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>What is R?</span>
-<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>programming language and environment commonly used for statistical computing and graphics.</span>
-<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>provides an extensive array of statistical and graphical techniques</span>
-<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>highly extensible, allowing users to create new functions and contribute packages</span>
-<span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>popular choice for data analysis and research in various scientific disciplines</span>
-<span id="cb18-64"><a href="#cb18-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-65"><a href="#cb18-65" aria-hidden="true" tabindex="-1"></a><span class="al">![R Main Window](../images/R main window.png)</span></span>
-<span id="cb18-66"><a href="#cb18-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-67"><a href="#cb18-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-68"><a href="#cb18-68" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>What is RStudio?</span>
-<span id="cb18-69"><a href="#cb18-69" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>an IDE (integrated development environment) for R (and other languages too!)</span>
-<span id="cb18-70"><a href="#cb18-70" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>provide user-friendly interface with tools for script editing, data visualization, debugging and project management</span>
-<span id="cb18-71"><a href="#cb18-71" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>if R is the engine, RStudio is the car</span>
-<span id="cb18-72"><a href="#cb18-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-73"><a href="#cb18-73" aria-hidden="true" tabindex="-1"></a><span class="al">![RStudio Main Window](../images/RStudio main window.png)</span></span>
-<span id="cb18-74"><a href="#cb18-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-75"><a href="#cb18-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-76"><a href="#cb18-76" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>What is Quarto?</span>
-<span id="cb18-77"><a href="#cb18-77" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>open-source scientific and technical publishing system</span>
-<span id="cb18-78"><a href="#cb18-78" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>allow user to create **dynamic report**, presentation and publication</span>
-<span id="cb18-79"><a href="#cb18-79" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>support multiple language including R, Python, Julia</span>
-<span id="cb18-80"><a href="#cb18-80" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>integrate with RStudio, Juptyer</span>
-<span id="cb18-81"><a href="#cb18-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-82"><a href="#cb18-82" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Using R (and RStudio), Quarto allow for</span>
-<span id="cb18-83"><a href="#cb18-83" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>weave seamlessly narrative text and R code within document</span>
-<span id="cb18-84"><a href="#cb18-84" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>produce elegantly formatted output: live analysis result, visualisation</span>
-<span id="cb18-85"><a href="#cb18-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-86"><a href="#cb18-86" aria-hidden="true" tabindex="-1"></a><span class="al">![Quarto Example](../images/quarto main.png)</span></span>
-<span id="cb18-87"><a href="#cb18-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-88"><a href="#cb18-88" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction Practical</span></span>
-<span id="cb18-89"><a href="#cb18-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-90"><a href="#cb18-90" aria-hidden="true" tabindex="-1"></a><span class="fu">### Basic R and some concepts related</span></span>
-<span id="cb18-91"><a href="#cb18-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-92"><a href="#cb18-92" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Open your <span class="in">`R`</span></span>
-<span id="cb18-93"><a href="#cb18-93" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>R allow for mathematical operation</span>
-<span id="cb18-94"><a href="#cb18-94" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>enter <span class="in">`1 + 2`</span> in your consoles, and press enter</span>
-<span id="cb18-95"><a href="#cb18-95" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>try any other mathematical operation</span>
-<span id="cb18-96"><a href="#cb18-96" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>R recognised various data type</span>
-<span id="cb18-97"><a href="#cb18-97" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>number, e.g. <span class="in">`1`</span>, <span class="in">`2`</span>. use <span class="in">`class(_)`</span> function to check data type</span>
-<span id="cb18-98"><a href="#cb18-98" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>string/character. need <span class="in">`&quot;`</span> symbols. e.g. <span class="in">`&quot;car&quot;`</span>, <span class="in">`&quot;orange&quot;`</span>, <span class="in">`&quot;male&quot;`</span></span>
-<span id="cb18-99"><a href="#cb18-99" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>We can &quot;store&quot; items in object</span>
-<span id="cb18-100"><a href="#cb18-100" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>enter <span class="in">`one`</span>, then write 1 into object name one <span class="in">`one &lt;- 1`</span>, then call back the object <span class="in">`one`</span></span>
-<span id="cb18-101"><a href="#cb18-101" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>write array e.g. list of numbers <span class="in">`list_num &lt;- c(1,2,3)`</span></span>
-<span id="cb18-102"><a href="#cb18-102" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>write array e.g. list of strings <span class="in">`my_cars &lt;- c(&quot;merc&quot;, &quot;bimmer&quot;, &quot;supra&quot;)`</span></span>
-<span id="cb18-103"><a href="#cb18-103" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Close your <span class="in">`R`</span> (Ctrl+Q)</span>
-<span id="cb18-104"><a href="#cb18-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-105"><a href="#cb18-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-106"><a href="#cb18-106" aria-hidden="true" tabindex="-1"></a><span class="fu">### Basic RStudio</span></span>
-<span id="cb18-107"><a href="#cb18-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-108"><a href="#cb18-108" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Open your <span class="in">`RStudio`</span></span>
-<span id="cb18-109"><a href="#cb18-109" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>(new) Change setting</span>
-<span id="cb18-110"><a href="#cb18-110" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Tools -&gt; Global Option -&gt; General. </span>
-<span id="cb18-111"><a href="#cb18-111" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Change default working directory</span>
-<span id="cb18-112"><a href="#cb18-112" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Untick &quot;Restore...&quot; and Never &quot;Save workspace&quot;</span>
-<span id="cb18-113"><a href="#cb18-113" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>These setting is to ensure clean workspace in each new session</span>
-<span id="cb18-114"><a href="#cb18-114" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>p/s: can read further <span class="co">[</span><span class="ot">What They Forgot to Teach You About R: https://rstats.wtf/</span><span class="co">](https://rstats.wtf/)</span></span>
-<span id="cb18-115"><a href="#cb18-115" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Open Previous Project</span>
-<span id="cb18-116"><a href="#cb18-116" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>File -&gt; Recent Projects</span>
-<span id="cb18-117"><a href="#cb18-117" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>(new) Create New Project</span>
-<span id="cb18-118"><a href="#cb18-118" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>File -&gt; New Project... -&gt; New Directory -&gt; New Project. Write Directory Name, e.g. &quot;NCD R Train&quot;</span>
-<span id="cb18-119"><a href="#cb18-119" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Getting familiarise with the 3+1 Panes</span>
-<span id="cb18-120"><a href="#cb18-120" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>R-U: Console pane</span>
-<span id="cb18-121"><a href="#cb18-121" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>R-L: Files pane</span>
-<span id="cb18-122"><a href="#cb18-122" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>L(-L): Environment pane</span>
-<span id="cb18-123"><a href="#cb18-123" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>(L-U): Source pane</span>
-<span id="cb18-124"><a href="#cb18-124" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Repeat R recap just now, but now in RStudio console</span>
-<span id="cb18-125"><a href="#cb18-125" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>enter <span class="in">`1 + 2`</span> in your consoles, and press enter</span>
-<span id="cb18-126"><a href="#cb18-126" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>enter <span class="in">`class(1)`</span>, <span class="in">`class(&quot;car&quot;)`</span></span>
-<span id="cb18-127"><a href="#cb18-127" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>enter <span class="in">`one &lt;- 1`</span></span>
-<span id="cb18-128"><a href="#cb18-128" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>enter <span class="in">`list_num &lt;- c(1,2,3)`</span>, <span class="in">`list_num`</span></span>
-<span id="cb18-129"><a href="#cb18-129" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>enter <span class="in">`my_cars &lt;- c(&quot;merc&quot;, &quot;bimmer&quot;, &quot;supra&quot;)`</span>, <span class="in">`my_cars`</span></span>
-<span id="cb18-130"><a href="#cb18-130" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Close your project (Ctrl+Q)</span>
-<span id="cb18-131"><a href="#cb18-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-132"><a href="#cb18-132" aria-hidden="true" tabindex="-1"></a><span class="fu">### Basic R Script</span></span>
-<span id="cb18-133"><a href="#cb18-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-134"><a href="#cb18-134" aria-hidden="true" tabindex="-1"></a>:::{.callout-note}</span>
-<span id="cb18-135"><a href="#cb18-135" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>I didn&#39;t teach this previously, because I skip to Quarto. </span>
-<span id="cb18-136"><a href="#cb18-136" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>My 1st class in R does not cover R script, we went straight to RMarkdown (the precursor for Quarto)</span>
-<span id="cb18-137"><a href="#cb18-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>At first, I want to skip this altogether, but when I think back, teach R script may provide context need when writing Quarto</span>
-<span id="cb18-138"><a href="#cb18-138" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb18-139"><a href="#cb18-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-140"><a href="#cb18-140" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>R scrip allow us to save the syntax</span>
-<span id="cb18-141"><a href="#cb18-141" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Open Project</span>
-<span id="cb18-142"><a href="#cb18-142" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Create new R script</span>
-<span id="cb18-143"><a href="#cb18-143" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>File -&gt; New File... -&gt; R Scrip (Ctrl+Shift+N)</span>
-<span id="cb18-144"><a href="#cb18-144" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Write the syntax</span>
-<span id="cb18-145"><a href="#cb18-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-148"><a href="#cb18-148" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb18-149"><a href="#cb18-149" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb18-150"><a href="#cb18-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-151"><a href="#cb18-151" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
-<span id="cb18-152"><a href="#cb18-152" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span>
-<span id="cb18-153"><a href="#cb18-153" aria-hidden="true" tabindex="-1"></a>one <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb18-154"><a href="#cb18-154" aria-hidden="true" tabindex="-1"></a>list_num <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
-<span id="cb18-155"><a href="#cb18-155" aria-hidden="true" tabindex="-1"></a>my_cars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;merc&quot;</span>, <span class="st">&quot;bimmer&quot;</span>, <span class="st">&quot;supra&quot;</span>)</span>
-<span id="cb18-156"><a href="#cb18-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-157"><a href="#cb18-157" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-158"><a href="#cb18-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-159"><a href="#cb18-159" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>You can run line by line (Ctrl+Enter) or source everything (Ctrl+Shift+Enter)</span>
-<span id="cb18-160"><a href="#cb18-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-161"><a href="#cb18-161" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Wrangling</span></span>
-<span id="cb18-162"><a href="#cb18-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-163"><a href="#cb18-163" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>80-90% of data analysis consist of data cleaning</span>
-<span id="cb18-164"><a href="#cb18-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-165"><a href="#cb18-165" aria-hidden="true" tabindex="-1"></a><span class="al">![source: r4ds.hadley.nz](../images/R4DS_wrangling.png)</span></span>
-<span id="cb18-166"><a href="#cb18-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-167"><a href="#cb18-167" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Example 1: Import Dataset - SPSS</span>
-<span id="cb18-168"><a href="#cb18-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-171"><a href="#cb18-171" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb18-172"><a href="#cb18-172" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb18-173"><a href="#cb18-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-174"><a href="#cb18-174" aria-hidden="true" tabindex="-1"></a>asthmads_savh <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_sav</span>(<span class="st">&quot;../dataset/asthma_ds.sav&quot;</span>) <span class="co"># also achieve same</span></span>
-<span id="cb18-175"><a href="#cb18-175" aria-hidden="true" tabindex="-1"></a>asthmads_savh <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(asthmads_savh)</span>
-<span id="cb18-176"><a href="#cb18-176" aria-hidden="true" tabindex="-1"></a>asthmads_savh</span>
-<span id="cb18-177"><a href="#cb18-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-178"><a href="#cb18-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-179"><a href="#cb18-179" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Example 2: Import Dataset - CSV</span>
-<span id="cb18-180"><a href="#cb18-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-183"><a href="#cb18-183" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb18-184"><a href="#cb18-184" aria-hidden="true" tabindex="-1"></a>asthma_ds0 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../dataset/asthma_ds_nolab.csv&quot;</span>)</span>
-<span id="cb18-185"><a href="#cb18-185" aria-hidden="true" tabindex="-1"></a>asthma_ds0</span>
-<span id="cb18-186"><a href="#cb18-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-187"><a href="#cb18-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-188"><a href="#cb18-188" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Example 3: Select Column</span>
-<span id="cb18-189"><a href="#cb18-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-192"><a href="#cb18-192" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb18-193"><a href="#cb18-193" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(asthmads_savh, idR<span class="sc">:</span>Weight_Post)</span>
-<span id="cb18-194"><a href="#cb18-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-195"><a href="#cb18-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-196"><a href="#cb18-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-197"><a href="#cb18-197" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Example 4: Basic Numerical Transformation</span>
-<span id="cb18-198"><a href="#cb18-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-201"><a href="#cb18-201" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb18-202"><a href="#cb18-202" aria-hidden="true" tabindex="-1"></a>asthma_ds0<span class="sc">$</span>Ht_m <span class="ot">&lt;-</span> asthma_ds0<span class="sc">$</span>Height<span class="sc">/</span><span class="dv">100</span></span>
-<span id="cb18-203"><a href="#cb18-203" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(asthma_ds0, Height, Ht_m)</span>
-<span id="cb18-204"><a href="#cb18-204" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-205"><a href="#cb18-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-206"><a href="#cb18-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-207"><a href="#cb18-207" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Example 5: Binning</span>
-<span id="cb18-208"><a href="#cb18-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-211"><a href="#cb18-211" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb18-212"><a href="#cb18-212" aria-hidden="true" tabindex="-1"></a>asthma_ds0<span class="sc">$</span>BMI_Pre <span class="ot">&lt;-</span> asthma_ds0<span class="sc">$</span>Weight_Pre<span class="sc">/</span>(asthma_ds0<span class="sc">$</span>Ht_m<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb18-213"><a href="#cb18-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-214"><a href="#cb18-214" aria-hidden="true" tabindex="-1"></a>asthma_ds0<span class="sc">$</span>BMI_PreCat <span class="ot">&lt;-</span> <span class="fu">cut</span>(asthma_ds0<span class="sc">$</span>BMI_Pre, </span>
-<span id="cb18-215"><a href="#cb18-215" aria-hidden="true" tabindex="-1"></a>                             <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">18.49</span>, <span class="fl">22.99</span>, <span class="fl">24.99</span>, <span class="dv">100</span>), </span>
-<span id="cb18-216"><a href="#cb18-216" aria-hidden="true" tabindex="-1"></a>                             <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Underweight&quot;</span>, <span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Overweight&quot;</span>, <span class="st">&quot;Obese&quot;</span>))</span>
-<span id="cb18-217"><a href="#cb18-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-218"><a href="#cb18-218" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(asthma_ds0, BMI_Pre, BMI_PreCat)</span>
-<span id="cb18-219"><a href="#cb18-219" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-220"><a href="#cb18-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-221"><a href="#cb18-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-222"><a href="#cb18-222" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Tidyverse allow for pipe operation. </span>
-<span id="cb18-223"><a href="#cb18-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-226"><a href="#cb18-226" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb18-227"><a href="#cb18-227" aria-hidden="true" tabindex="-1"></a>asthma_ds0 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../dataset/asthma_ds_nolab.csv&quot;</span>)</span>
-<span id="cb18-228"><a href="#cb18-228" aria-hidden="true" tabindex="-1"></a>asthma_ds0</span>
-<span id="cb18-229"><a href="#cb18-229" aria-hidden="true" tabindex="-1"></a>asthmads_clean <span class="ot">&lt;-</span> asthma_ds0 <span class="sc">%&gt;%</span></span>
-<span id="cb18-230"><a href="#cb18-230" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">as.character</span>(Gender),</span>
-<span id="cb18-231"><a href="#cb18-231" aria-hidden="true" tabindex="-1"></a>         <span class="at">Gender =</span> <span class="fu">fct_recode</span>(Gender, <span class="st">&quot;Male&quot;</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span>, <span class="st">&quot;Female&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>),</span>
-<span id="cb18-232"><a href="#cb18-232" aria-hidden="true" tabindex="-1"></a>         <span class="at">Gender =</span> <span class="fu">fct_relevel</span>(Gender, <span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>),</span>
-<span id="cb18-233"><a href="#cb18-233" aria-hidden="true" tabindex="-1"></a>         <span class="at">Tx2 =</span> <span class="fu">fct_recode</span>(<span class="fu">as.character</span>(Tx2),</span>
-<span id="cb18-234"><a href="#cb18-234" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&quot;Placebo&quot;</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span>, <span class="st">&quot;Drug A&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>, <span class="st">&quot;Drug B&quot;</span> <span class="ot">=</span> <span class="st">&quot;3&quot;</span>),</span>
-<span id="cb18-235"><a href="#cb18-235" aria-hidden="true" tabindex="-1"></a>         <span class="at">Tx1 =</span> <span class="fu">fct_collapse</span>(Tx2,</span>
-<span id="cb18-236"><a href="#cb18-236" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;Intervention&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Drug A&quot;</span>, <span class="st">&quot;Drug B&quot;</span>),</span>
-<span id="cb18-237"><a href="#cb18-237" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;Control&quot;</span> <span class="ot">=</span> <span class="st">&quot;Placebo&quot;</span>),</span>
-<span id="cb18-238"><a href="#cb18-238" aria-hidden="true" tabindex="-1"></a>         <span class="at">Ht_m =</span> Height<span class="sc">/</span><span class="dv">100</span>,</span>
-<span id="cb18-239"><a href="#cb18-239" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_Pre =</span> <span class="fu">round</span>(Weight_Pre<span class="sc">/</span>(Ht_m<span class="sc">^</span><span class="dv">2</span>), <span class="at">digits =</span> <span class="dv">2</span>),</span>
-<span id="cb18-240"><a href="#cb18-240" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_PreCat =</span> <span class="fu">cut</span>(BMI_Pre,</span>
-<span id="cb18-241"><a href="#cb18-241" aria-hidden="true" tabindex="-1"></a>                          <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">18.49</span>, <span class="fl">22.99</span>, <span class="fl">24.99</span>, <span class="dv">100</span>),</span>
-<span id="cb18-242"><a href="#cb18-242" aria-hidden="true" tabindex="-1"></a>                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Underweight&quot;</span>, <span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Overweight&quot;</span>, <span class="st">&quot;Obese&quot;</span>)),</span>
-<span id="cb18-243"><a href="#cb18-243" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_Post =</span> <span class="fu">round</span>(Weight_Post<span class="sc">/</span>(Ht_m<span class="sc">^</span><span class="dv">2</span>), <span class="at">digits =</span> <span class="dv">2</span>),</span>
-<span id="cb18-244"><a href="#cb18-244" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_PostCat =</span> <span class="fu">cut</span>(BMI_Post,</span>
-<span id="cb18-245"><a href="#cb18-245" aria-hidden="true" tabindex="-1"></a>                           <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">18.49</span>, <span class="fl">22.99</span>, <span class="fl">24.99</span>, <span class="dv">100</span>),</span>
-<span id="cb18-246"><a href="#cb18-246" aria-hidden="true" tabindex="-1"></a>                           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Underweight&quot;</span>, <span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Overweight&quot;</span>, <span class="st">&quot;Obese&quot;</span>)),</span>
-<span id="cb18-247"><a href="#cb18-247" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;SxWheeze&quot;</span>),</span>
-<span id="cb18-248"><a href="#cb18-248" aria-hidden="true" tabindex="-1"></a>                <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">as.character</span>(.)),</span>
-<span id="cb18-249"><a href="#cb18-249" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;SxWheeze&quot;</span>),</span>
-<span id="cb18-250"><a href="#cb18-250" aria-hidden="true" tabindex="-1"></a>                <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">fct_recode</span>(., <span class="st">&quot;No&quot;</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span>, <span class="st">&quot;Yes&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb18-251"><a href="#cb18-251" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Tx1, <span class="at">.before =</span> Tx2) <span class="sc">%&gt;%</span></span>
-<span id="cb18-252"><a href="#cb18-252" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Ht_m, <span class="at">.after =</span> Height) <span class="sc">%&gt;%</span></span>
-<span id="cb18-253"><a href="#cb18-253" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(BMI_Pre, BMI_PreCat, <span class="at">.after =</span> Weight_Pre) <span class="sc">%&gt;%</span></span>
-<span id="cb18-254"><a href="#cb18-254" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(BMI_Post, BMI_PostCat, <span class="at">.after =</span> Weight_Post)</span>
-<span id="cb18-255"><a href="#cb18-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-256"><a href="#cb18-256" aria-hidden="true" tabindex="-1"></a>asthmads_clean</span>
-<span id="cb18-257"><a href="#cb18-257" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-258"><a href="#cb18-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-259"><a href="#cb18-259" aria-hidden="true" tabindex="-1"></a><span class="fu">## Descriptive Analysis</span></span>
-<span id="cb18-260"><a href="#cb18-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-261"><a href="#cb18-261" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>List of packages use.</span>
-<span id="cb18-262"><a href="#cb18-262" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>if unavailable, please install</span>
-<span id="cb18-263"><a href="#cb18-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-266"><a href="#cb18-266" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb18-267"><a href="#cb18-267" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb18-268"><a href="#cb18-268" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb18-269"><a href="#cb18-269" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(summarytools)</span>
-<span id="cb18-270"><a href="#cb18-270" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
-<span id="cb18-271"><a href="#cb18-271" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-272"><a href="#cb18-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-273"><a href="#cb18-273" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Import dataset</span>
-<span id="cb18-274"><a href="#cb18-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-277"><a href="#cb18-277" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb18-278"><a href="#cb18-278" aria-hidden="true" tabindex="-1"></a>asthmads_clean <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;asthmads_clean.sav&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-279"><a href="#cb18-279" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_factor</span>()</span>
-<span id="cb18-280"><a href="#cb18-280" aria-hidden="true" tabindex="-1"></a>asthmads_clean</span>
-<span id="cb18-281"><a href="#cb18-281" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-282"><a href="#cb18-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-283"><a href="#cb18-283" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>using function <span class="in">`descr(_)`</span> and <span class="in">`freq(_)`</span> from <span class="in">`summarytools::`</span> package</span>
-<span id="cb18-284"><a href="#cb18-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-287"><a href="#cb18-287" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb18-288"><a href="#cb18-288" aria-hidden="true" tabindex="-1"></a><span class="fu">descr</span>(asthmads_clean)</span>
-<span id="cb18-289"><a href="#cb18-289" aria-hidden="true" tabindex="-1"></a>asthmads_clean <span class="sc">%&gt;%</span></span>
-<span id="cb18-290"><a href="#cb18-290" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_if</span>(<span class="sc">~</span> <span class="sc">!</span><span class="fu">is.numeric</span>(.)) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-291"><a href="#cb18-291" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>idR) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-292"><a href="#cb18-292" aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq</span>()</span>
-<span id="cb18-293"><a href="#cb18-293" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-294"><a href="#cb18-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-295"><a href="#cb18-295" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-296"><a href="#cb18-296" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>using function <span class="in">`tbl_summary(_)`</span> from <span class="in">`gtsummary::`</span> package to create publicatiton ready table</span>
-<span id="cb18-297"><a href="#cb18-297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-300"><a href="#cb18-300" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb18-301"><a href="#cb18-301" aria-hidden="true" tabindex="-1"></a>asthmads_clean <span class="sc">%&gt;%</span></span>
-<span id="cb18-302"><a href="#cb18-302" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>idR) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-303"><a href="#cb18-303" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>()</span>
-<span id="cb18-304"><a href="#cb18-304" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-305"><a href="#cb18-305" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode" id="cb16" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Last Session Recap&quot;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> last-modified</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="an">date-format:</span><span class="co"> &quot;dddd, DD/MM/YYYY&quot;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: sandstone</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: show</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: hover</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-overflow: wrap</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">    df-print: paged</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co">    default-image-extension: svg</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co">    embed-resources: true</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co">    page-layout: full</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co">    reference-location: margin</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co">    title-block-banner: true</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co">    title-block-style: default</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co">    fontsize: 1.2em</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co">    monofont: &#39;Fira Code&#39;</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="an">number-sections:</span><span class="co"> true</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="an">fig-dpi:</span><span class="co"> 320</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="an">dpi:</span><span class="co"> 320</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: fenced</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="fu"># Preamble</span></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Library &amp; Data</span></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, haven, summarytools)</span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>**Please check you have the latest R and RStudio**</span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>R</span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Open R</span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Help -&gt; About</span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>R version 4.3.2 (January 2024)</span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Download link: https://cran.r-project.org/</span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>RStudio</span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Open R</span>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Help -&gt; Check for Updates</span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Download link: https://posit.co/download/rstudio-desktop/</span>
+<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>(Optional) Update Packages</span>
+<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>at RStudio, go to <span class="in">`Packages`</span> pane</span>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>click <span class="in">`Update`</span></span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a><span class="fu"># Recap</span></span>
+<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
+<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>What is R?</span>
+<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>programming language and environment commonly used for statistical computing and graphics.</span>
+<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>provides an extensive array of statistical and graphical techniques</span>
+<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>highly extensible, allowing users to create new functions and contribute packages</span>
+<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>popular choice for data analysis and research in various scientific disciplines</span>
+<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a><span class="al">![R Main Window](../images/R main window.png)</span></span>
+<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>What is RStudio?</span>
+<span id="cb16-71"><a href="#cb16-71" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>an IDE (integrated development environment) for R (and other languages too!)</span>
+<span id="cb16-72"><a href="#cb16-72" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>provide user-friendly interface with tools for script editing, data visualization, debugging and project management</span>
+<span id="cb16-73"><a href="#cb16-73" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>if R is the engine, RStudio is the car</span>
+<span id="cb16-74"><a href="#cb16-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-75"><a href="#cb16-75" aria-hidden="true" tabindex="-1"></a><span class="al">![RStudio Main Window](../images/RStudio main window.png)</span></span>
+<span id="cb16-76"><a href="#cb16-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-77"><a href="#cb16-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-78"><a href="#cb16-78" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>What is Quarto?</span>
+<span id="cb16-79"><a href="#cb16-79" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>open-source scientific and technical publishing system</span>
+<span id="cb16-80"><a href="#cb16-80" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>allow user to create **dynamic report**, presentation and publication</span>
+<span id="cb16-81"><a href="#cb16-81" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>support multiple language including R, Python, Julia</span>
+<span id="cb16-82"><a href="#cb16-82" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>integrate with RStudio, Juptyer</span>
+<span id="cb16-83"><a href="#cb16-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-84"><a href="#cb16-84" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Using R (and RStudio), Quarto allow for</span>
+<span id="cb16-85"><a href="#cb16-85" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>weave seamlessly narrative text and R code within document</span>
+<span id="cb16-86"><a href="#cb16-86" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>produce elegantly formatted output: live analysis result, visualisation</span>
+<span id="cb16-87"><a href="#cb16-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-88"><a href="#cb16-88" aria-hidden="true" tabindex="-1"></a><span class="al">![Quarto Example](../images/quarto main.png)</span></span>
+<span id="cb16-89"><a href="#cb16-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-90"><a href="#cb16-90" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction Practical</span></span>
+<span id="cb16-91"><a href="#cb16-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-92"><a href="#cb16-92" aria-hidden="true" tabindex="-1"></a><span class="fu">### Basic R and some concepts related</span></span>
+<span id="cb16-93"><a href="#cb16-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-94"><a href="#cb16-94" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Open your <span class="in">`R`</span></span>
+<span id="cb16-95"><a href="#cb16-95" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>R allow for mathematical operation</span>
+<span id="cb16-96"><a href="#cb16-96" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>enter <span class="in">`1 + 2`</span> in your consoles, and press enter</span>
+<span id="cb16-97"><a href="#cb16-97" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>try any other mathematical operation</span>
+<span id="cb16-98"><a href="#cb16-98" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>R recognised various data type</span>
+<span id="cb16-99"><a href="#cb16-99" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>number, e.g. <span class="in">`1`</span>, <span class="in">`2`</span>. use <span class="in">`class(_)`</span> function to check data type</span>
+<span id="cb16-100"><a href="#cb16-100" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>string/character. need <span class="in">`&quot;`</span> symbols. e.g. <span class="in">`&quot;car&quot;`</span>, <span class="in">`&quot;orange&quot;`</span>, <span class="in">`&quot;male&quot;`</span></span>
+<span id="cb16-101"><a href="#cb16-101" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>We can &quot;store&quot; items in object</span>
+<span id="cb16-102"><a href="#cb16-102" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>enter <span class="in">`one`</span>, then write 1 into object name one <span class="in">`one &lt;- 1`</span>, then call back the object <span class="in">`one`</span></span>
+<span id="cb16-103"><a href="#cb16-103" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>write array e.g. list of numbers <span class="in">`list_num &lt;- c(1,2,3)`</span></span>
+<span id="cb16-104"><a href="#cb16-104" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>write array e.g. list of strings <span class="in">`my_cars &lt;- c(&quot;merc&quot;, &quot;bimmer&quot;, &quot;supra&quot;)`</span></span>
+<span id="cb16-105"><a href="#cb16-105" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Close your <span class="in">`R`</span> (Ctrl+Q)</span>
+<span id="cb16-106"><a href="#cb16-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-107"><a href="#cb16-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-108"><a href="#cb16-108" aria-hidden="true" tabindex="-1"></a><span class="fu">### Basic RStudio</span></span>
+<span id="cb16-109"><a href="#cb16-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-110"><a href="#cb16-110" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Open your <span class="in">`RStudio`</span></span>
+<span id="cb16-111"><a href="#cb16-111" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>(new) Change setting</span>
+<span id="cb16-112"><a href="#cb16-112" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Tools -&gt; Global Option -&gt; General. </span>
+<span id="cb16-113"><a href="#cb16-113" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Change default working directory</span>
+<span id="cb16-114"><a href="#cb16-114" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Untick &quot;Restore...&quot; and Never &quot;Save workspace&quot;</span>
+<span id="cb16-115"><a href="#cb16-115" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>These setting is to ensure clean workspace in each new session</span>
+<span id="cb16-116"><a href="#cb16-116" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>p/s: can read further <span class="co">[</span><span class="ot">What They Forgot to Teach You About R: https://rstats.wtf/</span><span class="co">](https://rstats.wtf/)</span></span>
+<span id="cb16-117"><a href="#cb16-117" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Open Previous Project</span>
+<span id="cb16-118"><a href="#cb16-118" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>File -&gt; Recent Projects</span>
+<span id="cb16-119"><a href="#cb16-119" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>(new) Create New Project</span>
+<span id="cb16-120"><a href="#cb16-120" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>File -&gt; New Project... -&gt; New Directory -&gt; New Project. Write Directory Name, e.g. &quot;NCD R Train&quot;</span>
+<span id="cb16-121"><a href="#cb16-121" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Getting familiarise with the 3+1 Panes</span>
+<span id="cb16-122"><a href="#cb16-122" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>R-U: Console pane</span>
+<span id="cb16-123"><a href="#cb16-123" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>R-L: Files pane</span>
+<span id="cb16-124"><a href="#cb16-124" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>L(-L): Environment pane</span>
+<span id="cb16-125"><a href="#cb16-125" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>(L-U): Source pane</span>
+<span id="cb16-126"><a href="#cb16-126" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Repeat R recap just now, but now in RStudio console</span>
+<span id="cb16-127"><a href="#cb16-127" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>enter <span class="in">`1 + 2`</span> in your consoles, and press enter</span>
+<span id="cb16-128"><a href="#cb16-128" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>enter <span class="in">`class(1)`</span>, <span class="in">`class(&quot;car&quot;)`</span></span>
+<span id="cb16-129"><a href="#cb16-129" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>enter <span class="in">`one &lt;- 1`</span></span>
+<span id="cb16-130"><a href="#cb16-130" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>enter <span class="in">`list_num &lt;- c(1,2,3)`</span>, <span class="in">`list_num`</span></span>
+<span id="cb16-131"><a href="#cb16-131" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>enter <span class="in">`my_cars &lt;- c(&quot;merc&quot;, &quot;bimmer&quot;, &quot;supra&quot;)`</span>, <span class="in">`my_cars`</span></span>
+<span id="cb16-132"><a href="#cb16-132" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Close your project (Ctrl+Q)</span>
+<span id="cb16-133"><a href="#cb16-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-134"><a href="#cb16-134" aria-hidden="true" tabindex="-1"></a><span class="fu">### Basic R Script</span></span>
+<span id="cb16-135"><a href="#cb16-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-136"><a href="#cb16-136" aria-hidden="true" tabindex="-1"></a>:::{.callout-note}</span>
+<span id="cb16-137"><a href="#cb16-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>I didn&#39;t teach this previously, because I skip to Quarto. </span>
+<span id="cb16-138"><a href="#cb16-138" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>My 1st class in R does not cover R script, we went straight to RMarkdown (the precursor for Quarto)</span>
+<span id="cb16-139"><a href="#cb16-139" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>At first, I want to skip this altogether, but when I think back, teach R script may provide context need when writing Quarto</span>
+<span id="cb16-140"><a href="#cb16-140" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb16-141"><a href="#cb16-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-142"><a href="#cb16-142" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>R scrip allow us to save the syntax</span>
+<span id="cb16-143"><a href="#cb16-143" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Open Project</span>
+<span id="cb16-144"><a href="#cb16-144" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Create new R script</span>
+<span id="cb16-145"><a href="#cb16-145" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>File -&gt; New File... -&gt; R Scrip (Ctrl+Shift+N)</span>
+<span id="cb16-146"><a href="#cb16-146" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Write the syntax</span>
+<span id="cb16-147"><a href="#cb16-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-150"><a href="#cb16-150" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-151"><a href="#cb16-151" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb16-152"><a href="#cb16-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-153"><a href="#cb16-153" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
+<span id="cb16-154"><a href="#cb16-154" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb16-155"><a href="#cb16-155" aria-hidden="true" tabindex="-1"></a>one <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb16-156"><a href="#cb16-156" aria-hidden="true" tabindex="-1"></a>list_num <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb16-157"><a href="#cb16-157" aria-hidden="true" tabindex="-1"></a>my_cars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;merc&quot;</span>, <span class="st">&quot;bimmer&quot;</span>, <span class="st">&quot;supra&quot;</span>)</span>
+<span id="cb16-158"><a href="#cb16-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-159"><a href="#cb16-159" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-160"><a href="#cb16-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-161"><a href="#cb16-161" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>You can run line by line (Ctrl+Enter) or source everything (Ctrl+Shift+Enter)</span>
+<span id="cb16-162"><a href="#cb16-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-163"><a href="#cb16-163" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Wrangling</span></span>
+<span id="cb16-164"><a href="#cb16-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-165"><a href="#cb16-165" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>80-90% of data analysis consist of data cleaning</span>
+<span id="cb16-166"><a href="#cb16-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-167"><a href="#cb16-167" aria-hidden="true" tabindex="-1"></a><span class="al">![source: r4ds.hadley.nz](../images/R4DS_wrangling.png)</span></span>
+<span id="cb16-168"><a href="#cb16-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-169"><a href="#cb16-169" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Example 1: Import Dataset - SPSS</span>
+<span id="cb16-170"><a href="#cb16-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-173"><a href="#cb16-173" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-174"><a href="#cb16-174" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb16-175"><a href="#cb16-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-176"><a href="#cb16-176" aria-hidden="true" tabindex="-1"></a>asthmads_savh <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_sav</span>(<span class="st">&quot;../dataset/asthma_ds.sav&quot;</span>) <span class="co"># also achieve same</span></span>
+<span id="cb16-177"><a href="#cb16-177" aria-hidden="true" tabindex="-1"></a>asthmads_savh <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(asthmads_savh)</span>
+<span id="cb16-178"><a href="#cb16-178" aria-hidden="true" tabindex="-1"></a>asthmads_savh</span>
+<span id="cb16-179"><a href="#cb16-179" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-180"><a href="#cb16-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-181"><a href="#cb16-181" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Example 2: Import Dataset - CSV</span>
+<span id="cb16-182"><a href="#cb16-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-185"><a href="#cb16-185" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-186"><a href="#cb16-186" aria-hidden="true" tabindex="-1"></a>asthma_ds0 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../dataset/asthma_ds_nolab.csv&quot;</span>)</span>
+<span id="cb16-187"><a href="#cb16-187" aria-hidden="true" tabindex="-1"></a>asthma_ds0</span>
+<span id="cb16-188"><a href="#cb16-188" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-189"><a href="#cb16-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-190"><a href="#cb16-190" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Example 3: Select Column</span>
+<span id="cb16-191"><a href="#cb16-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-194"><a href="#cb16-194" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-195"><a href="#cb16-195" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(asthmads_savh, idR<span class="sc">:</span>Weight_Post)</span>
+<span id="cb16-196"><a href="#cb16-196" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-197"><a href="#cb16-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-198"><a href="#cb16-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-199"><a href="#cb16-199" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Example 4: Basic Numerical Transformation</span>
+<span id="cb16-200"><a href="#cb16-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-203"><a href="#cb16-203" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-204"><a href="#cb16-204" aria-hidden="true" tabindex="-1"></a>asthma_ds0<span class="sc">$</span>Ht_m <span class="ot">&lt;-</span> asthma_ds0<span class="sc">$</span>Height<span class="sc">/</span><span class="dv">100</span></span>
+<span id="cb16-205"><a href="#cb16-205" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(asthma_ds0, Height, Ht_m)</span>
+<span id="cb16-206"><a href="#cb16-206" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-207"><a href="#cb16-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-208"><a href="#cb16-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-209"><a href="#cb16-209" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Example 5: Binning</span>
+<span id="cb16-210"><a href="#cb16-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-213"><a href="#cb16-213" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-214"><a href="#cb16-214" aria-hidden="true" tabindex="-1"></a>asthma_ds0<span class="sc">$</span>BMI_Pre <span class="ot">&lt;-</span> asthma_ds0<span class="sc">$</span>Weight_Pre<span class="sc">/</span>(asthma_ds0<span class="sc">$</span>Ht_m<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb16-215"><a href="#cb16-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-216"><a href="#cb16-216" aria-hidden="true" tabindex="-1"></a>asthma_ds0<span class="sc">$</span>BMI_PreCat <span class="ot">&lt;-</span> <span class="fu">cut</span>(asthma_ds0<span class="sc">$</span>BMI_Pre, </span>
+<span id="cb16-217"><a href="#cb16-217" aria-hidden="true" tabindex="-1"></a>                             <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">18.49</span>, <span class="fl">22.99</span>, <span class="fl">24.99</span>, <span class="dv">100</span>), </span>
+<span id="cb16-218"><a href="#cb16-218" aria-hidden="true" tabindex="-1"></a>                             <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Underweight&quot;</span>, <span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Overweight&quot;</span>, <span class="st">&quot;Obese&quot;</span>))</span>
+<span id="cb16-219"><a href="#cb16-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-220"><a href="#cb16-220" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(asthma_ds0, BMI_Pre, BMI_PreCat)</span>
+<span id="cb16-221"><a href="#cb16-221" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-222"><a href="#cb16-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-223"><a href="#cb16-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-224"><a href="#cb16-224" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Tidyverse allow for pipe operation. </span>
+<span id="cb16-225"><a href="#cb16-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-228"><a href="#cb16-228" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-229"><a href="#cb16-229" aria-hidden="true" tabindex="-1"></a>asthma_ds0 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../dataset/asthma_ds_nolab.csv&quot;</span>)</span>
+<span id="cb16-230"><a href="#cb16-230" aria-hidden="true" tabindex="-1"></a>asthma_ds0</span>
+<span id="cb16-231"><a href="#cb16-231" aria-hidden="true" tabindex="-1"></a>asthmads_clean <span class="ot">&lt;-</span> asthma_ds0 <span class="sc">%&gt;%</span></span>
+<span id="cb16-232"><a href="#cb16-232" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">as.character</span>(Gender),</span>
+<span id="cb16-233"><a href="#cb16-233" aria-hidden="true" tabindex="-1"></a>         <span class="at">Gender =</span> <span class="fu">fct_recode</span>(Gender, <span class="st">&quot;Male&quot;</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span>, <span class="st">&quot;Female&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>),</span>
+<span id="cb16-234"><a href="#cb16-234" aria-hidden="true" tabindex="-1"></a>         <span class="at">Gender =</span> <span class="fu">fct_relevel</span>(Gender, <span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>),</span>
+<span id="cb16-235"><a href="#cb16-235" aria-hidden="true" tabindex="-1"></a>         <span class="at">Tx2 =</span> <span class="fu">fct_recode</span>(<span class="fu">as.character</span>(Tx2),</span>
+<span id="cb16-236"><a href="#cb16-236" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&quot;Placebo&quot;</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span>, <span class="st">&quot;Drug A&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>, <span class="st">&quot;Drug B&quot;</span> <span class="ot">=</span> <span class="st">&quot;3&quot;</span>),</span>
+<span id="cb16-237"><a href="#cb16-237" aria-hidden="true" tabindex="-1"></a>         <span class="at">Tx1 =</span> <span class="fu">fct_collapse</span>(Tx2,</span>
+<span id="cb16-238"><a href="#cb16-238" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;Intervention&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Drug A&quot;</span>, <span class="st">&quot;Drug B&quot;</span>),</span>
+<span id="cb16-239"><a href="#cb16-239" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;Control&quot;</span> <span class="ot">=</span> <span class="st">&quot;Placebo&quot;</span>),</span>
+<span id="cb16-240"><a href="#cb16-240" aria-hidden="true" tabindex="-1"></a>         <span class="at">Ht_m =</span> Height<span class="sc">/</span><span class="dv">100</span>,</span>
+<span id="cb16-241"><a href="#cb16-241" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_Pre =</span> <span class="fu">round</span>(Weight_Pre<span class="sc">/</span>(Ht_m<span class="sc">^</span><span class="dv">2</span>), <span class="at">digits =</span> <span class="dv">2</span>),</span>
+<span id="cb16-242"><a href="#cb16-242" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_PreCat =</span> <span class="fu">cut</span>(BMI_Pre,</span>
+<span id="cb16-243"><a href="#cb16-243" aria-hidden="true" tabindex="-1"></a>                          <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">18.49</span>, <span class="fl">22.99</span>, <span class="fl">24.99</span>, <span class="dv">100</span>),</span>
+<span id="cb16-244"><a href="#cb16-244" aria-hidden="true" tabindex="-1"></a>                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Underweight&quot;</span>, <span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Overweight&quot;</span>, <span class="st">&quot;Obese&quot;</span>)),</span>
+<span id="cb16-245"><a href="#cb16-245" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_Post =</span> <span class="fu">round</span>(Weight_Post<span class="sc">/</span>(Ht_m<span class="sc">^</span><span class="dv">2</span>), <span class="at">digits =</span> <span class="dv">2</span>),</span>
+<span id="cb16-246"><a href="#cb16-246" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_PostCat =</span> <span class="fu">cut</span>(BMI_Post,</span>
+<span id="cb16-247"><a href="#cb16-247" aria-hidden="true" tabindex="-1"></a>                           <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">18.49</span>, <span class="fl">22.99</span>, <span class="fl">24.99</span>, <span class="dv">100</span>),</span>
+<span id="cb16-248"><a href="#cb16-248" aria-hidden="true" tabindex="-1"></a>                           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Underweight&quot;</span>, <span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Overweight&quot;</span>, <span class="st">&quot;Obese&quot;</span>)),</span>
+<span id="cb16-249"><a href="#cb16-249" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;SxWheeze&quot;</span>),</span>
+<span id="cb16-250"><a href="#cb16-250" aria-hidden="true" tabindex="-1"></a>                <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">as.character</span>(.)),</span>
+<span id="cb16-251"><a href="#cb16-251" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;SxWheeze&quot;</span>),</span>
+<span id="cb16-252"><a href="#cb16-252" aria-hidden="true" tabindex="-1"></a>                <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">fct_recode</span>(., <span class="st">&quot;No&quot;</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span>, <span class="st">&quot;Yes&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb16-253"><a href="#cb16-253" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Tx1, <span class="at">.before =</span> Tx2) <span class="sc">%&gt;%</span></span>
+<span id="cb16-254"><a href="#cb16-254" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Ht_m, <span class="at">.after =</span> Height) <span class="sc">%&gt;%</span></span>
+<span id="cb16-255"><a href="#cb16-255" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(BMI_Pre, BMI_PreCat, <span class="at">.after =</span> Weight_Pre) <span class="sc">%&gt;%</span></span>
+<span id="cb16-256"><a href="#cb16-256" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(BMI_Post, BMI_PostCat, <span class="at">.after =</span> Weight_Post)</span>
+<span id="cb16-257"><a href="#cb16-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-258"><a href="#cb16-258" aria-hidden="true" tabindex="-1"></a>asthmads_clean</span>
+<span id="cb16-259"><a href="#cb16-259" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-260"><a href="#cb16-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-261"><a href="#cb16-261" aria-hidden="true" tabindex="-1"></a><span class="fu">## Descriptive Analysis</span></span>
+<span id="cb16-262"><a href="#cb16-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-263"><a href="#cb16-263" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>List of packages use.</span>
+<span id="cb16-264"><a href="#cb16-264" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>if unavailable, please install</span>
+<span id="cb16-265"><a href="#cb16-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-268"><a href="#cb16-268" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-269"><a href="#cb16-269" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb16-270"><a href="#cb16-270" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb16-271"><a href="#cb16-271" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(summarytools)</span>
+<span id="cb16-272"><a href="#cb16-272" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
+<span id="cb16-273"><a href="#cb16-273" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-274"><a href="#cb16-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-275"><a href="#cb16-275" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Import dataset</span>
+<span id="cb16-276"><a href="#cb16-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-279"><a href="#cb16-279" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-280"><a href="#cb16-280" aria-hidden="true" tabindex="-1"></a>asthmads_clean <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;asthmads_clean.sav&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-281"><a href="#cb16-281" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_factor</span>()</span>
+<span id="cb16-282"><a href="#cb16-282" aria-hidden="true" tabindex="-1"></a>asthmads_clean</span>
+<span id="cb16-283"><a href="#cb16-283" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-284"><a href="#cb16-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-285"><a href="#cb16-285" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>using function <span class="in">`descr(_)`</span> and <span class="in">`freq(_)`</span> from <span class="in">`summarytools::`</span> package</span>
+<span id="cb16-286"><a href="#cb16-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-289"><a href="#cb16-289" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-290"><a href="#cb16-290" aria-hidden="true" tabindex="-1"></a><span class="fu">descr</span>(asthmads_clean)</span>
+<span id="cb16-291"><a href="#cb16-291" aria-hidden="true" tabindex="-1"></a>asthmads_clean <span class="sc">%&gt;%</span></span>
+<span id="cb16-292"><a href="#cb16-292" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_if</span>(<span class="sc">~</span> <span class="sc">!</span><span class="fu">is.numeric</span>(.)) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-293"><a href="#cb16-293" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>idR) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-294"><a href="#cb16-294" aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq</span>()</span>
+<span id="cb16-295"><a href="#cb16-295" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-296"><a href="#cb16-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-297"><a href="#cb16-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-298"><a href="#cb16-298" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>using function <span class="in">`tbl_summary(_)`</span> from <span class="in">`gtsummary::`</span> package to create publicatiton ready table</span>
+<span id="cb16-299"><a href="#cb16-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-302"><a href="#cb16-302" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-303"><a href="#cb16-303" aria-hidden="true" tabindex="-1"></a>asthmads_clean <span class="sc">%&gt;%</span></span>
+<span id="cb16-304"><a href="#cb16-304" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>idR) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-305"><a href="#cb16-305" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>()</span>
+<span id="cb16-306"><a href="#cb16-306" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-307"><a href="#cb16-307" aria-hidden="true" tabindex="-1"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
