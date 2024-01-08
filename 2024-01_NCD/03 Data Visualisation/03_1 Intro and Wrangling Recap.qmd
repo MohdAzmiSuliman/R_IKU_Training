@@ -145,6 +145,7 @@ pacman::p_load(tidyverse, haven, summarytools)
 
 ```{r}
 #| eval: false
+#| echo: true
 
 1
 1 + 2
@@ -155,6 +156,41 @@ my_cars <- c("merc", "bimmer", "supra")
 ```
 
 5. You can run line by line (Ctrl+Enter) or source everything (Ctrl+Shift+Enter)
+
+### Basic Quarto
+
+1. Create quarto file
+  - File -> New File -> Quarto Document
+  - Enter Title, e.g. "Data Visualisation"
+  - Create Empty Document
+2. Edit YAML
+  - `embed-resources: true`
+
+```
+---
+title: "Data Visualisation"
+format: 
+  html:
+    embed-resources: true
+---
+
+```
+
+3. Write the syntax
+
+```{r}
+#| eval: false
+#| echo: true
+
+1
+1 + 2
+one <- 1
+list_num <- c(1,2,3)
+my_cars <- c("merc", "bimmer", "supra")
+
+```
+
+
 
 ## Data Wrangling
 
