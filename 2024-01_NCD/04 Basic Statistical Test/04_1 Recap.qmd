@@ -1,0 +1,186 @@
+---
+title: "Last Session Recap"
+date: last-modified
+date-format: "dddd, DD/MM/YYYY"
+format: 
+  html:
+    theme: sandstone
+    code-fold: show
+    code-copy: hover
+    code-overflow: wrap
+    code-tools: true
+    df-print: paged
+    default-image-extension: svg
+    embed-resources: true
+    page-layout: full
+    reference-location: margin
+    title-block-banner: true
+    title-block-style: default
+    fontsize: 1.2em
+    monofont: 'Fira Code'
+number-sections: true
+toc: true
+fig-dpi: 320
+dpi: 320
+execute: 
+  echo: fenced
+---
+
+
+# Preamble
+
+## Library & Data
+
+```{r}
+pacman::p_load(tidyverse, haven, summarytools)
+```
+
+**Please check you have the latest R and RStudio**
+
+# Recap
+
+## Introduction Concept
+
+1. What is R?: programming language and environment commonly used for statistical computing and graphics. 
+
+![R Main Window](../images/R main window.png)
+
+2. What is RStudio?: an IDE (integrated development environment) for R.
+
+![RStudio Main Window](../images/RStudio main window.png)
+
+3. What is Quarto?: open-source scientific and technical publishing system.
+
+![Quarto Example](../images/quarto main.png)
+
+## Introduction Practical
+
+### Project Management
+
+Recap: One of RStudio (or any IDE for that matter) advantage is project management.
+- allow to each project to contain on it's own "container" i.e. the folder
+
+1. Open `RStudio`
+  - get familiarise with the "3+1" panes: `Console`, `Files` and `Environment` panes
+2. Update setting to have "clean slate" everytime open RStudio
+  - Tools -> Global Option -> General
+  - Check default folder
+  - Untick "Restore..." and select "Never" on "Save workspace..."
+3. Open last project
+  - File -> Recent Project -> ...
+4. Open working directory in File Explorer
+  - Go to `Files` panes
+  - Click on `More` with gear symbol ⚙️ and inverted triangle symbol 🔻 
+  - Select on `Show Folder in New Window`
+5. Download dataset
+  - Google Drive link provided in the email
+6. Copy the downloaded dataset in the working directory
+
+
+
+### Quarto
+
+Recap: Quarto, successor to RMarkdown, an open-source scientific and technical publishing system
+- Allow for `Chunk Output Inline`
+- can `Render` to create elegantly formatted document
+
+1. Create new Quarto file
+  - File -> New File -> Quarto Document...
+2. Set title (e.g. `Basic Statistical Test`) and click on `Create Empty Document`
+  - Ensure "Use visual markdown editor" is **untick**
+3. Update YAML
+
+```{r}
+#| eval: false
+#| echo: true
+
+---
+title: "Basic Statistical Test"
+format: 
+  html:
+    embed-resources: true
+---
+
+
+```
+
+
+### Addins
+
+There are multiple RStudio addin that can assist us in RStudio, some of my favourites are:
+
+1. `questionr`
+  - Addins for several recoding operation
+  - levels recoding
+  - levels ordering
+  - numeric range dividing
+  - check if you have previous installed the package, use `Packages` panes if necessary
+
+2. `esquisse` 
+  - allow to interactively explore data by visualizing
+  - check if you have previous installed the package, use `Packages` panes if necessary
+
+
+## Data Wrangling
+
+### Import Dataset (SPSS .sav file)
+
+1. Create A New Quarto file (or can continue from the last opened quarto file)
+  - File -> New File -> Quarto Document...
+  - Set title (e.g. `Basic Statistical Test`) and click on `Create Empty Document`
+    - Ensure "Use visual markdown editor" is **untick**
+  - Update YAML
+    - Ensure `embed-resources: true` parameter written
+2. Import file `asthma_ds.sav` file
+  - easiest way
+    - click on the file in `Files` pane
+    - copy the code generate
+    - add function `as_factor()` from `haven::` package to apply the value label
+  - below is the code
+    - dont forget to add r code chunk, and write the code insde the code chunk
+
+```{r}
+library(tidyverse)
+library(haven)
+asthma_ds <- read_sav("asthma_ds.sav") %>% 
+  as_factor()
+asthma_ds
+```
+
+::: {.callout-tip}
+### Try it yourself
+
+can you try import the file `asthmads_clean.sav`?
+:::
+
+
+### Very short data transformation
+
+1. transform height from cm to m
+
+```{r}
+asthma_ds <- asthma_ds %>% 
+  mutate(Ht_m = Height/100, .after = Height)
+```
+
+2. calculate BMI from weight (in kg) and height^2 (in m)
+
+```{r}
+asthma_ds <- asthma_ds %>% 
+  mutate(BMI_Pre = Weight_Pre/(Ht_m^2), .after = Weight_Pre)
+```
+
+
+### Very short visualization
+
+1. plot histogram for BMI_Pre
+  - easiest way is to use addin
+  - or you can write your own code
+  
+```{r}
+asthma_ds %>% 
+  ggplot(aes(BMI_Pre)) + 
+  geom_histogram()
+```
+
+
