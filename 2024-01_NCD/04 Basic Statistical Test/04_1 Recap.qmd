@@ -66,6 +66,11 @@ Recap: One of RStudio (or any IDE for that matter) advantage is project manageme
   - Tools -> Global Option -> General
   - Check default folder
   - Untick "Restore..." and select "Never" on "Save workspace..."
+
+::: {.callout-tip collapse="true" title="Click to show link on discussion for best practice"}
+discussion on workflow [What They Forgot to Teach You About R](https://rstats.wtf/)
+:::
+
 3. Open last project
   - File -> Recent Project -> ...
 4. Open working directory in File Explorer
@@ -78,10 +83,12 @@ Recap: One of RStudio (or any IDE for that matter) advantage is project manageme
 
 
 
+
 ### Quarto
 
 Recap: Quarto, successor to RMarkdown, an open-source scientific and technical publishing system
 - Allow for `Chunk Output Inline`
+  - which allow for `Show in new window2`
 - can `Render` to create elegantly formatted document
 
 1. Create new Quarto file
@@ -168,6 +175,19 @@ asthma_ds <- asthma_ds %>%
 ```{r}
 asthma_ds <- asthma_ds %>% 
   mutate(BMI_Pre = Weight_Pre/(Ht_m^2), .after = Weight_Pre)
+```
+
+3. group BMI to Asian Classification
+  - can use addin `questionr`
+  - or use below code
+
+```{r}
+asthma_ds <- asthma_ds %>% 
+  mutate(BMI_PreCat = cut(BMI_Pre, 
+                          breaks = c(0, 17.49, 22.99, 27.99, Inf),
+                          labels = c("Underweight", "Normal", 
+                                     "Overweight", "Obese")),
+         .after = BMI_Pre)
 ```
 
 
