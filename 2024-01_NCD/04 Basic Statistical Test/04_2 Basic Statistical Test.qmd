@@ -291,3 +291,43 @@ asthmads %>%
 
 
 :::
+
+
+# Linear Regression
+
+## Background
+
+- test for significant relationship between independent variable (predictors) with dependent variable (outcome)
+  - outcome is **numerical** variable
+  - predictor can be **categorical** or **numerical**
+- test's assumptions
+  - linearity between IV and DV
+  - independence of error
+  - normality of residual
+  - homoscedascity of residual
+  - no multicollinearity (multiple linear regression)
+
+
+## Conduct Linear Regression
+
+Objective: 
+
+1. import dataset `asthmads_clean.sav`
+  - same dataset used previously
+
+2. 
+
+
+## Package `gtsummary::`
+
+
+# Logistic Regression
+
+
+## Background
+
+## Conduct Chi-square Test
+
+
+## Package `gtsummary::`
+
