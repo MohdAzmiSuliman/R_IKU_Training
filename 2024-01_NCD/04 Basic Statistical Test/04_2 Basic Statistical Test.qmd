@@ -26,6 +26,14 @@ execute:
   echo: fenced
 ---
 
+```{r}
+#| label: setup
+#| echo: false
+
+pacman::p_load(tidyverse, janitor, summarytools, gtsummary, rstatix)
+```
+
+
 # Basic Statistical Test
 
 In this session, several tests will be covered
@@ -40,9 +48,9 @@ There will also two part, on how to conduct the tests
 1. Basic, standard way
 2. Using package: easier, tidier, prettier
 
-## Chi-square Test
+# Chi-square Test
 
-### Background
+## Background
 
 - test for significant relationship between two categorical variables
 - test assumptions: 
@@ -51,9 +59,10 @@ There will also two part, on how to conduct the tests
   - mutually exclusive
   - <20% of cell have expected count <5
   
-### Conduct Chi-square Test
+## Conduct Chi-square Test
 
 Objective: To test whether employment status and gender had significant association
+
 
 1. Import dataset `asthmads_clean.sav`
 
@@ -79,7 +88,10 @@ with(asthmads, table(Gender, WorkStatus))
 
 ```{r}
 xtabs(~ Gender + WorkStatus, asthmads)
+```
 
+
+```{r}
 xtabs(~ Gender + WorkStatus, asthmads) %>% 
   prop.table(., margin = 2)
 ```
@@ -93,14 +105,22 @@ library(janitor)
 
 asthmads %>%
   count(Gender, WorkStatus)
+```
 
+
+```{r}
 asthmads %>%
   count(Gender, WorkStatus) %>%
-  pivot_wider(names_from = WorkStatus, values_from = n, values_fill = list(n = 0))
+  pivot_wider(names_from = WorkStatus, values_from = n, 
+              values_fill = list(n = 0))
+```
 
+
+```{r}
 asthmads %>%
   count(Gender, WorkStatus) %>%
-  pivot_wider(names_from = WorkStatus, values_from = n, values_fill = list(n = 0)) %>%
+  pivot_wider(names_from = WorkStatus, values_from = n, 
+              values_fill = list(n = 0)) %>%
   janitor::adorn_totals(c("row", "col"))
 ```
 
@@ -110,14 +130,164 @@ asthmads %>%
 ```{r}
 asthmads %>%
   tabyl(Gender, WorkStatus)
+```
 
+
+```{r}
 asthmads %>%
   tabyl(Gender, WorkStatus) %>%
   adorn_percentages("col") %>%
   adorn_pct_formatting()
 ```
 
+:::
 
+
+
+3. Conduct chi-square test with `chisq.test(_)` function
+
+```{r}
+with(asthmads, table(Gender, WorkStatus)) %>% 
+  chisq.test(., correc = F)
+```
+
+
+
+
+## Package `gtsummary::`
+
+`gtsummary::` package is my favourite package, providing an elegant and flexible way to create publication-ready analytical and summary tables.
+
+```{r}
+library(gtsummary)
+
+asthmads %>% 
+  select(Gender, WorkStatus) %>% 
+  tbl_summary(by = WorkStatus)
+```
+
+
+```{r}
+asthmads %>% 
+  select(Gender, WorkStatus) %>% 
+  tbl_summary(by = WorkStatus) %>% 
+  add_p()
+
+```
+
+
+
+# Independent t-test
+
+## Background
+
+- test for significant difference of normally distributed continuous variable between two group
+- test's assumption
+  - random sampling
+  - independence
+  - normal distributed
+  - **equal variance (homoscedasticity)**
+
+
+## Conduct Independent t-test
+
+Objective: to compare body height between gender
+
+
+1. import dataset
+  - in this example, same dataset (i.e. asthmads) is used.
+  
+2. Confirm data distribution
+
+```{r}
+asthmads %>% 
+  ggplot(aes(x = Ht_m, fill = Gender)) +
+  geom_density(alpha = .5) +
+  theme_bw()
+```
+
+
+3. Calculate mean & sd of height for each gender
+
+```{r}
+asthmads %>% 
+  group_by(Gender) %>% 
+  summarise(mean = mean(Ht_m, na.rm = T),
+            sd = sd(Ht_m, na.rm = T))
+```
+
+:::{.panel-tabset}
+
+### summarytools
+
+```{r}
+asthmads %>% 
+  group_by(Gender) %>% 
+  descr(Ht_m)
+```
+
+
+### rstatix
+
+```{r}
+library(rstatix)
+
+asthmads %>% 
+  group_by(Gender) %>% 
+  get_summary_stats(Ht_m)
+```
+
+
+:::
+
+4. Conduct independent t-test with `t.test(_)` function
+
+```{r}
+t.test(Ht_m ~ Gender, asthmads)
+```
+
+## Package `gtsummary::`
+
+```{r}
+library(gtsummary)
+
+asthmads %>% 
+  select(Gender, Ht_m) %>% 
+  tbl_summary(by = Gender,
+              statistic = list(all_continuous() ~ "{mean} ({sd})"))
+
+asthmads %>% 
+  select(Gender, Ht_m) %>% 
+  tbl_summary(by = Gender,
+              statistic = list(all_continuous() ~ "{mean} ({sd})")) %>% 
+  add_p(test = list(all_continuous() ~ "t.test"))
+
+
+
+```
+
+
+
+:::{.panel-tabset}
+
+### broom
+
+```{r}
+library(broom)
+
+t.test(Ht_m ~ Gender, asthmads) %>% 
+  tidy()
+```
+
+
+### rstatix
+
+```{r}
+library(rstatix)
+
+asthmads %>% 
+  t_test(Ht_m ~ Gender, detailed = T) 
+```
 
 
 :::
