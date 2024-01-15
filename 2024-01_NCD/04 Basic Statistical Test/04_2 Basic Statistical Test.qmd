@@ -53,7 +53,7 @@ There will also two part, on how to conduct the tests
   
 ### Conduct Chi-square Test
 
-Objective: 
+Objective: To test whether employment status and gender had significant association
 
 1. Import dataset `asthmads_clean.sav`
 
@@ -67,4 +67,57 @@ asthmads
 
 ```
 
-2. 
+2. Creata Crosstabulation
+
+```{r}
+with(asthmads, table(Gender, WorkStatus))
+```
+
+:::{.panel-tabset}
+
+### Base too (xtabs)
+
+```{r}
+xtabs(~ Gender + WorkStatus, asthmads)
+
+xtabs(~ Gender + WorkStatus, asthmads) %>% 
+  prop.table(., margin = 2)
+```
+
+### Tidyverse & Janitor
+
+
+```{r}
+library(tidyverse)
+library(janitor)
+
+asthmads %>%
+  count(Gender, WorkStatus)
+
+asthmads %>%
+  count(Gender, WorkStatus) %>%
+  pivot_wider(names_from = WorkStatus, values_from = n, values_fill = list(n = 0))
+
+asthmads %>%
+  count(Gender, WorkStatus) %>%
+  pivot_wider(names_from = WorkStatus, values_from = n, values_fill = list(n = 0)) %>%
+  janitor::adorn_totals(c("row", "col"))
+```
+
+
+### Janitor (tabyl)
+
+```{r}
+asthmads %>%
+  tabyl(Gender, WorkStatus)
+
+asthmads %>%
+  tabyl(Gender, WorkStatus) %>%
+  adorn_percentages("col") %>%
+  adorn_pct_formatting()
+```
+
+
+
+
+:::
