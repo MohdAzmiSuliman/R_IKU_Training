@@ -176,6 +176,8 @@ asthma_def <- defData(varname = "Gender", dist = "binary",
                       formula = .5, link = "identity") %>% 
   defData(varname = "Age", dist = "uniform", 
           formula = "25;35", link = "identity") %>% 
+  defData(varname = "WorkStatus", dist = "binary", 
+          formula = "sqrt((Gender+1)/2)-.3", link = "identity") %>% 
   defData(varname = "Height", dist = "normal",
           formula = "1.5 + (1-Gender)/4", variance = .01, 
           link = "identity") %>% 
@@ -232,6 +234,8 @@ asthma_ds0 <- genData(150, asthma_def) %>%
   mutate(Gender = fct_recode(as.character(Gender), 
                              "Male" = "0", "Female" = "1"),
          Age = round(Age, 0),
+         WorkStatus = fct_recode(as.character(WorkStatus),
+                                 "Employed" = "0", "Unemployed" = "1"), 
          Height = round(Height*100),
          PA_HW = round(PA_HW),
          Tx2 = fct_recode(as.character(Tx2), 
@@ -255,6 +259,7 @@ asthma_ds <- asthma_ds0 %>%
          PEFR_Pre, PEFR_Post, SxWheeze_Pre, SxWheeze_Post, 
          PS_Pre, PS_Post) %>% 
   set_variable_labels(Age = "Age (year)",
+                      WorkStatus = "Employment", 
                       Height = "Height (cm)",
                       Weight_Pre = "Weight (kg) - before",
                       PA_HW = "Physical Activity (total hour per week)",
@@ -344,9 +349,9 @@ asthma_ds_dict <- left_join(asthma_ds_colnamelabel,
                             asthma_ds_vallabel)
 
 # gt(asthma_ds_dict) %>%
-#   cols_label(col_name = "Column Name", 
-#              col_lab = "Column Label", 
-#              val_lab = "Value Label") %>% 
+#   cols_label(col_name = "Column Name",
+#              col_lab = "Column Label",
+#              val_lab = "Value Label") %>%
 #   gtsave(., filename = "dataset/asthma_data_dictionary.docx")
 
 
@@ -357,7 +362,7 @@ asthma_ds_dict <- left_join(asthma_ds_colnamelabel,
 
 ```{r}
 # write.csv(asthma_ds, "dataset/asthma_ds.csv")
- 
+
 # write.csv(zap_labels(asthmads_sav), "dataset/asthma_ds_nolab.csv")
 
 ```

@@ -1,0 +1,70 @@
+---
+title: "Last Session Recap"
+date: last-modified
+date-format: "dddd, DD/MM/YYYY"
+format: 
+  html:
+    theme: sandstone
+    code-fold: show
+    code-copy: hover
+    code-overflow: wrap
+    code-tools: true
+    df-print: paged
+    default-image-extension: svg
+    embed-resources: true
+    page-layout: full
+    reference-location: margin
+    title-block-banner: true
+    title-block-style: default
+    fontsize: 1.2em
+    monofont: 'Fira Code'
+number-sections: true
+toc: true
+fig-dpi: 320
+dpi: 320
+execute: 
+  echo: fenced
+---
+
+# Basic Statistical Test
+
+In this session, several tests will be covered
+
+1. Chi-Square Test
+2. Independent t-test
+3. Linear Regression
+4. Logistic Regression
+
+There will also two part, on how to conduct the tests
+
+1. Basic, standard way
+2. Using package: easier, tidier, prettier
+
+## Chi-square Test
+
+### Background
+
+- test for significant relationship between two categorical variables
+- test assumptions: 
+  - random sampling
+  - independence
+  - mutually exclusive
+  - <20% of cell have expected count <5
+  
+### Conduct Chi-square Test
+
+Objective: 
+
+1. Import dataset `asthmads_clean.sav`
+
+```{r}
+library(tidyverse)
+library(haven)
+
+asthmads <- read_sav("asthmads_clean.sav") %>% 
+  as_factor()
+asthmads
+
+```
+
+2. 

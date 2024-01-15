@@ -564,11 +564,15 @@ or any other name, up to you
 
 ```{r}
 #| echo: false
+#| eval: false
 
 asthmads_clean <- asthma_ds0 %>% 
   mutate(Gender = as.character(Gender), 
          Gender = fct_recode(Gender, "Male" = "1", "Female" = "2"), 
          Gender = fct_relevel(Gender, "Female", "Male"),
+         WorkStatus = as.character(WorkStatus), 
+         WorkStatus = fct_recode(WorkStatus, "Employed" = "1", "Unemployed" = "2"), 
+         WorkStatus = fct_relevel(WorkStatus, "Unemployed", "Employed"), 
          Tx2 = fct_recode(as.character(Tx2), 
                           "Placebo" = "1", "Drug A" = "2", "Drug B" = "3"), 
          Tx1 = fct_collapse(Tx2, 
@@ -590,7 +594,20 @@ asthmads_clean <- asthma_ds0 %>%
   relocate(Tx1, .before = Tx2) %>% 
   relocate(Ht_m, .after = Height) %>% 
   relocate(BMI_Pre, BMI_PreCat, .after = Weight_Pre) %>% 
-  relocate(BMI_Post, BMI_PostCat, .after = Weight_Post)
+  relocate(BMI_Post, BMI_PostCat, .after = Weight_Post) %>% 
+  labelled::set_variable_labels(Age = "Age (year)", 
+                                WorkStatus = "Employment", 
+                                Height = "Height (cm)", 
+                                Weight_Pre = "Weight (kg) - before", 
+                                PA_HW = "Physical Activity (total hour per week)", 
+                                Weight_Post = "Weight (kg) - after", 
+                                Tx2 = "Treatment Group", 
+                                PEFR_Pre = "PEFR (L/min) - before", 
+                                PEFR_Post = "PEFR (L/min) - after", 
+                                SxWheeze_Pre = "Symptom Wheezing - before", 
+                                SxWheeze_Post = "Symptom Wheezing - after", 
+                                PS_Pre = "Pains Score - before", 
+                                PS_Post = "Pains Score - after")
 
 # write_sav(asthmads_clean, "asthmads_clean.sav")
 
