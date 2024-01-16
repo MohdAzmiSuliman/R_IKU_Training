@@ -30,7 +30,8 @@ execute:
 #| label: setup
 #| echo: false
 
-pacman::p_load(tidyverse, janitor, summarytools, gtsummary, rstatix)
+pacman::p_load(tidyverse, janitor, summarytools, gtsummary, 
+               broom, rstatix, ResourceSelection, pROC, caret)
 ```
 
 
@@ -246,6 +247,22 @@ asthmads %>%
 t.test(Ht_m ~ Gender, asthmads)
 ```
 
+
+::: {.callout-important}
+
+In R, many functions require a formula parameter, especially in statistical modelling.
+
+- The general form of a formula is `outcome ~ predictors, data`, 
+  - outcome = dependent variable 
+  - predictors = independent variable**s**. 
+- This formula structure is used in various functions, such as linear modelling. 
+- For a t-test, which compares means across groups, 
+  - the formula formed by `outcome ~ group, data` 
+  - `group` = categorical variable = groups
+
+:::
+
+
 ## Package `gtsummary::`
 
 ```{r}
@@ -289,7 +306,6 @@ asthmads %>%
   t_test(Ht_m ~ Gender, detailed = T) 
 ```
 
-
 :::
 
 
@@ -299,8 +315,9 @@ asthmads %>%
 
 - test for significant relationship between independent variable (predictors) with dependent variable (outcome)
   - outcome is **numerical** variable
-  - predictor can be **categorical** or **numerical**
+  - predictor can be **categorical** or **numerical** variable
 - test's assumptions
+  - continuous outcome
   - linearity between IV and DV
   - independence of error
   - normality of residual
@@ -310,24 +327,413 @@ asthmads %>%
 
 ## Conduct Linear Regression
 
-Objective: 
+Objective: Find significant predictors of BMI_Changes
+
+::: {.callout-note}
+BMI_Changes was not available, and need to calculate
+:::
 
 1. import dataset `asthmads_clean.sav`
   - same dataset used previously
 
-2. 
+```{r}
+asthmads
+```
+
+
+```{r}
+asthmads <- asthmads %>% 
+  mutate(BMI_Changes = BMI_Post - BMI_Pre)
+asthmads
+```
+
+
+2. Conduct Linear Regression (Simple Linear Regression)
+
+```{r}
+slm_PA_HW <- lm(BMI_Changes ~ PA_HW, asthmads)
+summary(slm_PA_HW)
+```
+
+
+::: {.callout-important}
+
+In R, many functions require a formula parameter, especially in statistical modelling.
+
+- The general form of a formula is `outcome ~ predictors, data`, 
+  - outcome = dependent variable 
+  - predictors = independent variable**s**. 
+- if there were several predictors, add with `+` operator
+  - e.g. `weight ~ height + age, my_data`
+- in multiple linear regression, we use `*` operator for interaction
+  - e.g. `weight ~ height + age + height*age, my_data`
+
+
+:::
+
+
+
+3. Test Assumptions
+
+```{r}
+plot(slm_PA_HW)
+```
+
 
 
 ## Package `gtsummary::`
 
+```{r}
+asthmads %>% 
+  tbl_uvregression(method = lm,
+                   y = BMI_Changes,
+                   include = PA_HW)
+```
+
+
+```{r}
+asthmads %>% 
+  tbl_uvregression(method = lm,
+                   y = BMI_Changes,
+                   include = c(Gender, Age, WorkStatus, BMI_Pre, PA_HW),
+                   pvalue_fun = partial(style_pvalue, digits = 3)) %>% 
+  bold_p()
+
+```
+
+
+:::{.panel-tabset}
+
+### broom
+
+```{r}
+library(broom)
+
+slm_PA_HW %>% 
+  tidy()
+```
+
+:::
+
+4. Multiple Linear Regression
+
+```{r}
+mlm_bmichanges <- lm(BMI_Changes ~ Gender + BMI_Pre + PA_HW, asthmads)
+summary(mlm_bmichanges)
+plot(mlm_bmichanges)
+```
+
+
+
+## Package `gtsummary::`
+
+```{r}
+mlm_bmichanges %>%
+  tbl_regression(pvalue_fun = partial(style_pvalue, digits = 3)) %>% 
+  bold_p()
+
+```
 
 # Logistic Regression
 
-
 ## Background
 
-## Conduct Chi-square Test
+- test for significant association between predictors with outcome
+  - outcome is **binary categorical** variable. e.g., yes/no
+  - predictor can be **categorical** or **numerical** variables
+- test's assumptions
+  - binary outcome
+  - linearity of logit (log odds of the outcome)
+  - independence
+  - no multicollinearity (multiple logistic regression)
+  - no strong outlier
+  - goodness of fit
+  
+
+## Conduct Logistic Regression
+
+
+Objective: Find significant predictors of BMI_CCat (Changes in category)
+- PA_HW convert to PA_Cat, with cut off >= 2 for low and high
+- BMI_Changes convert to BMI_CCat, with cut off >= -2.5 for no and yes
+
+1. import dataset `asthmads_clean.sav`
+  - same dataset used previously
+
+```{r}
+asthmads
+```
+
+
+```{r}
+asthmads <- asthmads %>% 
+  mutate(PA_Cat = cut(PA_HW, 
+                      breaks = c(-Inf, 2.0, Inf), 
+                      labels = c("Low Intensity", "High Intensity")),
+         BMI_CCat = cut(BMI_Changes, 
+                        breaks = c(-Inf, -2.50, Inf), 
+                        labels = c("Marked Changed", "Min Changed")),
+         BMI_CCat = fct_relevel(BMI_CCat, "Min Changed", "Marked Changed"))
+
+asthmads
+```
+
+
+2. Conduct Logistic Regression (Simple Logistic Regression)
+
+```{r}
+slogm_PA <- glm(BMI_CCat ~ PA_Cat, 
+                family = binomial(), 
+                asthmads)
+summary(slogm_PA)
+
+tidy(slogm_PA, conf.int = T,  exponentiate = T)
+```
+
+3. Test Assumption
+
+```{r}
+plot(slogm_PA)
+```
+
+
+- use `broom::` package
+  - function `augment(_)` to calculate residual and cook distance
+
+```{r}
+library(broom)
+
+slogm_PA %>% 
+  augment() %>% 
+  bind_cols(idR = asthmads$idR, .)
+```
+
+- large residual
+  - common cut off point 2 or 3 (absolute)
+
+```{r}
+slogm_PA %>% 
+  augment() %>%
+  mutate(abs_stdresid = abs(.std.resid)) %>% 
+  slice_max(order_by = abs_stdresid, n = 5)
+
+```
+
+- large influential
+  - traditional rule of thumb, cook distance >1
+  - 4/n, where n is there number of observation
+  - top percentage
+
+
+```{r}
+slogm_PA %>% 
+  augment() %>% 
+  bind_cols(idR = asthmads$idR, .) %>% 
+  slice_max(order_by = .cooksd, n = 5)
+  
+```
+
+4. Model Fitness - Hosmer Lemeshow Test
+  - grouped the dataset into deciles, based on predicted probability
+  - compare the number of obeserved and expected outcome in each group
+  - non-significant indicate good fit
+  - use `hoslem.test` from `ResourceSelection::` package
+  - need to change outcome to 0 and 1
+
+```{r}
+library(ResourceSelection)
+
+hoslem.test(x = as.numeric(asthmads$BMI_CCat)-1, 
+            y = slogm_PA$fitted.values, 
+            g = 9)
+```
+
+5. Model Fitness - Area Under ROC Curve
+  - plot the diagnostic ability, as its discrimination threshold is varied
+  - i.e., plot the Sensitivity against 1-Specificity, at various threshold setting
+  - close to 1 indicate good fit
+  
+```{r}
+library(pROC)
+
+slogm_PA %>% 
+  augment(type.predict = "response") %>% 
+  roc(BMI_CCat, .fitted)
+```
+
+
+```{r}
+slogm_PA %>% 
+  augment(type.predict = "response") %>% 
+  roc(BMI_CCat, .fitted) %>% 
+  plot()
+```
+
+we can also plot manually with ggplot
+
+```{r}
+slogm_PA_roc <- slogm_PA %>% 
+  augment(type.predict = "response") %>% 
+  roc(BMI_CCat, .fitted)
+
+tibble(threshold = slogm_PA_roc$thresholds,
+       sensitivity = slogm_PA_roc$sensitivities, 
+       specificity = slogm_PA_roc$specificities)
+```
+
+
+
+6. Confusion Matrix
+  - cross tabulate observed value and predicted value
+  - Derived Metrics
+    - accuracy: overall correct classifier (TP+TN)/total
+    - sensitivity
+    - specificity
+    - precision
+
+```{r}
+library(caret)
+
+slog_PA_predds <- slogm_PA %>% 
+  augment(type.predict = "response") %>% 
+  mutate(predicted = cut(.fitted, 
+                         breaks = c(-Inf, .50, Inf), 
+                         labels = c("Min Changed", "Marked Changed"))) %>% 
+  select(observed = BMI_CCat, predicted)
+slog_PA_predds
+```
+
+
+```{r}
+slog_PA_ctab <- with(slog_PA_predds, table(observed, predicted))
+slog_PA_ctab
+```
+
+
+```{r}
+confusionMatrix(slog_PA_ctab, positive = "Marked Changed")
+```
+
+
+
 
 
 ## Package `gtsummary::`
+
+
+```{r}
+asthmads %>% 
+  tbl_uvregression(method = glm, 
+                   method.args = list(family = binomial), 
+                   y = BMI_CCat,
+                   include = PA_Cat,
+                   exponentiate = T)
+```
+
+
+## Multiple Logistic Regression
+
+### Create Model
+
+
+```{r}
+asthmads %>% 
+  tbl_uvregression(method = glm, 
+                   method.args = list(family = binomial), 
+                   y = BMI_CCat,
+                   include = c(Gender, Age, WorkStatus, BMI_Pre, 
+                               PA_HW, PA_Cat),
+                   exponentiate = T) %>% 
+  bold_p(t = .25)
+```
+
+
+```{r}
+mlogm_bmic <- glm(BMI_CCat ~ Gender + Age + PA_HW, 
+                family = binomial(), 
+                asthmads)
+
+mlogm_bmic %>% 
+  tbl_regression(exponentiate = T, 
+                 estimate_fun = partial(style_ratio, digits = 3), 
+                 pvalue_fun = partial(style_pvalue, digits = 2)) %>% 
+  bold_p()
+
+```
+
+
+### Model Assumption Test
+
+```{r}
+plot(mlogm_bmic)
+```
+
+residual
+
+```{r}
+mlogm_bmic %>% 
+  augment() %>%
+  bind_cols(id = asthmads$id, .) %>% 
+  mutate(abs_stdresid = abs(.std.resid)) %>% 
+  slice_max(order_by = abs_stdresid, n = 5)
+
+```
+
+
+influential
+
+```{r}
+mlogm_bmic %>% 
+  augment() %>%
+  bind_cols(id = asthmads$id, .) %>% 
+  slice_max(order_by = .cooksd, n = 5)
+
+```
+
+
+### Model Fitness
+
+HL Test
+
+```{r}
+library(ResourceSelection)
+
+hoslem.test(x = as.numeric(asthmads$BMI_CCat)-1, 
+            y = mlogm_bmic$fitted.values, 
+            g = 10)
+```
+
+ROC Curve
+
+```{r}
+library(pROC)
+
+mlogm_bmic %>% 
+  augment(type.predict = "response") %>% 
+  roc(BMI_CCat, .fitted)
+
+mlogm_bmic %>% 
+  augment(type.predict = "response") %>% 
+  roc(BMI_CCat, .fitted) %>% 
+  plot()
+```
+
+
+
+Confusion Matrix
+
+```{r}
+library(caret)
+
+mlogm_bmic_predds <- mlogm_bmic %>% 
+  augment(type.predict = "response") %>% 
+  mutate(predicted = cut(.fitted, 
+                         breaks = c(-Inf, .50, Inf), 
+                         labels = c("Min Changed", "Marked Changed"))) %>% 
+  select(observed = BMI_CCat, predicted)
+
+mlogm_bmic_ctab <- with(mlogm_bmic_predds, table(observed, predicted))
+
+confusionMatrix(mlogm_bmic_ctab, positive = "Marked Changed")
+```
 
