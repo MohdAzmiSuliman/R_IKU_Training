@@ -1,0 +1,50 @@
+---
+title: "Complex Sampling Design"
+date: last-modified
+date-format: "dddd, DD/MM/YYYY"
+format: 
+  html:
+    theme: sandstone
+    code-fold: show
+    code-copy: hover
+    code-overflow: wrap
+    code-tools: true
+    df-print: paged
+    default-image-extension: svg
+    embed-resources: true
+    page-layout: full
+    reference-location: margin
+    title-block-banner: true
+    title-block-style: default
+    fontsize: 1.2em
+    monofont: 'Fira Code'
+number-sections: true
+toc: true
+fig-dpi: 320
+dpi: 320
+execute: 
+  echo: fenced
+---
+
+```{r}
+#| label: setup
+#| echo: false
+
+pacman::p_load(tidyverse, janitor, summarytools, gtsummary, 
+               broom, rstatix, ResourceSelection, pROC, caret)
+```
+
+# Setup
+
+# Practical
+
+## Setup Project
+
+1. Open your RStudio
+
+2. Create Project
+  - File -> New Project...
+  - New Directory -> New Project
+    - set Directory Name, e.g., `Sesi 4 NHMS`
+    - ensure the project directory is in default working directory, i.e., `~/Documents/RStudio`
+    - click `Create Project` button
