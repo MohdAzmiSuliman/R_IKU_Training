@@ -1,0 +1,68 @@
+---
+title: "Complex Sampling Design"
+date: last-modified
+date-format: "dddd, DD/MM/YYYY"
+format: 
+  html:
+    theme: sandstone
+    code-fold: show
+    code-copy: hover
+    code-overflow: wrap
+    code-tools: true
+    df-print: paged
+    default-image-extension: svg
+    embed-resources: true
+    page-layout: full
+    reference-location: margin
+    title-block-banner: true
+    title-block-style: default
+    fontsize: 1.2em
+    monofont: 'Fira Code'
+number-sections: true
+toc: true
+fig-dpi: 320
+dpi: 320
+execute: 
+  echo: fenced
+---
+
+# Introduction
+
+## Complex Sampling Design
+
+
+- **Census vs. Sampling**
+   - Sampling is more feasible than a census, which attempts to reach everyone.
+   - Sampling is less costly and time-consuming.
+- **Random Sampling Limitations**
+   - Purely random sampling may not adequately represent all groups, particularly minorities.
+- **Stratified Sampling**
+   - Stratification ensures that important subgroups within the population are adequately represented.
+- **Cluster Sampling**
+   - Clustering (e.g., by district or Enumeration Block) can increase efficiency, especially in geographically dispersed populations.
+- **Adjustments in Complex Sampling**
+   - Stratification and clustering alter initial selection probabilities.
+   - Weight adjustments are necessary to equalize these probabilities.
+- **Post-stratification**
+   - Helps in aligning the sample estimates with the broader state or national populations.
+
+
+- **NHMS Sampling Methodology**
+   - Employs a two-stage stratified random sampling.
+   - First stage: stratification by state.
+   - Second stage: stratification by urban/rural locality.
+   - Primary sampling unit: Enumeration Block; Secondary: Living Quarters.
+- **Accounting for Design Effect**
+   - Sample size needs to be inflated to accommodate the increased variance due to the complex design.
+
+
+## Disclaimer
+
+1. Limited exposure on complex sampling design
+2. Mainly on verbal explanation and short reading
+3. No formal training, and a lot of reverse engineering
+
+# Practical
+
+## Setup your Project
+
