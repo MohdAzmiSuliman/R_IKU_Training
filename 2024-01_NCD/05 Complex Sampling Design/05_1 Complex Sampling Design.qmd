@@ -64,5 +64,174 @@ execute:
 
 # Practical
 
+
+```{r}
+#| label: setup
+#| echo: false
+
+pacman::p_load(tidyverse, janitor, summarytools, gtsummary, 
+               broom, rstatix, ResourceSelection, pROC, caret)
+```
+
+
 ## Setup your Project
+
+
+1. Open your RStudio
+
+2. Create Project
+  - File -> New Project...
+  - New Directory -> New Project
+    - set Directory Name, e.g., `Sesi 4 NHMS`
+    - ensure the project directory is in default working directory, i.e., `~/Documents/RStudio`
+    - click `Create Project` button
+
+3. Copy your NHMS dataset into the working directory
+  - `Files` pane -> click the `⚙️ More 🔻` button -> select `Show Folder in New Window`
+  - Copy your NHMS dataset into the working directory
+  - alternatively, you can also check you working directory, and copy the working directory into your File Explorer
+
+```{r}
+#| eval: false
+#| echo: true
+
+getwd() %>% 
+  clipr::write_clip()
+```
+
+
+# Analysis
+
+## Import Dataset
+
+SPSS sav file
+  - Click the spss's sav file
+  - Select `Import Dataset...`
+  - Copy the code into r code chunk
+  - add function `as_factor(_)` 
+    - Note: as_factor (from `haven` package), 
+    - **NOT** as.factor (from `base` package)
+
+```{r}
+
+library(tidyverse)
+library(haven)
+
+nhms19ds <- read_sav("nhms19ds.sav") %>% 
+  as_factor()
+
+nhms19ds %>% 
+  select(-c(indvid, hh_id)) %>% 
+  slice_sample(n = 30)
+```
+
+Occasionally, you may have the original dataset in csv/xlsx file
+  - similar step with SPSS
+  - click the excel xlsx file
+  - select import dataset
+  - copy the code into r code chunk
+  - appropriate data wrangling
+    - label
+    - recode
+    - rename
+    - relevel
+
+```{r}
+library(readxl)
+
+xlsxnhms19 <- read_excel("NHMS_2019_CholData.xlsx") %>% 
+  select(-c(indvid, hh_id)) %>% 
+  slice_sample(n = 30)
+
+xlsxnhms19
+```
+
+```{r}
+library(haven)
+library(labelled)
+library(stringi)
+
+xlsxnhms19_w <- xlsxnhms19 %>% 
+  set_value_labels(c01 = c("EJ" = -9, "TT" = -7, "N/A" = -6, 
+                           "Yes" = 1, "No" = 2), 
+                   c02 = c("EJ" = -9, "TT" = -7, "N/A" = -6, 
+                           "Yes" = 1, "No" = 2), 
+                   c03 = c("TT" = -7, "N/A" = -6, 
+                           "Less than 1 year" = 1, "1 year and more" = 2), 
+                   c03a = c("TT" = -7, "N/A" = -6), 
+                   c04a = c("N/A" = -6, "Yes" = 1, "No" = 2), 
+                   c04b = c("TT" = -7, "N/A" = -6, "Yes" = 1, "No" = 2), 
+                   c04c = c("TT" = -7, "N/A" = -6, "Yes" = 1, "No" = 2), 
+                   c04d = c("TT" = -7, "N/A" = -6, "Yes" = 1, "No" = 2), 
+                   c05 = c("TT" = -7, "N/A" = -6, "Yes" = 1, "No" = 2), 
+                   c06 = c("EJ" = -9, "TT" = -7, "N/A" = -6, 
+                           "Government clinic" = 1, "Private clinic" = 2,
+                           "Government hospital" = 3, "Private hospital" = 4,
+                           "Pharmacy (self-medicating)" = 5, 
+                           "Traditional, herbal, complementary" = 6,
+                           "Didn't seek treatment" = 7),
+                   u303 = c("EJ" = -9, "N/A" = -6),
+                   known_chol = c("N/A" = -6, "No" = 0, "Yes" = 1),
+                   undiagnosed_chol = c("N/A" = -6, "No" = 0, "Yes" = 1),
+                   total_chol = c("N/A" = -6, "No" = 0, "Yes" = 1),
+                   bodyweight1 = c("EJ" = -9, "TB" = -8, "N/A" = -6),
+                   bodyweight2 = c("EJ" = -9, "TB" = -8, "N/A" = -6),
+                   bodyheight1 = c("EJ" = -9, "TB" = -8, "N/A" = -6), 
+                   bodyheight2 = c("EJ" = -9, "TB" = -8, "N/A" = -6), 
+                   wc1 = c("EJ" = -9, "TB" = -8, "N/A" = -6), 
+                   wc2 = c("EJ" = -9, "TB" = -8, "N/A" = -6), 
+                   weight = c("N/A" = -6), 
+                   height = c("N/A" = -6), 
+                   wc = c("N/A" = -6)) %>% 
+  set_na_values(c01 = c(-9, -7, -6), 
+                c02 = c(-9, -7, -6), 
+                c03 = c(-7, -6), 
+                c03a = c(-7, -6), 
+                c04a = -6, 
+                c04b = c(-7, -6), 
+                c04c = c(-7, -6), 
+                c04d = c(-7, -6), 
+                c05 = c(-7, -6), 
+                c06 = c(-9, -7, -6), 
+                u303 = c(-9, -6), 
+                known_chol = -6, 
+                undiagnosed_chol = -6, 
+                total_chol = -6, 
+                bodyweight1 = c(-9, -8, -6), 
+                bodyweight2 = c(-9, -8, -6), 
+                bodyheight1 = c(-9, -8, -6), 
+                bodyheight2 = c(-9, -8, -6), 
+                wc1 = c(-9, -8, -6), 
+                wc2 = c(-9, -8, -6), 
+                weight = -6, 
+                height = -6, 
+                wc = -6) %>% 
+  set_variable_labels(state_st = "PSU",
+                      ebid = "EB ID - Cluster",
+                      wtfinal_ncd = "Sampling Weight",
+                      c01 = "ever had total blood cholesterol level measured",
+                      c02 = "ever told have high cholesterol level", 
+                      c03 = "when told to have high cholesterol", 
+                      c03a = "years since was told to have high cholesterol", 
+                      c04a = "on medication for past 2 week", 
+                      c04b = "advice for special low fat diet", 
+                      c04c = "advice to loose weight", 
+                      c04d = "advice to exercise", 
+                      c05 = "treatment - herbal/TCM", 
+                      c06 = "common place to receive treatment",
+                      u303 = "Total Cholesterol (mmol/L)",
+                      bodyweight1 = "Body Weight (kg)",
+                      bodyweight2 = "Body Weight (kg)",
+                      weight = "Body Weight (kg)",
+                      bodyheight1 = "Body Height (cm)",
+                      bodyheight2 = "Body Height (cm)",
+                      height = "Body Height (cm)",
+                      wc1 = "Waist Circumference (cm)",
+                      wc2 = "Waist Circumference (cm)",
+                      wc = "Waist Circumference (cm)") %>% 
+  to_factor(drop_unused_labels = T, user_na_to_na = T)
+
+xlsxnhms19_w
+```
+
 
