@@ -70,7 +70,8 @@ execute:
 #| echo: false
 
 pacman::p_load(tidyverse, janitor, summarytools, gtsummary, 
-               broom, rstatix, ResourceSelection, pROC, caret)
+               broom, rstatix, ResourceSelection, pROC, caret, 
+               survey)
 ```
 
 
@@ -102,9 +103,18 @@ getwd() %>%
 
 # Analysis
 
+## Dataset Context
+
+- Every analysis should have context
+- In this practical session, these are the context
+  - this practical is based on NHMS 2019 NCD dataset
+  - we will focus on hypercholesterolaemia module of NHMS 2019
+  - we will focus on known hypercholesterolaemia status - the column `known_chol` as the outcome
+
 ## Import Dataset
 
-SPSS sav file
+SPSS sav file.
+
   - Click the spss's sav file
   - Select `Import Dataset...`
   - Copy the code into r code chunk
@@ -113,7 +123,6 @@ SPSS sav file
     - **NOT** as.factor (from `base` package)
 
 ```{r}
-
 library(tidyverse)
 library(haven)
 
@@ -125,113 +134,350 @@ nhms19ds %>%
   slice_sample(n = 30)
 ```
 
-Occasionally, you may have the original dataset in csv/xlsx file
-  - similar step with SPSS
-  - click the excel xlsx file
-  - select import dataset
-  - copy the code into r code chunk
-  - appropriate data wrangling
-    - label
-    - recode
-    - rename
-    - relevel
+  - dont forget to briefly look at your data
 
 ```{r}
-library(readxl)
+#| eval: false
+#| echo: true
 
-xlsxnhms19 <- read_excel("NHMS_2019_CholData.xlsx") %>% 
+skimr::skim(nhms19ds)
+```
+
+  - since that we have missing data, especially at our intended outcome variable, filtering missing data will reduce our headache later.
+
+```{r}
+nhms19ds <- read_sav("nhms19ds.sav") %>% 
+  as_factor() %>% 
+  filter(!is.na(known_chol))
+```
+
+
+  - R and survey package can analyse the outcome variable `known_chol` eventhough it is categorical variable
+  - the variable can also be numerical variable, but need to be in binary 0 and 1 form
+  - for this practical session, we will convert to numerical and use the numerical variable
+
+
+```{r}
+nhms19ds <- read_sav("nhms19ds.sav") %>% 
+  as_factor() %>% 
+  filter(!is.na(known_chol)) %>% 
+  mutate(known_cholN = as.numeric(known_chol)-2)
+```
+
+
+
+## Specifiying the Design
+
+- In Complex Sampling Design, specifying the design is the first step. 
+  - This is similar with CSPlan in SPSS
+- Required information include
+
+```{r}
+#| echo: false
+
+tribble(~`Required Information/Specification`, ~`Common NHMS Variable Name`, 
+        "Cluster IDs", "EB ID", 
+        "Strata", "State.Strata, State.wt", 
+        "Sampling Weight", "ADW, weight_final, weight") %>% 
+  gt::gt()
+```
+
+
+```{r}
+nhms19ds %>% 
   select(-c(indvid, hh_id)) %>% 
   slice_sample(n = 30)
+```
 
-xlsxnhms19
+
+```{r}
+nhms19ds %>% 
+  select(-c(indvid, hh_id)) %>% 
+  slice_sample(n = 30) %>% 
+  select(ebid, state_st, state, strata_gp, wtfinal_ncd)
+```
+
+- In R, Complex Sampling Design Analysis was done with package `survey::`
+  - `srvyr::` package bring parts of tidyverse syntax to survey analysis, using the `survey::` package
+  - defining the design should be done in the first step
+  - formula form is used in defining the design **~** symbol
+  - in addition, since our ebid is nested within strata, we need to add `nest` parameter
+
+- this is the unweighted design
+
+```{r}
+library(survey)
+
+nhms_unwdsg <- svydesign(id = ~1, 
+                         weights = ~1, 
+                         data = nhms19ds)
+```
+
+- and this is the weighted design
+
+```{r}
+library(survey)
+
+nhms_surdsg <- svydesign(id = ~ebid, 
+                         strata = ~state_st, 
+                         weights = ~wtfinal_ncd, 
+                         data = nhms19ds, 
+                         nest = T)
+```
+
+- we may also want to add option if there is lonely PSU
+  - i.e., single ebid in state.strata
+
+```{r}
+options(survey.lonely.psu = 'adjust', 
+        survey.adjust.domain.lonely = TRUE)
+```
+
+- we can use function `summary(_)` to view our design
+
+```{r}
+summary(nhms_unwdsg)
 ```
 
 ```{r}
-library(haven)
-library(labelled)
-library(stringi)
+summary(nhms_surdsg)
+```
 
-xlsxnhms19_w <- xlsxnhms19 %>% 
-  set_value_labels(c01 = c("EJ" = -9, "TT" = -7, "N/A" = -6, 
-                           "Yes" = 1, "No" = 2), 
-                   c02 = c("EJ" = -9, "TT" = -7, "N/A" = -6, 
-                           "Yes" = 1, "No" = 2), 
-                   c03 = c("TT" = -7, "N/A" = -6, 
-                           "Less than 1 year" = 1, "1 year and more" = 2), 
-                   c03a = c("TT" = -7, "N/A" = -6), 
-                   c04a = c("N/A" = -6, "Yes" = 1, "No" = 2), 
-                   c04b = c("TT" = -7, "N/A" = -6, "Yes" = 1, "No" = 2), 
-                   c04c = c("TT" = -7, "N/A" = -6, "Yes" = 1, "No" = 2), 
-                   c04d = c("TT" = -7, "N/A" = -6, "Yes" = 1, "No" = 2), 
-                   c05 = c("TT" = -7, "N/A" = -6, "Yes" = 1, "No" = 2), 
-                   c06 = c("EJ" = -9, "TT" = -7, "N/A" = -6, 
-                           "Government clinic" = 1, "Private clinic" = 2,
-                           "Government hospital" = 3, "Private hospital" = 4,
-                           "Pharmacy (self-medicating)" = 5, 
-                           "Traditional, herbal, complementary" = 6,
-                           "Didn't seek treatment" = 7),
-                   u303 = c("EJ" = -9, "N/A" = -6),
-                   known_chol = c("N/A" = -6, "No" = 0, "Yes" = 1),
-                   undiagnosed_chol = c("N/A" = -6, "No" = 0, "Yes" = 1),
-                   total_chol = c("N/A" = -6, "No" = 0, "Yes" = 1),
-                   bodyweight1 = c("EJ" = -9, "TB" = -8, "N/A" = -6),
-                   bodyweight2 = c("EJ" = -9, "TB" = -8, "N/A" = -6),
-                   bodyheight1 = c("EJ" = -9, "TB" = -8, "N/A" = -6), 
-                   bodyheight2 = c("EJ" = -9, "TB" = -8, "N/A" = -6), 
-                   wc1 = c("EJ" = -9, "TB" = -8, "N/A" = -6), 
-                   wc2 = c("EJ" = -9, "TB" = -8, "N/A" = -6), 
-                   weight = c("N/A" = -6), 
-                   height = c("N/A" = -6), 
-                   wc = c("N/A" = -6)) %>% 
-  set_na_values(c01 = c(-9, -7, -6), 
-                c02 = c(-9, -7, -6), 
-                c03 = c(-7, -6), 
-                c03a = c(-7, -6), 
-                c04a = -6, 
-                c04b = c(-7, -6), 
-                c04c = c(-7, -6), 
-                c04d = c(-7, -6), 
-                c05 = c(-7, -6), 
-                c06 = c(-9, -7, -6), 
-                u303 = c(-9, -6), 
-                known_chol = -6, 
-                undiagnosed_chol = -6, 
-                total_chol = -6, 
-                bodyweight1 = c(-9, -8, -6), 
-                bodyweight2 = c(-9, -8, -6), 
-                bodyheight1 = c(-9, -8, -6), 
-                bodyheight2 = c(-9, -8, -6), 
-                wc1 = c(-9, -8, -6), 
-                wc2 = c(-9, -8, -6), 
-                weight = -6, 
-                height = -6, 
-                wc = -6) %>% 
-  set_variable_labels(state_st = "PSU",
-                      ebid = "EB ID - Cluster",
-                      wtfinal_ncd = "Sampling Weight",
-                      c01 = "ever had total blood cholesterol level measured",
-                      c02 = "ever told have high cholesterol level", 
-                      c03 = "when told to have high cholesterol", 
-                      c03a = "years since was told to have high cholesterol", 
-                      c04a = "on medication for past 2 week", 
-                      c04b = "advice for special low fat diet", 
-                      c04c = "advice to loose weight", 
-                      c04d = "advice to exercise", 
-                      c05 = "treatment - herbal/TCM", 
-                      c06 = "common place to receive treatment",
-                      u303 = "Total Cholesterol (mmol/L)",
-                      bodyweight1 = "Body Weight (kg)",
-                      bodyweight2 = "Body Weight (kg)",
-                      weight = "Body Weight (kg)",
-                      bodyheight1 = "Body Height (cm)",
-                      bodyheight2 = "Body Height (cm)",
-                      height = "Body Height (cm)",
-                      wc1 = "Waist Circumference (cm)",
-                      wc2 = "Waist Circumference (cm)",
-                      wc = "Waist Circumference (cm)") %>% 
-  to_factor(drop_unused_labels = T, user_na_to_na = T)
+## Estimating Known Hypercholesterolaemia
 
-xlsxnhms19_w
+variable `known_cholN`
+
+
+### Calculating Unweighted Count
+
+```{r}
+svytotal(x = ~known_cholN,
+         design = nhms_unwdsg, 
+         na.rm = T)
 ```
 
 
+```{r}
+svytotal(x = ~known_chol,
+         design = nhms_unwdsg, 
+         na.rm = T)
+```
+
+
+### Calculating Estimated Population
+
+```{r}
+svytotal(x = ~known_cholN,
+         design = nhms_surdsg, 
+         na.rm = T)
+```
+
+
+```{r}
+svytotal(x = ~known_chol,
+         design = nhms_surdsg, 
+         na.rm = T)
+```
+
+
+
+
+
+### Calculating the Prevalence
+
+- calculating prevalence using `svymean(_)` function from `survey::` package
+  - variable can be coded as 0/1 or in factor form
+  - check help page for further info
+
+```{r}
+?svymean
+```
+
+- in the help page, simplest `svymean(_)` function require
+  - the variable that we want to calculate the prevalence (i.e. the variable `known_cholN`)
+  - survey design (i.e. the `nhms_surdsg` object that contain the survey design)
+
+```{r}
+svymean(x = ~known_cholN,
+        design = nhms_surdsg)
+```
+
+
+```{r}
+svymean(x = ~known_chol,
+        design = nhms_surdsg)
+```
+
+
+
+### Calculating the Confindence Interval
+
+- generally, to extract the CI info, we can use `confint(_)` function, however special parameter have to specified because of how the CI is estimated
+  - default `confint(_)` function use "mean" method, in which Wald-type interval calculated on the probability scale
+
+
+```{r}
+svymean(x = ~known_cholN,
+        design = nhms_surdsg) %>% 
+  confint()
+```
+
+- to change the CI estimate method, use `svyciprop(_)` from `survey::` package
+
+```{r}
+?svyciprop
+```
+
+- there was several method, but default method is "logit" method
+- if we want to mimic SPSS and SUDAAN, use "xlogit" method
+
+```{r}
+svyciprop(formula = ~known_cholN, 
+          design = nhms_surdsg) %>% 
+  attr(., "ci")
+```
+
+
+```{r}
+svyciprop(formula = ~known_cholN, 
+          design = nhms_surdsg, 
+          method = "lo") %>% 
+  attr(., "ci")
+```
+
+
+```{r}
+svyciprop(formula = ~known_cholN, 
+          design = nhms_surdsg, 
+          method = "xl") %>% 
+  attr(., "ci")
+```
+
+
+## Subpopulation by State
+
+- For subpopulation analysis, we use `svyby(_)` function, and specified the subset variable
+
+### Unweighted count 
+  
+```{r}
+svyby(formula = ~known_cholN, 
+      by = ~state, 
+      design = nhms_unwdsg, 
+      FUN = svytotal, 
+      na.rm.all = T)
+```
+
+### Estimated Population
+
+```{r}
+svyby(formula = ~known_cholN, 
+      by = ~state, 
+      design = nhms_surdsg, 
+      FUN = svytotal, 
+      na.rm.all = T)
+```
+
+### Prevalence
+
+```{r}
+svyby(formula = ~known_cholN, 
+      by = ~state, 
+      design = nhms_surdsg, 
+      FUN = svymean, 
+      na.rm.all = T)
+
+```
+
+### CI for Prevalence
+
+- unfortunately, `svyciprop(_)` can't be use with `svyby(_)` function
+  - need to subset manually
+    - but when subset, the df is affected, thus need to specified using the overall design
+    - add parameter `df = degf(design)`
+
+```{r}
+nhms_surdsg_johor <- subset(nhms_surdsg, 
+                            state == "Johor") 
+
+svyciprop(formula = ~known_cholN, 
+          design = nhms_surdsg_johor, 
+          method = "xl", 
+          df = degf(nhms_surdsg)) %>% 
+  attr(., "ci")
+```
+
+  - alternatively, we can either create custom function, or use loop
+
+
+```{r}
+svyciprop_by <- function(x, design, by) {
+  by_var <- deparse(substitute(by))
+  
+  by_levels <- unique(design$variables[[by_var]])
+  
+  calculate_ci <- function(stratum) {
+    subset_design <- subset(design, design$variables[[by_var]] == stratum)
+    result <- svyciprop(x, design = subset_design, method = "xl", df = degf(design))
+    return(attr(result, "ci"))
+  }
+  
+  ci_results <- purrr::map(by_levels, calculate_ci)
+  
+  tibble::tibble(subset = by_levels, ci = ci_results) %>% 
+    tidyr::unnest_wider(ci, names_sep = "_") %>% 
+    dplyr::rename("Lower 95% CI" = "ci_2.5%", 
+                  "Upper 95% CI" = "ci_97.5%")
+}
+
+svyciprop_by(x = ~known_cholN, design = nhms_surdsg, by = state)
+```
+
+
+
+## Logistic Regression
+
+```{r}
+svyglm(known_chol ~ strata_gp, nhms_surdsg, family = quasibinomial) %>% 
+  summary()
+```
+
+
+## Linear Regression
+
+1. check again your dataset - the outcome variable is u303
+
+```{r}
+nhms19ds %>% 
+  select(u303)  
+```
+
+2. in this example, the outcome is in categorical. convert to numerical
+
+```{r}
+nhms19ds_tc <- nhms19ds %>% 
+  mutate(u303 = as.numeric(as.character(u303)))
+```
+
+3. redefine the survey design
+
+```{r}
+nhmstc_surdsg <- svydesign(id = ~ebid, 
+                           strata = ~state_st, 
+                           weights = ~wtfinal_ncd, 
+                           data = nhms19ds_tc, 
+                           nest = T)
+```
+
+
+```{r}
+svyglm(u303 ~ strata_gp, nhmstc_surdsg, family = gaussian) %>% 
+  summary()
+```
+
+
+## Bonus: Plot Malaysia Map
+
+## Bonus: Plot Piramid Plot
+
+## Bonus: Age-standardised
