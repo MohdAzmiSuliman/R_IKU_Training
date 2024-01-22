@@ -101,6 +101,30 @@ getwd() %>%
 ```
 
 
+## Create Quarto Document
+
+1. Create Quarto Document
+  - `File` -> `New File` -> `Quarto Document...`
+2. Setup the new Quarto document
+  - set title, e.g., `Sesi 4 - NHMS`
+  - untick `use visual markdown editor`
+  - click `Create Empty Document`
+3. Update the YAML metadata to make the document self-contained
+
+```{r}
+#| echo: true
+#| eval: false
+
+---
+title: "Sesi 4 - NHMS"
+format:
+  html:
+    embed-resources: true
+
+---
+
+```
+
 # Analysis
 
 ## Dataset Context
@@ -114,7 +138,7 @@ getwd() %>%
 ## Import Dataset
 
 SPSS sav file.
-
+  
   - Click the spss's sav file
   - Select `Import Dataset...`
   - Copy the code into r code chunk
@@ -290,6 +314,8 @@ svytotal(x = ~known_chol,
   - check help page for further info
 
 ```{r}
+#| eval: false
+
 ?svymean
 ```
 
@@ -325,6 +351,8 @@ svymean(x = ~known_cholN,
 - to change the CI estimate method, use `svyciprop(_)` from `survey::` package
 
 ```{r}
+#| eval: false
+
 ?svyciprop
 ```
 
