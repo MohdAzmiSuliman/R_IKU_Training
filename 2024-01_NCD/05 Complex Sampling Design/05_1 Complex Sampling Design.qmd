@@ -139,7 +139,8 @@ format:
 
 SPSS sav file.
   
-  - Click the spss's sav file
+  - Import the spss's sav file
+    -   On the `Files` pane, click on the spss .sav file
   - Select `Import Dataset...`
   - Copy the code into r code chunk
   - add function `as_factor(_)` 
@@ -224,7 +225,7 @@ nhms19ds %>%
 - In R, Complex Sampling Design Analysis was done with package `survey::`
   - `srvyr::` package bring parts of tidyverse syntax to survey analysis, using the `survey::` package
   - defining the design should be done in the first step
-  - formula form is used in defining the design **~** symbol
+  - formula form is used in defining the design: **~** symbol
   - in addition, since our ebid is nested within strata, we need to add `nest` parameter
 
 - this is the unweighted design
@@ -274,6 +275,17 @@ variable `known_cholN`
 
 ### Calculating Unweighted Count
 
+- to calculate count (both unweigted and estimated population), `svytotal(_)` function from `survey::` package is used
+  - for unweighted count, use unweighted design
+
+```{r}
+#| eval: false
+#| echo: true
+
+?svytotal
+```
+
+
 ```{r}
 svytotal(x = ~known_cholN,
          design = nhms_unwdsg, 
@@ -289,6 +301,9 @@ svytotal(x = ~known_chol,
 
 
 ### Calculating Estimated Population
+
+- similar to unweighted count, for estimated population, we will use `svytotal(_)` function from `survey::` package
+  - use weighted design
 
 ```{r}
 svytotal(x = ~known_cholN,
@@ -315,6 +330,7 @@ svytotal(x = ~known_chol,
 
 ```{r}
 #| eval: false
+#| echo: true
 
 ?svymean
 ```
@@ -352,11 +368,12 @@ svymean(x = ~known_cholN,
 
 ```{r}
 #| eval: false
+#| echo: true
 
 ?svyciprop
 ```
 
-- there was several method, but default method is "logit" method
+- there was several method, but default method in R is "logit" method
 - if we want to mimic SPSS and SUDAAN, use "xlogit" method
 
 ```{r}
@@ -385,6 +402,14 @@ svyciprop(formula = ~known_cholN,
 ## Subpopulation by State
 
 - For subpopulation analysis, we use `svyby(_)` function, and specified the subset variable
+
+```{r}
+#| eval: false
+#| echo: true
+
+?svyby
+```
+
 
 ### Unweighted count 
   
@@ -470,6 +495,12 @@ svyglm(known_chol ~ strata_gp, nhms_surdsg, family = quasibinomial) %>%
   summary()
 ```
 
+```{r}
+svyglm(known_chol ~ strata_gp, nhms_surdsg, family = quasibinomial) %>% 
+  summary(exponentiate = T)
+```
+
+
 
 ## Linear Regression
 
@@ -477,7 +508,8 @@ svyglm(known_chol ~ strata_gp, nhms_surdsg, family = quasibinomial) %>%
 
 ```{r}
 nhms19ds %>% 
-  select(u303)  
+  select(u303) %>% 
+  slice_sample(n = 30)
 ```
 
 2. in this example, the outcome is in categorical. convert to numerical
@@ -504,8 +536,100 @@ svyglm(u303 ~ strata_gp, nhmstc_surdsg, family = gaussian) %>%
 ```
 
 
-## Bonus: Plot Malaysia Map
+# Bonus: Plot Malaysia Map
 
-## Bonus: Plot Piramid Plot
+result can be use to plot Malaysia map.
 
-## Bonus: Age-standardised
+1. save the prevalence by state into object to be used later
+
+```{r}
+kcprev_state <- svyby(formula = ~known_cholN, 
+                      by = ~state, 
+                      design = nhms_surdsg, 
+                      FUN = svymean, 
+                      na.rm.all = T) %>% 
+  as_tibble()
+
+kcprev_state
+```
+
+2. download state map (geojson file) from DOSM githhub page
+  - and save into object to be used later
+
+```{r}
+#| eval: false
+#| echo: true
+
+download.file(
+  url = "https://raw.githubusercontent.com/dosm-malaysia/data-open/main/datasets/geodata/administrative_1_state.geojson",
+  destfile = "administrative_1_state.geojson",
+  mode = "wb")
+```
+
+3. convert geojson file into r object, using `sf::` package
+
+```{r}
+library(sf)
+
+read_sf("administrative_1_state.geojson")
+```
+
+  - since they have code_state, we can sort by code_state for us to check name
+
+
+```{r}
+read_sf("administrative_1_state.geojson") %>% 
+  arrange(code_state)
+```
+
+  - rename the state using `fct_recode(_)` function
+    - and save
+
+
+```{r}
+my_state_sf <- read_sf("administrative_1_state.geojson") %>% 
+  arrange(code_state) %>% 
+  mutate(state = fct_recode(state, 
+                            "P. Pinang" = "Pulau Pinang", 
+                            "N. Sembilan" = "Negeri Sembilan", 
+                            "WP Kl" = "W.P. Kuala Lumpur", 
+                            "WP Putrajaya" = "W.P. Putrajaya", 
+                            "WP Labuan" = "W.P. Labuan"))
+
+
+```
+
+4. combine our result and the map file
+  - convert into st object using `st_as_sf(_)` function
+  - and save into object to be used later
+
+```{r}
+kcprev_state_mapds <- left_join(kcprev_state, my_state_sf) %>% 
+  st_as_sf()
+
+kcprev_state_mapds
+```
+
+5. plot with ggplot
+
+```{r}
+kcprev_state_mapds %>% 
+  ggplot(aes(fill = known_cholN)) + 
+  geom_sf()
+```
+
+6. we can also customised our plot - using esquisse addin
+
+```{r}
+ggplot(kcprev_state_mapds) +
+  aes(fill = known_cholN) +
+  geom_sf(size = 1.2) +
+  scale_fill_viridis_c(option = "magma", direction = -1) +
+  theme_void()
+```
+
+
+
+# Bonus: Plot Piramid Plot
+
+# Bonus: Age-standardised
