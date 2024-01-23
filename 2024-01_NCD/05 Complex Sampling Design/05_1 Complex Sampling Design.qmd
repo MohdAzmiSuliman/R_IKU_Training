@@ -632,4 +632,126 @@ ggplot(kcprev_state_mapds) +
 
 # Bonus: Plot Piramid Plot
 
+## DOSM Population (2023)
+
+```{r}
+library(readxl)
+
+DOSMPop23 <- read_excel("DOSMPopulation2023.xlsx") %>% 
+  mutate(Source = "DOSM23", 
+         across(.cols = where(is.character), 
+                .fns = ~ as.factor(.)), 
+         Gender = fct_recode(Gender, 
+                             "Male" = "Men", 
+                             "Female" = "Women"))
+
+DOSMPop23
+```
+
+## NHMS 2019 Population
+
+1. Import again our dataset
+
+```{r}
+library(tidyverse)
+library(haven)
+
+nhms19ds <- read_sav("nhms19ds.sav") %>% 
+  as_factor() 
+
+nhms19ds %>% 
+  select(-c(indvid, hh_id)) %>% 
+  slice_sample(n = 30)
+
+```
+
+2. Add new column, to count all available sample
+  - our data also dont have corresponding age group, so create age group
+
+```{r}
+nhms19ds <- nhms19ds %>% 
+  mutate(nhmsall = 1, .before = everything()) %>% 
+  mutate(AgeGroup = cut(A2104, 
+                        breaks = c(9, 19, 29, 39, 49, 59, Inf), 
+                        labels = c("10 - 19",  "20 - 29", "30 - 39", 
+                                   "40 - 49",  "50 - 59", ">60"))) 
+
+nhms19ds %>% 
+  select(-c(indvid, hh_id)) %>% 
+  slice_sample(n = 30)
+```
+
+3. Create survey design
+
+```{r}
+nhms_alldsg <- svydesign(id = ~ebid, 
+                         strata = ~state_st, 
+                         weights = ~wtfinal_ncd, 
+                         data = nhms19ds, 
+                         nest = T)
+```
+
+
+4. Calculate our overall estimated population
+
+```{r}
+NHMSPop19 <- svyby(~nhmsall, 
+                   by = ~A2101+AgeGroup, 
+                   design = nhms_alldsg, 
+                   FUN = svytotal, 
+                   na.rm = TRUE) %>% 
+  as_tibble() %>% 
+  select(-se) %>% 
+  mutate(nhmsall = as.integer(nhmsall), 
+         Source = "NHMS19", 
+         Source = as_factor(Source)) %>% 
+  rename("Gender" = "A2101",
+         "TotalPopulation" = "nhmsall")
+
+NHMSPop19
+```
+
+5. Combine Dataset
+  - since we want female on the left side, the female population need to be in negative form
+  - we also have to "sort" the age group
+
+```{r}
+CombPop <- full_join(DOSMPop23, NHMSPop19) %>% 
+  mutate(TotalPopulation = case_when(Gender == "Female" ~ 0-TotalPopulation,
+                                     Gender == "Male" ~ TotalPopulation), 
+         Gender = fct_relevel(Gender, "Female"), 
+         AgeGroup = fct_relevel(AgeGroup, "5 - 9", 
+                                "10 - 19",  "20 - 29", "30 - 39", 
+                                "40 - 49",  "50 - 59", ">60"))
+
+CombPop
+```
+
+6. Plot Pyramid Plot with ggplot2
+
+```{r}
+CombPop %>% 
+  ggplot(aes(x = AgeGroup, y = TotalPopulation, fill = interaction(Gender, Source))) +
+  geom_col(position = "dodge") +
+  scale_y_continuous(expand = c(0, 0), name = "Population (x 1,000,000)",
+                     labels = function(x) scales::comma(abs(x / 1000000)),
+                     breaks = seq(-4000000, 4000000, 500000)) +
+  scale_fill_manual(values = hcl(h = c(15, 195, 15, 195),
+                                 c = 100, 
+                                 l = 65, 
+                                 alpha = c(.4, .4, 1, 1)),
+                    name = "") +
+  coord_flip() +
+  facet_wrap(. ~ Gender, scales = "free_x", strip.position = "bottom") +
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.grid.major.y = element_blank(), 
+        legend.position = "bottom",
+        panel.spacing.x = unit(0, "pt"), 
+        strip.background = element_rect(colour = "black"))
+```
+
+
+
 # Bonus: Age-standardised
