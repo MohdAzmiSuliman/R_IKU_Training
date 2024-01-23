@@ -18,6 +18,7 @@ format:
     title-block-style: default
     fontsize: 1.2em
     monofont: 'Fira Code'
+    mainfont: Inter
 number-sections: true
 toc: true
 fig-dpi: 320
