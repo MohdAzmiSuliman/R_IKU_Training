@@ -1,5 +1,5 @@
 ---
-title: "Last Session Recap"
+title: "Basic Statistical Analysis Tests"
 date: last-modified
 date-format: "dddd, DD/MM/YYYY"
 format: 
