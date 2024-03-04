@@ -37,7 +37,7 @@ embed-resources: true
 -   Except instead of spells, you have a function
 
 . . .
- 
+
 -   R users are like wizards.
     -   They can rely on spells (functions) that have been developed for .them
     -   They can also create their own
@@ -64,13 +64,13 @@ embed-resources: true
     -   The software that interprets R language and executes codes
 -   Provide an extensive, coherent and integrated collection of tools for data analysis.
 
-## What is R?
+## Is it relevance to me?
 
--   R is used for data manipulation, statistics, and graphics. Made of
-    -   operators
-    -   functions
-    -   objects
-    -   packages
+-   IKU is one of **RESEARCH INSTITUTE** in Malaysia
+    -   That mean our main job is doing research (and related activities)
+-   We depend on data to make decisions
+    -   80% of our time is spent on data **preparation and cleaning**
+-   We also require effective data visualization to communicate our findings
 
 ## Pros and Cons
 
@@ -159,3 +159,29 @@ embed-resources: true
 # Quarto
 
 ## What is Quarto?
+
+# Expectation?
+
+## R Language as a programming language
+
+These are some of the things that I have learned and used in R:
+
+-   Basic/Intermediate data wrangling with tidyverse
+-   Basic/Intermediate statistical analysis with R
+-   Basic data visualisation with ggplot2
+-   Code notebook with Quarto
+-   Basic reporting with Quarto (HTML, PDF, Word)
+
+:::{.notes}
+R is not just about statistics and data analysis. As a programming language, R can do various things
+:::
+
+## R Language as a programming language
+
+But I am not an expert in R. I am still learning and looking for study group to help improve my R.
+
+-   Machine learning with R
+-   Making a dashboard with Shiny
+-   Making a website with Quarto
+-   Making custom functions and packages
+-   R as teaching tools
