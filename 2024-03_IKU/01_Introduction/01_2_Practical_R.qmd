@@ -1,0 +1,118 @@
+---
+title: "Introduction to R, RStudio and Quarto"
+subtitle: "R Practical"
+format: 
+  clean-revealjs: 
+    slide-number: true
+    lightbox: true
+    footer: "R Practical"
+author:
+  - name: Mohd Azmi Bin Suliman
+    orcid: 0000-0002-2125-3811
+    email: azmi.suliman@moh.gov.my
+    affiliations: Pusat Penyelidikan Penyakit Tak Berjangkit, Institut Kesihatan Umum
+date: last-modified
+date-format: "dddd, DD MMMM YYYY"
+embed-resources: true
+---
+
+# Getting to know R
+
+```{r}
+#| echo: false
+
+pacman::p_load(tidyverse, kableExtra)
+```
+
+## Typical R Session
+
+-   Open your R console
+
+![](images/r_console_0.png)
+
+## Typical R Session
+
+-   R console is where you can type in R command/code
+
+![](images/r_console_1.png)
+
+## Typical R Session
+
+-   the output of the command is shown below the command
+
+![](images/r_console_2.png)
+
+# RStudio, the IDE for R
+
+## RStudio Layout
+
+-   When you first open RStudio, you will usually see a layout like this
+
+![](images/rstudio_ide_0.png)
+
+## RStudio Layout
+
+-   There are four (4) panes in RStudio
+
+![](images/rstudio_ide_1.png)
+
+## Setting up you RStudio
+
+-   Different people may use R and RStudio differently
+-   Having a sensible workflow can improve your work
+-   Workflow thinking
+    1.  Treat individual R process and the associated workspace is disposable
+    2.  Use IDE & Project Management
+    3.  **Specified your default working directory**
+    4.  Save your work in a script (or Quarto)
+    5.  Always start with blank state
+        -   When quit R, **DO NOT SAVE WORKSPACE**
+        -   When start R, **DO NOT RESTORE WORKSPACE**
+    6.  *Use version control* (advance)
+
+# 
+
+## R Objects
+
+-   Almost all things in R are objects: functions, datasets, results, models.
+-   Script can be thought of as a way to make objects.
+-   You goal is usually to write a script that, by its end, has created the objects that you need
+    -   statistical results
+    -   graphics
+
+## R Objects
+
+![](images/r_object_example.png)
+
+## R modes
+
+::: columns
+::: {.column width="48%"}
+-   Modes of an object in R refers to the basic type of its elements.
+    -   lower-level descriptions
+-   R has several modes of objects
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+```{r}
+tibble(Modes = c("Numeric", "Character", "Logical", "Complex", "Raw", "List", "Function", "NULL"),
+       Examples = c("1, 2, 3", "a, b, c", TRUE, 1+0i, charToRaw("a"), "list(1,2,3)", "maen(age)", "")) %>% 
+  kbl() %>% 
+  kable_classic()
+
+```
+:::
+:::
+
+## R classes
+
+-   Classes of an object in R refers to the higher-level descriptions of the object
+-   R has several classes of objects
+    -   data.frame
+    -   matrix
+    -   factor
+
+## R Class: factor
