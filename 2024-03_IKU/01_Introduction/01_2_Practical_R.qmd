@@ -19,6 +19,7 @@ embed-resources: true
 # Getting to know R
 
 ```{r}
+#| label: setup
 #| echo: false
 
 pacman::p_load(tidyverse, kableExtra)
@@ -26,19 +27,19 @@ pacman::p_load(tidyverse, kableExtra)
 
 ## Typical R Session
 
--   Open your R console
+-   Open your R console.
 
 ![](images/r_console_0.png)
 
 ## Typical R Session
 
--   R console is where you can type in R command/code
+-   R console is where you can type in the R command/code.
 
 ![](images/r_console_1.png)
 
 ## Typical R Session
 
--   the output of the command is shown below the command
+-   The output of the command is shown below the command.
 
 ![](images/r_console_2.png)
 
@@ -46,37 +47,41 @@ pacman::p_load(tidyverse, kableExtra)
 
 ## RStudio Layout
 
--   When you first open RStudio, you will usually see a layout like this
+-   When you first open RStudio, you will usually see a layout like this.
 
 ![](images/rstudio_ide_0.png)
 
 ## RStudio Layout
 
--   There are four (4) panes in RStudio
+-   There are four (4) panes in RStudio.
 
 ![](images/rstudio_ide_1.png)
 
-## Setting up you RStudio
+## Setting up your RStudio
 
--   Different people may use R and RStudio differently
--   Having a sensible workflow can improve your work
+-   Different people may use R and RStudio differently.
+-   Having a sensible workflow can improve your work.
 -   Workflow thinking
-    1.  Treat individual R process and the associated workspace is disposable
+    1.  Treat individual R process and the associated workspace as disposable.
     2.  Use IDE & Project Management
     3.  **Specified your default working directory**
     4.  Save your work in a script (or Quarto)
-    5.  Always start with blank state
-        -   When quit R, **DO NOT SAVE WORKSPACE**
-        -   When start R, **DO NOT RESTORE WORKSPACE**
+    5.  Always start with a blank slate.
+        -   When quit R, **DO NOT SAVE WORKSPACE.**
+        -   When starting R, **DO NOT RESTORE WORKSPACE.**
     6.  *Use version control* (advance)
 
-# 
+# Quarto, Notebook for R
+
+## Setting up your Quarto
+
+# Key Concepts: Objects and Data Types
 
 ## R Objects
 
--   Almost all things in R are objects: functions, datasets, results, models.
+-   Almost everything in R isects: functions, datasets, results, and models.
 -   Script can be thought of as a way to make objects.
--   You goal is usually to write a script that, by its end, has created the objects that you need
+-   Your goal is usually to write a script that, by its end, has created the objects that you need.
     -   statistical results
     -   graphics
 
@@ -99,20 +104,258 @@ pacman::p_load(tidyverse, kableExtra)
 ::: {.column width="48%"}
 ```{r}
 tibble(Modes = c("Numeric", "Character", "Logical", "Complex", "Raw", "List", "Function", "NULL"),
-       Examples = c("1, 2, 3", "a, b, c", TRUE, 1+0i, charToRaw("a"), "list(1,2,3)", "maen(age)", "")) %>% 
+       Examples = c("1, 2, 3", "a, b, c", TRUE, 1+0i, "", "", "maen(age)", "")) %>% 
   kbl() %>% 
   kable_classic()
-
 ```
 :::
 :::
 
-## R classes
+## Data Structure
 
--   Classes of an object in R refers to the higher-level descriptions of the object
--   R has several classes of objects
-    -   data.frame
-    -   matrix
-    -   factor
+-   In R, the data can be in various forms.
+    -   Arrays
+    -   Vectors
+    -   Lists
+    -   Factors
+    -   Data Frames
+    -   Matrices
 
-## R Class: factor
+## Vectors
+
+-   A vector is a sequence of data elements of the same basic type
+
+::: columns
+::: {.column width="48%"}
+-   There are five types of vectors in R.
+    -   Logical
+    -   Integer
+    -   Double
+    -   Complex
+    -   Character
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+```{r}
+#| echo: true
+
+numeric_vector <- c(1, 2, 3)
+numeric_vector
+
+character_vector <- c("a", "b", "c")
+character_vector
+
+logical_vector <- c(TRUE, FALSE, TRUE)
+logical_vector
+```
+:::
+:::
+
+## Lists
+
+-   A list is a special type of vector that can contain elements of different types.
+
+```{r}
+#| echo: true
+
+list_vector <- list(1, "a", TRUE)
+list_vector
+```
+
+## Matrix
+
+-   A matrix is a 2D array-like structure.
+-   Unlike a list, a matrix only holds single basic types.
+
+```{r}
+matrix(1:9, nrow = 3, ncol = 3)
+```
+
+## Data Frame
+
+::: columns
+::: {.column width="48%"}
+-   Most familiar to Excel and SPSS user
+-   Unlike a matrix, a data frame allows for different data types in each column.
+-   A data frame is a table or a 2D array-like structure.
+    -   Each column contains values of one variable.
+    -   Each row contains one set of values from each column
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+![](images/r_object_example.png)
+:::
+:::
+
+Data Frame
+
+::: columns
+::: {.column width="48%"}
+-   Data frame is the most common way of storing data in R.
+-   Allow user to perform row-wise, column-wise and cell-wise functions
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+![](images/r_object_example.png)
+:::
+:::
+
+# Operators and Functions
+
+## Operators
+
+-   R has several operators.
+    -   Arithmetic
+    -   Assignment
+    -   Logical
+    -   Relational
+    -   Special
+
+## Arithmetic Operators
+
+-   Addition
+
+```{r}
+#| echo: true
+
+1 + 2
+```
+
+-   Subtraction
+
+```{r}
+#| echo: true
+
+2-1
+```
+
+-   Multiplication
+
+```{r}
+3*4
+```
+
+-   Division
+
+```{r}
+4/2
+```
+
+## Assignment Operators
+
+-   Assignment operators are used to assign values to variables.
+-   R accept four types of assignment operators: `<-`, `<<-`, `=`, `->`
+
+```{r}
+#| echo: true
+
+a <- 5
+a
+
+b = 7
+b
+
+9 -> c
+c
+```
+
+## Logical Operators
+
+-   Logical operators are used to combine or compare logical values
+
+::: columns
+::: {.column width="48%"}
+-   Basic logical operators
+    -   `!`: NOT
+    -   `&`: AND
+    -   `|`: OR
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+```{r}
+#| echo: true
+
+TRUE | FALSE
+TRUE & FALSE
+!TRUE
+!FALSE
+```
+:::
+:::
+
+## Logical Operators
+
+-   Logical operators are used to combine or compare logical values
+
+::: columns
+::: {.column width="49%"}
+-   Equality and relational operators
+    -   `==`: equal
+    -   `!=`: not equal
+    -   `>`: greater than
+    -   `<`: less than
+    -   `>=`: greater than or equal to
+    -   `<=`: less than or equal to
+:::
+
+::: {.column width="2%"}
+:::
+
+::: {.column width="49%"}
+```{r}
+#| echo: true
+
+1 == 1
+1 != 1
+1 > 1
+1 < 1
+1 >= 1
+1 <= 1
+```
+:::
+:::
+
+## Special Operators
+
+-   Special operators are used to perform special operations.
+    -   `:`: sequence
+    -   `%in%`: match
+    -   `%*%`: matrix multiplication
+    -   `%/%`: integer division
+    -   `%%`: modulus
+
+```{r}
+#| echo: true
+
+1:5
+5 %in% 1:10
+2 %*% 3
+5 %/% 2
+5 %% 2
+```
+
+## Functions
+
+-   Functions are a set of commands grouped together to perform a specific task.
+-   R has many built-in functions.
+-   Functions are called by their name followed by parentheses `()`
+
+```{r}
+#| echo: true
+
+sqrt(4)
+```
+
+-   R also allow the user to create their own function (advance)

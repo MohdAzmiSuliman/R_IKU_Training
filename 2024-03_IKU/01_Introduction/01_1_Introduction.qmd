@@ -21,56 +21,52 @@ embed-resources: true
 ## Introduction to R
 
 -   R programming language is a lot like magic...
--   Except instead of spells, you have function
+-   Except instead of spells, you have a function.
 
 . . .
 
 -   SPSS and SAS users are like muggles
-    -   they are limited in their ability to change their environment
-    -   they have to rely on algorithms developed for them
-    -   the way they approach a programmed constrain by how SPSS/SAS programmers thought to approach them
+    -   They are limited in their ability to change their environment.
+    -   They have to rely on algorithms developed for them.
+    -   The way they approach a programmed constrain by how SPSS/SAS programmers thought to come them
     -   they have to pay to use these constraining algorithms
-    
-    
 
 ## Introduction to R
 
 -   R programming language is a lot like magic...
--   Except instead of spells, you have function
+-   Except instead of spells, you have a function
 
 . . .
-
--   R users are like wizard
-    -   they can rely on spelss (functions) that have been devoloped for them
-    -   they can also create their own
-    -   they dont have to pay for the use of them
-    -   and once experienced enough, they are almost unlimed in hier abilty to change their environment
-    
+ 
+-   R users are like wizards.
+    -   They can rely on spells (functions) that have been developed for .them
+    -   They can also create their own
+    -   They do not have to pay for the use of them.
+    -   And once experienced enough, they are almost unlimed in their ability to change their environment.
 
 ## Open Source?
 
--   **Free!** You dont have to pay to use R.
+-   **Free!** You don't have to pay to use R.
 -   You can use it on **any computer**.
 -   You have full access to algorithm and their implementation.
 -   You can modify the code to suit your needs.
--   Promote **REPRODUCIBLE RESEARCH** by providing open and accessible tools
+-   Promote **REPRODUCIBLE RESEARCH** by providing open and accessible tools.
 -   It is **CUTTING EDGE**
 
 ## What is R?
 
--   R is a programming language
--   R is high level language
-    -   Code that easy to read and write, close to human language
--   R is a interpreted computer language
-    -   Execute line by line
+-   R is a programming language.
+-   R is a high-level language.
+    -   Code that is easy to read and write, close to human language
+-   R is an interpreted computer language.
+    -   Execute line-by-line
     -   No need to compile
-    -   The software that interpret R language and execute to codes
--   Provide a large, coherent and integrated collection of tools for data analysis
-
+    -   The software that interprets R language and executes codes
+-   Provide an extensive, coherent and integrated collection of tools for data analysis.
 
 ## What is R?
 
--   R is used for data manipulation, statistics and graphic. Made of
+-   R is used for data manipulation, statistics, and graphics. Made of
     -   operators
     -   functions
     -   objects
@@ -78,97 +74,87 @@ embed-resources: true
 
 ## Pros and Cons
 
-::::{.columns}
-
-:::{.column width="48%"}
+::: columns
+::: {.column width="48%"}
 **Pros**
 
 -   Fast and Free
 -   State of the art
 -   Active user community
--   **Forces you to *think* about your analysis** 
--   **New tehcniques available without delayed**
-
+-   **It forces you to *think* about your analysis.**
+-   **New techniques available without delayed**
 :::
 
-:::{.column width="4%"}
+::: {.column width="4%"}
 :::
 
-:::{.column width="48%"}
+::: {.column width="48%"}
 **Cons**
 
 -   Steep learning curve
 -   Some commercial support
--   In the beginning, data prep & cleaning can be messier and more mistake prone
--   Easy to make mistakes and not know
--   *Limited in handling very large dataset*
--   *Can be difficult to choos the best pacakge for you need*
-
+-   In the beginning, data prep & cleaning can be messier and more mistake-prone
+-   It is easy to make mistakes and not know.
+-   *Limited in handling huge dataset*
+-   *It can be not easy to choose the best package for you need*
+:::
 :::
 
+## SPSS and R
 
-::::
+-   Learning (and using) R require a new paradigm of thinking.
+    -   R is a programming language, and you will be writing code 99% of the time.
+        -   This is not an exam. You don't have to remember everything.
+        -   Google (and *AI chatbox*) is your friend
 
 ## SPSS and R
 
--   Learning (and using) R require new paradigm of thinking
-    -   R is programming language and 99% of the time, you will be writing code
-        -   this is not an exam. you don't have to remember everything. 
-        -   google (and *ai chatbox*) is your friend
-
-
-## SPSS and R
-
--   Learning (and using) R require new paradigm of thinking
-    -   Almost everything in R is an objects
+-   Learning (and using) R requires a new paradigm of thinking.
+    -   Almost everything in R is an objec.ts
         -   You can create, modify, and delete
         -   Import external files
-        -   Many different dataset available at same time
-        -   Dataset can be any dimension
+        -   Many different options are available at the same time.
+        -   The dataset can be any dimension.
     -   SPSS only available one dataset at a time
         -   SPSS datasets are rectangular
 
-
-    
 ## Learning R
 
 -   CRAN website, manuals
 -   Because R is interactive, errors are your friends!
--   `?lm` fives you help on lm function.
--   reading help files can be very helpful
+-   `?lm` gives you help on the lm function.
+-   Reading help files can be very helpful.
 -   **MOST IMPORTANT** - the more time you spend using R, the more comfortable you become with it
-
 
 # RStudio
 
 ## What is RStudio?
 
--   RStudio is an integrated development environment (IDE) for R
--   It includes a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging and workspace management.
+-   RStudio is an integrated development environment (IDE) for R.
+-   It includes a console and syntax highlighting editor that supports direct code execution and tools for plotting, history, debugging, and workspace management.
 
 ## RStudio for Statistical Analysis Workflow
 
--   RStudio is designed to support the entire data analysis workflow
+-   RStudio is designed to support the entire data analysis workflow.
 -   Managing - Creating & Running R scripts
--   Managing projects for better organization
+-   Managing projects for better organisation
 -   Support version control (Git).
 
 ## R consoles
 
--   This is the R consoles
-    -   This is where you can type in R command/code
-    
-![](images/r_console_0.png)
+-   This is the R consoles.
+    -   This is where you can type in the R command/code.
 
+![](images/r_console_0.png)
 
 ## RStudio GUI
 
 -   This is the RStudio
-    - The IDE for for R
-    
+    -   The IDE for R
+
 ![](images/rstudio_ide_0.png)
 
-
+# Why learn R and RStudio?
 
 # Quarto
 
