@@ -1,12 +1,12 @@
 ---
 title: "Introduction to R, RStudio and Quarto"
-subtitle: "Tidyverse, Basic Data Exploration and Wrangling"
+subtitle: "Basic Data Wrangling & Exploration, ft. Tidyverse"
 format: 
   clean-revealjs: 
     slide-number: true
     lightbox: true
     auto-stretch: false
-    footer: "Tidyverse, Basic Data Exploration and Wrangling"
+    footer: "Basic Data Wrangling & Exploration, ft. Tidyverse"
 author:
   - name: Mohd Azmi Bin Suliman
     orcid: 0000-0002-2125-3811
@@ -19,5 +19,392 @@ execute:
   echo: true
 ---
 
+# Packages
+
+```{r}
+#| label: setup
+#| echo: false
+
+pacman::p_load(tidyverse, haven, kableExtra)
+```
+
+## Packages in R
+
+-   The strength of R is it's open-source philosophy
+-   When installing R, you get a basic set of packages
+-   Package in R is a collection of functions, data, and compiled code
+-   R allow for custom function, and even custom package
+-   The custom package can be shared with others, e.g., via CRAN
+-   These custom packages enriched the R ecosystem
+
+## Packages in R
+
+![](images/packages_base.png)
+
+## Packages in R
+
+![](images/packages_custom.png)
+
+## Packages in R
+
+-   Among common packages in R
+
+```{r}
+#| echo: false
+
+tibble(Package = c("tidyverse", "haven", "readxl", 
+                   "lubridate", "ggplot2", "dplyr", 
+                   "stringr", "forcats", "broom", "modelr"), 
+       Description = c("collection of packages designed for data science", 
+                       "import/export SPSS, Stata and SAS files", 
+                       "import/export excel files", 
+                       "work with date and time", 
+                       "data visualisation", 
+                       "data manipulation", 
+                       "string manipulation", 
+                       "factor manipulation", 
+                       "tidy statistical output", 
+                       "modelling functions")) %>% 
+  kbl() %>% 
+  kable_classic()
+```
+
+## Packages in R
+
+-   Install once
+    -   using `install.packages("package_name")`
+    -   can also click on `install` button at `Packages` pane
+-   Load every time you use R
+    -   using `library(package_name)`
+    -   can also tick at respective library at `Packages` pane
+
+## Packages in R
+
+-   Lets try install `tibble` package using code
+
+```{r}
+#| eval: false
+
+install.packages("tibble")
+```
+
+-   Then load the package using code
+
+```{r}
+library(tibble)
+```
+
+# Can you try install `tidyverse` package?
+
+# Data Wrangling
+
+## What is data wrangling?
+
+-   Common data analysis look like this
+
+![source: r4ds.hadley.nz](images/R4DS_wrangling.png)
+
+## What is data wrangling?
+
+-   real world data commonly messy!
+-   80% of time taken spend on data cleaning
+-   improving data quality \> improving the accuracy & efficiency
+-   data wrangling involving **tidying** and **transforming** data, from raw form to analysis-ready data.
+-   common data wrangling action
+    -   label data
+    -   recategorise categorical variable - usually collapsing groups
+    -   binning continuous variable
+
+# Lets try some data wrangling
+
+## Setup your project
+
+-   We will use
+    -   current project `R_Practical`
+    -   current Quarto document `Sesi 1 Pengenalan`
+-   Add new level 1 header
+    -   Single \# symbol
+    -   Followed by the title `Data Wrangling`
+
+## Setup your project
+
+![](images/lvl1_wrangling.png)
+
+# Import Dataset
+
+## Import Dataset
+
+-   We will use the `asthma_ds.sav` dataset (SPSS file)
+-   Copy the dataset to the `R_Practical` project folder (working directory)
+-   Add new level 2 header
+    -   Double \## symbol
+    -   Followed by the title `Import Dataset`
+-   Insert new R code chunk
+
+## Import Dataset
+
+![](images/lvl2_import.png)
+
+## Import Dataset
+
+-   We will use the `read_sav` `haven` package to import the dataset
+-   The dataset is stored in R object `asthma_ds0`
+
+```{r}
+library(tidyverse)
+library(haven)
+
+asthma_ds0 <- read_sav("asthma_ds.sav")
+```
+
+::: notes
+-   the spss sav file is unaffected, because we import the dataset into R object.
+-   the dataset now reside in R memory
+:::
+
+## Import Dataset
+
+-   We can view the dataset by writing the object name
+
+```{r}
+asthma_ds0
+```
+
+## Import Dataset
+
+-   We can also use `View` function (capital V)
+
+```{r}
+#| eval: false
+
+View(asthma_ds0)
+```
+
+## Import Dataset
+
+-   In this dataset, we can notice that the `Gender` variable is coded as `1` and `2`, with label `Male` and `Female` respectively.
+-   Similar to other factor (categorical) variables in this dataset.
+-   This is common in SPSS dataset, where the label is stored separately from the data.
+-   We can use `as_factor` function to convert the variable to factor, and apply the label to the factor.
+
+```{r}
+asthma_ds <- as_factor(asthma_ds0)
+```
+
+## Import Dataset
+
+```{r}
+asthma_ds
+```
+
+# Simple Data Wrangling
+
+## Select Variable/Column
+
+-   We can select variable/column using `select` function
+-   We can use `:` to select range of variable
+
+```{r}
+asthma_ds1 <- select(asthma_ds, idR:Weight_Post)
+
+asthma_ds1
+```
+
+## Arithmetic Transformation
+
+-   We can perform arithmetic transformation using `mutate` function
+    -   For example, we can calculate BMI using `Weight_Pre` and `Height` variable
+
+```{r}
+asthma_ds2 <- asthma_ds1
+asthma_ds2$Ht_m <- asthma_ds2$Height/100
+asthma_ds2$BMI_Pre <- asthma_ds2$Weight_Pre/(asthma_ds2$Ht_m^2)
+
+asthma_ds2
+```
+
+## Binning Continuous Variable
+
+-   We can bin continuous variable using `cut` function
+    -   For example, we can bin `BMI_Pre` variable into 4 categories
+
+```{r}
+#| echo: false
+
+tibble(`BMI Category` = c("Underweight", "Normal", 
+                          "Overweight", "Obese"), 
+       `BMI Range` = c("<= 18.49", "18.50 - 22.99",
+                       "23.00 - 24.99", ">= 25.00")) %>% 
+  kbl() %>%
+  kable_classic()
+```
+
+## Binning Continuous Variable
+
+-   For example, we can bin `BMI_Pre` variable into 4 categories
+
+
+```{r}
+asthma_ds3 <- asthma_ds2
+asthma_ds3$BMI_PreCat <- cut(asthma_ds3$BMI_Pre,
+                             breaks = c(0, 18.49, 22.99, 24.99, 100),
+                             labels = c("Underweight", "Normal", "Overweight", "Obese"))
+  
+asthma_ds3
+```
+
 # Tidyverse
+
+## What is Tidyverse?
+
+-   Tidyverse is a collection of packages designed for data science
+-   The strength of Tidyverse is the **tidy** data philosophy
+-   Pipe operator `%>%` is the main feature of Tidyverse
+-   The packages are:
+
+```{r}
+#| echo: false
+
+tibble(Package = c("ggplot2", "dplyr", "tidyr", 
+                   "readr", "purrr", "tibble", 
+                   "stringr", "forcats", "broom", "modelr"), 
+       Description = c("data visualisation", 
+                       "data manipulation", 
+                       "data tidying", 
+                       "data import", 
+                       "functional programming", 
+                       "data structure", 
+                       "string manipulation", 
+                       "factor manipulation", 
+                       "tidy statistical output", 
+                       "modelling functions")) %>% 
+  kbl() %>% 
+  kable_classic()
+
+```
+
+## How does tidyverse make code more readable?
+
+-   Tidyverse is designed to work together
+-   `mutate` function is used to create new variable
+-   While pipe operator `%>%` is used to chain multiple function
+-   These two were commonly used in Tidyverse
+
+## `mutate` function
+
+-   `mutate` function is used to 
+    -   create new variable
+    -   modify existing variable
+
+```{r}
+asthma_ds4 <- asthma_ds1
+asthma_ds4 <- mutate(asthma_ds4, Ht_m = Height/100)
+asthma_ds4
+```
+
+
+## `mutate` function + Pipe Operator
+
+-   We can use pipe operator `%>%` to chain multiple function
+
+## Example of Data Wrangling **without** Pipe Operator
+
+```{r}
+asthma_ds0 <- read_sav("asthma_ds.sav")
+asthma_ds1 <- as_factor(asthma_ds0)
+asthma_ds2 <- select(asthma_ds1, idR:Weight_Post)
+asthma_ds3 <- asthma_ds2
+asthma_ds3$Ht_m <- asthma_ds3$Height/100
+asthma_ds3$BMI_Pre <- asthma_ds3$Weight_Pre/(asthma_ds3$Ht_m^2)
+asthma_ds3$BMI_PreCat <- cut(asthma_ds3$BMI_Pre,
+                             breaks = c(0, 18.49, 22.99, 24.99, 100),
+                             labels = c("Underweight", "Normal", "Overweight", "Obese"))
+asthma_ds3
+```
+
+
+## Example of Data Wrangling **with** Pipe Operator
+
+```{r}
+asthma_ds5 <- read_sav("asthma_ds.sav") %>%
+  as_factor() %>%
+  select(idR:Weight_Post) %>%
+  mutate(Ht_m = Height/100,
+         BMI_Pre = Weight_Pre/(Ht_m^2),
+         BMI_PreCat = cut(BMI_Pre, breaks = c(0, 18.49, 22.99, 24.99, 100),
+                          labels = c("Underweight", "Normal", "Overweight", "Obese")))
+
+asthma_ds5
+```
+
+
+# Data Exploration with Tidyverse
+
+## Data Exploration
+
+-   Data exploration is the first step in data analysis
+-   But data exploration also commonly use at various stage of data analysis
+
+## Summary Statistics with `summarise` function
+
+-   Tidyverse provide various function to get summary statistics
+    -   `summarise` function
+
+```{r}
+asthma_ds5 %>%
+  summarise(Mean_Height = mean(Height), 
+            SD_Height = sd(Height), 
+            Min_Height = min(Height), 
+            Max_Height = max(Height))
+```
+
+
+## Summary Statistics with `count` function
+
+-   `count` function is used to count the frequency of each level of a factor variable
+
+```{r}
+asthma_ds5 %>% 
+  count(Gender)
+```
+
+## Summary Statistics with `group_by` function
+
+-   `group_by` function is used to group the data by a factor variable
+
+```{r}
+asthma_ds5 %>% 
+  group_by(Gender) %>% 
+  summarise(Mean_Height = mean(Height), 
+            SD_Height = sd(Height), 
+            Min_Height = min(Height), 
+            Max_Height = max(Height))
+```
+
+## Cross Tabulation with `table` function
+
+-   `table` function is used for crosstabulation
+
+```{r}
+with(asthma_ds5, table(WorkStatus, Gender))
+```
+
+
+## Plot: Histogram
+
+-  We can quickly plot histogram using base R function `hist`
+
+```{r}
+hist(asthma_ds5$Height)
+```
+
+## Plot: Bar Chart
+
+-  We can quickly plot bar chart using base R function `barplot`
+
+```{r}
+barplot(table(asthma_ds5$Gender))
+```
+
+# Finish! See you next week~
 

@@ -490,8 +490,6 @@ TRUE & FALSE
 -   Functions are called by their name followed by parentheses `()`
 
 ```{r}
-
-
 sqrt(4)
 ```
 
