@@ -21,6 +21,15 @@ execute:
 
 # Getting to know R
 
+```{css}
+#| echo: false
+
+code.sourceCode {
+  font-size: 1.3em
+}
+```
+
+
 ```{r}
 #| label: setup
 #| echo: false
@@ -214,51 +223,67 @@ tibble(Modes = c("Numeric", "Character", "Logical", "Complex", "Raw", "List", "F
     -   Vectors
     -   Lists
     -   Factors
-    -   Data Frames
     -   Matrices
+    -   Data Frames
 
-## Vectors
+:::{.notes}
+skip arrays
+:::
+
+
+## Vectors (Logical)
 
 -   A vector is a sequence of data elements of the same basic type
+-   There are five types of vectors in R: Logical, Numeric, Integer, Complex, Character
 
-::: columns
-::: {.column width="48%"}
--   There are five types of vectors in R.
-    -   Logical
-    -   Integer
-    -   Double
-    -   Complex
-    -   Character
-:::
-
-::: {.column width="4%"}
-:::
-
-::: {.column width="48%"}
-```{webr-r}
-
-
-numeric_vector <- c(1, 2, 3)
-numeric_vector
-
-character_vector <- c("a", "b", "c")
-character_vector
-
+-   Logical Vector
+```{r}
 logical_vector <- c(TRUE, FALSE, TRUE)
 logical_vector
 ```
-:::
-:::
+
+## Vectors (Numeric)
+
+-   A vector is a sequence of data elements of the same basic type
+-   There are five types of vectors in R: Logical, Numeric, Integer, Complex, Character
+
+-   Numeric Vector
+```{r}
+numeric_vector <- c(1, 2, 3)
+numeric_vector
+```
+
+## Vectors (Character)
+
+-   A vector is a sequence of data elements of the same basic type
+-   There are five types of vectors in R: Logical, Numeric, Integer, Complex, Character
+
+-   Character Vector
+```{r}
+character_vector <- c("a", "b", "c")
+character_vector
+```
+
 
 ## Lists
 
 -   A list is a special type of vector that can contain elements of different types.
 
-```{webr-r}
-#| echo: true
-
+```{r}
 list_vector <- list(1, "a", TRUE)
 list_vector
+```
+
+## Factors
+
+-   A factor is a vector that can contain only predefined values. 
+-   Used to store categorical data.
+
+```{r}
+education_levels <- c("MSc", "BSc", "Dip", "PhD")
+education_factor <- factor(education_levels, ordered = TRUE,
+                           levels = c("Dip", "BSc", "MSc", "PhD"))
+education_factor
 ```
 
 ## Matrix
@@ -266,10 +291,9 @@ list_vector
 -   A matrix is a 2D array-like structure.
 -   Unlike a list, a matrix only holds single basic types.
 
-```{webr-r}
-#| echo: true
-
-matrix(1:9, nrow = 3, ncol = 3)
+```{r}
+example_matrix <- matrix(1:9, nrow = 3, ncol = 3)
+example_matrix
 ```
 
 ## Data Frame
@@ -322,32 +346,32 @@ matrix(1:9, nrow = 3, ncol = 3)
 
 -   Addition
 
-```{webr-r}
-#| echo: true
+```{r}
+
 
 1 + 2
 ```
 
 -   Subtraction
 
-```{webr-r}
-#| echo: true
+```{r}
+
 
 2-1
 ```
 
 -   Multiplication
 
-```{webr-r}
-#| echo: true
+```{r}
+
 
 3*4
 ```
 
 -   Division
 
-```{webr-r}
-#| echo: true
+```{r}
+
 
 4/2
 ```
@@ -357,8 +381,8 @@ matrix(1:9, nrow = 3, ncol = 3)
 -   Assignment operators are used to assign values to variables.
 -   R accept four types of assignment operators: `<-`, `<<-`, `=`, `->`
 
-```{webr-r}
-#| echo: true
+```{r}
+
 
 a <- 5
 a
@@ -386,8 +410,8 @@ c
 :::
 
 ::: {.column width="48%"}
-```{webr-r}
-#| echo: true
+```{r}
+
 
 TRUE | FALSE
 TRUE & FALSE
@@ -416,8 +440,8 @@ TRUE & FALSE
 :::
 
 ::: {.column width="49%"}
-```{webr-r}
-#| echo: true
+```{r}
+
 
 1 == 1
 1 != 1
@@ -445,8 +469,8 @@ TRUE & FALSE
 :::
 
 ::: {.column width="49%"}
-```{webr-r}
-#| echo: true
+```{r}
+
 
 1:5
 5 %in% 1:10
@@ -464,8 +488,8 @@ TRUE & FALSE
 -   R has many built-in functions.
 -   Functions are called by their name followed by parentheses `()`
 
-```{webr-r}
-#| echo: true
+```{r}
+
 
 sqrt(4)
 ```
