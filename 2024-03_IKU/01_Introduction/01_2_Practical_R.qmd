@@ -161,6 +161,7 @@ As mentioned previously:
 ask the participant to do try running code chunk
 :::
 
+# Now let get familiar with Quarto Notebook
 
 # Key Concepts: Objects and Data Types
 

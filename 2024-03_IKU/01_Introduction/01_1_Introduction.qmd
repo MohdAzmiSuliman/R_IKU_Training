@@ -38,8 +38,8 @@ embed-resources: true
 
 
 -   R users are like wizards.
-    -   They can rely on spells (functions) that have been developed for .them
-    -   They can also create their own
+    -   They can rely on spells (functions) that have been developed for them.
+    -   They can also create their own.
     -   They do not have to pay for the use of them.
     -   And once experienced enough, they are almost unlimed in their ability to change their environment.
 
@@ -127,9 +127,7 @@ embed-resources: true
 
 ## R consoles
 
--   R consoles is where you can type in the R command/code.
-
-![](images/r_console_0.png) 
+![](images/r_console_0.png)
 
 
 # RStudio
@@ -146,8 +144,6 @@ embed-resources: true
 -   Support version control (git)
 
 ## RStudio GUI
-
--   RStudio is the IDE for R
 
 ![](images/rstudio_ide_0.png)
 
@@ -167,7 +163,7 @@ embed-resources: true
 
 # Expectation?
 
-## R Language as a programming language
+## R language as a programming language
 
 These are some of the things that I have learned and used in R:
 

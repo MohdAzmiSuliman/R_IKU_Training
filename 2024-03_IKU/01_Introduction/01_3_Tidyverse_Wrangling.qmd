@@ -1,0 +1,23 @@
+---
+title: "Introduction to R, RStudio and Quarto"
+subtitle: "Tidyverse, Basic Data Exploration and Wrangling"
+format: 
+  clean-revealjs: 
+    slide-number: true
+    lightbox: true
+    auto-stretch: false
+    footer: "Tidyverse, Basic Data Exploration and Wrangling"
+author:
+  - name: Mohd Azmi Bin Suliman
+    orcid: 0000-0002-2125-3811
+    email: azmi.suliman@moh.gov.my
+    affiliations: Pusat Penyelidikan Penyakit Tak Berjangkit, Institut Kesihatan Umum
+date: last-modified
+date-format: "dddd, DD MMMM YYYY"
+embed-resources: true
+execute: 
+  echo: true
+---
+
+# Tidyverse
+
