@@ -36,7 +36,6 @@ embed-resources: true
 -   R programming language is a lot like magic...
 -   Except instead of spells, you have a function
 
-. . .
 
 -   R users are like wizards.
     -   They can rely on spells (functions) that have been developed for .them
@@ -102,21 +101,21 @@ embed-resources: true
 
 ## SPSS and R
 
--   Learning (and using) R require a new paradigm of thinking.
+-   Learning (and using) R requires a new paradigm of thinking.
     -   R is a programming language, and you will be writing code 99% of the time.
-        -   This is not an exam. You don't have to remember everything.
-        -   Google (and *AI chatbox*) is your friend
+-   This is not an exam. You don't have to remember everything.
+-   Google (and *AI chatbox*) is your friend
 
 ## SPSS and R
 
 -   Learning (and using) R requires a new paradigm of thinking.
-    -   Almost everything in R is an objec.ts
-        -   You can create, modify, and delete
-        -   Import external files
-        -   Many different options are available at the same time.
-        -   The dataset can be any dimension.
-    -   SPSS only available one dataset at a time
-        -   SPSS datasets are rectangular
+-   Almost everything in R is an objects
+    -   You can create, modify, and delete
+    -   Import external files
+    -   Many different options are available at the same time.
+    -   The dataset can be any dimension.
+-   SPSS only available one dataset at a time
+    -   SPSS datasets are rectangular
 
 ## Learning R
 
@@ -126,39 +125,45 @@ embed-resources: true
 -   Reading help files can be very helpful.
 -   **MOST IMPORTANT** - the more time you spend using R, the more comfortable you become with it
 
+## R consoles
+
+-   R consoles is where you can type in the R command/code.
+
+![](images/r_console_0.png) 
+
+
 # RStudio
-
-## What is RStudio?
-
--   RStudio is an integrated development environment (IDE) for R.
--   It includes a console and syntax highlighting editor that supports direct code execution and tools for plotting, history, debugging, and workspace management.
 
 ## RStudio for Statistical Analysis Workflow
 
--   RStudio is designed to support the entire data analysis workflow.
--   Managing - Creating & Running R scripts
--   Managing projects for better organisation
--   Support version control (Git).
-
-## R consoles
-
--   This is the R consoles.
-    -   This is where you can type in the R command/code.
-
-![](images/r_console_0.png)
+-   RStudio is an integrated development environment (IDE) for R.
+-   It includes a console and syntax highlighting editor 
+-   Supports direct code execution and tools for 
+    -   Plotting
+    -   History
+    -   Debugging
+    -   Workspace management
+-   Support version control (git)
 
 ## RStudio GUI
 
--   This is the RStudio
-    -   The IDE for R
+-   RStudio is the IDE for R
 
 ![](images/rstudio_ide_0.png)
 
-# Why learn R and RStudio?
-
 # Quarto
 
-## What is Quarto?
+##  {background-iframe="https://quarto.org/"}
+
+## Quarto as Notebook
+
+-   In my sessions, Quarto will be use as notebook
+-   Code output will be display in the same document
+-   Quarto is pre-installed in RStudio
+
+## Quarto as Notebook
+
+![](images/quarto_rstudio.png)
 
 # Expectation?
 
@@ -172,11 +177,11 @@ These are some of the things that I have learned and used in R:
 -   Code notebook with Quarto
 -   Basic reporting with Quarto (HTML, PDF, Word)
 
-:::{.notes}
+::: notes
 R is not just about statistics and data analysis. As a programming language, R can do various things
 :::
 
-## R Language as a programming language
+## R language as a programming language
 
 But I am not an expert in R. I am still learning and looking for study group to help improve my R.
 
@@ -185,3 +190,13 @@ But I am not an expert in R. I am still learning and looking for study group to 
 -   Making a website with Quarto
 -   Making custom functions and packages
 -   R as teaching tools
+
+## Further Reading
+
+-   [R for Data Science](https://r4ds.had.co.nz/)
+-   [RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
+-   [Quarto Documentation](https://quarto.org/)
+-   [Graphic with ggplot2](https://ggplot2-book.org/)
+-   [Tidyverse](https://www.tidyverse.org/)
+-   [Advanced R](https://adv-r.hadley.nz/)
+

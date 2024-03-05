@@ -5,6 +5,7 @@ format:
   clean-revealjs: 
     slide-number: true
     lightbox: true
+    auto-stretch: false
     footer: "R Practical"
 author:
   - name: Mohd Azmi Bin Suliman
@@ -14,6 +15,8 @@ author:
 date: last-modified
 date-format: "dddd, DD MMMM YYYY"
 embed-resources: true
+execute: 
+  echo: true
 ---
 
 # Getting to know R
@@ -29,19 +32,19 @@ pacman::p_load(tidyverse, kableExtra)
 
 -   Open your R console.
 
-![](images/r_console_0.png)
+![](images/r_console_0.png){width="80%"}
 
 ## Typical R Session
 
 -   R console is where you can type in the R command/code.
 
-![](images/r_console_1.png)
+![](images/r_console_1.png){width="80%"}
 
 ## Typical R Session
 
 -   The output of the command is shown below the command.
 
-![](images/r_console_2.png)
+![](images/r_console_2.png){width="80%"}
 
 # RStudio, the IDE for R
 
@@ -49,19 +52,18 @@ pacman::p_load(tidyverse, kableExtra)
 
 -   When you first open RStudio, you will usually see a layout like this.
 
-![](images/rstudio_ide_0.png)
+![](images/rstudio_ide_0.png){width="80%"}
 
 ## RStudio Layout
 
 -   There are four (4) panes in RStudio.
 
-![](images/rstudio_ide_1.png)
+![](images/rstudio_ide_1.png){width="80%"}
 
 ## Setting up your RStudio
 
 -   Different people may use R and RStudio differently.
 -   Having a sensible workflow can improve your work.
--   Workflow thinking
     1.  Treat individual R process and the associated workspace as disposable.
     2.  Use IDE & Project Management
     3.  **Specified your default working directory**
@@ -69,17 +71,109 @@ pacman::p_load(tidyverse, kableExtra)
     5.  Always start with a blank slate.
         -   When quit R, **DO NOT SAVE WORKSPACE.**
         -   When starting R, **DO NOT RESTORE WORKSPACE.**
-    6.  *Use version control* (advance)
+-   Further reading: [What They Forgot to Teach You About R](https://rstats.wtf/)
+
+## Setting up your RStudio
+
+1.  Open your RStudio.
+2.  Go to `Tools` \> `Global Options` \> `General`
+
+## Setting up your RStudio
+
+1.  Open your RStudio.
+2.  Go to `Tools` \> `Global Options` \> `General`
+
+### Default Working Directory
+
+3.  Set your default working directory.
+    -   Set working directory inside RStudio folder in your Document folder
+    -   Click `Browse...` \> Create New Folder \> name it `RStudio` \> Select Folder \> OK
+
+## Setting up your RStudio
+
+1.  Open your RStudio.
+2.  Go to `Tools` \> `Global Options` \> `General`
+
+### Blank slate setting
+
+4.  Unchecked these
+    -   `Restore most recently opened project at startup`
+    -   `Restore previously open source documents at startup`
+    -   `Restore .RData into workspace at startup`
+    -   Save workspace to .RData on exit: `Never`
+    -   `Always save history (even when not saving .RData)`
+
+# Creating Project (and have sensible workflow)
+
+## RStudio Project
+
+-   RStudio have built in project management.
+-   RStudio project act as a container for your work.
+-   All the codes, data, scripts and outputs are organized in one place
+-   Allow for easy sharing and collaboration
+-   You might forget what you did last time, but having a project will help you to revisit your old work.
+
+## Create a new project
+
+-   Go to `File` \> `New Project...`
+-   `New Directory` \> `New Project`
+-   Name your project `R_Practical`
+-   Don't forget to check your working directory
+-   Click `Browse...` \> Select `RStudio` folder \> Select `Open`
+-   Click `Create Project`
 
 # Quarto, Notebook for R
 
+:::{.notes}
+As mentioned previously:
+
+-   Quarto is an open-source scientific and technical publishing system
+-   But for this session, Quarto will be used as notebook for R
+:::
+
 ## Setting up your Quarto
+
+-   Go to `File` \> `New File` \> `Quarto Document...`
+-   Add your title `Test Quarto Document`
+-   Add the author (*optional*)
+-   Select `HTML`
+-   Set engine as `Knitr`
+-   **UNTICK** `Use visual markdown editor`
+-   Click `Create`
+
+## Setting up your Quarto
+
+-   **WAIT!!**, we need to ensure that it is standalone.
+    -   Add `embed-resources: true` to the YAML header.
+
+![](images/quarto_embedyaml_test.png){width="80%"}
+
+:::{.notes}
+ask the participant to do try running code chunk
+:::
+
 
 # Key Concepts: Objects and Data Types
 
+## TODO: Setting up blank Quarto Document
+
+-   Go to `File` \> `New File` \> `Quarto Document...`
+-   Add your title `Sesi 1 Pengenalan`
+-   Add the author (*optional*)
+-   Select `HTML`
+-   Set engine as `Knitr`
+-   **UNTICK** `Use visual markdown editor`
+-   Click `Create Blank Document`
+-   Add `embed-resources: true` to the YAML header.
+
+## TODO: Setting up blank Quarto Document
+
+![](images/quarto_embedyaml_0.png){width="80%"}
+
+
 ## R Objects
 
--   Almost everything in R isects: functions, datasets, results, and models.
+-   Almost everything in R is objects: functions, datasets, results, and models.
 -   Script can be thought of as a way to make objects.
 -   Your goal is usually to write a script that, by its end, has created the objects that you need.
     -   statistical results
@@ -103,6 +197,8 @@ pacman::p_load(tidyverse, kableExtra)
 
 ::: {.column width="48%"}
 ```{r}
+#| echo: false
+
 tibble(Modes = c("Numeric", "Character", "Logical", "Complex", "Raw", "List", "Function", "NULL"),
        Examples = c("1, 2, 3", "a, b, c", TRUE, 1+0i, "", "", "maen(age)", "")) %>% 
   kbl() %>% 
@@ -139,8 +235,8 @@ tibble(Modes = c("Numeric", "Character", "Logical", "Complex", "Raw", "List", "F
 :::
 
 ::: {.column width="48%"}
-```{r}
-#| echo: true
+```{webr-r}
+
 
 numeric_vector <- c(1, 2, 3)
 numeric_vector
@@ -158,7 +254,7 @@ logical_vector
 
 -   A list is a special type of vector that can contain elements of different types.
 
-```{r}
+```{webr-r}
 #| echo: true
 
 list_vector <- list(1, "a", TRUE)
@@ -170,7 +266,9 @@ list_vector
 -   A matrix is a 2D array-like structure.
 -   Unlike a list, a matrix only holds single basic types.
 
-```{r}
+```{webr-r}
+#| echo: true
+
 matrix(1:9, nrow = 3, ncol = 3)
 ```
 
@@ -193,7 +291,7 @@ matrix(1:9, nrow = 3, ncol = 3)
 :::
 :::
 
-Data Frame
+## Data Frame
 
 ::: columns
 ::: {.column width="48%"}
@@ -224,7 +322,7 @@ Data Frame
 
 -   Addition
 
-```{r}
+```{webr-r}
 #| echo: true
 
 1 + 2
@@ -232,7 +330,7 @@ Data Frame
 
 -   Subtraction
 
-```{r}
+```{webr-r}
 #| echo: true
 
 2-1
@@ -240,13 +338,17 @@ Data Frame
 
 -   Multiplication
 
-```{r}
+```{webr-r}
+#| echo: true
+
 3*4
 ```
 
 -   Division
 
-```{r}
+```{webr-r}
+#| echo: true
+
 4/2
 ```
 
@@ -255,7 +357,7 @@ Data Frame
 -   Assignment operators are used to assign values to variables.
 -   R accept four types of assignment operators: `<-`, `<<-`, `=`, `->`
 
-```{r}
+```{webr-r}
 #| echo: true
 
 a <- 5
@@ -284,7 +386,7 @@ c
 :::
 
 ::: {.column width="48%"}
-```{r}
+```{webr-r}
 #| echo: true
 
 TRUE | FALSE
@@ -314,7 +416,7 @@ TRUE & FALSE
 :::
 
 ::: {.column width="49%"}
-```{r}
+```{webr-r}
 #| echo: true
 
 1 == 1
@@ -325,18 +427,25 @@ TRUE & FALSE
 1 <= 1
 ```
 :::
-:::
+::::
 
 ## Special Operators
 
+:::: columns
+::: {.column width="49%"}
 -   Special operators are used to perform special operations.
     -   `:`: sequence
     -   `%in%`: match
     -   `%*%`: matrix multiplication
     -   `%/%`: integer division
     -   `%%`: modulus
+:::
 
-```{r}
+::: {.column width="2%"}
+:::
+
+::: {.column width="49%"}
+```{webr-r}
 #| echo: true
 
 1:5
@@ -345,6 +454,9 @@ TRUE & FALSE
 5 %/% 2
 5 %% 2
 ```
+:::
+::::
+
 
 ## Functions
 
@@ -352,7 +464,7 @@ TRUE & FALSE
 -   R has many built-in functions.
 -   Functions are called by their name followed by parentheses `()`
 
-```{r}
+```{webr-r}
 #| echo: true
 
 sqrt(4)
