@@ -21,15 +21,6 @@ execute:
 
 # Getting to know R
 
-```{css}
-#| echo: false
-
-code.sourceCode {
-  font-size: 1.3em
-}
-```
-
-
 ```{r}
 #| label: setup
 #| echo: false
