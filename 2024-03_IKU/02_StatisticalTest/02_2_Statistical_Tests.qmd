@@ -1,6 +1,6 @@
 ---
 title: "Statistical Tests in R"
-subtitle: "Kursus R: Pengenalan dan Praktikal"
+subtitle: "Kursus R: Pengenalan dan Praktikal (Sesi 2)"
 format: 
   clean-revealjs: 
     slide-number: true

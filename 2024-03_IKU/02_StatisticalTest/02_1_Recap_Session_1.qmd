@@ -1,0 +1,94 @@
+---
+title: "Recap Session 1"
+subtitle: "Kursus R: Pengenalan dan Praktikal (Sesi 2)"
+format: 
+  clean-revealjs: 
+    slide-number: true
+    lightbox: true
+    auto-stretch: false
+    footer: "Recap Session 1"
+author:
+  - name: Mohd Azmi Bin Suliman
+    orcid: 0000-0002-2125-3811
+    email: azmi.suliman@moh.gov.my
+    affiliations: Pusat Penyelidikan Penyakit Tak Berjangkit, Institut Kesihatan Umum
+date: 2024-03-06
+date-format: "dddd, DD MMMM YYYY"
+embed-resources: true
+execute: 
+  echo: true
+---
+
+# Recap Session 1
+
+```{r}
+#| label: setup
+#| echo: false
+
+pacman::p_load(tidyverse, kableExtra)
+```
+
+## Recap Session 1
+
+-   What we have learn previously?
+
+```{r}
+#| echo: false
+
+tibble(Topic = c("R", 
+                 "RStudio",
+                 "Project (I)", 
+                 "Project (II)", 
+                 "Quarto"), 
+       "Explaination/Example" = c("A programming languange for statistical computing and graphic", 
+                                  "An IDE for R", 
+                                  "'Container' for R project",
+                                  "Always start with blank slate, save everything in notebook", 
+                                  "Publishing system, but used for Notebook")) %>% 
+  mutate(No = row_number(), .before = Topic) %>% 
+  kbl() %>% 
+  kable_classic()
+```
+
+## Recap Session 1
+
+-   What we have learn previously?
+
+```{r}
+#| echo: false
+
+tibble(Topic = c("Object in R", 
+                 "Data Modes", 
+                 "Data Structure",
+                 "Operators", 
+                 "Functions"), 
+       "Explaination/Example" = c("Almost everything in R is an object", 
+                                  "Numeric, Character, Logical", 
+                                  "value, vector, list, matrix, DATA FRAME", 
+                                  "Arithmetic (+-), Assignment (<-), Relational (>=), Special (%>%)", 
+                                  "Command to perform specific task, e.g. sqrt(4)")) %>% 
+  mutate(No = row_number()+5, .before = Topic) %>% 
+  kbl() %>% 
+  kable_classic()
+```
+
+## Recap Session 1
+
+-   What we have learn previously?
+
+```{r}
+#| echo: false
+
+tibble(Topic = c("Packages",
+                 "Data Wrangling", 
+                 "Tidyverse (I)", 
+                 "Tidyverse (II)"), 
+       "Explaination/Example" = c("Set of functions and data. Can be installed and loaded",
+                                  "Data cleaning and transformation activities", 
+                                  "Collection of Packages with 'tidy' philosophy", 
+                                  "mutate() for new variable and %>% pipe operator")) %>% 
+  mutate(No = row_number()+10, .before = Topic) %>% 
+  kbl() %>% 
+  kable_classic()
+```
+

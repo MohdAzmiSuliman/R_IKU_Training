@@ -1,0 +1,56 @@
+---
+title: "Getting Help in R"
+subtitle: "Kursus R: Pengenalan dan Praktikal (Sesi 2)"
+format: 
+  clean-revealjs: 
+    slide-number: true
+    lightbox: true
+    auto-stretch: false
+    footer: "Getting Help in R"
+author:
+  - name: Mohd Azmi Bin Suliman
+    orcid: 0000-0002-2125-3811
+    email: azmi.suliman@moh.gov.my
+    affiliations: Pusat Penyelidikan Penyakit Tak Berjangkit, Institut Kesihatan Umum
+date: 2024-03-06
+date-format: "dddd, DD MMMM YYYY"
+embed-resources: true
+execute: 
+  echo: true
+---
+
+# Getting Help in R
+
+
+```{r}
+#| label: setup
+#| echo: false
+
+pacman::p_load(tidyverse, kableExtra)
+```
+
+
+## Getting Help in R
+
+-   When learning R (or even using R), error is **common**.
+-   Easiest is by using `?` or `help()` function.
+
+```{r}
+#| eval: false
+
+?tbl_summary
+```
+
+## Getting Help in R
+
+-   Some package also have their own documentation.
+    -   Website
+    -   Vignette 
+
+
+## Getting Help in R
+
+**gtsummary website**
+
+
+
