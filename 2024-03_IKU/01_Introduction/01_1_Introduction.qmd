@@ -1,6 +1,6 @@
 ---
-title: "Kursus R: Pengenalan dan Praktikal"
-subtitle: "Introduction to R, RStudio and Quarto"
+title: "Introduction to R, RStudio and Quarto"
+subtitle: "Kursus R: Pengenalan dan Praktikal"
 format: 
   clean-revealjs: 
     slide-number: true
@@ -11,7 +11,7 @@ author:
     orcid: 0000-0002-2125-3811
     email: azmi.suliman@moh.gov.my
     affiliations: Pusat Penyelidikan Penyakit Tak Berjangkit, Institut Kesihatan Umum
-date: last-modified
+date: 2024-03-06
 date-format: "dddd, DD MMMM YYYY"
 embed-resources: true
 ---
