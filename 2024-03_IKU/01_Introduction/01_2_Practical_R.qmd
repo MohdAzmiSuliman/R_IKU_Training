@@ -28,6 +28,14 @@ execute:
 pacman::p_load(tidyverse, kableExtra)
 ```
 
+```{css}
+#| echo: false
+
+code.sourceCode {
+  font-size: 1.3em;
+}
+```
+
 ## Typical R Session
 
 -   Open your R console.

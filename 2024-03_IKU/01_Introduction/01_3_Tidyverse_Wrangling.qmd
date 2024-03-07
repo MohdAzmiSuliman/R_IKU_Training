@@ -28,6 +28,16 @@ execute:
 pacman::p_load(tidyverse, haven, kableExtra)
 ```
 
+
+```{css}
+#| echo: false
+
+code.sourceCode {
+  font-size: 1.3em;
+}
+```
+
+
 ## Packages in R
 
 -   The strength of R is it's open-source philosophy
