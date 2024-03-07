@@ -37,21 +37,21 @@ code.sourceCode {
 
 ## Descriptive Analysis
 
--   Descriptive analysis refers to summarizing and describing the main features of a dataset.
+-   Descriptive analysis refers to summarising and describing the main features of a dataset.
 -   Count and percentage for categorical data.
 -   Mean, median, standard deviation, and range for numerical data.
--   Data visualisation also part of descriptive analysis.
+-   Data visualisation is also part of descriptive analysis.
 
 ## Descriptive Analysis
 
 -   There are many ways to perform descriptive analysis in R.
--   We can use base function, or commonly people use tidyverse package for descriptive analysis.
--   In this session, I want to introduce `summarytools` and `gtsummary`package for descriptive analysis.
+-   We can use the base function, or commonly people use the tidyverse package for descriptive analysis.
+-   In this session, I will introduce `summarytools` and `gtsummary`package for descriptive analysis.
     -   Easier to use
     -   More informative.
-    -   Nicer outcome (especially when render the Quarto document!)
+    -   Nicer outcome (especially when rendering the Quarto document!)
 
-# Lets Try!
+# LeLet'sry!
 
 Setup your project & quarto document.
 
@@ -63,7 +63,7 @@ Setup your project & quarto document.
 1.  Open RStudio.
 2.  Create a new project.
     -   `File` \> `New Project` \> `New Directory` \> `New Project`
-3.  Set the name and directory
+3.  Set the name and directory.
     -   Name: `Statistical Tests in R`
     -   Directory: `.../Documents/RStudio`
 4.  Click `Create Project`
@@ -76,14 +76,14 @@ Setup your project & quarto document.
 
 Quarto as R Notebook.
 
-1.  Create new Quarto document
+1.  Create a new Quarto document.
     -   `File` \> `New File` \> `Quarto Document...`
 2.  Set the title
     -   Title: `Statistical Tests in R`
-    -   Untick `Use visual editor`
+    -   Untick `Use the visual editor`
 3.  Click `Create Empty Document`
 4.  Edit the YAML
-    -   add `embed-resources: true` parameter
+    -   Add `embed-resources: true` parameter
 
 ## Create New Quarto Document
 
@@ -92,8 +92,8 @@ Quarto as R Notebook.
 ## Import Dataset
 
 1.  Copy the dataset `asthmads_clean.sav` into the working directory.
-    -   Download the dataset from Google Drive folder.
-    -   Open folder that the dataset downloaded to.
+    -   Download the dataset from the Google Drive folder.
+    -   Open the folder that the dataset was downloaded to.
     -   Copy the dataset.
     -   Open your working directory
     -   `File` pane \> `⚙️ More` \> `Show Folder in New Window`
@@ -436,11 +436,11 @@ asthmads_clean %>%
 
 -   to determine association between two categorical variables.
 -   these are the assumptions:
-    -   The variables are categorical.
-    -   The grouping is mutually exclusive
-    -   The observations are independent.
-    -   The expected frequency count for at least 80% of the cells is at least 5.
-    -   The expected frequency count for each cell is at least 1.
+    -   The variables are **categorical**.
+    -   The grouping is **mutually exclusive**
+    -   The observations are **independent**.
+    -   The expected frequency count for **at least 80% of the cells is at least 5**.
+    -   The expected frequency count for **each cell is at least 1**.
 
 ## Practical: Pearson's Chi-Square Test
 
@@ -644,7 +644,6 @@ t.test(Ht_m ~ Gender, asthmads_clean)
 
 ![](images/ttest_help.png)
 
-
 ## R Syntax Convention for Formula
 
 -   For test (or function) that accept formula as input, the formula is written as:
@@ -664,14 +663,13 @@ t.test(Ht_m ~ Gender, asthmads_clean)
     -   The dependent variable is **continuous**.
     -   The **difference** between the two groups should be **approximately normally distributed**.
 
-
 ## Practical: Paired t-test
 
 ```{r}
 t.test(Pair(Weight_Post, Weight_Pre) ~ 1, asthmads_clean)
 ```
 
-- alternatively
+-   alternatively
 
 ```{r}
 #| eval: false
@@ -700,16 +698,12 @@ asthmads_clean %>%
   select(id, Weight_Post, Weight_Pre) 
 ```
 
-
-
 ## Practical: Paired t-test with `gtsummary`
 
 **Demonstration only**
 
-::::{.columns}
-
-:::{.column width="67%"}
-
+::: columns
+::: {.column width="67%"}
 -   Reshape to long format
 
 ```{r}
@@ -723,16 +717,12 @@ asthmads_clean %>%
                names_pattern = "Weight_(.*)") %>% 
   mutate(Type = fct_relevel(Type, "Pre"))
 ```
-
 :::
 
-
-:::{.column width="2%"}
-
+::: {.column width="2%"}
 :::
 
-:::{.column width="31%"}
-
+::: {.column width="31%"}
 ```{r}
 #| echo: false
 
@@ -744,11 +734,8 @@ asthmads_clean %>%
                names_pattern = "Weight_(.*)") %>% 
   mutate(Type = fct_relevel(Type, "Pre"))
 ```
-
 :::
-
-::::
-
+:::
 
 ## Practical: Paired t-test with `gtsummary`
 
@@ -796,7 +783,6 @@ asthmads_clean %>%
                  group = id)
 ```
 
-
 # Analysis of Variance (ANOVA)
 
 ## Analysis of Variance (ANOVA)
@@ -809,12 +795,33 @@ asthmads_clean %>%
     -   The dependent variable is **continuous**.
     -   The dependent variable should be **approximately normally distributed**.
     -   The **variances** of the groups should be **approximately equal**.
-    
+
 ## Practical: One-Way ANOVA
 
 -   Lets try to perform One-Way ANOVA
 -   e.g., compare the mean of PEFR improvement between the treatment groups
+-   First, identify the related variables
 
 ```{r}
-asthmads_clean
+names(asthmads_clean)
 ```
+
+## Practical: One-Way ANOVA
+
+-   Lets try to perform One-Way ANOVA
+-   e.g., compare the mean of PEFR improvement between the treatment groups
+    -   PEFR improvement: PEFR_Diff
+    -   Treatment group: Tx2
+-   `oneway.test` function for One-Way ANOVA
+
+```{r}
+oneway.test(PEFR_Diff ~ Tx2, asthmads_clean)
+```
+
+## `aov`, `oneway.test` and `anova` functions?
+
+-   ANOVA is based on F-test, in which analysing the variance between groups and within groups.
+-   `aov` function is for one-way ANOVA, with assumption of equal variance
+-   `oneway.test` function is for one-way ANOVA, with assumption of equal variance.
+-   `anova` function, while share the same name and purpose, used differently.
+    -   `anova` function is used to compare models with F-test.
