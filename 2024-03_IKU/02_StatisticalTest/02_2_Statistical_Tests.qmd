@@ -19,113 +19,13 @@ execute:
   echo: true
 ---
 
-# Recap Session 1
-
-```{r}
-#| label: setup
-#| echo: false
-
-pacman::p_load(tidyverse, kableExtra)
-```
-
-## Recap Session 1
-
--   What we have learn previously?
-
-```{r}
-#| echo: false
-
-tibble(Topic = c("R", 
-                 "RStudio",
-                 "Project (I)", 
-                 "Project (II)", 
-                 "Quarto"), 
-       "Explaination/Example" = c("A programming languange for statistical computing and graphic", 
-                                  "An IDE for R", 
-                                  "'Container' for R project",
-                                  "Always start with blank slate, save everything in notebook", 
-                                  "Publishing system, but used for Notebook")) %>% 
-  mutate(No = row_number(), .before = Topic) %>% 
-  kbl() %>% 
-  kable_classic()
-```
-
-## Recap Session 1
-
--   What we have learn previously?
-
-```{r}
-#| echo: false
-
-tibble(Topic = c("Object in R", 
-                 "Data Modes", 
-                 "Data Structure",
-                 "Operators", 
-                 "Functions"), 
-       "Explaination/Example" = c("Almost everything in R is an object", 
-                                  "Numeric, Character, Logical", 
-                                  "value, vector, list, matrix, DATA FRAME", 
-                                  "Arithmetic (+-), Assignment (<-), Relational (>=), Special (%>%)", 
-                                  "Command to perform specific task, e.g. sqrt(4)")) %>% 
-  mutate(No = row_number()+5, .before = Topic) %>% 
-  kbl() %>% 
-  kable_classic()
-```
-
-## Recap Session 1
-
--   What we have learn previously?
-
-```{r}
-#| echo: false
-
-tibble(Topic = c("Packages",
-                 "Data Wrangling", 
-                 "Tidyverse (I)", 
-                 "Tidyverse (II)"), 
-       "Explaination/Example" = c("Set of functions and data. Can be installed and loaded",
-                                  "Data cleaning and transformation activities", 
-                                  "Collection of Packages with 'tidy' philosophy", 
-                                  "mutate() for new variable and %>% pipe operator")) %>% 
-  mutate(No = row_number()+10, .before = Topic) %>% 
-  kbl() %>% 
-  kable_classic()
-```
-
-# Before we go further...
-
-Gettting help in R
-
-## Getting Help in R
-
--   When learning R (or even using R), error is **common**.
--   Easiest is by using `?` or `help()` function.
-
-```{r}
-#| eval: false
-
-?tibble
-```
-
-## Getting Help in R
-
--   Some package also have their own documentation.
--   These documentations were called `vignette`.
--   The vignette usually hosted in CRAN or package website.
--   For example, `tidyverse` package have their own vignette
-    -   We can google the term "tidyverse CRAN" and find the vignette.
-
-## Getting Help in R
-
-[![](images/CRAN_tidyverse.png)](https://cran.r-project.org/web/packages/tidyverse/index.html)
-
-## Getting Help in R
-
-Some package have nice website for their documentation.
-
-
-
 # Statistical Tests in R: Descriptive Analysis
+
+```{css}
+code.sourceCode {
+  font-size: 1.2em;
+}
+```
 
 ## Descriptive Analysis
 
@@ -138,7 +38,7 @@ Some package have nice website for their documentation.
 
 -   There are many ways to perform descriptive analysis in R.
 -   We can use base function, or commonly people use tidyverse package for descriptive analysis.
--   In this session, I want to introduce `gtsummary` package for descriptive analysis.
+-   In this session, I want to introduce `summarytools` and `gtsummary`package for descriptive analysis.
     -   Easier to use
     -   More informative.
     -   Nicer outcome (especially when render the Quarto document!)
@@ -180,6 +80,7 @@ Quarto as R Notebook.
 ## Create New Quarto Document
 
 ![](images/New_Qmd.png)
+
 
 ## Import Dataset
 
@@ -227,8 +128,73 @@ asthmads_clean <- read_sav("asthmads_clean.sav") %>%
 asthmads_clean
 ```
 
+
 # Lets Try!
 
 Descriptive Analysis
 
+## Descriptive Analysis with gtsummary
+
+-   Load `summarytools` package
+-   Note: *gtsummary* package will be used later.
+
+
+```{r}
+library(summarytools)
+```
+
+
 ## Descriptive Analysis: Categorical Variables
+
+-   Count and percentage for categorical data.
+
+```{r}
+asthmads_clean %>% 
+  freq(Gender)
+```
+
+## Descriptive Analysis: Categorical Variables
+
+-   We can also summarise multiple variables at once.
+
+```{r}
+asthmads_clean %>% 
+  select(where(is.factor)) %>% 
+  freq()
+```
+
+## Descriptive Analysis: Numerical Variables
+
+-   Mean, median, standard deviation, and range for numerical data.
+
+```{r}
+asthmads_clean %>%
+  descr(Height)
+```
+
+## Descriptive Analysis: Numerical Variables
+
+-   similarly, we can also summarise multiple variables at once.
+
+```{r}
+asthmads_clean %>% 
+  select(where(is.numeric)) %>%
+  descr()
+```
+
+## Descriptive Analysis: Data Frame Summaries
+
+-   `summarytools` also provide whole data frame summaries, via `dfSummary` function.
+-   Need to use `stview` function to view the summary.
+
+
+```{r}
+#| eval: false
+
+asthmads_clean %>% 
+  dfSummary() %>% 
+  stview()
+```
+
+
+
