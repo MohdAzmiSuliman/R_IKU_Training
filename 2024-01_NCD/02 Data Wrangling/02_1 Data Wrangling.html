@@ -4354,7 +4354,7 @@ window.onload = function() {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">Monday, 15/01/2024</p>
+        <p class="date">Thursday, 07/03/2024</p>
       </div>
     </div>
     
@@ -6551,60 +6551,59 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb41-639"><a href="#cb41-639" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_Post =</span> <span class="fu">round</span>(Weight_Post<span class="sc">/</span>(Ht_m<span class="sc">^</span><span class="dv">2</span>), <span class="at">digits =</span> <span class="dv">2</span>), </span>
 <span id="cb41-640"><a href="#cb41-640" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_PostCat =</span> <span class="fu">cut</span>(BMI_Post, </span>
 <span id="cb41-641"><a href="#cb41-641" aria-hidden="true" tabindex="-1"></a>                           <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">18.49</span>, <span class="fl">22.99</span>, <span class="fl">24.99</span>, <span class="dv">100</span>), </span>
-<span id="cb41-642"><a href="#cb41-642" aria-hidden="true" tabindex="-1"></a>                           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Underweight&quot;</span>, <span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Overweight&quot;</span>, <span class="st">&quot;Obese&quot;</span>)),</span>
-<span id="cb41-643"><a href="#cb41-643" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;SxWheeze&quot;</span>),</span>
-<span id="cb41-644"><a href="#cb41-644" aria-hidden="true" tabindex="-1"></a>                <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">as.character</span>(.)),</span>
-<span id="cb41-645"><a href="#cb41-645" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;SxWheeze&quot;</span>),</span>
-<span id="cb41-646"><a href="#cb41-646" aria-hidden="true" tabindex="-1"></a>                <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">fct_recode</span>(., <span class="st">&quot;No&quot;</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span>, <span class="st">&quot;Yes&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-647"><a href="#cb41-647" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Tx1, <span class="at">.before =</span> Tx2) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-648"><a href="#cb41-648" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Ht_m, <span class="at">.after =</span> Height) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-649"><a href="#cb41-649" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(BMI_Pre, BMI_PreCat, <span class="at">.after =</span> Weight_Pre) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-650"><a href="#cb41-650" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(BMI_Post, BMI_PostCat, <span class="at">.after =</span> Weight_Post) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-651"><a href="#cb41-651" aria-hidden="true" tabindex="-1"></a>  labelled<span class="sc">::</span><span class="fu">set_variable_labels</span>(<span class="at">Age =</span> <span class="st">&quot;Age (year)&quot;</span>, </span>
-<span id="cb41-652"><a href="#cb41-652" aria-hidden="true" tabindex="-1"></a>                                <span class="at">WorkStatus =</span> <span class="st">&quot;Employment&quot;</span>, </span>
-<span id="cb41-653"><a href="#cb41-653" aria-hidden="true" tabindex="-1"></a>                                <span class="at">Height =</span> <span class="st">&quot;Height (cm)&quot;</span>, </span>
-<span id="cb41-654"><a href="#cb41-654" aria-hidden="true" tabindex="-1"></a>                                <span class="at">Weight_Pre =</span> <span class="st">&quot;Weight (kg) - before&quot;</span>, </span>
-<span id="cb41-655"><a href="#cb41-655" aria-hidden="true" tabindex="-1"></a>                                <span class="at">PA_HW =</span> <span class="st">&quot;Physical Activity (total hour per week)&quot;</span>, </span>
-<span id="cb41-656"><a href="#cb41-656" aria-hidden="true" tabindex="-1"></a>                                <span class="at">Weight_Post =</span> <span class="st">&quot;Weight (kg) - after&quot;</span>, </span>
-<span id="cb41-657"><a href="#cb41-657" aria-hidden="true" tabindex="-1"></a>                                <span class="at">Tx2 =</span> <span class="st">&quot;Treatment Group&quot;</span>, </span>
-<span id="cb41-658"><a href="#cb41-658" aria-hidden="true" tabindex="-1"></a>                                <span class="at">PEFR_Pre =</span> <span class="st">&quot;PEFR (L/min) - before&quot;</span>, </span>
-<span id="cb41-659"><a href="#cb41-659" aria-hidden="true" tabindex="-1"></a>                                <span class="at">PEFR_Post =</span> <span class="st">&quot;PEFR (L/min) - after&quot;</span>, </span>
-<span id="cb41-660"><a href="#cb41-660" aria-hidden="true" tabindex="-1"></a>                                <span class="at">SxWheeze_Pre =</span> <span class="st">&quot;Symptom Wheezing - before&quot;</span>, </span>
-<span id="cb41-661"><a href="#cb41-661" aria-hidden="true" tabindex="-1"></a>                                <span class="at">SxWheeze_Post =</span> <span class="st">&quot;Symptom Wheezing - after&quot;</span>, </span>
-<span id="cb41-662"><a href="#cb41-662" aria-hidden="true" tabindex="-1"></a>                                <span class="at">PS_Pre =</span> <span class="st">&quot;Pains Score - before&quot;</span>, </span>
-<span id="cb41-663"><a href="#cb41-663" aria-hidden="true" tabindex="-1"></a>                                <span class="at">PS_Post =</span> <span class="st">&quot;Pains Score - after&quot;</span>)</span>
-<span id="cb41-664"><a href="#cb41-664" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-665"><a href="#cb41-665" aria-hidden="true" tabindex="-1"></a><span class="co"># write_sav(asthmads_clean, &quot;asthmads_clean.sav&quot;)</span></span>
-<span id="cb41-666"><a href="#cb41-666" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-642"><a href="#cb41-642" aria-hidden="true" tabindex="-1"></a>                           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Underweight&quot;</span>, <span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Overweight&quot;</span>, <span class="st">&quot;Obese&quot;</span>)), </span>
+<span id="cb41-643"><a href="#cb41-643" aria-hidden="true" tabindex="-1"></a>         <span class="at">PEFR_Diff =</span> PEFR_Post <span class="sc">-</span> PEFR_Pre,</span>
+<span id="cb41-644"><a href="#cb41-644" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;SxWheeze&quot;</span>),</span>
+<span id="cb41-645"><a href="#cb41-645" aria-hidden="true" tabindex="-1"></a>                <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">as.character</span>(.)),</span>
+<span id="cb41-646"><a href="#cb41-646" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;SxWheeze&quot;</span>),</span>
+<span id="cb41-647"><a href="#cb41-647" aria-hidden="true" tabindex="-1"></a>                <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">fct_recode</span>(., <span class="st">&quot;No&quot;</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span>, <span class="st">&quot;Yes&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-648"><a href="#cb41-648" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Tx1, <span class="at">.before =</span> Tx2) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-649"><a href="#cb41-649" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Ht_m, <span class="at">.after =</span> Height) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-650"><a href="#cb41-650" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(BMI_Pre, BMI_PreCat, <span class="at">.after =</span> Weight_Pre) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-651"><a href="#cb41-651" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(BMI_Post, BMI_PostCat, <span class="at">.after =</span> Weight_Post) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-652"><a href="#cb41-652" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(PEFR_Diff, <span class="at">.after =</span> PEFR_Post) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-653"><a href="#cb41-653" aria-hidden="true" tabindex="-1"></a>  labelled<span class="sc">::</span><span class="fu">set_variable_labels</span>(<span class="at">Age =</span> <span class="st">&quot;Age (year)&quot;</span>, </span>
+<span id="cb41-654"><a href="#cb41-654" aria-hidden="true" tabindex="-1"></a>                                <span class="at">WorkStatus =</span> <span class="st">&quot;Employment&quot;</span>, </span>
+<span id="cb41-655"><a href="#cb41-655" aria-hidden="true" tabindex="-1"></a>                                <span class="at">Height =</span> <span class="st">&quot;Height (cm)&quot;</span>, </span>
+<span id="cb41-656"><a href="#cb41-656" aria-hidden="true" tabindex="-1"></a>                                <span class="at">Weight_Pre =</span> <span class="st">&quot;Weight (kg) - before&quot;</span>, </span>
+<span id="cb41-657"><a href="#cb41-657" aria-hidden="true" tabindex="-1"></a>                                <span class="at">PA_HW =</span> <span class="st">&quot;Physical Activity (total hour per week)&quot;</span>, </span>
+<span id="cb41-658"><a href="#cb41-658" aria-hidden="true" tabindex="-1"></a>                                <span class="at">Weight_Post =</span> <span class="st">&quot;Weight (kg) - after&quot;</span>, </span>
+<span id="cb41-659"><a href="#cb41-659" aria-hidden="true" tabindex="-1"></a>                                <span class="at">Tx2 =</span> <span class="st">&quot;Treatment Group&quot;</span>, </span>
+<span id="cb41-660"><a href="#cb41-660" aria-hidden="true" tabindex="-1"></a>                                <span class="at">PEFR_Pre =</span> <span class="st">&quot;PEFR (L/min) - before&quot;</span>, </span>
+<span id="cb41-661"><a href="#cb41-661" aria-hidden="true" tabindex="-1"></a>                                <span class="at">PEFR_Post =</span> <span class="st">&quot;PEFR (L/min) - after&quot;</span>, </span>
+<span id="cb41-662"><a href="#cb41-662" aria-hidden="true" tabindex="-1"></a>                                <span class="at">PEFR_Diff =</span> <span class="st">&quot;PEFR Difference (Post - Pre)&quot;</span>,</span>
+<span id="cb41-663"><a href="#cb41-663" aria-hidden="true" tabindex="-1"></a>                                <span class="at">SxWheeze_Pre =</span> <span class="st">&quot;Symptom Wheezing - before&quot;</span>, </span>
+<span id="cb41-664"><a href="#cb41-664" aria-hidden="true" tabindex="-1"></a>                                <span class="at">SxWheeze_Post =</span> <span class="st">&quot;Symptom Wheezing - after&quot;</span>, </span>
+<span id="cb41-665"><a href="#cb41-665" aria-hidden="true" tabindex="-1"></a>                                <span class="at">PS_Pre =</span> <span class="st">&quot;Pains Score - before&quot;</span>, </span>
+<span id="cb41-666"><a href="#cb41-666" aria-hidden="true" tabindex="-1"></a>                                <span class="at">PS_Post =</span> <span class="st">&quot;Pains Score - after&quot;</span>)</span>
 <span id="cb41-667"><a href="#cb41-667" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-668"><a href="#cb41-668" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb41-669"><a href="#cb41-669" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-668"><a href="#cb41-668" aria-hidden="true" tabindex="-1"></a><span class="co"># write_sav(asthmads_clean, &quot;../dataset/asthmads_clean.sav&quot;)</span></span>
+<span id="cb41-669"><a href="#cb41-669" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb41-670"><a href="#cb41-670" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-671"><a href="#cb41-671" aria-hidden="true" tabindex="-1"></a>(@) Calculate weight change</span>
-<span id="cb41-672"><a href="#cb41-672" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-673"><a href="#cb41-673" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse=&quot;true&quot;}</span>
-<span id="cb41-674"><a href="#cb41-674" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>you can use any name like <span class="in">`Weight_Change`</span></span>
-<span id="cb41-675"><a href="#cb41-675" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>change is post minus pre. use mathematical operator to calculate</span>
-<span id="cb41-676"><a href="#cb41-676" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb41-677"><a href="#cb41-677" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-678"><a href="#cb41-678" aria-hidden="true" tabindex="-1"></a>(@) filter the data to only elderly (age 60 years old and above)</span>
-<span id="cb41-679"><a href="#cb41-679" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-671"><a href="#cb41-671" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-672"><a href="#cb41-672" aria-hidden="true" tabindex="-1"></a>(@) Calculate weight change</span>
+<span id="cb41-673"><a href="#cb41-673" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-674"><a href="#cb41-674" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse=&quot;true&quot;}</span>
+<span id="cb41-675"><a href="#cb41-675" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>you can use any name like <span class="in">`Weight_Change`</span></span>
+<span id="cb41-676"><a href="#cb41-676" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>change is post minus pre. use mathematical operator to calculate</span>
+<span id="cb41-677"><a href="#cb41-677" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb41-678"><a href="#cb41-678" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-679"><a href="#cb41-679" aria-hidden="true" tabindex="-1"></a>(@) filter the data to only elderly (age 60 years old and above)</span>
 <span id="cb41-680"><a href="#cb41-680" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-681"><a href="#cb41-681" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-682"><a href="#cb41-682" aria-hidden="true" tabindex="-1"></a><span class="fu"># Part 5: Use Addins!</span></span>
-<span id="cb41-683"><a href="#cb41-683" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-684"><a href="#cb41-684" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>for data wrangling, I use <span class="in">`questionr`</span> package</span>
-<span id="cb41-685"><a href="#cb41-685" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-682"><a href="#cb41-682" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-683"><a href="#cb41-683" aria-hidden="true" tabindex="-1"></a><span class="fu"># Part 5: Use Addins!</span></span>
+<span id="cb41-684"><a href="#cb41-684" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-685"><a href="#cb41-685" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>for data wrangling, I use <span class="in">`questionr`</span> package</span>
 <span id="cb41-686"><a href="#cb41-686" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-687"><a href="#cb41-687" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-688"><a href="#cb41-688" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-689"><a href="#cb41-689" aria-hidden="true" tabindex="-1"></a><span class="fu"># Homework?</span></span>
-<span id="cb41-690"><a href="#cb41-690" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-691"><a href="#cb41-691" aria-hidden="true" tabindex="-1"></a>using ChatGPT or Google&#39;s Bard, try to do these:</span>
-<span id="cb41-692"><a href="#cb41-692" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-693"><a href="#cb41-693" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>reshape asthma24_long into wide format</span>
-<span id="cb41-694"><a href="#cb41-694" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>please note, there are 3 pair of pre-post measuremen including PEFR, SxWheeze and PS</span>
-<span id="cb41-695"><a href="#cb41-695" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Stuck with any of these steps? I might be wrong/typo. You can try to ask ChatGPT or Bard, and see if they can detect any error, and what their solution.</span>
+<span id="cb41-688"><a href="#cb41-688" aria-hidden="true" tabindex="-1"></a><span class="fu"># Homework?</span></span>
+<span id="cb41-689"><a href="#cb41-689" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-690"><a href="#cb41-690" aria-hidden="true" tabindex="-1"></a>using ChatGPT or Google&#39;s Bard, try to do these:</span>
+<span id="cb41-691"><a href="#cb41-691" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-692"><a href="#cb41-692" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>reshape asthma24_long into wide format</span>
+<span id="cb41-693"><a href="#cb41-693" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>please note, there are 3 pair of pre-post measuremen including PEFR, SxWheeze and PS</span>
+<span id="cb41-694"><a href="#cb41-694" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Stuck with any of these steps? I might be wrong/typo. You can try to ask ChatGPT or Bard, and see if they can detect any error, and what their solution.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

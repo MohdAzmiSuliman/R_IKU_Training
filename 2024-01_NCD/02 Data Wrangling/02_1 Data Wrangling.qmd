@@ -586,7 +586,8 @@ asthmads_clean <- asthma_ds0 %>%
          BMI_Post = round(Weight_Post/(Ht_m^2), digits = 2), 
          BMI_PostCat = cut(BMI_Post, 
                            breaks = c(0, 18.49, 22.99, 24.99, 100), 
-                           labels = c("Underweight", "Normal", "Overweight", "Obese")),
+                           labels = c("Underweight", "Normal", "Overweight", "Obese")), 
+         PEFR_Diff = PEFR_Post - PEFR_Pre,
          across(.cols = starts_with("SxWheeze"),
                 .fns = ~ as.character(.)),
          across(.cols = starts_with("SxWheeze"),
@@ -595,6 +596,7 @@ asthmads_clean <- asthma_ds0 %>%
   relocate(Ht_m, .after = Height) %>% 
   relocate(BMI_Pre, BMI_PreCat, .after = Weight_Pre) %>% 
   relocate(BMI_Post, BMI_PostCat, .after = Weight_Post) %>% 
+  relocate(PEFR_Diff, .after = PEFR_Post) %>% 
   labelled::set_variable_labels(Age = "Age (year)", 
                                 WorkStatus = "Employment", 
                                 Height = "Height (cm)", 
@@ -604,14 +606,13 @@ asthmads_clean <- asthma_ds0 %>%
                                 Tx2 = "Treatment Group", 
                                 PEFR_Pre = "PEFR (L/min) - before", 
                                 PEFR_Post = "PEFR (L/min) - after", 
+                                PEFR_Diff = "PEFR Difference (Post - Pre)",
                                 SxWheeze_Pre = "Symptom Wheezing - before", 
                                 SxWheeze_Post = "Symptom Wheezing - after", 
                                 PS_Pre = "Pains Score - before", 
                                 PS_Post = "Pains Score - after")
 
-# write_sav(asthmads_clean, "asthmads_clean.sav")
-
-
+# write_sav(asthmads_clean, "../dataset/asthmads_clean.sav")
 ```
 
 
@@ -629,8 +630,6 @@ asthmads_clean <- asthma_ds0 %>%
 # Part 5: Use Addins!
 
 - for data wrangling, I use `questionr` package
-
-
 
 
 # Homework?
