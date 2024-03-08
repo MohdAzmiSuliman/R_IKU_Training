@@ -1,0 +1,827 @@
+---
+title: "Statistical Tests in R: Descriptive Analysis"
+subtitle: "Kursus R: Pengenalan dan Praktikal (Sesi 2)"
+format: 
+  clean-revealjs: 
+    slide-number: true
+    lightbox: true
+    auto-stretch: false
+    footer: "Descriptive Analysis"
+author:
+  - name: Mohd Azmi Bin Suliman
+    orcid: 0000-0002-2125-3811
+    email: azmi.suliman@moh.gov.my
+    affiliations: Pusat Penyelidikan Penyakit Tak Berjangkit, Institut Kesihatan Umum
+date: 2024-03-06
+date-format: "dddd, DD MMMM YYYY"
+embed-resources: true
+execute: 
+  echo: true
+---
+
+# Statistical Tests in R: Descriptive Analysis
+
+```{r}
+#| echo: false
+
+pacman::p_load(tidyverse, haven, summarytools, gtsummary)
+```
+
+```{css}
+#| echo: false
+
+code.sourceCode {
+  font-size: 1.2em;
+}
+```
+
+## Descriptive Analysis
+
+-   Descriptive analysis refers to summarising and describing the main features of a dataset.
+-   Count and percentage for categorical data.
+-   Mean, median, standard deviation, and range for numerical data.
+-   Data visualisation is also part of descriptive analysis.
+
+## Descriptive Analysis
+
+-   There are many ways to perform descriptive analysis in R.
+-   We can use the base function, or commonly, people use the tidyverse package for descriptive analysis.
+-   In this session, I will introduce `summarytools` and `gtsummary` packages for descriptive analysis.
+    -   Easier to use
+    -   More informative.
+    -   Nicer outcome (especially when rendering the Quarto document!)
+
+# Let's Try!
+
+Setup your project & quarto document.
+
+## Create New Project
+
+-   Remember last week? RStudio allows for project management.
+    -   Project as a 'container' for our work.
+
+1.  Open RStudio.
+2.  Create a new project.
+    -   `File` \> `New Project` \> `New Directory` \> `New Project`
+3.  Set the name and directory.
+    -   Name: `Statistical Tests in R`
+    -   Directory: `.../Documents/RStudio`
+4.  Click `Create Project`
+
+## Create New Project
+
+![](images/New_Project.png)
+
+## Create New Quarto Document
+
+Quarto as R Notebook.
+
+1.  Create a new Quarto document.
+    -   `File` \> `New File` \> `Quarto Document...`
+2.  Set the title
+    -   Title: `Statistical Tests in R`
+    -   Untick `Use the visual editor.`
+3.  Click `Create Empty Document`
+4.  Edit the YAML
+    -   Add the `embed-resources: true` parameter.
+
+## Create a New Quarto Document
+
+![](images/New_Qmd.png)
+
+## Import Dataset
+
+1.  Copy the `asthmads_clean.sav` dataset into the working directory.
+    -   Download the dataset from the Google Drive folder.
+    -   Open the folder to which the dataset was downloaded.
+    -   Copy the dataset.
+    -   Open your working directory.
+    -   `File` pane \> `⚙️ More` \> `Show Folder in New Window`
+    -   Paste the dataset into the working directory.
+2.  In the Quarto document, add a new level 1 header & level 2 header
+    -   `# Preparation`
+    -   `## Data Import`
+
+## Import Dataset
+
+3.  Import the dataset. We will use `asthmads_clean.sav` dataset
+    -   `File` \> `Import Dataset` \> `From SPSS...`
+    -   Select the dataset `asthmads_clean.sav`
+    -   Click `Open`
+    -   Untick `Open Data Viewer`
+    -   Click the clipboard symbol 📋
+
+## Import Dataset
+
+![](images/Import_Dataset.png)
+
+## Import Dataset
+
+4.  Paste the code into the r code chunk
+5.  Use the `as_factor` function to read the label and apply to the dataset
+    -   We can use %\>% pipe operator to use `as_factor` function
+    -   Don't forget to load the `tidyverse` package first
+
+```{r}
+library(tidyverse)
+library(haven)
+asthmads_clean <- read_sav("asthmads_clean.sav") %>% 
+  as_factor()
+```
+
+## Import Dataset
+
+```{r}
+asthmads_clean
+```
+
+# Let's Try!
+
+Descriptive Analysis with `summarytools` package
+
+## Descriptive Analysis with `summarytools`
+
+-   Load `summarytools` package
+-   Note: *gtsummary* package will be used later.
+
+```{r}
+library(summarytools)
+```
+
+## Descriptive Analysis: Categorical Variables
+
+-   Count and percentage for categorical data.
+
+```{r}
+asthmads_clean %>% 
+  freq(Gender)
+```
+
+## Descriptive Analysis: Categorical Variables
+
+-   We can also summarise multiple variables at once.
+
+```{r}
+asthmads_clean %>% 
+  select(where(is.factor)) %>% 
+  freq()
+```
+
+## Descriptive Analysis: Numerical Variables
+
+-   Mean, median, standard deviation, and range for numerical data.
+
+```{r}
+asthmads_clean %>%
+  descr(Height)
+```
+
+## Descriptive Analysis: Numerical Variables
+
+-   Similarly, we can also summarise multiple variables at once.
+
+```{r}
+asthmads_clean %>% 
+  select(where(is.numeric)) %>%
+  descr()
+```
+
+## Descriptive Analysis: Data Frame Summaries
+
+-   `summarytools` also provides whole data frame summaries via the `dfSummary` function.
+-   Need to use `stview` function to view the summary.
+
+```{r}
+#| eval: false
+
+asthmads_clean %>% 
+  dfSummary() %>% 
+  stview()
+```
+
+## Grouped Analysis
+
+-   We can also perform grouped summaries using the `group_by` function from `tidyverse.`
+
+```{r}
+asthmads_clean %>% 
+  group_by(Gender) %>% 
+  freq(WorkStatus)
+```
+
+## Grouped Analysis
+
+-   We can also perform grouped summaries using the `group_by` function from `tidyverse`.
+
+```{r}
+asthmads_clean %>% 
+  group_by(Gender) %>% 
+  descr(Weight_Pre)
+```
+
+# Let's Try!
+
+Descriptive Analysis with gtsummary
+
+## Descriptive Analysis with `gtsummary`
+
+-   The primary function of Quarto is for publishing.
+-   `summarytools` is an excellent tool for data exploration.
+-   However, if we want to publish the document, we need a better-looking table.
+-   The `gtsummary` package is an excellent package for this purpose.
+
+```{r}
+library(gtsummary)
+```
+
+## Descriptive Analysis with `gtsummary`
+
+-   using the `tbl_summary` function to summarise the data.
+-   Note: *The variable column (Characteristic) will automatically read the variable's label, if available.*
+
+```{r}
+asthmads_clean %>% 
+  select(Gender:BMI_PostCat) %>%
+  tbl_summary()
+```
+
+## Descriptive Analysis with `gtsummary`
+
+-   we can customise it.
+    -   change the variable label using the `label =` parameter
+
+```{r}
+#| code-line-numbers: "3-7"
+
+asthmads_clean %>% 
+  select(Gender:BMI_PostCat) %>%
+  tbl_summary(label = list(Ht_m = "Height (m)", 
+                           BMI_Pre = "BMI (Pre)", 
+                           BMI_PreCat = "BMI Category (Pre)",
+                           BMI_Post = "BMI (Post)", 
+                           BMI_PostCat = "BMI Category (Post)"))
+
+```
+
+## Descriptive Analysis with `gtsummary`
+
+-   we can customise it.
+    -   change the digit using the `digits =` parameter
+
+```{r}
+#| code-line-numbers: "4-6"
+
+asthmads_clean %>% 
+  select(Gender:BMI_PostCat) %>%
+  tbl_summary(label = list(Ht_m = "Height (m)"),
+              digits = list(all_continuous() ~ 2, 
+                            all_categorical() ~ c(0,1), 
+                            Age ~ 0))
+```
+
+## Descriptive Analysis with `gtsummary`
+
+-   we can customise it.
+    -   by default, the numerical variables are reported in Median (IQR)
+    -   change it to Mean (SD) using the `stat =` parameter
+
+```{r}
+#| code-line-numbers: "7"
+
+asthmads_clean %>% 
+  select(Gender:BMI_PostCat) %>%
+  tbl_summary(label = list(Ht_m = "Height (m)"),
+              digits = list(all_continuous() ~ 2, 
+                            all_categorical() ~ c(0,1), 
+                            Age ~ 0), 
+              stat = list(all_continuous() ~ "{mean} ({sd})"))
+```
+
+# Grouped Summaries with `gtsummary`
+
+## Grouped Summaries with `gtsummary`
+
+-   We can also perform grouped summaries using the `by =` parameter.
+
+```{r}
+#| code-line-numbers: "3"
+#| eval: false
+
+asthmads_clean %>% 
+  select(Gender:BMI_PostCat) %>%
+  tbl_summary(by = Gender, 
+              label = list(Ht_m = "Height (m)"),
+              digits = list(all_continuous() ~ 2, 
+                            all_categorical() ~ c(0,1), 
+                            Age ~ 0), 
+              stat = list(all_continuous() ~ "{mean} ({sd})"))
+```
+
+## Grouped Summaries with `gtsummary`
+
+-   We can also perform grouped summaries using the `by =` parameter.
+
+```{r}
+#| echo: false
+
+asthmads_clean %>% 
+  select(Gender:BMI_PostCat) %>%
+  tbl_summary(by = Gender, 
+              label = list(Ht_m = "Height (m)"),
+              digits = list(all_continuous() ~ 2, 
+                            all_categorical() ~ c(0,1), 
+                            Age ~ 0), 
+              stat = list(all_continuous() ~ "{mean} ({sd})"))
+```
+
+# Univariate Analysis of Categorical Data
+
+-   Pearson's Chi-Square Test
+-   Fisher's Exact Test
+-   McNemar's Test
+
+# Contingency Table
+
+## Contingency Table
+
+-   Bivariate analysis involves examining the relationship between two variables
+-   When both variables are categorical, bivariate analysis looks at how these categories are related
+-   Bivariate analyses of categorical data often involve the use of contingency tables.
+    -   Simple matrix that displays the frequency distribution of the variables.
+-   Other names include:
+    -   Cross-tabulation
+    -   2x2 Table
+
+## Contingency Table Example
+
+```{r}
+#| echo: false
+#| tbl-cap: "Contingency Table Structure"
+
+library(tibble)
+library(kableExtra)
+
+tribble(
+  ~Status,        ~"Lung Cancer", ~"No Lung Cancer", ~"Total",
+  "Smoker",       "a",      "b",         "a+b",
+  "Non-Smoker",   "c",      "d",         "c+d",
+  "Total",        "a+c",    "b+d",       "N"
+) %>% 
+  kbl(align = "lccr") %>% 
+  kable_classic(full_width = F)
+```
+
+-   Row: Independent Variable
+-   Column: Dependent Variable
+-   The letters a, b, c, and d represent the cell frequencies:
+-   Total: the sum of the frequencies in the respective row or column, with N being the grand total of all observations.
+
+::: notes
+-   the independent variable (or the predictor, i.e. the smoking status) is the row
+-   the dependent variable (or the outcome, i.e. the cancer status) is the column
+-   The letters a, b, c, and d represent the cell frequencies:
+    -   a: The number of smokers who have the disease.
+    -   b: The number of smokers who do not have the disease.
+    -   c: The number of non-smokers who have the disease.
+    -   d: The number of non-smokers who do not have the disease.
+-   "Total" is the sum of the respective row or column frequencies, with N being the grand total of all observations.
+
+Concordance vs Discordance
+:::
+
+## Practical: Contingency Table (Base R)
+
+-   Let's try to create a contingency table: Gender vs Work Status
+-   First, identify the variables
+    -   Either look at the dataset
+
+```{r}
+asthmads_clean
+```
+
+## Practical: Contingency Table (Base R)
+
+-   Let's try to create a contingency table: Gender vs Work Status
+-   First, identify the variables
+    -   Or find the variable names using the `names` function
+
+```{r}
+names(asthmads_clean)
+```
+
+## Practical: Contingency Table (Base R)
+
+-   Let's try to create a contingency table: Gender vs Work Status
+    -   Gender: Gender
+    -   Work Status: WorkStatus
+
+```{r}
+with(asthmads_clean, table(Gender, WorkStatus))
+```
+
+## Practical: Contingency Table (`gtsummary`)
+
+-   Let's try to create a contingency table: Gender vs Work Status
+
+```{r}
+asthmads_clean %>% 
+  tbl_summary(by = WorkStatus, 
+              include = Gender) %>% 
+  add_overall(last = T)
+```
+
+# Pearson's Chi-Square Test
+
+## Pearson's Chi-Square Test
+
+-   to determine the association between two categorical variables.
+-   these are the assumptions:
+    -   The variables are **categorical**.
+    -   The grouping is **mutually exclusive**
+    -   The observations are **independent**.
+    -   The expected frequency count for **at least 80% of the cells is at least 5**.
+    -   The expected frequency count for **each cell is at least 1**.
+
+## Practical: Pearson's Chi-Square Test
+
+-   Let's try to perform Pearson's Chi-Square Test
+-   E.g., association between gender and work status among the sample.
+
+```{r}
+with(asthmads_clean, table(Gender, WorkStatus)) %>% 
+  chisq.test()
+```
+
+-   By default, the `chisq.test` function will apply the Yates' continuity correction.
+
+## Practical: Pearson's Chi-Square Test
+
+-   Let's try to perform Pearson's Chi-Square Test
+-   E.g., association between gender and work status among the sample.
+-   We need to specify the `correct` parameter to `FALSE` to avoid Yates' continuity correction.
+
+```{r}
+with(asthmads_clean, table(Gender, WorkStatus)) %>% 
+  chisq.test(correct = F)
+```
+
+## Small samples
+
+-   Pearson's Chi-Square Test is only reliable with medium to large datasets.
+-   Assumptions for Pearson's Chi-Square Test will be violated if the dataset is small.
+-   The alternatives for small samples
+    -   Yates' Continuity Correction
+    -   Fisher's Exact Test
+
+## Fisher's Exact Test
+
+-   The code for Fisher's Exact Test is similar to Pearson's Chi-Square Test.
+
+```{r}
+with(asthmads_clean, table(Gender, WorkStatus)) %>% 
+  fisher.test()
+```
+
+## Pearsone's Chi-Square Test with `gtsummary`
+
+-   We can perform the test with the `add_p` function from the `gtsummary` package.
+
+```{r}
+asthmads_clean %>% 
+  tbl_summary(by = WorkStatus, 
+              include = Gender) %>% 
+  add_p()
+```
+
+## Pearson's Chi-Square Test with `gtsummary`
+
+-   We can perform the test with the `add_p` function from the `gtsummary` package.
+-   Note: **refer to the help page to understand the default settings for the test**
+
+```{r}
+#| eval: false
+
+?add_p
+```
+
+![](images/addp_help.png)
+
+## McNemar Test
+
+-   Used for paired data
+
+```{r}
+with(asthmads_clean, table(SxWheeze_Pre, SxWheeze_Post))
+
+with(asthmads_clean, table(SxWheeze_Pre, SxWheeze_Post)) %>% 
+  mcnemar.test()
+```
+
+# Univariate Analysis of Numerical Data
+
+-   Parametric tests
+    -   Independent t-test
+    -   Paired t-test
+    -   Analysis of Variance (ANOVA)
+    -   Pearson's Correlation
+-   Non-parametric tests
+    -   Mann-Whitney U Test
+    -   Wilcoxon Signed-Rank Test
+    -   Kruskal-Wallis Test
+    -   Spearman's Correlation
+
+# Independent t-test
+
+## Independent t-test
+
+-   Used to compare the means of two independent groups.
+-   Assumptions:
+    -   The samples was taken **randomly** from the population.
+    -   The independent variable consists of two categorical, **independent** groups.
+    -   The dependent variable is **continuous**.
+    -   The dependent variable should be **approximately normally distributed**.
+    -   *The two groups should have approximately equal variances*.
+
+## Student's t-test or Welch's t-test?
+
+-   Independent t-test == Student's t-test
+-   But!
+    -   Need to test for equal variance assumptions
+    -   In reality, the variances are not always equal
+-   A movement now strongly suggests using Welch's t-test as default.
+
+## Student's t-test or Welch's t-test?
+
+[![](images/welch_default.png)](https://doi.org/10.5334/irsp.82)
+
+## Practical: Independent t-test
+
+-   Let's try to perform an Independent t-test
+-   E.g., compare the mean of height between gender
+
+```{r}
+t.test(Ht_m ~ Gender, asthmads_clean)
+```
+
+## Practical: Independent t-test with `gtsummary`
+
+-   Similarly, we can use the `add_p` function from the `gtsummary` package to perform the test.
+-   However, by default, the test is the Wilcoxon Rank Sum Test (Mann-Whitney U Test)
+
+```{r}
+asthmads_clean %>% 
+  tbl_summary(by = Gender, 
+              include = Ht_m) %>%
+  add_p()
+```
+
+## Practical: Independent t-test with `gtsummary`
+
+-   Similarly, we can use the `add_p` function from the `gtsummary` package to perform the test.
+-   We need to specify our test
+
+```{r}
+asthmads_clean %>% 
+  tbl_summary(by = Gender, 
+              include = Ht_m, 
+              statistic = list(all_continuous() ~ "{mean} ({sd})")) %>%
+  add_p(test = list(all_continuous() ~ "t.test"))
+```
+
+## Practical: Independent t-test with `gtsummary`
+
+-   Similarly, we can use the `add_p` function from the `gtsummary` package to perform the test.
+-   If we want to add differences, change the `add_p` function to the `add_difference` function.
+
+```{r}
+asthmads_clean %>% 
+  tbl_summary(by = Gender, 
+              include = Ht_m, 
+              statistic = list(all_continuous() ~ "{mean} ({sd})")) %>%
+  add_difference(test = list(all_continuous() ~ "t.test"))
+```
+
+#  {background-image="images/intermission.png"}
+
+## R Syntax Convention for Formula
+
+-   Some statistical test functions in R accept input with x and y values
+-   e.g., Pearson's Chi-Square Test
+
+```{r}
+#| eval: false
+
+with(asthmads_clean, table(Gender, WorkStatus)) %>% 
+  chisq.test(correct = F)
+
+?chi.test
+```
+
+## R Syntax Convention for Formula
+
+-   Some statistical test functions in R accept input with x and y values
+-   e.g., Pearson's Chi-Square Test
+
+![](images/chisq_help.png)
+
+## R Syntax Convention for Formula
+
+-   Some statistical test functions in R accept input with a formula
+-   e.g., Independent t-test
+
+```{r}
+#| eval: false
+
+t.test(Ht_m ~ Gender, asthmads_clean)
+
+?t.test
+```
+
+## R Syntax Convention for Formula
+
+-   Some statistical test functions in R accept input with a formula
+-   e.g., Independent t-test
+
+![](images/ttest_help.png)
+
+## R Syntax Convention for Formula
+
+-   For a test (or function) that accepts a formula as input, the formula is written as:
+    -   `dependent_variable ~ independent_variable, data = dataset`
+    -   `y ~ x, data = dataset`
+    -   `outcome ~ grouping, data = dataset`
+
+# Continue
+
+# Paired t-test
+
+## Paired t-test
+
+-   Used to compare the means of two related groups.
+-   Assumptions:
+    -   The samples was taken **randomly** from the population.
+    -   The dependent variable is **continuous**.
+    -   The **difference** between the two groups should be **approximately normally distributed**.
+
+## Practical: Paired t-test
+
+```{r}
+t.test(Pair(Weight_Post, Weight_Pre) ~ 1, asthmads_clean)
+```
+
+-   alternatively
+
+```{r}
+#| eval: false
+
+with(asthmads_clean, t.test(Weight_Post, Weight_Pre, paired = T))
+
+t.test(asthmads_clean$Weight_Post, asthmads_clean$Weight_Pre, paired = T)
+```
+
+## Practical: Paired t-test with `gtsummary`
+
+**Demonstration only**
+
+-   Similarly, we can use the `add_p` function from the `gtsummary` package to perform the test.
+-   However, the data need to be reshaped first.
+    -   We will learn about reshaping data in the next session.
+
+## Practical: Paired t-test with `gtsummary`
+
+**Demonstration only**
+
+-   This is the original dataset
+
+```{r}
+asthmads_clean %>% 
+  select(id, Weight_Post, Weight_Pre) 
+```
+
+## Practical: Paired t-test with `gtsummary`
+
+**Demonstration only**
+
+::: columns
+::: {.column width="67%"}
+-   Reshape to long format
+
+```{r}
+#| eval: false
+
+asthmads_clean %>% 
+  select(id, Weight_Post, Weight_Pre) %>% 
+  pivot_longer(cols = starts_with("Weight"), 
+               names_to = "Type", 
+               values_to = "Weight", 
+               names_pattern = "Weight_(.*)") %>% 
+  mutate(Type = fct_relevel(Type, "Pre"))
+```
+:::
+
+::: {.column width="2%"}
+:::
+
+::: {.column width="31%"}
+```{r}
+#| echo: false
+
+asthmads_clean %>% 
+  select(id, Weight_Post, Weight_Pre) %>% 
+  pivot_longer(cols = starts_with("Weight"), 
+               names_to = "Type", 
+               values_to = "Weight", 
+               names_pattern = "Weight_(.*)") %>% 
+  mutate(Type = fct_relevel(Type, "Pre"))
+```
+:::
+:::
+
+## Practical: Paired t-test with `gtsummary`
+
+**Demonstration only**
+
+-   Then perform the test using the `tbl_summary` function
+
+```{r}
+#| eval: false
+
+asthmads_clean %>% 
+  select(id, Weight_Post, Weight_Pre) %>% 
+  pivot_longer(cols = starts_with("Weight"), 
+               names_to = "Type", 
+               values_to = "Weight", 
+               names_pattern = "Weight_(.*)") %>% 
+  mutate(Type = fct_relevel(Type, "Pre")) %>% 
+  tbl_summary(by = Type, 
+              include = Weight, 
+              statistic = all_continuous() ~ "{mean} ({sd})", 
+              digits = all_continuous() ~ 2) %>% 
+  add_difference(test = all_continuous() ~ "paired.t.test", 
+                 group = id)
+```
+
+## Practical: Paired t-test with `gtsummary`
+
+**Demonstration only**
+
+```{r}
+#| echo: false
+
+asthmads_clean %>% 
+  select(id, Weight_Post, Weight_Pre) %>% 
+  pivot_longer(cols = starts_with("Weight"), 
+               names_to = "Type", 
+               values_to = "Weight", 
+               names_pattern = "Weight_(.*)") %>% 
+  mutate(Type = fct_relevel(Type, "Pre")) %>% 
+  tbl_summary(by = Type, 
+              include = Weight, 
+              statistic = all_continuous() ~ "{mean} ({sd})", 
+              digits = all_continuous() ~ 2) %>% 
+  add_difference(test = all_continuous() ~ "paired.t.test", 
+                 group = id)
+```
+
+# Analysis of Variance (ANOVA)
+
+## Analysis of Variance (ANOVA)
+
+-   Used to compare the means of three or more independent groups.
+-   Note: we will focus on **One-Way ANOVA** only
+-   The assumptions:
+    -   The samples was taken **randomly** from the population.
+    -   The independent variable consists of three or more categorical, **independent** groups.
+    -   The dependent variable is **continuous**.
+    -   The dependent variable should be **approximately normally distributed**.
+    -   The **variances** of the groups should be **approximately equal**.
+
+## Practical: One-Way ANOVA
+
+-   Let's try to perform a One-Way ANOVA
+-   e.g., compare the mean of PEFR improvement between the treatment groups
+-   First, identify the related variables
+
+```{r}
+names(asthmads_clean)
+```
+
+## Practical: One-Way ANOVA
+
+-   Let's try to perform a One-Way ANOVA
+-   e.g., compare the mean of PEFR improvement between the treatment groups
+    -   PEFR improvement: PEFR_Diff
+    -   Treatment group: Tx2
+-   `oneway.test` function for One-Way ANOVA
+
+```{r}
+oneway.test(PEFR_Diff ~ Tx2, asthmads_clean)
+```
+
+## `aov`, `oneway.test` and `anova` functions?
+
+-   ANOVA is based on the F-test, which analyses the variance between groups and within groups.
+-   The `aov` function is for one-way ANOVA, with the assumption of equal variance
+-   The `oneway.test` function is for one-way ANOVA, assuming equal variance.
+-   The `anova` function is used differently while sharing the same name and purpose.
+    -   The `anova` function is used to compare models with the F-test.
