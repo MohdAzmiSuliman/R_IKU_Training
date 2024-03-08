@@ -1,0 +1,88 @@
+---
+title: "Statistical Tests in R: Regression"
+subtitle: "Kursus R: Pengenalan dan Praktikal (Sesi 2)"
+format: 
+  clean-revealjs: 
+    slide-number: true
+    lightbox: true
+    auto-stretch: false
+    footer: "Linear Regression & Logistic"
+author:
+  - name: Mohd Azmi Bin Suliman
+    orcid: 0000-0002-2125-3811
+    email: azmi.suliman@moh.gov.my
+    affiliations: Pusat Penyelidikan Penyakit Tak Berjangkit, Institut Kesihatan Umum
+date: 2024-03-06
+date-format: "dddd, DD MMMM YYYY"
+embed-resources: true
+execute: 
+  echo: true
+---
+
+# Regression
+
+-   Simple Linear Regression
+-   Multiple Linear Regression
+-   Simple Logistic Regression
+-   Multiple Logistic Regression
+
+```{r}
+#| label: setup
+#| echo: false
+
+pacman::p_load(tidyverse, haven, gtsummary)
+asthmads_clean <- read_sav("asthmads_clean.sav") %>% 
+  as_factor()
+```
+
+```{css}
+#| echo: false
+
+code.sourceCode {
+  font-size: 1.2em;
+}
+```
+
+# Linear Regression
+
+## Linear Regression
+
+-   Use to model the relationship between a dependent (continuous) variable and one or more independent variable.
+-   The formula is shown below
+    -   $y$ is the dependent variable / outcome
+    -   $x$ is the independent variable / predictor
+    -   $\beta_0$ is the intercept (when $x$ = 0)
+    -   $\beta_1$ is the slope (change in $y$ for a unit change in $x$)
+    -   $\epsilon$ is the error term
+
+$$y = \beta_0 + \beta_1x + \epsilon$$
+
+## Linear Regression Assumptions
+
+-   to provide reliable estimates, several key assumptions must be met
+    -   Each observation/measurement were **independent**.
+    -   The two variables are **continuous**.
+    -   The two variables should be **approximately normally distributed**.
+    -   The relationship between the two variables is **linear**.
+    -   The two variables should have **equal variances**.
+-   **Note**: *note the similarity between pearson correlation and linear regression*
+
+# Practical: Linear Regression 
+
+Finding factors associated with PEFR changes.
+
+## Setup
+
+-   Add a new level 1 and level 2 header
+    -   `# Linear Regression`
+    -   `## Simple Linear Regression`
+-   Identify the variables
+    -   Outcome (PEFR changes): `PEFR_Diff`
+
+```{r}
+names(asthmads_clean)
+```
+
+
+
+

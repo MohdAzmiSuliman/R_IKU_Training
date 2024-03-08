@@ -1,12 +1,12 @@
 ---
-title: "Statistical Tests in R: Univariable (Categorical)"
+title: "Statistical Tests in R: Univariable (Numerical)"
 subtitle: "Kursus R: Pengenalan dan Praktikal (Sesi 2)"
 format: 
   clean-revealjs: 
     slide-number: true
     lightbox: true
     auto-stretch: false
-    footer: "Univariable Analysis: Categorical Data"
+    footer: "Univariable Analysis: Numerical Data"
 author:
   - name: Mohd Azmi Bin Suliman
     orcid: 0000-0002-2125-3811
