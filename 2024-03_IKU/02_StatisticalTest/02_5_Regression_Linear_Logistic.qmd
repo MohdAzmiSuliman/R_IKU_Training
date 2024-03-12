@@ -83,6 +83,343 @@ Finding factors associated with PEFR changes.
 names(asthmads_clean)
 ```
 
+## Practical: Simple Linear Regression
+
+-   Let's try to perform a simple linear regression
+    -   Outcome: `PEFR_Diff`
+    -   Predictor: `Age`
+
+```{r}
+#| eval: false
+
+slinm <- lm(PEFR_Diff ~ Age, data = asthmads_clean)
+
+summary(slinm)
+```
+
+
+## Practical: Simple Linear Regression
+
+
+```{r}
+slinm <- lm(PEFR_Diff ~ Age, data = asthmads_clean)
+
+summary(slinm)
+```
+
+## Practical: Simple Linear Regression (Assumptions)
+
+-   we can check assumptions using `plot` function
+
+```{r}
+#| eval: false
+
+plot(slinm)
+```
+
+
+## Practical: Simple Linear Regression with `gtsummary`
+
+-   We can use `tbl_uvregression` functions from `gtsummary` package.
+
+```{r}
+asthmads_clean %>% 
+  tbl_uvregression(method = lm, 
+                   y = PEFR_Diff, 
+                   include = Age)
+```
+
+
+
+## Practical: Simple Linear Regression with `gtsummary`
+
+-   We can add several predictors at the same time
+
+```{r}
+asthmads_clean %>% 
+  tbl_uvregression(method = lm, 
+                   y = PEFR_Diff, 
+                   include = c(Age, Gender, Tx2))
+```
+
+
+
+## Practical: Simple Linear Regression with `gtsummary`
+
+-   Adjust the parameter to make it prettier
+
+```{r}
+#| code-line-numbers: "5-8"
+#| eval: false
+
+asthmads_clean %>% 
+  tbl_uvregression(method = lm, 
+                   y = PEFR_Diff, 
+                   include = c(Age, Gender, Tx2), 
+                   pvalue_fun = partial(style_pvalue, 
+                                        digits = 3),
+                   add_estimate_to_reference_rows = T) %>% 
+  bold_p()
+```
+
+
+## Practical: Simple Linear Regression with `gtsummary`
+
+```{r}
+#| code-line-numbers: "5-8"
+
+asthmads_clean %>% 
+  tbl_uvregression(method = lm, 
+                   y = PEFR_Diff, 
+                   include = c(Age, Gender, Tx2), 
+                   pvalue_fun = partial(style_pvalue, 
+                                        digits = 3),
+                   add_estimate_to_reference_rows = T) %>% 
+  bold_p()
+```
+
+
+
+## Multiple Linear Regression
+
+-   Real-world relationships are often more complex.
+-   Often the relationship influenced by third variables: confounders, mediators, moderators
+-   Multiple linear regression can be used to model the relationship between a dependent variable and two or more independent variables.
+
+## Practical: Multiple Linear Regression
+
+-   Let's try to perform a multiple linear regression
+    -   Outcome: `PEFR_Diff`
+    -   Predictors: `Age`, `Gender` & `Tx2`
+
+```{r}
+names(asthmads_clean)
+```
+
+
+## Practical: Multiple Linear Regression
+
+-   Let's try to perform a multiple linear regression
+    -   Outcome: `PEFR_Diff`
+    -   Predictors: `Age`, `Gender` & `Tx2`
+
+```{r}
+#| eval: false
+
+mlinm <- lm(PEFR_Diff ~ Age + Gender + Tx2, data = asthmads_clean)
+
+summary(mlinm)
+```
+
+
+
+## Practical: Multiple Linear Regression
+
+
+```{r}
+mlinm <- lm(PEFR_Diff ~ Age + Gender + Tx2, data = asthmads_clean)
+
+summary(mlinm)
+```
+
+
+# Logistic Regression
+
+## Logistic Regression
+
+-   similar to linear regression - models the relationship between a dependent variable and one or more independent variables.
+-   the logistic regression used when the outcome variable is binary in nature, with two poissible outcomes.
+-   logistic regression estimates the **probabilities** of the binary outcome.
+
+
+## Logistic Regression
+
+-   the formula is
+    -   $P$ is the probability of outcome
+    -   $\frac{P}{1-P}$ is the odd of event occuring
+    -   $\log\left(\frac{P}{1-P}\right)$ - the log odds or logit
+    -   $X$ is the predictor
+    -   $\beta_0$ is the y-intercept
+    -   $\beta_1x$ is the slope of the line, representing the change of probability in y for one-unit change in  $X$
+    
+$$\log\left(\frac{P}{1-P}\right) = \beta_0 + \beta_1x + \epsilon$$ 
+
+# Practical: Logistic Regression
+
+Finding factors associated with PEFR Changes (Category)
+
+-   Require data wrangling
+
+## Practical: Logistic Regression
+
+-   Let's try to perform logistic regression
+-   Check the variables
+
+```{r}
+names(asthmads_clean)
+```
+
+-   noted that PEFR Changes (Categorical not available.)
+
+
+## Practical: Logistic Regression (Setup)
+
+-   A bit of setup, i.e., data wrangling required
+-   Bin PEFR Changes `PEFR_Diff`
+    -   divide into two, `Negligible` or `Improved`
+    -   name the new variable as `PEFR_DiffCat`
+    -   save the dataset into new object (optional, you can also overwrite them.)
+
+```{r}
+asthmads_clean2 <- asthmads_clean %>% 
+  mutate(PEFR_DiffCat = cut(PEFR_Diff, 
+                            breaks = c(-Inf, 40, Inf), 
+                            labels = c("Negligible", "Improved")), 
+         PEFR_DiffCat = fct_relevel(PEFR_DiffCat, "Negligible"), 
+         .after = PEFR_Diff)
+```
+
+
+## Practical: Simple Logistic Regression
+
+-   Let's try to perform a simple logistic regression
+    -   Outcome: `PEFR_DiffCat`
+    -   Predictor: `Gender`
+
+```{r}
+#| eval: false
+
+slogm <- glm(PEFR_DiffCat ~ Gender, 
+             family = binomial, 
+             data = asthmads_clean2)
+
+summary(slogm)
+```
+
+
+## Practical: Simple Logistic Regression
+
+
+```{r}
+slogm <- glm(PEFR_DiffCat ~ Gender, 
+             family = binomial, 
+             data = asthmads_clean2)
+
+summary(slogm)
+```
+
+## Practical: Simple Logistic Regression (Odd Ratio)
+
+-   Logistic Regression model the relationship with the **log odds** of the outcome
+-   To get the odd (and calculate the odd ratio) the value need to be exponentiated.
+    -   using `exp` function
+
+
+```{r}
+exp(coef(slogm))
+
+```
+
+
+## Practical: Simple Logistic Regression (Assumptions)
+
+-   similarly, we can check assumptions using `plot` function
+
+```{r}
+#| eval: false
+
+plot(slogm)
+```
+
+
+## Practical: Simple Logistic Regression with `gtsummary`
+
+-   We can use `tbl_uvregression` functions from `gtsummary` package.
+
+```{r}
+asthmads_clean2 %>% 
+  tbl_uvregression(method = glm, 
+                   method.args = list(family = binomial),
+                   y = PEFR_DiffCat, 
+                   include = Gender)
+```
+
+
+## Practical: Simple Logistic Regression with `gtsummary`
+
+-   We need to add parameter so that the value reported is odd ratio
+
+```{r}
+#| code-line-numbers: "6"
+
+asthmads_clean2 %>% 
+  tbl_uvregression(method = glm, 
+                   method.args = list(family = binomial),
+                   y = PEFR_DiffCat, 
+                   include = Gender, 
+                   exponentiate = T)
+```
+
+
+
+## Practical: Simple Logistic Regression with `gtsummary`
+
+-   We can add several predictors at the same time
+
+```{r}
+#| code-line-numbers: "5"
+
+asthmads_clean2 %>% 
+  tbl_uvregression(method = glm, 
+                   method.args = list(family = binomial),
+                   y = PEFR_DiffCat, 
+                   include = c(Gender, Age, Tx2), 
+                   exponentiate = T)
+```
+
+## Practical: Simple Logistic Regression with `gtsummary`
+
+-   Adjust the parameter to make it prettier
+
+
+```{r}
+#| code-line-numbers: "7-11"
+#| eval: false
+
+asthmads_clean2 %>% 
+  tbl_uvregression(method = glm, 
+                   method.args = list(family = binomial),
+                   y = PEFR_DiffCat, 
+                   include = c(Gender, Age, Tx2), 
+                   exponentiate = T, 
+                   pvalue_fun = partial(style_pvalue, 
+                                        digits = 3),
+                   add_estimate_to_reference_rows = T, 
+                   hide_n = T) %>% 
+  bold_p()
+```
+
+
+
+
+## Practical: Simple Logistic Regression with `gtsummary`
+
+```{r}
+#| code-line-numbers: "7-11"
+
+asthmads_clean2 %>% 
+  tbl_uvregression(method = glm, 
+                   method.args = list(family = binomial),
+                   y = PEFR_DiffCat, 
+                   include = c(Gender, Age, Tx2), 
+                   exponentiate = T, 
+                   pvalue_fun = partial(style_pvalue, 
+                                        digits = 3),
+                   add_estimate_to_reference_rows = T, 
+                   hide_n = T) %>% 
+  bold_p()
+```
+
 
 
 
