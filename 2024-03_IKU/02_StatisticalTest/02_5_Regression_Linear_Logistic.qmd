@@ -259,7 +259,7 @@ Finding factors associated with PEFR Changes (Category)
 names(asthmads_clean)
 ```
 
--   noted that PEFR Changes (Categorical not available.)
+-   noted that PEFR Changes (Categorical) not available.
 
 
 ## Practical: Logistic Regression (Setup)
@@ -267,13 +267,15 @@ names(asthmads_clean)
 -   A bit of setup, i.e., data wrangling required
 -   Bin PEFR Changes `PEFR_Diff`
     -   divide into two, `Negligible` or `Improved`
+    -   `Negligible`: `PEFR_Diff` < 40
+    -   `Improved`: `PEFR_Diff` 40 and abobe
     -   name the new variable as `PEFR_DiffCat`
     -   save the dataset into new object (optional, you can also overwrite them.)
 
 ```{r}
 asthmads_clean2 <- asthmads_clean %>% 
   mutate(PEFR_DiffCat = cut(PEFR_Diff, 
-                            breaks = c(-Inf, 40, Inf), 
+                            breaks = c(-Inf, 39.99, Inf), 
                             labels = c("Negligible", "Improved")), 
          PEFR_DiffCat = fct_relevel(PEFR_DiffCat, "Negligible"), 
          .after = PEFR_Diff)
@@ -311,13 +313,20 @@ summary(slogm)
 ## Practical: Simple Logistic Regression (Odd Ratio)
 
 -   Logistic Regression model the relationship with the **log odds** of the outcome
+
+```{r}
+coef(slogm)
+confint(slogm)
+```
+
+## Practical: Simple Logistic Regression (Odd Ratio)
+
 -   To get the odd (and calculate the odd ratio) the value need to be exponentiated.
     -   using `exp` function
 
-
 ```{r}
 exp(coef(slogm))
-
+exp(confint(slogm))
 ```
 
 
@@ -419,7 +428,6 @@ asthmads_clean2 %>%
                    hide_n = T) %>% 
   bold_p()
 ```
-
 
 
 
