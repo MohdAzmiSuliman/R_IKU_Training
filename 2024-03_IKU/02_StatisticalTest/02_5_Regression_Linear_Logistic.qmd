@@ -222,6 +222,60 @@ mlinm <- lm(PEFR_Diff ~ Age + Gender + Tx2, data = asthmads_clean)
 summary(mlinm)
 ```
 
+## Practical: Multiple Linear Regression with `gtsummary`
+
+-   We can use `tbl_regression` functions from `gtsummary` package.
+    -   We can either "pipe" it to the function
+
+```{r}
+lm(PEFR_Diff ~ Age + Gender + Tx2, data = asthmads_clean) %>% 
+  tbl_regression()
+```
+
+## Practical: Multiple Linear Regression with `gtsummary`
+
+-   We can use `tbl_regression` functions from `gtsummary` package.
+    -   or we can use the function to the model object
+
+```{r}
+#| eval: false
+
+tbl_regression(mlinm)
+```
+
+
+
+-   Same
+
+```{r}
+#| eval: false
+
+mlinm %>% tbl_regression()
+```
+
+
+```{r}
+#| echo: false
+
+tbl_regression(mlinm)
+```
+
+
+## Practical: Multiple Linear Regression with `gtsummary`
+
+-   Adjust the parameter accordingly
+
+```{r}
+#| code-line-numbers: "2-5"
+
+lm(PEFR_Diff ~ Age + Gender + Tx2, data = asthmads_clean) %>% 
+  tbl_regression(estimate_fun = partial(style_number, digits = 2), 
+                 pvalue_fun = partial(style_pvalue,digits = 3), 
+                 add_estimate_to_reference_rows = T) %>% 
+  bold_p()
+```
+
+
 
 # Logistic Regression
 
@@ -272,6 +326,9 @@ names(asthmads_clean)
     -   name the new variable as `PEFR_DiffCat`
     -   save the dataset into new object (optional, you can also overwrite them.)
 
+
+## Practical: Logistic Regression (Setup)
+
 ```{r}
 asthmads_clean2 <- asthmads_clean %>% 
   mutate(PEFR_DiffCat = cut(PEFR_Diff, 
@@ -280,6 +337,7 @@ asthmads_clean2 <- asthmads_clean %>%
          PEFR_DiffCat = fct_relevel(PEFR_DiffCat, "Negligible"), 
          .after = PEFR_Diff)
 ```
+
 
 
 ## Practical: Simple Logistic Regression
@@ -414,7 +472,7 @@ asthmads_clean2 %>%
 ## Practical: Simple Logistic Regression with `gtsummary`
 
 ```{r}
-#| code-line-numbers: "7-11"
+#| echo: false
 
 asthmads_clean2 %>% 
   tbl_uvregression(method = glm, 
@@ -430,4 +488,83 @@ asthmads_clean2 %>%
 ```
 
 
+## Multiple Logistic Regression
 
+-   Let's try to perform a multiple logistic regression
+    -   Outcome: `PEFR_DiffCat`
+    -   Predictors: `Age`, `Gender` & `Tx2`
+
+
+```{r}
+mlogm <- glm(PEFR_DiffCat ~ Age + Gender + Tx2, 
+             family = binomial, data = asthmads_clean2)
+
+summary(mlogm)
+```
+
+## Practical: Multiple Logistic Regression
+
+-   similarly, we can extract the coefficient value and confidence interval
+
+
+```{r}
+coef(mlogm)
+confint(mlogm)
+```
+
+## Practical: Multiple Logistic Regression
+
+-   and calculate the odd ratio
+
+
+```{r}
+exp(coef(mlogm))
+exp(confint(mlogm))
+```
+
+
+
+## Practical: Multiple Logistic Regression with `gtsummary`
+
+-   We can use `tbl_regression` functions from `gtsummary` package.
+
+```{r}
+glm(PEFR_DiffCat ~ Age + Gender + Tx2, family = binomial, data = asthmads_clean2) %>% 
+  tbl_regression()
+
+```
+
+
+## Practical: Multiple Logistic Regression with `gtsummary`
+
+-   We can use `tbl_regression` functions from `gtsummary` package.
+    -   Adjust the parameter accordingly
+
+```{r}
+#| code-line-numbers: "2-6"
+#| eval: false
+
+glm(PEFR_DiffCat ~ Age + Gender + Tx2, family = binomial, data = asthmads_clean2) %>% 
+  tbl_regression(exponentiate = T, 
+                 estimate_fun = partial(style_ratio, digits = 2), 
+                 pvalue_fun = partial(style_pvalue,digits = 3), 
+                 add_estimate_to_reference_rows = T) %>% 
+  bold_p()
+
+```
+
+
+## Practical: Multiple Logistic Regression with `gtsummary`
+
+
+```{r}
+#| echo: false
+
+glm(PEFR_DiffCat ~ Age + Gender + Tx2, family = binomial, data = asthmads_clean2) %>% 
+  tbl_regression(exponentiate = T, 
+                 estimate_fun = partial(style_ratio, digits = 2), 
+                 pvalue_fun = partial(style_pvalue,digits = 3), 
+                 add_estimate_to_reference_rows = T) %>% 
+  bold_p()
+
+```
