@@ -366,8 +366,8 @@ oneway.test(PEFR_Diff ~ Tx2, asthmads_clean)
 
 -   ANOVA is based on the F-test, which analyses the variance between groups and within groups.
 -   The `aov` function is for one-way ANOVA, with the assumption of equal variance.
--   The `oneway.test` unction is for one-way ANOVA, with the variance are not necessarily assumed to be equal.
-    -   i.e., similar to Welch's t-test.
+-   The `oneway.test` function is for one-way ANOVA, with the variance are not necessarily assumed to be equal.
+    -   i.e., similar to Welch's t-test. 
 -   The `anova` function is used differently while sharing the same name and purpose.
     -   The `anova` function is used to compare models with the F-test.
 
