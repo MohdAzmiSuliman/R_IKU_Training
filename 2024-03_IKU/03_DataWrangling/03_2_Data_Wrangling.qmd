@@ -1,0 +1,55 @@
+---
+title: "Statistical Tests in R: Descriptive Analysis"
+subtitle: "Kursus R: Pengenalan dan Praktikal (Sesi 2)"
+format: 
+  clean-revealjs: 
+    slide-number: true
+    lightbox: true
+    auto-stretch: false
+    footer: "Descriptive Analysis"
+author:
+  - name: Mohd Azmi Bin Suliman
+    orcid: 0000-0002-2125-3811
+    email: azmi.suliman@moh.gov.my
+    affiliations: Pusat Penyelidikan Penyakit Tak Berjangkit, Institut Kesihatan Umum
+date: 2024-03-06
+date-format: "dddd, DD MMMM YYYY"
+embed-resources: true
+execute: 
+  echo: true
+---
+
+# Data Wrangling
+
+```{r}
+#| echo: false
+
+pacman::p_load(tidyverse, haven, summarytools, gtsummary)
+```
+
+```{css}
+#| echo: false
+
+code.sourceCode {
+  font-size: 1.2em;
+}
+```
+
+## What is Data Wrangling?
+
+-   Common data analysis look like this
+
+![source: r4ds.hadley.nz](images/R4DS_wrangling.png)
+
+-   Real world data commonly messy
+-   80% of time taken spend on data cleaning
+-   Improving data quality > improving the accracy and efficiency
+-   Data wrangling involving **tidying** and **transforming** data, from raw form to analysis-ready data.
+-   Common data wrangling action
+    - Label data
+    - Recategorise categorical variable - usually collapsing groups
+    - Binning continuous variable
+
+# Practical
+
+## Setup
