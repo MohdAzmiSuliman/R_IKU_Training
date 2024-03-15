@@ -41,6 +41,8 @@ code.sourceCode {
 
 ![source: r4ds.hadley.nz](images/R4DS_wrangling.png)
 
+## What is Data Wrangling?
+
 -   Real world data commonly messy
 -   80% of time taken spend on data cleaning
 -   Improving data quality > improving the accracy and efficiency
@@ -50,6 +52,109 @@ code.sourceCode {
     - Recategorise categorical variable - usually collapsing groups
     - Binning continuous variable
 
-# Practical
+# Let's Try!
 
-## Setup
+Setup your project & quarto document.
+
+## Create New Project
+
+-   RStudio allows for project management.
+    -   Project as a 'container' for our work.
+
+1.  Open RStudio.
+2.  Create a new project.
+    -   `File` \> `New Project` \> `New Directory` \> `New Project`
+3.  Set the name and directory.
+    -   Name: `Statistical Tests in R`
+    -   Directory: `.../Documents/RStudio`
+4.  Click `Create Project`
+
+## Create New Project
+
+![](images/New_Project.png)
+
+## Create New Quarto Document
+
+Quarto as R Notebook.
+
+1.  Create a new Quarto document.
+    -   `File` \> `New File` \> `Quarto Document...`
+2.  Set the title
+    -   Title: `Data Wrangling in R`
+    -   Untick `Use the visual editor.`
+3.  Click `Create Empty Document`
+4.  Edit the YAML
+    -   Add the `embed-resources: true` parameter.
+
+## Create a New Quarto Document
+
+![](images/New_Qmd.png)
+
+## Notebook Setup
+
+-   In Quarto document, we can set one of the code chunk as our setup chunk
+-   This setup chunk will be run first before any other code chunk
+-   We can set the global options, load the packages, etc.
+-   Only one setup chunk is allowed in a document
+-   Add Level 1 header
+    -   `# Setup, Dataset and Library`
+-  Add setup code chunk
+
+```{r}
+#| echo: fenced
+#| label: setup
+
+library(tidyverse)
+```
+
+# Data Import
+
+-   SPSS
+-   CSV
+-   Online
+
+
+## Data Import 
+
+-   Commonly data were collected & stored elsewhere
+-   The data can be in various formats: Excel, SPSS, CSV, etc.
+-   The data sources includes
+    -   Surveys
+    -   Clinical Trials
+    -   Records: Clinical, Health, Returns, Governments
+-   In `base` R, R can read text file with delimiter, e.g., CSV file
+-   To read other format, we can use additional packages
+    -   `readxl` package for Excel file 
+    -   `haven` package for SPSS, SAS, Stata, etc.
+    -   `rio` package have single function to simplify data import 
+
+## Data Import (SPSS)
+
+-   In IKU, we commonly deal with SPSS data files, with `.sav` file extension.
+-   One of SPSS `.sav` advantage as data storage is the ability to store metadata
+    -   variable labels
+    -   value labels
+    -   missing values
+-   In R, `haven` package can read SPSS data file
+
+## Data Import (SPSS)
+
+- In R, `haven` package can read SPSS data file
+  -   Add `as_factor()` function to extract the label and applied to the data frame
+
+```{r}
+library(haven)
+
+asthmads0 <- read_sav("asthma_ds.sav") %>% 
+  as_factor()
+asthmads0
+```
+
+## Data Import (CSV)
+
+-   CSV file is a plain text file that store tabular data
+-   In R, we can use `read.csv()` function to read CSV file
+
+```{r}
+
+```
