@@ -1271,6 +1271,9 @@ font-size: 1.2em;
 <figcaption>source: r4ds.hadley.nz</figcaption>
 </figure>
 </div>
+</section>
+<section id="what-is-data-wrangling-1" class="slide level2">
+<h2>What is Data Wrangling?</h2>
 <ul>
 <li>Real world data commonly messy</li>
 <li>80% of time taken spend on data cleaning</li>
@@ -1350,6 +1353,7 @@ font-size: 1.2em;
 <ul>
 <li><code># Setup, Dataset and Library</code></li>
 </ul></li>
+<li>Add setup code chunk</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href></a><span class="in">```{r}</span></span>
@@ -1366,6 +1370,15 @@ font-size: 1.2em;
 <li>SPSS</li>
 <li>CSV</li>
 <li>Online</li>
+</ul>
+</section>
+<section id="practical-data-import" class="slide level2">
+<h2>Practical: Data Import</h2>
+<ul>
+<li>Create New Level 1 Header
+<ul>
+<li><code># Data Import</code></li>
+</ul></li>
 </ul>
 </section>
 <section id="data-import-1" class="slide level2">
@@ -1404,32 +1417,1015 @@ font-size: 1.2em;
 <section id="data-import-spss-1" class="slide level2">
 <h2>Data Import (SPSS)</h2>
 <ul>
-<li>In R, <code>haven</code> package can read SPSS data file</li>
+<li>In R, <code>haven</code> package can read SPSS data file
+<ul>
+<li>Add <code>as_factor()</code> function to extract the label and applied to the data frame</li>
+</ul></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href></a><span class="fu">library</span>(haven)</span>
 <span id="cb2-2"><a href></a></span>
-<span id="cb2-3"><a href></a>asthmads0 <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;asthma_ds.sav&quot;</span>)</span>
-<span id="cb2-4"><a href></a>asthmads0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href></a>asthmads_spss <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;asthmads_spss.sav&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href></a>  <span class="fu">as_factor</span>()</span>
+<span id="cb2-5"><a href></a>asthmads_spss</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 150 × 16
-      id idR   Gender       Age WorkStatus   Height Weight_Pre PA_HW Weight_Post
-   &lt;dbl&gt; &lt;chr&gt; &lt;dbl+lbl&gt;  &lt;dbl&gt; &lt;dbl+lbl&gt;     &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;
- 1     1 nXSw  2 [Female]    34 2 [Unemploy…    179       84.2     5        76.7
- 2     2 yg2t  1 [Male]      31 2 [Unemploy…    169       81.8     1        75.7
- 3     3 QBW4  1 [Male]      25 1 [Employed]    164       88.5     1        84.1
- 4     4 2x2S  2 [Female]    33 2 [Unemploy…    136       53.2     4        46.9
- 5     5 mOnn  1 [Male]      28 2 [Unemploy…    172       71.3     2        63.3
- 6     6 D3sl  1 [Male]      33 2 [Unemploy…    178       87.3     0        82.6
- 7     7 le6j  2 [Female]    31 2 [Unemploy…    140       48.8     5        41.9
- 8     8 r3gC  2 [Female]    34 1 [Employed]    140       49.1     2        43.6
- 9     9 3Tyt  1 [Male]      31 1 [Employed]    171       60.1     1        54.7
-10    10 cmKF  1 [Male]      28 1 [Employed]    163       93.1     1        86.2
+      id idR   Gender   Age WorkStatus Height Weight_Pre PA_HW Weight_Post Tx2  
+   &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;
+ 1     1 nXSw  Female    34 Unemployed    179       84.2     5        76.7 Drug…
+ 2     2 yg2t  Male      31 Unemployed    169       81.8     1        75.7 Plac…
+ 3     3 QBW4  Male      25 Employed      164       88.5     1        84.1 Drug…
+ 4     4 2x2S  Female    33 Unemployed    136       53.2     4        46.9 Drug…
+ 5     5 mOnn  Male      28 Unemployed    172       71.3     2        63.3 Plac…
+ 6     6 D3sl  Male      33 Unemployed    178       87.3     0        82.6 Drug…
+ 7     7 le6j  Female    31 Unemployed    140       48.8     5        41.9 Plac…
+ 8     8 r3gC  Female    34 Employed      140       49.1     2        43.6 Plac…
+ 9     9 3Tyt  Male      31 Employed      171       60.1     1        54.7 Drug…
+10    10 cmKF  Male      28 Employed      163       93.1     1        86.2 Plac…
 # ℹ 140 more rows
-# ℹ 7 more variables: Tx2 &lt;dbl+lbl&gt;, PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;,
-#   SxWheeze_Pre &lt;dbl+lbl&gt;, SxWheeze_Post &lt;dbl+lbl&gt;, PS_Pre &lt;dbl&gt;,
+# ℹ 6 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;fct&gt;,
+#   SxWheeze_Post &lt;fct&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="data-import-csv" class="slide level2">
+<h2>Data Import (CSV)</h2>
+<ul>
+<li>Comma separated value, CSV file is a plain text file that store tabular data</li>
+<li>In R, we can use <code>read.csv()</code> function to read CSV file</li>
+<li>We can also use <code>read_csv()</code> function from <code>readr</code> package, which offer more granular options
+<ul>
+<li>Since we already load <code>tidyverse</code> package in the setup code chunk, no need to load <code>readr</code> package</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href></a>asthmads_csvraw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;asthmads_nolab.csv&quot;</span>)</span>
+<span id="cb4-2"><a href></a>asthmads_csvraw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="data-import-csv-1" class="slide level2">
+<h2>Data Import (CSV)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href></a>asthmads_csvraw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;asthmads_nolab.csv&quot;</span>)</span>
+<span id="cb5-2"><a href></a>asthmads_csvraw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 16
+      id idR   Gender   Age WorkStatus Height Weight_Pre PA_HW Weight_Post   Tx2
+   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
+ 1     1 nXSw       2    34          2    179       84.2     5        76.7     3
+ 2     2 yg2t       1    31          2    169       81.8     1        75.7     1
+ 3     3 QBW4       1    25          1    164       88.5     1        84.1     3
+ 4     4 2x2S       2    33          2    136       53.2     4        46.9     2
+ 5     5 mOnn       1    28          2    172       71.3     2        63.3     1
+ 6     6 D3sl       1    33          2    178       87.3     0        82.6     2
+ 7     7 le6j       2    31          2    140       48.8     5        41.9     1
+ 8     8 r3gC       2    34          1    140       49.1     2        43.6     1
+ 9     9 3Tyt       1    31          1    171       60.1     1        54.7     3
+10    10 cmKF       1    28          1    163       93.1     1        86.2     1
+# ℹ 140 more rows
+# ℹ 6 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;dbl&gt;,
+#   SxWheeze_Post &lt;dbl&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="data-import-csv-2" class="slide level2">
+<h2>Data Import (CSV)</h2>
+<ul>
+<li>Unlike SPSS SAV file, CSV file does not store metadata</li>
+<li>Some CSV file store the ‘<em>raw</em>’ data, without any label or value label.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href></a>asthmads_csvraw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;asthmads_nolab.csv&quot;</span>)</span>
+<span id="cb7-2"><a href></a>asthmads_csvraw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 16
+      id idR   Gender   Age WorkStatus Height Weight_Pre PA_HW Weight_Post   Tx2
+   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
+ 1     1 nXSw       2    34          2    179       84.2     5        76.7     3
+ 2     2 yg2t       1    31          2    169       81.8     1        75.7     1
+ 3     3 QBW4       1    25          1    164       88.5     1        84.1     3
+ 4     4 2x2S       2    33          2    136       53.2     4        46.9     2
+ 5     5 mOnn       1    28          2    172       71.3     2        63.3     1
+ 6     6 D3sl       1    33          2    178       87.3     0        82.6     2
+ 7     7 le6j       2    31          2    140       48.8     5        41.9     1
+ 8     8 r3gC       2    34          1    140       49.1     2        43.6     1
+ 9     9 3Tyt       1    31          1    171       60.1     1        54.7     3
+10    10 cmKF       1    28          1    163       93.1     1        86.2     1
+# ℹ 140 more rows
+# ℹ 6 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;dbl&gt;,
+#   SxWheeze_Post &lt;dbl&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="data-import-csv-3" class="slide level2">
+<h2>Data Import (CSV)</h2>
+<ul>
+<li>Unlike SPSS SAV file, CSV file does not store metadata</li>
+<li>Some CSV file store the ‘<em>label</em>’ data, with string as value - but may not contain the underlying level for factors column.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href></a>asthmads_csvlab <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;asthmads_csv.csv&quot;</span>)</span>
+<span id="cb9-2"><a href></a>asthmads_csvlab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 16
+      id idR   Gender   Age WorkStatus Height Weight_Pre PA_HW Weight_Post Tx2  
+   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;
+ 1     1 nXSw  Female    34 Unemployed    179       84.2     5        76.7 Drug…
+ 2     2 yg2t  Male      31 Unemployed    169       81.8     1        75.7 Plac…
+ 3     3 QBW4  Male      25 Employed      164       88.5     1        84.1 Drug…
+ 4     4 2x2S  Female    33 Unemployed    136       53.2     4        46.9 Drug…
+ 5     5 mOnn  Male      28 Unemployed    172       71.3     2        63.3 Plac…
+ 6     6 D3sl  Male      33 Unemployed    178       87.3     0        82.6 Drug…
+ 7     7 le6j  Female    31 Unemployed    140       48.8     5        41.9 Plac…
+ 8     8 r3gC  Female    34 Employed      140       49.1     2        43.6 Plac…
+ 9     9 3Tyt  Male      31 Employed      171       60.1     1        54.7 Drug…
+10    10 cmKF  Male      28 Employed      163       93.1     1        86.2 Plac…
+# ℹ 140 more rows
+# ℹ 6 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;chr&gt;,
+#   SxWheeze_Post &lt;chr&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href></a><span class="fu">levels</span>(asthmads_csvlab<span class="sc">$</span>Gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>NULL</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section id="basic-data-exploration" class="title-slide slide level1 center">
+<h1>Basic Data Exploration</h1>
+
+</section>
+<section id="practical-data-exploration-setup" class="slide level2">
+<h2>Practical: Data Exploration Setup</h2>
+<ul>
+<li>Add Level 1 Header
+<ul>
+<li><code># Basic Data Exploration</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="basic-data-exploration-1" class="slide level2">
+<h2>Basic Data Exploration</h2>
+<ul>
+<li>Usually done after data import, and maybe repeated several times during data wrangling process</li>
+<li>Common data exploration includes
+<ul>
+<li><code>summary()</code></li>
+<li><code>str()</code></li>
+<li><code>head()</code> / <code>tail()</code></li>
+<li><code>glimpse()</code> (from <code>tidyverse</code> package)</li>
+<li><code>dfSummary()</code> (from <code>summarytools</code> package)</li>
+</ul></li>
+</ul>
+</section>
+<section id="practical-summary" class="slide level2">
+<h2>Practical: <code>summary()</code></h2>
+<ul>
+<li><code>summary()</code> function is a generic function used to summarised R object.</li>
+<li>For data frame, <code>summary()</code> will return the summary statistics for each column</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href></a><span class="fu">summary</span>(asthmads_spss)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       id             idR               Gender        Age       
+ Min.   :  1.00   Length:150         Male  :86   Min.   :25.00  
+ 1st Qu.: 38.25   Class :character   Female:64   1st Qu.:27.00  
+ Median : 75.50   Mode  :character               Median :30.00  
+ Mean   : 75.50                                  Mean   :30.15  
+ 3rd Qu.:112.75                                  3rd Qu.:33.00  
+ Max.   :150.00                                  Max.   :35.00  
+      WorkStatus     Height        Weight_Pre         PA_HW       
+ Employed  :70   Min.   :129.0   Min.   : 36.60   Min.   : 0.000  
+ Unemployed:80   1st Qu.:151.0   1st Qu.: 58.25   1st Qu.: 1.000  
+                 Median :167.0   Median : 77.70   Median : 2.000  
+                 Mean   :164.0   Mean   : 75.89   Mean   : 2.807  
+                 3rd Qu.:175.8   3rd Qu.: 89.45   3rd Qu.: 4.000  
+                 Max.   :195.0   Max.   :129.10   Max.   :10.000  
+  Weight_Post          Tx2        PEFR_Pre       PEFR_Post     SxWheeze_Pre
+ Min.   : 31.20   Placebo:72   Min.   :364.0   Min.   :344.0   No :62      
+ 1st Qu.: 52.08   Drug A :35   1st Qu.:401.2   1st Qu.:433.2   Yes:88      
+ Median : 70.75   Drug B :43   Median :431.5   Median :463.0               
+ Mean   : 68.55                Mean   :433.2   Mean   :465.6               
+ 3rd Qu.: 82.08                3rd Qu.:461.0   3rd Qu.:505.5               
+ Max.   :119.60                Max.   :516.0   Max.   :580.0               
+ SxWheeze_Post     PS_Pre         PS_Post     
+ No :99        Min.   :4.000   Min.   :2.000  
+ Yes:51        1st Qu.:4.000   1st Qu.:3.000  
+               Median :5.000   Median :4.000  
+               Mean   :4.867   Mean   :3.993  
+               3rd Qu.:6.000   3rd Qu.:5.000  
+               Max.   :6.000   Max.   :6.000  </code></pre>
+</div>
+</div>
+</section>
+<section id="practical-summary-1" class="slide level2">
+<h2>Practical: <code>summary()</code></h2>
+<ul>
+<li><code>summary()</code> can also be done to specific column/s</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href></a>  <span class="fu">select</span>(Age) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Age       
+ Min.   :25.00  
+ 1st Qu.:27.00  
+ Median :30.00  
+ Mean   :30.15  
+ 3rd Qu.:33.00  
+ Max.   :35.00  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href></a>  <span class="fu">select</span>(Gender<span class="sc">:</span>Height) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Gender        Age             WorkStatus     Height     
+ Male  :86   Min.   :25.00   Employed  :70   Min.   :129.0  
+ Female:64   1st Qu.:27.00   Unemployed:80   1st Qu.:151.0  
+             Median :30.00                   Median :167.0  
+             Mean   :30.15                   Mean   :164.0  
+             3rd Qu.:33.00                   3rd Qu.:175.8  
+             Max.   :35.00                   Max.   :195.0  </code></pre>
+</div>
+</div>
+</section>
+<section id="practical-str" class="slide level2">
+<h2>Practical: <code>str()</code></h2>
+<ul>
+<li><code>str()</code> function is used to display the internal structure of an R object</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href></a><span class="fu">str</span>(asthmads_spss)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [150 × 16] (S3: tbl_df/tbl/data.frame)
+ $ id           : num [1:150] 1 2 3 4 5 6 7 8 9 10 ...
+  ..- attr(*, &quot;format.spss&quot;)= chr &quot;F8.0&quot;
+ $ idR          : chr [1:150] &quot;nXSw&quot; &quot;yg2t&quot; &quot;QBW4&quot; &quot;2x2S&quot; ...
+  ..- attr(*, &quot;format.spss&quot;)= chr &quot;A4&quot;
+ $ Gender       : Factor w/ 2 levels &quot;Male&quot;,&quot;Female&quot;: 2 1 1 2 1 1 2 2 1 1 ...
+ $ Age          : num [1:150] 34 31 25 33 28 33 31 34 31 28 ...
+  ..- attr(*, &quot;label&quot;)= chr &quot;Age (year)&quot;
+  ..- attr(*, &quot;format.spss&quot;)= chr &quot;F8.2&quot;
+ $ WorkStatus   : Factor w/ 2 levels &quot;Employed&quot;,&quot;Unemployed&quot;: 2 2 1 2 2 2 2 1 1 1 ...
+  ..- attr(*, &quot;label&quot;)= chr &quot;Employment&quot;
+ $ Height       : num [1:150] 179 169 164 136 172 178 140 140 171 163 ...
+  ..- attr(*, &quot;label&quot;)= chr &quot;Height (cm)&quot;
+  ..- attr(*, &quot;format.spss&quot;)= chr &quot;F8.2&quot;
+ $ Weight_Pre   : num [1:150] 84.2 81.8 88.5 53.2 71.3 87.3 48.8 49.1 60.1 93.1 ...
+  ..- attr(*, &quot;label&quot;)= chr &quot;Weight (kg) - before&quot;
+  ..- attr(*, &quot;format.spss&quot;)= chr &quot;F8.2&quot;
+ $ PA_HW        : num [1:150] 5 1 1 4 2 0 5 2 1 1 ...
+  ..- attr(*, &quot;label&quot;)= chr &quot;Physical Activity (total hour per week)&quot;
+  ..- attr(*, &quot;format.spss&quot;)= chr &quot;F8.2&quot;
+ $ Weight_Post  : num [1:150] 76.7 75.7 84.1 46.9 63.3 82.6 41.9 43.6 54.7 86.2 ...
+  ..- attr(*, &quot;label&quot;)= chr &quot;Weight (kg) - after&quot;
+  ..- attr(*, &quot;format.spss&quot;)= chr &quot;F8.2&quot;
+ $ Tx2          : Factor w/ 3 levels &quot;Placebo&quot;,&quot;Drug A&quot;,..: 3 1 3 2 1 2 1 1 3 1 ...
+  ..- attr(*, &quot;label&quot;)= chr &quot;Treatment Group&quot;
+ $ PEFR_Pre     : num [1:150] 401 477 417 440 488 428 450 393 424 405 ...
+  ..- attr(*, &quot;label&quot;)= chr &quot;PEFR (L/min) - before&quot;
+  ..- attr(*, &quot;format.spss&quot;)= chr &quot;F8.2&quot;
+ $ PEFR_Post    : num [1:150] 452 460 476 438 509 459 480 431 532 405 ...
+  ..- attr(*, &quot;label&quot;)= chr &quot;PEFR (L/min) - after&quot;
+  ..- attr(*, &quot;format.spss&quot;)= chr &quot;F8.2&quot;
+ $ SxWheeze_Pre : Factor w/ 2 levels &quot;No&quot;,&quot;Yes&quot;: 1 1 1 2 2 2 1 2 2 2 ...
+  ..- attr(*, &quot;label&quot;)= chr &quot;Symptom Wheezing - before&quot;
+ $ SxWheeze_Post: Factor w/ 2 levels &quot;No&quot;,&quot;Yes&quot;: 2 2 1 1 1 1 2 1 1 1 ...
+  ..- attr(*, &quot;label&quot;)= chr &quot;Symptom Wheezing - after&quot;
+ $ PS_Pre       : num [1:150] 5 6 4 6 4 4 5 4 4 5 ...
+  ..- attr(*, &quot;label&quot;)= chr &quot;Pains Score - before&quot;
+  ..- attr(*, &quot;format.spss&quot;)= chr &quot;F8.0&quot;
+ $ PS_Post      : num [1:150] 3 4 4 5 2 2 5 2 4 3 ...
+  ..- attr(*, &quot;label&quot;)= chr &quot;Pains Score - after&quot;
+  ..- attr(*, &quot;format.spss&quot;)= chr &quot;F8.0&quot;</code></pre>
+</div>
+</div>
+</section>
+<section id="practical-str-1" class="slide level2">
+<h2>Practical: <code>str()</code></h2>
+<ul>
+<li><code>str()</code> function can also be done to specific column/s</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href></a>  <span class="fu">select</span>(Age) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [150 × 1] (S3: tbl_df/tbl/data.frame)
+ $ Age: num [1:150] 34 31 25 33 28 33 31 34 31 28 ...
+  ..- attr(*, &quot;label&quot;)= chr &quot;Age (year)&quot;
+  ..- attr(*, &quot;format.spss&quot;)= chr &quot;F8.2&quot;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href></a>  <span class="fu">select</span>(Gender<span class="sc">:</span>Height) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [150 × 4] (S3: tbl_df/tbl/data.frame)
+ $ Gender    : Factor w/ 2 levels &quot;Male&quot;,&quot;Female&quot;: 2 1 1 2 1 1 2 2 1 1 ...
+ $ Age       : num [1:150] 34 31 25 33 28 33 31 34 31 28 ...
+  ..- attr(*, &quot;label&quot;)= chr &quot;Age (year)&quot;
+  ..- attr(*, &quot;format.spss&quot;)= chr &quot;F8.2&quot;
+ $ WorkStatus: Factor w/ 2 levels &quot;Employed&quot;,&quot;Unemployed&quot;: 2 2 1 2 2 2 2 1 1 1 ...
+  ..- attr(*, &quot;label&quot;)= chr &quot;Employment&quot;
+ $ Height    : num [1:150] 179 169 164 136 172 178 140 140 171 163 ...
+  ..- attr(*, &quot;label&quot;)= chr &quot;Height (cm)&quot;
+  ..- attr(*, &quot;format.spss&quot;)= chr &quot;F8.2&quot;</code></pre>
+</div>
+</div>
+</section>
+<section id="practical-head-and-tail" class="slide level2">
+<h2>Practical: <code>head()</code> and <code>tail()</code></h2>
+<ul>
+<li><code>head()</code> and <code>tail()</code> function is used to display the first and last few rows of the data frame</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href></a><span class="fu">head</span>(asthmads_spss)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 16
+     id idR   Gender   Age WorkStatus Height Weight_Pre PA_HW Weight_Post Tx2   
+  &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt; 
+1     1 nXSw  Female    34 Unemployed    179       84.2     5        76.7 Drug B
+2     2 yg2t  Male      31 Unemployed    169       81.8     1        75.7 Place…
+3     3 QBW4  Male      25 Employed      164       88.5     1        84.1 Drug B
+4     4 2x2S  Female    33 Unemployed    136       53.2     4        46.9 Drug A
+5     5 mOnn  Male      28 Unemployed    172       71.3     2        63.3 Place…
+6     6 D3sl  Male      33 Unemployed    178       87.3     0        82.6 Drug A
+# ℹ 6 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;fct&gt;,
+#   SxWheeze_Post &lt;fct&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href></a><span class="fu">tail</span>(asthmads_spss)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 16
+     id idR   Gender   Age WorkStatus Height Weight_Pre PA_HW Weight_Post Tx2   
+  &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt; 
+1   145 bgfU  Male      26 Unemployed    170       83.6     5        72.4 Place…
+2   146 sTQY  Male      30 Unemployed    166       81.4     2        77.2 Place…
+3   147 9FzF  Female    32 Unemployed    149       60.2     1        56.2 Place…
+4   148 oDcM  Female    31 Employed      156       65.3     4        58.7 Place…
+5   149 0ioP  Female    32 Unemployed    144       40       1        36.4 Place…
+6   150 ejGs  Male      34 Unemployed    172       69.2     0        64.5 Place…
+# ℹ 6 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;fct&gt;,
+#   SxWheeze_Post &lt;fct&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="practical-glimpse-from-tidyverse-package" class="slide level2">
+<h2>Practical: <code>glimpse()</code> from <code>tidyverse</code> package</h2>
+<ul>
+<li><code>glimpse()</code> function is used to display the internal structure of an R object, similar to <code>str()</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href></a><span class="fu">glimpse</span>(asthmads_spss)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 150
+Columns: 16
+$ id            &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1…
+$ idR           &lt;chr&gt; &quot;nXSw&quot;, &quot;yg2t&quot;, &quot;QBW4&quot;, &quot;2x2S&quot;, &quot;mOnn&quot;, &quot;D3sl&quot;, &quot;le6j&quot;, …
+$ Gender        &lt;fct&gt; Female, Male, Male, Female, Male, Male, Female, Female, …
+$ Age           &lt;dbl&gt; 34, 31, 25, 33, 28, 33, 31, 34, 31, 28, 34, 25, 31, 35, …
+$ WorkStatus    &lt;fct&gt; Unemployed, Unemployed, Employed, Unemployed, Unemployed…
+$ Height        &lt;dbl&gt; 179, 169, 164, 136, 172, 178, 140, 140, 171, 163, 164, 1…
+$ Weight_Pre    &lt;dbl&gt; 84.2, 81.8, 88.5, 53.2, 71.3, 87.3, 48.8, 49.1, 60.1, 93…
+$ PA_HW         &lt;dbl&gt; 5, 1, 1, 4, 2, 0, 5, 2, 1, 1, 3, 2, 1, 2, 0, 4, 1, 4, 2,…
+$ Weight_Post   &lt;dbl&gt; 76.7, 75.7, 84.1, 46.9, 63.3, 82.6, 41.9, 43.6, 54.7, 86…
+$ Tx2           &lt;fct&gt; Drug B, Placebo, Drug B, Drug A, Placebo, Drug A, Placeb…
+$ PEFR_Pre      &lt;dbl&gt; 401, 477, 417, 440, 488, 428, 450, 393, 424, 405, 478, 3…
+$ PEFR_Post     &lt;dbl&gt; 452, 460, 476, 438, 509, 459, 480, 431, 532, 405, 528, 4…
+$ SxWheeze_Pre  &lt;fct&gt; No, No, No, Yes, Yes, Yes, No, Yes, Yes, Yes, No, Yes, Y…
+$ SxWheeze_Post &lt;fct&gt; Yes, Yes, No, No, No, No, Yes, No, No, No, No, No, Yes, …
+$ PS_Pre        &lt;dbl&gt; 5, 6, 4, 6, 4, 4, 5, 4, 4, 5, 4, 5, 5, 4, 4, 4, 5, 4, 5,…
+$ PS_Post       &lt;dbl&gt; 3, 4, 4, 5, 2, 2, 5, 2, 4, 3, 2, 5, 4, 3, 3, 3, 4, 4, 5,…</code></pre>
+</div>
+</div>
+</section>
+<section id="practical-dfsummary-from-summarytools-package" class="slide level2">
+<h2>Practical: <code>dfSummary()</code> from <code>summarytools</code> package</h2>
+<ul>
+<li><code>dfSummary()</code> function is used to display the summary statistics for each column</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href></a><span class="fu">library</span>(summarytools)</span>
+<span id="cb31-2"><a href></a></span>
+<span id="cb31-3"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb31-4"><a href></a>  <span class="fu">dfSummary</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb31-5"><a href></a>  <span class="fu">stview</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section>
+<section>
+<section id="basic-data-wrangling" class="title-slide slide level1 center">
+<h1>Basic Data Wrangling</h1>
+
+</section>
+<section id="practical-data-wrangling-setup" class="slide level2">
+<h2>Practical: Data Wrangling Setup</h2>
+<ul>
+<li>Add Level 1 Header
+<ul>
+<li><code># Data Transformation</code></li>
+</ul></li>
+</ul>
+</section></section>
+<section>
+<section id="basic-data-wrangling-row-operations" class="title-slide slide level1 center">
+<h1>Basic Data Wrangling, Row Operations</h1>
+<p>Row Operations</p>
+<ul>
+<li><code>filter()</code></li>
+<li><code>arrange()</code></li>
+<li><code>distinct()</code></li>
+</ul>
+</section>
+<section id="row-operation" class="slide level2">
+<h2>Row Operation</h2>
+<ul>
+<li>Common row operation includes
+<ul>
+<li><code>filter()</code>, which subset the data based on condition, without changing the order of the data</li>
+<li><code>arrange()</code>, which sort the data based on condition</li>
+<li><code>distinct()</code>, which find rows with unique value</li>
+</ul></li>
+</ul>
+</section>
+<section id="row-operation-1" class="slide level2">
+<h2>Row Operation</h2>
+<ul>
+<li>Create new level 2 header
+<ul>
+<li><code>## Data Wrangling: Row Operations</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="row-operation-filter" class="slide level2">
+<h2>Row Operation: Filter</h2>
+<ul>
+<li><code>filter()</code> function is used to subset the data based on condition</li>
+<li>The order of the data will not be changed</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb32-2"><a href></a>  <span class="fu">filter</span>(Gender <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 64 × 16
+      id idR   Gender   Age WorkStatus Height Weight_Pre PA_HW Weight_Post Tx2  
+   &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;
+ 1     1 nXSw  Female    34 Unemployed    179       84.2     5        76.7 Drug…
+ 2     4 2x2S  Female    33 Unemployed    136       53.2     4        46.9 Drug…
+ 3     7 le6j  Female    31 Unemployed    140       48.8     5        41.9 Plac…
+ 4     8 r3gC  Female    34 Employed      140       49.1     2        43.6 Plac…
+ 5    12 7cAH  Female    25 Unemployed    149       69.6     2        62.3 Drug…
+ 6    15 WWjV  Female    32 Employed      147       59.1     0        54.3 Plac…
+ 7    16 ZIIN  Female    34 Unemployed    147       54.9     4        48.6 Plac…
+ 8    20 Yg1S  Female    34 Unemployed    151       60.6     2        56.3 Plac…
+ 9    22 BRtK  Female    32 Employed      138       53.6     1        48.2 Drug…
+10    23 bMsj  Female    34 Unemployed    146       49.4     7        39.3 Plac…
+# ℹ 54 more rows
+# ℹ 6 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;fct&gt;,
+#   SxWheeze_Post &lt;fct&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="row-operation-filter-1" class="slide level2">
+<h2>Row Operation: Filter</h2>
+<ul>
+<li><code>filter()</code> function is used to subset the data based on condition</li>
+<li>Use relational operator to set the condition</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href></a>  <span class="fu">filter</span>(Gender <span class="sc">!=</span> <span class="st">&quot;Female&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 86 × 16
+      id idR   Gender   Age WorkStatus Height Weight_Pre PA_HW Weight_Post Tx2  
+   &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;
+ 1     2 yg2t  Male      31 Unemployed    169       81.8     1        75.7 Plac…
+ 2     3 QBW4  Male      25 Employed      164       88.5     1        84.1 Drug…
+ 3     5 mOnn  Male      28 Unemployed    172       71.3     2        63.3 Plac…
+ 4     6 D3sl  Male      33 Unemployed    178       87.3     0        82.6 Drug…
+ 5     9 3Tyt  Male      31 Employed      171       60.1     1        54.7 Drug…
+ 6    10 cmKF  Male      28 Employed      163       93.1     1        86.2 Plac…
+ 7    11 2zwY  Male      34 Unemployed    164       72.5     3        64.2 Plac…
+ 8    13 ITU4  Male      31 Unemployed    187      110.      1       101.  Plac…
+ 9    14 zRsx  Male      35 Employed      175      105.      2       100.  Plac…
+10    17 pFhn  Male      30 Unemployed    179       77.6     1        71   Drug…
+# ℹ 76 more rows
+# ℹ 6 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;fct&gt;,
+#   SxWheeze_Post &lt;fct&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="row-operation-filter-2" class="slide level2">
+<h2>Row Operation: Filter</h2>
+<ul>
+<li><code>filter()</code> function is used to subset the data based on condition</li>
+<li>Can apply multiple condition</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb36-2"><a href></a>  <span class="fu">filter</span>(Gender <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>, </span>
+<span id="cb36-3"><a href></a>         Age <span class="sc">&lt;=</span> <span class="dv">45</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 64 × 16
+      id idR   Gender   Age WorkStatus Height Weight_Pre PA_HW Weight_Post Tx2  
+   &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;
+ 1     1 nXSw  Female    34 Unemployed    179       84.2     5        76.7 Drug…
+ 2     4 2x2S  Female    33 Unemployed    136       53.2     4        46.9 Drug…
+ 3     7 le6j  Female    31 Unemployed    140       48.8     5        41.9 Plac…
+ 4     8 r3gC  Female    34 Employed      140       49.1     2        43.6 Plac…
+ 5    12 7cAH  Female    25 Unemployed    149       69.6     2        62.3 Drug…
+ 6    15 WWjV  Female    32 Employed      147       59.1     0        54.3 Plac…
+ 7    16 ZIIN  Female    34 Unemployed    147       54.9     4        48.6 Plac…
+ 8    20 Yg1S  Female    34 Unemployed    151       60.6     2        56.3 Plac…
+ 9    22 BRtK  Female    32 Employed      138       53.6     1        48.2 Drug…
+10    23 bMsj  Female    34 Unemployed    146       49.4     7        39.3 Plac…
+# ℹ 54 more rows
+# ℹ 6 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;fct&gt;,
+#   SxWheeze_Post &lt;fct&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="row-operation-filter-3" class="slide level2">
+<h2>Row Operation: Filter</h2>
+<ul>
+<li><code>filter()</code> function is used to subset the data based on condition</li>
+<li>Can use logical operator</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a href></a>  <span class="fu">filter</span>(Gender <span class="sc">==</span> <span class="st">&quot;Female&quot;</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;=</span> <span class="dv">45</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 64 × 16
+      id idR   Gender   Age WorkStatus Height Weight_Pre PA_HW Weight_Post Tx2  
+   &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;
+ 1     1 nXSw  Female    34 Unemployed    179       84.2     5        76.7 Drug…
+ 2     4 2x2S  Female    33 Unemployed    136       53.2     4        46.9 Drug…
+ 3     7 le6j  Female    31 Unemployed    140       48.8     5        41.9 Plac…
+ 4     8 r3gC  Female    34 Employed      140       49.1     2        43.6 Plac…
+ 5    12 7cAH  Female    25 Unemployed    149       69.6     2        62.3 Drug…
+ 6    15 WWjV  Female    32 Employed      147       59.1     0        54.3 Plac…
+ 7    16 ZIIN  Female    34 Unemployed    147       54.9     4        48.6 Plac…
+ 8    20 Yg1S  Female    34 Unemployed    151       60.6     2        56.3 Plac…
+ 9    22 BRtK  Female    32 Employed      138       53.6     1        48.2 Drug…
+10    23 bMsj  Female    34 Unemployed    146       49.4     7        39.3 Plac…
+# ℹ 54 more rows
+# ℹ 6 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;fct&gt;,
+#   SxWheeze_Post &lt;fct&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="row-operation-filter-4" class="slide level2">
+<h2>Row Operation: Filter</h2>
+<ul>
+<li><code>filter()</code> function is used to subset the data based on condition</li>
+<li>Can use logical operator</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb40-2"><a href></a>  <span class="fu">filter</span>(Gender <span class="sc">==</span> <span class="st">&quot;Female&quot;</span> <span class="sc">|</span> Age <span class="sc">&lt;=</span> <span class="dv">45</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 16
+      id idR   Gender   Age WorkStatus Height Weight_Pre PA_HW Weight_Post Tx2  
+   &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;
+ 1     1 nXSw  Female    34 Unemployed    179       84.2     5        76.7 Drug…
+ 2     2 yg2t  Male      31 Unemployed    169       81.8     1        75.7 Plac…
+ 3     3 QBW4  Male      25 Employed      164       88.5     1        84.1 Drug…
+ 4     4 2x2S  Female    33 Unemployed    136       53.2     4        46.9 Drug…
+ 5     5 mOnn  Male      28 Unemployed    172       71.3     2        63.3 Plac…
+ 6     6 D3sl  Male      33 Unemployed    178       87.3     0        82.6 Drug…
+ 7     7 le6j  Female    31 Unemployed    140       48.8     5        41.9 Plac…
+ 8     8 r3gC  Female    34 Employed      140       49.1     2        43.6 Plac…
+ 9     9 3Tyt  Male      31 Employed      171       60.1     1        54.7 Drug…
+10    10 cmKF  Male      28 Employed      163       93.1     1        86.2 Plac…
+# ℹ 140 more rows
+# ℹ 6 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;fct&gt;,
+#   SxWheeze_Post &lt;fct&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="row-operation-filer" class="slide level2">
+<h2>Row Operation: Filer</h2>
+<ul>
+<li><code>filter()</code> function is used to subset the data based on condition</li>
+<li>to select several character string, use <code>%in%</code> operator</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb42-2"><a href></a>  <span class="fu">filter</span>(Tx2 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Drug A&quot;</span>, <span class="st">&quot;Drug B&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 78 × 16
+      id idR   Gender   Age WorkStatus Height Weight_Pre PA_HW Weight_Post Tx2  
+   &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;
+ 1     1 nXSw  Female    34 Unemployed    179       84.2     5        76.7 Drug…
+ 2     3 QBW4  Male      25 Employed      164       88.5     1        84.1 Drug…
+ 3     4 2x2S  Female    33 Unemployed    136       53.2     4        46.9 Drug…
+ 4     6 D3sl  Male      33 Unemployed    178       87.3     0        82.6 Drug…
+ 5     9 3Tyt  Male      31 Employed      171       60.1     1        54.7 Drug…
+ 6    12 7cAH  Female    25 Unemployed    149       69.6     2        62.3 Drug…
+ 7    17 pFhn  Male      30 Unemployed    179       77.6     1        71   Drug…
+ 8    18 A7My  Male      26 Unemployed    186      103.      4        93.5 Drug…
+ 9    22 BRtK  Female    32 Employed      138       53.6     1        48.2 Drug…
+10    24 TxAD  Male      26 Employed      175       67.5     4        57.9 Drug…
+# ℹ 68 more rows
+# ℹ 6 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;fct&gt;,
+#   SxWheeze_Post &lt;fct&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="row-operation-arrange" class="slide level2">
+<h2>Row Operation: Arrange</h2>
+<ul>
+<li><code>arrange()</code> function is used to sort the data based on condition</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb44-2"><a href></a>  <span class="fu">arrange</span>(Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 16
+      id idR   Gender   Age WorkStatus Height Weight_Pre PA_HW Weight_Post Tx2  
+   &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;
+ 1     3 QBW4  Male      25 Employed      164       88.5     1        84.1 Drug…
+ 2    12 7cAH  Female    25 Unemployed    149       69.6     2        62.3 Drug…
+ 3    25 3EIL  Male      25 Unemployed    183       67.7     1        61.5 Drug…
+ 4    63 W8Tt  Male      25 Unemployed    192      129.      6       115.  Plac…
+ 5    82 jTPy  Male      25 Employed      174       67.7     2        62.7 Plac…
+ 6    86 AB3z  Female    25 Employed      151       80.8     2        72.9 Drug…
+ 7    91 WZPF  Male      25 Employed      160       78       2        72.7 Drug…
+ 8   121 ttZG  Male      25 Employed      177       77.5     0        70.4 Plac…
+ 9    18 A7My  Male      26 Unemployed    186      103.      4        93.5 Drug…
+10    24 TxAD  Male      26 Employed      175       67.5     4        57.9 Drug…
+# ℹ 140 more rows
+# ℹ 6 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;fct&gt;,
+#   SxWheeze_Post &lt;fct&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="row-operation-arrange-1" class="slide level2">
+<h2>Row Operation: Arrange</h2>
+<ul>
+<li><code>arrange()</code> function is used to sort the data based on condition</li>
+<li>add <code>desc()</code> function to sort in descending order</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb46-2"><a href></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Age))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 16
+      id idR   Gender   Age WorkStatus Height Weight_Pre PA_HW Weight_Post Tx2  
+   &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;
+ 1    14 zRsx  Male      35 Employed      175      105.      2       100.  Plac…
+ 2    31 86XT  Male      35 Employed      182      106.      0       102.  Drug…
+ 3    47 nhKt  Female    35 Unemployed    140       42.7     0        37.4 Drug…
+ 4    52 XLmR  Female    35 Unemployed    139       46.9     7        39.3 Plac…
+ 5    72 COat  Male      35 Unemployed    164       81.3     3        74.6 Drug…
+ 6    79 Mvgh  Female    35 Employed      168       80.4     2        72.3 Drug…
+ 7    93 u6mq  Male      35 Employed      177       93.4     4        82   Drug…
+ 8    98 wITo  Male      35 Employed      175       89.6     2        79.9 Drug…
+ 9   143 9L8x  Female    35 Unemployed    146       73.4     1        69.2 Drug…
+10     1 nXSw  Female    34 Unemployed    179       84.2     5        76.7 Drug…
+# ℹ 140 more rows
+# ℹ 6 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;fct&gt;,
+#   SxWheeze_Post &lt;fct&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="row-operation-arrange-2" class="slide level2">
+<h2>Row Operation: Arrange</h2>
+<ul>
+<li><code>arrange()</code> function is used to sort the data based on condition</li>
+<li>can use multiple column</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb48-2"><a href></a>  <span class="fu">arrange</span>(Age, Weight_Pre)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 16
+      id idR   Gender   Age WorkStatus Height Weight_Pre PA_HW Weight_Post Tx2  
+   &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;
+ 1    25 3EIL  Male      25 Unemployed    183       67.7     1        61.5 Drug…
+ 2    82 jTPy  Male      25 Employed      174       67.7     2        62.7 Plac…
+ 3    12 7cAH  Female    25 Unemployed    149       69.6     2        62.3 Drug…
+ 4   121 ttZG  Male      25 Employed      177       77.5     0        70.4 Plac…
+ 5    91 WZPF  Male      25 Employed      160       78       2        72.7 Drug…
+ 6    86 AB3z  Female    25 Employed      151       80.8     2        72.9 Drug…
+ 7     3 QBW4  Male      25 Employed      164       88.5     1        84.1 Drug…
+ 8    63 W8Tt  Male      25 Unemployed    192      129.      6       115.  Plac…
+ 9    29 EQBN  Female    26 Unemployed    153       42.2     4        37.4 Drug…
+10   105 GQg5  Male      26 Unemployed    152       45.1     3        37.3 Plac…
+# ℹ 140 more rows
+# ℹ 6 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;fct&gt;,
+#   SxWheeze_Post &lt;fct&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="row-operation-distinct" class="slide level2">
+<h2>Row Operation: Distinct</h2>
+<ul>
+<li><code>distinct()</code> function is used to find rows with unique value
+<ul>
+<li>set parameter <code>.keep_all = TRUE</code> to keep all columns</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb50-2"><a href></a>  <span class="fu">distinct</span>(Age, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 11 × 16
+      id idR   Gender   Age WorkStatus Height Weight_Pre PA_HW Weight_Post Tx2  
+   &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;
+ 1     1 nXSw  Female    34 Unemployed    179       84.2     5        76.7 Drug…
+ 2     2 yg2t  Male      31 Unemployed    169       81.8     1        75.7 Plac…
+ 3     3 QBW4  Male      25 Employed      164       88.5     1        84.1 Drug…
+ 4     4 2x2S  Female    33 Unemployed    136       53.2     4        46.9 Drug…
+ 5     5 mOnn  Male      28 Unemployed    172       71.3     2        63.3 Plac…
+ 6    14 zRsx  Male      35 Employed      175      105.      2       100.  Plac…
+ 7    15 WWjV  Female    32 Employed      147       59.1     0        54.3 Plac…
+ 8    17 pFhn  Male      30 Unemployed    179       77.6     1        71   Drug…
+ 9    18 A7My  Male      26 Unemployed    186      103.      4        93.5 Drug…
+10    39 dMVQ  Female    29 Unemployed    143       36.6     2        31.2 Plac…
+11    42 vVeW  Female    27 Unemployed    152       64.8     2        58.5 Drug…
+# ℹ 6 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;fct&gt;,
+#   SxWheeze_Post &lt;fct&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="row-operation-distinct-1" class="slide level2">
+<h2>Row Operation: Distinct</h2>
+<ul>
+<li><code>distinct()</code> function is used to find rows with unique value
+<ul>
+<li>If column is specified, only the specified column will be used to find unique value</li>
+<li>Multiple column can be specified</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb52-2"><a href></a>  <span class="fu">distinct</span>(Gender, WorkStatus, Tx2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 3
+   Gender WorkStatus Tx2    
+   &lt;fct&gt;  &lt;fct&gt;      &lt;fct&gt;  
+ 1 Female Unemployed Drug B 
+ 2 Male   Unemployed Placebo
+ 3 Male   Employed   Drug B 
+ 4 Female Unemployed Drug A 
+ 5 Male   Unemployed Drug A 
+ 6 Female Unemployed Placebo
+ 7 Female Employed   Placebo
+ 8 Male   Employed   Placebo
+ 9 Male   Unemployed Drug B 
+10 Female Employed   Drug B 
+11 Female Employed   Drug A 
+12 Male   Employed   Drug A </code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section id="basic-data-wrangling-column-operations" class="title-slide slide level1 center">
+<h1>Basic Data Wrangling, Column Operations</h1>
+<p>Column Operations</p>
+<ul>
+<li><code>mutate()</code></li>
+<li><code>select()</code></li>
+<li><code>rename()</code></li>
+<li><code>relocate</code>()`</li>
+</ul>
+</section>
+<section id="column-operation" class="slide level2">
+<h2>Column Operation</h2>
+<ul>
+<li>Common column operation includes
+<ul>
+<li><code>mutate()</code>, which add new column or modify existing column</li>
+<li><code>select()</code>, which select column</li>
+<li><code>rename()</code>, which rename column</li>
+<li><code>relocate()</code>, which change the order of the column</li>
+</ul></li>
+</ul>
+</section>
+<section id="column-operation-1" class="slide level2">
+<h2>Column Operation</h2>
+<ul>
+<li>Create new level 2 header
+<ul>
+<li><code>## Data Wrangling: Column Operations</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="column-operation-mutate" class="slide level2">
+<h2>Column Operation: Mutate</h2>
+<ul>
+<li><code>mutate()</code> function is used to add new column or modify existing column
+<ul>
+<li>if the variable not exist, it will be created, and placed at the final column</li>
+<li>if the variable exist, it will be overwritten, and placed at current column</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb54-2"><a href></a>  <span class="fu">mutate</span>(<span class="at">Height =</span> Height<span class="sc">/</span><span class="dv">100</span>, </span>
+<span id="cb54-3"><a href></a>         <span class="at">BMI_Pre =</span> Weight_Pre<span class="sc">/</span>(Height<span class="sc">^</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 17
+      id idR   Gender   Age WorkStatus Height Weight_Pre PA_HW Weight_Post Tx2  
+   &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;
+ 1     1 nXSw  Female    34 Unemployed   1.79       84.2     5        76.7 Drug…
+ 2     2 yg2t  Male      31 Unemployed   1.69       81.8     1        75.7 Plac…
+ 3     3 QBW4  Male      25 Employed     1.64       88.5     1        84.1 Drug…
+ 4     4 2x2S  Female    33 Unemployed   1.36       53.2     4        46.9 Drug…
+ 5     5 mOnn  Male      28 Unemployed   1.72       71.3     2        63.3 Plac…
+ 6     6 D3sl  Male      33 Unemployed   1.78       87.3     0        82.6 Drug…
+ 7     7 le6j  Female    31 Unemployed   1.4        48.8     5        41.9 Plac…
+ 8     8 r3gC  Female    34 Employed     1.4        49.1     2        43.6 Plac…
+ 9     9 3Tyt  Male      31 Employed     1.71       60.1     1        54.7 Drug…
+10    10 cmKF  Male      28 Employed     1.63       93.1     1        86.2 Plac…
+# ℹ 140 more rows
+# ℹ 7 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;fct&gt;,
+#   SxWheeze_Post &lt;fct&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;, BMI_Pre &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="column-operation-mutate-1" class="slide level2">
+<h2>Column Operation: Mutate</h2>
+<ul>
+<li><code>mutate()</code> function is used to add new column or modify existing column</li>
+<li>Several parameters can be specified
+<ul>
+<li><code>.keep</code> parameter to control which columns are retained in the output</li>
+<li><code>.before</code> and <code>.after</code> parameter to control the position of the new column</li>
+</ul></li>
+</ul>
+</section>
+<section id="column-operation-select" class="slide level2">
+<h2>Column Operation: Select</h2>
+<ul>
+<li><code>select()</code> function is used to select column
+<ul>
+<li>Use <code>:</code> operator to select range of column</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb56-2"><a href></a>  <span class="fu">select</span>(Gender<span class="sc">:</span>Weight_Pre)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 5
+   Gender   Age WorkStatus Height Weight_Pre
+   &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt;      &lt;dbl&gt;
+ 1 Female    34 Unemployed    179       84.2
+ 2 Male      31 Unemployed    169       81.8
+ 3 Male      25 Employed      164       88.5
+ 4 Female    33 Unemployed    136       53.2
+ 5 Male      28 Unemployed    172       71.3
+ 6 Male      33 Unemployed    178       87.3
+ 7 Female    31 Unemployed    140       48.8
+ 8 Female    34 Employed      140       49.1
+ 9 Male      31 Employed      171       60.1
+10 Male      28 Employed      163       93.1
+# ℹ 140 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="column-operation-select-1" class="slide level2">
+<h2>Column Operation: Select</h2>
+<ul>
+<li><code>select()</code> function is used to select column
+<ul>
+<li>Use <code>-</code> operator to exclude column</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb58-2"><a href></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Weight_Pre<span class="sc">:</span>Weight_Post))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 13
+      id idR   Gender   Age WorkStatus Height Tx2     PEFR_Pre PEFR_Post
+   &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+ 1     1 nXSw  Female    34 Unemployed    179 Drug B       401       452
+ 2     2 yg2t  Male      31 Unemployed    169 Placebo      477       460
+ 3     3 QBW4  Male      25 Employed      164 Drug B       417       476
+ 4     4 2x2S  Female    33 Unemployed    136 Drug A       440       438
+ 5     5 mOnn  Male      28 Unemployed    172 Placebo      488       509
+ 6     6 D3sl  Male      33 Unemployed    178 Drug A       428       459
+ 7     7 le6j  Female    31 Unemployed    140 Placebo      450       480
+ 8     8 r3gC  Female    34 Employed      140 Placebo      393       431
+ 9     9 3Tyt  Male      31 Employed      171 Drug B       424       532
+10    10 cmKF  Male      28 Employed      163 Placebo      405       405
+# ℹ 140 more rows
+# ℹ 4 more variables: SxWheeze_Pre &lt;fct&gt;, SxWheeze_Post &lt;fct&gt;, PS_Pre &lt;dbl&gt;,
 #   PS_Post &lt;dbl&gt;</code></pre>
 </div>
+</div>
+</section>
+<section id="column-operation-rename" class="slide level2">
+<h2>Column Operation: Rename</h2>
+<ul>
+<li><code>rename()</code> function is used to rename column</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb60-2"><a href></a>  <span class="fu">rename</span>(<span class="at">Ht_cm =</span> Height)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 16
+      id idR   Gender   Age WorkStatus Ht_cm Weight_Pre PA_HW Weight_Post Tx2   
+   &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt; 
+ 1     1 nXSw  Female    34 Unemployed   179       84.2     5        76.7 Drug B
+ 2     2 yg2t  Male      31 Unemployed   169       81.8     1        75.7 Place…
+ 3     3 QBW4  Male      25 Employed     164       88.5     1        84.1 Drug B
+ 4     4 2x2S  Female    33 Unemployed   136       53.2     4        46.9 Drug A
+ 5     5 mOnn  Male      28 Unemployed   172       71.3     2        63.3 Place…
+ 6     6 D3sl  Male      33 Unemployed   178       87.3     0        82.6 Drug A
+ 7     7 le6j  Female    31 Unemployed   140       48.8     5        41.9 Place…
+ 8     8 r3gC  Female    34 Employed     140       49.1     2        43.6 Place…
+ 9     9 3Tyt  Male      31 Employed     171       60.1     1        54.7 Drug B
+10    10 cmKF  Male      28 Employed     163       93.1     1        86.2 Place…
+# ℹ 140 more rows
+# ℹ 6 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;fct&gt;,
+#   SxWheeze_Post &lt;fct&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="column-operation-relocate" class="slide level2">
+<h2>Column Operation: Relocate</h2>
+<ul>
+<li><code>relocate()</code> function is used to change the order of the column
+<ul>
+<li>can be single column or multiple columns</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb62-2"><a href></a>  <span class="fu">relocate</span>(Weight_Post, <span class="at">.after =</span> Weight_Pre)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 16
+      id idR   Gender   Age WorkStatus Height Weight_Pre Weight_Post PA_HW Tx2  
+   &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;
+ 1     1 nXSw  Female    34 Unemployed    179       84.2        76.7     5 Drug…
+ 2     2 yg2t  Male      31 Unemployed    169       81.8        75.7     1 Plac…
+ 3     3 QBW4  Male      25 Employed      164       88.5        84.1     1 Drug…
+ 4     4 2x2S  Female    33 Unemployed    136       53.2        46.9     4 Drug…
+ 5     5 mOnn  Male      28 Unemployed    172       71.3        63.3     2 Plac…
+ 6     6 D3sl  Male      33 Unemployed    178       87.3        82.6     0 Drug…
+ 7     7 le6j  Female    31 Unemployed    140       48.8        41.9     5 Plac…
+ 8     8 r3gC  Female    34 Employed      140       49.1        43.6     2 Plac…
+ 9     9 3Tyt  Male      31 Employed      171       60.1        54.7     1 Drug…
+10    10 cmKF  Male      28 Employed      163       93.1        86.2     1 Plac…
+# ℹ 140 more rows
+# ℹ 6 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;fct&gt;,
+#   SxWheeze_Post &lt;fct&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="column-operation-relocate-1" class="slide level2">
+<h2>Column Operation: Relocate</h2>
+<ul>
+<li><code>relocate()</code> function is used to change the order of the column
+<ul>
+<li>note that only one target column per line</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb64-2"><a href></a>  <span class="fu">relocate</span>(Weight_Post, <span class="at">.after =</span> Weight_Pre) <span class="sc">%&gt;%</span> </span>
+<span id="cb64-3"><a href></a>  <span class="fu">relocate</span>(Height, <span class="at">.after =</span> Weight_Post)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 16
+      id idR   Gender   Age WorkStatus Weight_Pre Weight_Post Height PA_HW Tx2  
+   &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;           &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;
+ 1     1 nXSw  Female    34 Unemployed       84.2        76.7    179     5 Drug…
+ 2     2 yg2t  Male      31 Unemployed       81.8        75.7    169     1 Plac…
+ 3     3 QBW4  Male      25 Employed         88.5        84.1    164     1 Drug…
+ 4     4 2x2S  Female    33 Unemployed       53.2        46.9    136     4 Drug…
+ 5     5 mOnn  Male      28 Unemployed       71.3        63.3    172     2 Plac…
+ 6     6 D3sl  Male      33 Unemployed       87.3        82.6    178     0 Drug…
+ 7     7 le6j  Female    31 Unemployed       48.8        41.9    140     5 Plac…
+ 8     8 r3gC  Female    34 Employed         49.1        43.6    140     2 Plac…
+ 9     9 3Tyt  Male      31 Employed         60.1        54.7    171     1 Drug…
+10    10 cmKF  Male      28 Employed         93.1        86.2    163     1 Plac…
+# ℹ 140 more rows
+# ℹ 6 more variables: PEFR_Pre &lt;dbl&gt;, PEFR_Post &lt;dbl&gt;, SxWheeze_Pre &lt;fct&gt;,
+#   SxWheeze_Post &lt;fct&gt;, PS_Pre &lt;dbl&gt;, PS_Post &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="column-operation-relocate-2" class="slide level2">
+<h2>Column Operation: Relocate</h2>
+<ul>
+<li><code>relocate()</code> function is used to change the order of the column</li>
+<li>Hint: if you want to move column after creating new column, you can specify the location directly from the mutate function</li>
+<li>rather than this</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb66-2"><a href></a>  <span class="fu">mutate</span>(<span class="at">BMI_Pre =</span> Weight_Pre<span class="sc">/</span>(Height<span class="sc">/</span><span class="dv">100</span>)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb66-3"><a href></a>  <span class="fu">relocate</span>(BMI_Pre, <span class="at">.after =</span> Weight_Pre)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>you can do this</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href></a>asthmads_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb67-2"><a href></a>  <span class="fu">mutate</span>(<span class="at">BMI_Pre =</span> Weight_Pre<span class="sc">/</span>(Height<span class="sc">/</span><span class="dv">100</span>)<span class="sc">^</span><span class="dv">2</span>, <span class="at">.after =</span> Weight_Pre) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
@@ -2687,7 +3683,7 @@ window.QuartoSupport = function () {
       }
     });
     </script>
-    <script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":false,"descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom"});
+    <script>var lightboxQuarto = GLightbox({"loop":false,"closeEffect":"zoom","selector":".lightbox","openEffect":"zoom","descPosition":"bottom"});
     window.onload = () => {
       lightboxQuarto.on('slide_before_load', (data) => {
         const { slideIndex, slideNode, slideConfig, player, trigger } = data;
