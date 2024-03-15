@@ -1,18 +1,18 @@
 ---
-title: "Statistical Tests in R: Descriptive Analysis"
-subtitle: "Kursus R: Pengenalan dan Praktikal (Sesi 2)"
+title: "Data Wrangling in R"
+subtitle: "Kursus R: Pengenalan dan Praktikal (Sesi 3)"
 format: 
   clean-revealjs: 
     slide-number: true
     lightbox: true
     auto-stretch: false
-    footer: "Descriptive Analysis"
+    footer: "Data Wrangling in R"
 author:
   - name: Mohd Azmi Bin Suliman
     orcid: 0000-0002-2125-3811
     email: azmi.suliman@moh.gov.my
     affiliations: Pusat Penyelidikan Penyakit Tak Berjangkit, Institut Kesihatan Umum
-date: 2024-03-06
+date: 2024-03-20
 date-format: "dddd, DD MMMM YYYY"
 embed-resources: true
 execute: 
@@ -35,31 +35,26 @@ code.sourceCode {
 }
 ```
 
-
 ## What is Data Wrangling?
 
 -   Common data analysis look like this
 
 ![source: r4ds.hadley.nz](images/R4DS_wrangling.png)
 
-
 ## What is Data Wrangling?
 
 -   Real world data commonly messy
 -   80% of time taken spend on data cleaning
--   Improving data quality > improving the accracy and efficiency
+-   Improving data quality \> improving the accracy and efficiency
 -   Data wrangling involving **tidying** and **transforming** data, from raw form to analysis-ready data.
 -   Common data wrangling action
-    - Label data
-    - Recategorise categorical variable - usually collapsing groups
-    - Binning continuous variable
-
-
+    -   Label data
+    -   Recategorise categorical variable - usually collapsing groups
+    -   Binning continuous variable
 
 # Let's Try!
 
 Setup your project & quarto document.
-
 
 ## Create New Project
 
@@ -74,11 +69,9 @@ Setup your project & quarto document.
     -   Directory: `.../Documents/RStudio`
 4.  Click `Create Project`
 
-
 ## Create New Project
 
 ![](images/New_Project.png)
-
 
 ## Create New Quarto Document
 
@@ -93,11 +86,9 @@ Quarto as R Notebook.
 4.  Edit the YAML
     -   Add the `embed-resources: true` parameter.
 
-
 ## Create a New Quarto Document
 
 ![](images/New_Qmd.png)
-
 
 ## Notebook Setup
 
@@ -107,7 +98,7 @@ Quarto as R Notebook.
 -   Only one setup chunk is allowed in a document
 -   Add Level 1 header
     -   `# Setup, Dataset and Library`
--  Add setup code chunk
+-   Add setup code chunk
 
 ```{r}
 #| echo: fenced
@@ -116,22 +107,18 @@ Quarto as R Notebook.
 library(tidyverse)
 ```
 
-
-
 # Data Import
 
 -   SPSS
 -   CSV
 -   Online
 
-
 ## Practical: Data Import
 
 -   Create New Level 1 Header
     -   `# Data Import`
 
-
-## Data Import 
+## Data Import
 
 -   Commonly data were collected & stored elsewhere
 -   The data can be in various formats: Excel, SPSS, CSV, etc.
@@ -141,10 +128,9 @@ library(tidyverse)
     -   Records: Clinical, Health, Returns, Governments
 -   In `base` R, R can read text file with delimiter, e.g., CSV file
 -   To read other format, we can use additional packages
-    -   `readxl` package for Excel file 
+    -   `readxl` package for Excel file
     -   `haven` package for SPSS, SAS, Stata, etc.
-    -   `rio` package have single function to simplify data import 
-
+    -   `rio` package have single function to simplify data import
 
 ## Data Import (SPSS)
 
@@ -155,11 +141,10 @@ library(tidyverse)
     -   missing values
 -   In R, `haven` package can read SPSS data file
 
-
 ## Data Import (SPSS)
 
-- In R, `haven` package can read SPSS data file
-  -   Add `as_factor()` function to extract the label and applied to the data frame
+-   In R, `haven` package can read SPSS data file
+    -   Add `as_factor()` function to extract the label and applied to the data frame
 
 ```{r}
 library(haven)
@@ -169,12 +154,11 @@ asthmads_spss <- read_sav("asthmads_spss.sav") %>%
 asthmads_spss
 ```
 
-
 ## Data Import (CSV)
 
 -   Comma separated value, CSV file is a plain text file that store tabular data
 -   In R, we can use `read.csv()` function to read CSV file
--   We can also use `read_csv()` function from `readr` package, which offer more  granular options
+-   We can also use `read_csv()` function from `readr` package, which offer more granular options
     -   Since we already load `tidyverse` package in the setup code chunk, no need to load `readr` package
 
 ```{r}
@@ -184,14 +168,12 @@ asthmads_csvraw <- read_csv("asthmads_nolab.csv")
 asthmads_csvraw
 ```
 
-
 ## Data Import (CSV)
 
 ```{r}
 asthmads_csvraw <- read_csv("asthmads_nolab.csv")
 asthmads_csvraw
 ```
-
 
 ## Data Import (CSV)
 
@@ -202,7 +184,6 @@ asthmads_csvraw
 asthmads_csvraw <- read_csv("asthmads_nolab.csv")
 asthmads_csvraw
 ```
-
 
 ## Data Import (CSV)
 
@@ -218,7 +199,34 @@ asthmads_csvlab
 levels(asthmads_csvlab$Gender)
 ```
 
+## Data Import (Online)
 
+-   We can also import data from online source
+-   For example, we can import data from DOSM Open Data Portal
+    -   <https://open.dosm.gov.my/data-catalogue>
+    -   Population by State
+
+```{r}
+my_state_pop <- read_csv("https://storage.dosm.gov.my/population/population_state.csv")
+my_state_pop
+```
+
+## Data Import (Online)
+
+-   We can also import data from online source
+-   Or if you prefer to save the data on your disk, you can download directly in R
+    -   using `download.file()` function
+    -   add `mode = "wb"` parameter to download binary file (maximum compatibility)
+
+```{r}
+#| eval: false
+
+download.file(url = "https://storage.dosm.gov.my/population/population_state.csv", 
+              destfile = "my_state_pop.csv", 
+              mode = "wb")
+my_state_pop <- read_csv("my_state_pop.csv")
+my_state_pop
+```
 
 # Basic Data Exploration
 
@@ -250,7 +258,6 @@ summary(asthmads_spss)
 
 -   `summary()` can also be done to specific column/s
 
-
 ```{r}
 asthmads_spss %>% 
   select(Age) %>% 
@@ -260,7 +267,6 @@ asthmads_spss %>%
   select(Gender:Height) %>% 
   summary()
 ```
-
 
 ## Practical: `str()`
 
@@ -284,7 +290,6 @@ asthmads_spss %>%
   str()
 ```
 
-
 ## Practical: `head()` and `tail()`
 
 -   `head()` and `tail()` function is used to display the first and last few rows of the data frame
@@ -294,7 +299,6 @@ head(asthmads_spss)
 tail(asthmads_spss)
 ```
 
-
 ## Practical: `glimpse()` from `tidyverse` package
 
 -   `glimpse()` function is used to display the internal structure of an R object, similar to `str()`
@@ -302,7 +306,6 @@ tail(asthmads_spss)
 ```{r}
 glimpse(asthmads_spss)
 ```
-
 
 ## Practical: `dfSummary()` from `summarytools` package
 
@@ -318,17 +321,12 @@ asthmads_spss %>%
   stview()
 ```
 
-
-
 # Basic Data Wrangling
-
 
 ## Practical: Data Wrangling Setup
 
 -   Add Level 1 Header
     -   `# Data Transformation`
-
-
 
 # Basic Data Wrangling, Row Operations
 
@@ -338,20 +336,17 @@ Row Operations
 -   `arrange()`
 -   `distinct()`
 
-
 ## Row Operation
 
 -   Common row operation includes
     -   `filter()`, which subset the data based on condition, without changing the order of the data
     -   `arrange()`, which sort the data based on condition
-    -   `distinct()`, which find  rows with unique value
-
+    -   `distinct()`, which find rows with unique value
 
 ## Row Operation
 
 -   Create new level 2 header
     -   `## Data Wrangling: Row Operations`
-
 
 ## Row Operation: Filter
 
@@ -363,7 +358,6 @@ asthmads_spss %>%
   filter(Gender == "Female")
 ```
 
-
 ## Row Operation: Filter
 
 -   `filter()` function is used to subset the data based on condition
@@ -373,7 +367,6 @@ asthmads_spss %>%
 asthmads_spss %>% 
   filter(Gender != "Female")
 ```
-
 
 ## Row Operation: Filter
 
@@ -385,7 +378,6 @@ asthmads_spss %>%
   filter(Gender == "Female", 
          Age <= 45)
 ```
-
 
 ## Row Operation: Filter
 
@@ -426,7 +418,6 @@ asthmads_spss %>%
   arrange(Age)
 ```
 
-
 ## Row Operation: Arrange
 
 -   `arrange()` function is used to sort the data based on condition
@@ -436,7 +427,6 @@ asthmads_spss %>%
 asthmads_spss %>% 
   arrange(desc(Age))
 ```
-
 
 ## Row Operation: Arrange
 
@@ -448,7 +438,6 @@ asthmads_spss %>%
   arrange(Age, Weight_Pre)
 ```
 
-
 ## Row Operation: Distinct
 
 -   `distinct()` function is used to find rows with unique value
@@ -458,7 +447,6 @@ asthmads_spss %>%
 asthmads_spss %>% 
   distinct(Age, .keep_all = TRUE)
 ```
-
 
 ## Row Operation: Distinct
 
@@ -471,8 +459,6 @@ asthmads_spss %>%
   distinct(Gender, WorkStatus, Tx2)
 ```
 
-
-
 # Basic Data Wrangling, Column Operations
 
 Column Operations
@@ -480,8 +466,7 @@ Column Operations
 -   `mutate()`
 -   `select()`
 -   `rename()`
--   `relocate`()`
-
+-   `relocate`()\`
 
 ## Column Operation
 
@@ -491,12 +476,10 @@ Column Operations
     -   `rename()`, which rename column
     -   `relocate()`, which change the order of the column
 
-
 ## Column Operation
 
 -   Create new level 2 header
     -   `## Data Wrangling: Column Operations`
-    
 
 ## Column Operation: Mutate
 
@@ -508,7 +491,6 @@ asthmads_spss %>%
   mutate(Height = Height/100)
 ```
 
-
 ## Column Operation: Mutate
 
 -   `mutate()` function is used to add new column or modify existing column
@@ -519,14 +501,12 @@ asthmads_spss %>%
   mutate(BMI_Pre = Weight_Pre/(Height/100)^2)
 ```
 
-
 ## Column Operation: Mutate
 
 -   `mutate()` function is used to add new column or modify existing column
 -   Several parameters can be specified
     -   `.keep` parameter to control which columns are retained in the output
     -   `.before` and `.after` parameter to control the position of the new column
-
 
 ## Column Operation: Select
 
@@ -548,7 +528,6 @@ asthmads_spss %>%
   select(-c(Weight_Pre:Weight_Post))
 ```
 
-
 ## Column Operation: Rename
 
 -   `rename()` function is used to rename column
@@ -557,7 +536,6 @@ asthmads_spss %>%
 asthmads_spss %>% 
   rename(Ht_cm = Height)
 ```
-
 
 ## Column Operation: Relocate
 
@@ -580,12 +558,12 @@ asthmads_spss %>%
   relocate(Height, .after = Weight_Post)
 ```
 
-
 ## Column Operation: Relocate
 
 -   `relocate()` function is used to change the order of the column
 -   Hint: if you want to move column after creating new column, you can specify the location directly from the mutate function
--  rather than this
+-   rather than this
+
 ```{r}
 #| eval: false
 
@@ -594,7 +572,7 @@ asthmads_spss %>%
   relocate(BMI_Pre, .after = Weight_Pre)
 ```
 
--  you can do this
+-   you can do this
 
 ```{r}
 #| eval: false
@@ -602,5 +580,3 @@ asthmads_spss %>%
 asthmads_spss %>% 
   mutate(BMI_Pre = Weight_Pre/(Height/100)^2, .after = Weight_Pre) 
 ```
-
-
