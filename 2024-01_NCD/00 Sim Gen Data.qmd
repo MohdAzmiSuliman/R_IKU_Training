@@ -185,6 +185,8 @@ asthma_def <- defData(varname = "Gender", dist = "binary",
           formula = ".2;.3;.3;.2", link = "identity") %>% 
   defData(varname = "BMI_Pre", dist = "normal",
           formula = "BMI_Base*5+15", variance = 5, link = "identity") %>% 
+  defData(varname = "WC_Pre", dist = "normal", 
+          formula = "BMI_Pre + 65 - 10 * Gender", variance = 5, link = "identity") %>% 
   defData(varname = "Weight_Pre", dist = "nonrandom",
           formula = "BMI_Pre * Height^2") %>% 
   defData(varname = "BMIreduction", dist = "normal",
@@ -195,6 +197,8 @@ asthma_def <- defData(varname = "Gender", dist = "binary",
           formula = "(((PA_Base+1)^2)/3)", variance = 1, link = "identity") %>% 
   defData(varname = "BMI_Post", dist = "nonrandom",
           formula = "BMI_Pre - (BMIreduction+PA_HW+BMI_Pre/20)/3") %>% 
+  defData(varname = "WC_Post", dist = "normal", 
+          formula = "BMI_Post + 60 - 10 * Gender", variance = 5, link = "identity") %>% 
   defData(varname = "Weight_Post", dist = "nonrandom",
           formula = "BMI_Post * Height^2") %>% 
   defData(varname = "Tx2", dist = "categorical",
@@ -252,18 +256,23 @@ asthma_ds0 <- genData(150, asthma_def) %>%
          PS_Post = PS_Pre - PS_improvement,
          across(.cols = starts_with("Weight"),
                 .fns = ~ round(.,1)),
+         across(.cols = starts_with("WC"), 
+                .fns = ~ round(.,0)), 
          across(.cols = starts_with("PEFR"),
                 .fns = ~ round(.,0)))
 asthma_ds <- asthma_ds0 %>% 
-  select(id, idR, Gender:Height, Weight_Pre, PA_HW, Weight_Post, Tx2, 
-         PEFR_Pre, PEFR_Post, SxWheeze_Pre, SxWheeze_Post, 
+  select(id, idR, Gender:Height, 
+         Weight_Pre, WC_Pre, PA_HW, Weight_Post, WC_Post,
+         Tx2, PEFR_Pre, PEFR_Post, SxWheeze_Pre, SxWheeze_Post, 
          PS_Pre, PS_Post) %>% 
   set_variable_labels(Age = "Age (year)",
                       WorkStatus = "Employment", 
                       Height = "Height (cm)",
                       Weight_Pre = "Weight (kg) - before",
+                      WC_Pre = "Waist Circumference (cm) - before",
                       PA_HW = "Physical Activity (total hour per week)",
                       Weight_Post = "Weight (kg) - after",
+                      WC_Post = "Waist Circumference (cm) - after",
                       Tx2 = "Treatment Group",
                       PEFR_Pre = "PEFR (L/min) - before",
                       PEFR_Post = "PEFR (L/min) - after",
@@ -277,9 +286,10 @@ set.seed(245)
 asthma24_wide <- asthma_ds %>% 
   slice_sample(n = 24) %>% 
   ungroup() %>% 
-  select(id:Height, Weight_Pre, Tx2, PEFR_Pre, PEFR_Post,
+  select(id:Height, Weight_Pre, WC_Pre, Tx2, PEFR_Pre, PEFR_Post,
          SxWheeze_Pre, SxWheeze_Post, PS_Pre, PS_Post) %>% 
-  rename(Weight = Weight_Pre)
+  rename(Weight = Weight_Pre, 
+         WC = WC_Pre)
 asthma24_wide
 
 set.seed(245)
@@ -307,7 +317,8 @@ asthma24_long
 
 
 asthma_pre <- asthma_ds %>% 
-  select(id, idR, Gender:Height, Weight_Pre, Tx2, PEFR_Pre, SxWheeze_Pre, PS_Pre)
+  select(id, idR, Gender:Height, Weight_Pre, WC_Pre, 
+         Tx2, PEFR_Pre, SxWheeze_Pre, PS_Pre)
 
 asthma_post <- asthma_ds %>% 
   select(id, idR, PEFR_Post, SxWheeze_Post, PS_Post)
