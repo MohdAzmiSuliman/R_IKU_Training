@@ -1,0 +1,141 @@
+---
+title: "Complex Sampling Design"
+subtitle: "Kursus R: Pengenalan dan Praktikal (Sesi 4)"
+format: 
+  clean-revealjs: 
+    slide-number: true
+    lightbox: true
+    auto-stretch: false
+    footer: "Complex Sampling Design"
+author:
+  - name: Mohd Azmi Bin Suliman
+    orcid: 0000-0002-2125-3811
+    email: azmi.suliman@moh.gov.my
+    affiliations: Pusat Penyelidikan Penyakit Tak Berjangkit, Institut Kesihatan Umum
+date: 2024-03-27
+date-format: "dddd, DD MMMM YYYY"
+embed-resources: true
+execute: 
+  echo: true
+---
+
+# Complex Sampling Design
+
+```{r}
+#| echo: false
+
+pacman::p_load(tidyverse, haven, summarytools, gtsummary)
+```
+
+```{css}
+#| echo: false
+
+code.sourceCode {
+  font-size: 1.2em;
+}
+```
+
+-   What/Why?
+-   Sampling Plan
+-   Descriptive Analysis
+-   Inferential Analysis
+
+# Complex Sampling Design
+
+## Why?
+
+-   Government agencies usually conduct census to get overview picture of the population
+    -   However, it is costly and time consuming.
+    -   For example, the Malaysian Census (Banci) was conducted every 10 years.
+-   Therefore, sampling is more feasible - less costly and time consuming.
+    -   However, simple random sampling may not be feasible.
+
+## Why Not SRS?
+
+-   In research involving large population or geographic area, simple random sampling (SRS) may not be feasible.
+-   In SRS, it is assumed that each unit has equal chance of being selected.
+    -   To ensure each unit has equal chance, it is necessary to have complete list of population.
+    -   In reality, even DOSM don't have the complete list of population.
+
+## Why Not SRS?
+
+-   In SRS, mathematically, the sample may not adequately represent the population.
+    -   Particularly minorities.
+    -   Imagine this scenario. In a population of 100, 65 are Malays, 20 are Chinese, 10 are Indian and 5 are others. If we use SRS, the chance of selecting minorities, e.g., Peribumi Sabahan are very low.
+    -   In the above scenario, if we want to sample only 10 units from the 100 population, what do you think the chance of selecting Peribumi Sabahan?
+
+## Clustering & Stratification
+
+-   Clustering is a method where the population is divided into clusters
+    -   For example, an enumeration block, in which the population is divided by geographical area
+    -   Clustering can increase efficiency and reduce cost, especially in geopgraphical dispersed population
+-   Stratification is a method where the population is divided into strata
+    -   For example, the population is divided by gender and ethnicity
+    -   Stratification ensures that important subgroups are adequately represented in the sample
+-   However, clustering and stratification affect the sampling probability.
+-   Thus the need for complex sampling design.
+
+## Complex Sampling Design in NHMS
+
+-   Our NHMS apply complex sampling design.
+-   This is snippet from our NHMS 2022 MCH
+
+> This survey used a two-stage stratified random sampling design encompassing all states and federal territories in Malaysia to ensure national representation. The primary stratum included all states and federal territories, while the secondary stratum represented urban and rural areas. Enumeration Blocks (EBs) were the primary sampling units (PSUs), and living quarters (LQs) within each selected EB were the secondary sampling units (SSUs). DOSM randomly selected PSUs based on sample size.
+
+## Sampling Weight
+
+-   In complex sampling design, each unit may have different probability of being selected.
+-   Therefore, each unit is assigned a weight.
+-   To correctly estimate the population parameter, the weight must be taken into account.
+-   This is snippet from our NHMS 2022 MCH
+
+> A weight factor was applied to each individual to adjust for the varying probabilities of selection (design weight), non-response rate, and post-stratification factors which were adjusted for the Malaysian population projection by DOSM in the year 2022.
+
+## Sampling Weight NHMS
+
+-   The weight is calculated as follows:
+    -   W1 = the inverse probabilitty os selecting te EBs of each state
+    -   W2 = the inverse probability of selecting the LQs over the total frame during the listing activities
+    -   W3 = the inverse probability of successfull LQ from the total listing frame
+    -   F = the non-response adjustment factor for LQ and individual
+    -   PS = post-stratification adjustment factor calculated by state, gender and ethnicity
+
+# Practical!
+
+-   Setting up complex sampling design plan
+-   Descriptive analysis
+-   Inferenial analysis
+
+## Setting Up (Create New Project & Quarto Notebook)
+
+1.  Open RStudio
+2.  Create New Project
+    -   `File` \> `New Project` \> `New Directory` \> `New Project`
+3.  Set the name and directory.
+    -   Name: `Complex Sampling Design`
+    -   Directory: `.../Documents/RStudio`
+4.  Click `Create Project`
+5.  Create a new Quarto document
+    -   `File` \> `New File` \> `Quarto Document...`
+6.  Set the title
+    -   Title: `Complex Sampling Design`
+    -   Untick `Use the visual editor`
+7. Click `Create Empty Document`
+8. Edit the YAML
+    -   Add the `embed-resources: true` parameter
+    
+## Setting Up (Load Libraries)
+
+-   Add Level 1 Header
+    -   `# Setup, Dataset and Library`
+-   Add setup code chunk
+
+```{r}
+#| echo: fenced
+#| label: setup
+
+library(tidyverse)
+library(haven)
+library(survey)
+```
+
