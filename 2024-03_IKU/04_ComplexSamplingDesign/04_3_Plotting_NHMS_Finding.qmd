@@ -1,0 +1,141 @@
+---
+title: "Demonstration: Plotting NHMS Finding"
+subtitle: "Kursus R: Pengenalan dan Praktikal (Sesi 4)"
+format: 
+  clean-revealjs: 
+    slide-number: true
+    lightbox: true
+    auto-stretch: false
+    footer: "Complex Sampling Design"
+author:
+  - name: Mohd Azmi Bin Suliman
+    orcid: 0000-0002-2125-3811
+    email: azmi.suliman@moh.gov.my
+    affiliations: Pusat Penyelidikan Penyakit Tak Berjangkit, Institut Kesihatan Umum
+date: 2024-03-27
+date-format: "dddd, DD MMMM YYYY"
+embed-resources: true
+execute: 
+  echo: true
+---
+
+# Demonstration: Plotting NHMS Finding
+
+```{r}
+#| echo: false
+
+pacman::p_load(tidyverse, haven, summarytools, gtsummary, kableExtra)
+```
+
+```{css}
+#| echo: false
+
+code.sourceCode {
+  font-size: 1.2em;
+}
+```
+
+-   Plot to Map
+-   Pyramid Plot
+
+## Demonstration: Plotting NHMS Finding
+
+-   In this demonstration, I'll show some example of data wrangling, including data joining, and plotting the finding to Malaysia Map
+
+## Data Import
+
+
+```{r}
+library(tidyverse)
+library(haven)
+
+nhms19ds <- read_sav("nhms19ds.sav") %>% 
+  as_factor() %>% 
+  filter(!is.na(total_chol)) %>% 
+  mutate(known_cholN = as.numeric(known_chol)-2)
+```
+
+
+## Specifying The Design
+
+```{r}
+library(survey).
+
+options(survey.lonely.psu = 'adjust', 
+        survey.adjust.domain.lonely = TRUE)
+
+nhms_unwdsg <- svydesign(id = ~1, 
+                         weights = ~1, 
+                         data = nhms19ds)
+
+nhms_surdsg <- svydesign(id = ~ebid, 
+                         strata = ~state_st, 
+                         weights = ~wtfinal_ncd, 
+                         data = nhms19ds, 
+                         nest = T)
+```
+
+
+## Subpopulation by State
+
+```{r}
+tcprev_state <- svyby(formula = ~known_cholN, 
+      by = ~state, 
+      design = nhms_surdsg, 
+      FUN = svymean, 
+      na.rm.all = T)
+
+tcprev_state
+```
+
+
+## Download Malaysia Map
+
+```{r}
+download.file(
+  url = "https://raw.githubusercontent.com/dosm-malaysia/data-open/main/datasets/geodata/administrative_1_state.geojson",
+  destfile = "administrative_1_state.geojson",
+  mode = "wb")
+
+library(sf)
+
+read_sf("administrative_1_state.geojson")
+```
+
+
+## Cleaning Map Dataset
+
+```{r}
+my_state_sf <- read_sf("administrative_1_state.geojson") %>% 
+  arrange(code_state) %>% 
+  mutate(state = fct_recode(state, 
+                            "P. Pinang" = "Pulau Pinang", 
+                            "N. Sembilan" = "Negeri Sembilan", 
+                            "WP Kl" = "W.P. Kuala Lumpur", 
+                            "WP Putrajaya" = "W.P. Putrajaya", 
+                            "WP Labuan" = "W.P. Labuan"))
+```
+
+
+## Joining Map and Survey Data
+
+```{r}
+kcprev_state_mapds <- left_join(kcprev_state, my_state_sf) %>% 
+  st_as_sf()
+
+kcprev_state_mapds
+```
+
+
+## Plotting The Map
+
+```{r}
+kcprev_state_mapds %>% 
+  ggplot(aes(fill = known_cholN)) + 
+  geom_sf()
+```
+
+
+# Pyramid Plot
+
+## Don

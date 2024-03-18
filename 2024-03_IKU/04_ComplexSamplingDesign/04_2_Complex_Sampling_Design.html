@@ -1202,6 +1202,230 @@ display: block;
 margin-left: auto;
 margin-right: 0; }
 </style>
+  <script>$(document).ready(function(){
+    if (typeof $('[data-toggle="tooltip"]').tooltip === 'function') {
+        $('[data-toggle="tooltip"]').tooltip();
+    }
+    if ($('[data-toggle="popover"]').popover === 'function') {
+        $('[data-toggle="popover"]').popover();
+    }
+});
+</script>
+  <style type="text/css">
+.lightable-minimal {
+border-collapse: separate;
+border-spacing: 16px 1px;
+width: 100%;
+margin-bottom: 10px;
+}
+.lightable-minimal td {
+margin-left: 5px;
+margin-right: 5px;
+}
+.lightable-minimal th {
+margin-left: 5px;
+margin-right: 5px;
+}
+.lightable-minimal thead tr:last-child th {
+border-bottom: 2px solid #00000050;
+empty-cells: hide;
+}
+.lightable-minimal tbody tr:first-child td {
+padding-top: 0.5em;
+}
+.lightable-minimal.lightable-hover tbody tr:hover {
+background-color: #f5f5f5;
+}
+.lightable-minimal.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-classic {
+border-top: 0.16em solid #111111;
+border-bottom: 0.16em solid #111111;
+width: 100%;
+margin-bottom: 10px;
+margin: 10px 5px;
+}
+.lightable-classic tfoot tr td {
+border: 0;
+}
+.lightable-classic tfoot tr:first-child td {
+border-top: 0.14em solid #111111;
+}
+.lightable-classic caption {
+color: #222222;
+}
+.lightable-classic td {
+padding-left: 5px;
+padding-right: 5px;
+color: #222222;
+}
+.lightable-classic th {
+padding-left: 5px;
+padding-right: 5px;
+font-weight: normal;
+color: #222222;
+}
+.lightable-classic thead tr:last-child th {
+border-bottom: 0.10em solid #111111;
+}
+.lightable-classic.lightable-hover tbody tr:hover {
+background-color: #F9EEC1;
+}
+.lightable-classic.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-classic-2 {
+border-top: 3px double #111111;
+border-bottom: 3px double #111111;
+width: 100%;
+margin-bottom: 10px;
+}
+.lightable-classic-2 tfoot tr td {
+border: 0;
+}
+.lightable-classic-2 tfoot tr:first-child td {
+border-top: 3px double #111111;
+}
+.lightable-classic-2 caption {
+color: #222222;
+}
+.lightable-classic-2 td {
+padding-left: 5px;
+padding-right: 5px;
+color: #222222;
+}
+.lightable-classic-2 th {
+padding-left: 5px;
+padding-right: 5px;
+font-weight: normal;
+color: #222222;
+}
+.lightable-classic-2 tbody tr:last-child td {
+border-bottom: 3px double #111111;
+}
+.lightable-classic-2 thead tr:last-child th {
+border-bottom: 1px solid #111111;
+}
+.lightable-classic-2.lightable-hover tbody tr:hover {
+background-color: #F9EEC1;
+}
+.lightable-classic-2.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-material {
+min-width: 100%;
+white-space: nowrap;
+table-layout: fixed;
+font-family: Roboto, sans-serif;
+border: 1px solid #EEE;
+border-collapse: collapse;
+margin-bottom: 10px;
+}
+.lightable-material tfoot tr td {
+border: 0;
+}
+.lightable-material tfoot tr:first-child td {
+border-top: 1px solid #EEE;
+}
+.lightable-material th {
+height: 56px;
+padding-left: 16px;
+padding-right: 16px;
+}
+.lightable-material td {
+height: 52px;
+padding-left: 16px;
+padding-right: 16px;
+border-top: 1px solid #eeeeee;
+}
+.lightable-material.lightable-hover tbody tr:hover {
+background-color: #f5f5f5;
+}
+.lightable-material.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-material.lightable-striped tbody td {
+border: 0;
+}
+.lightable-material.lightable-striped thead tr:last-child th {
+border-bottom: 1px solid #ddd;
+}
+.lightable-material-dark {
+min-width: 100%;
+white-space: nowrap;
+table-layout: fixed;
+font-family: Roboto, sans-serif;
+border: 1px solid #FFFFFF12;
+border-collapse: collapse;
+margin-bottom: 10px;
+background-color: #363640;
+}
+.lightable-material-dark tfoot tr td {
+border: 0;
+}
+.lightable-material-dark tfoot tr:first-child td {
+border-top: 1px solid #FFFFFF12;
+}
+.lightable-material-dark th {
+height: 56px;
+padding-left: 16px;
+padding-right: 16px;
+color: #FFFFFF60;
+}
+.lightable-material-dark td {
+height: 52px;
+padding-left: 16px;
+padding-right: 16px;
+color: #FFFFFF;
+border-top: 1px solid #FFFFFF12;
+}
+.lightable-material-dark.lightable-hover tbody tr:hover {
+background-color: #FFFFFF12;
+}
+.lightable-material-dark.lightable-striped tbody tr:nth-child(even) {
+background-color: #FFFFFF12;
+}
+.lightable-material-dark.lightable-striped tbody td {
+border: 0;
+}
+.lightable-material-dark.lightable-striped thead tr:last-child th {
+border-bottom: 1px solid #FFFFFF12;
+}
+.lightable-paper {
+width: 100%;
+margin-bottom: 10px;
+color: #444;
+}
+.lightable-paper tfoot tr td {
+border: 0;
+}
+.lightable-paper tfoot tr:first-child td {
+border-top: 1px solid #00000020;
+}
+.lightable-paper thead tr:last-child th {
+color: #666;
+vertical-align: bottom;
+border-bottom: 1px solid #00000020;
+line-height: 1.15em;
+padding: 10px 5px;
+}
+.lightable-paper td {
+vertical-align: middle;
+border-bottom: 1px solid #00000010;
+line-height: 1.15em;
+padding: 7px 5px;
+}
+.lightable-paper.lightable-hover tbody tr:hover {
+background-color: #F9EEC1;
+}
+.lightable-paper.lightable-striped tbody tr:nth-child(even) {
+background-color: #00000008;
+}
+.lightable-paper.lightable-striped tbody td {
+border: 0;
+}
+</style>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -1277,13 +1501,117 @@ font-size: 1.2em;
 <section id="why-not-srs-1" class="slide level2">
 <h2>Why Not SRS?</h2>
 <ul>
-<li>In SRS, mathematically, the sample may not adequately represent the population.
+<li>In SRS, mathematically, the sample may not adequately represent the population, particularly minorities.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href></a>ikustaff <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;StaffByCentre.xlsx&quot;</span>)</span>
+<span id="cb1-2"><a href></a>ikustaff <span class="sc">%&gt;%</span> <span class="fu">freq</span>(Ethnicity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Frequencies  
+ikustaff$Ethnicity  
+Type: Character  
+
+                Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+------------- ------ --------- -------------- --------- --------------
+      Chinese     12     18.75          18.75     18.75          18.75
+       Indian      5      7.81          26.56      7.81          26.56
+        Malay     47     73.44         100.00     73.44         100.00
+         &lt;NA&gt;      0                               0.00         100.00
+        Total     64    100.00         100.00    100.00         100.00</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href></a>ikustaff <span class="sc">%&gt;%</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">freq</span>(Ethnicity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Frequencies  
+ikustaff$Ethnicity  
+Type: Character  
+
+                Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+------------- ------ --------- -------------- --------- --------------
+      Chinese      1     10.00          10.00     10.00          10.00
+       Indian      1     10.00          20.00     10.00          20.00
+        Malay      8     80.00         100.00     80.00         100.00
+         &lt;NA&gt;      0                               0.00         100.00
+        Total     10    100.00         100.00    100.00         100.00</code></pre>
+</div>
+</div>
+</section>
+<section id="clustering" class="slide level2">
+<h2>Clustering</h2>
 <ul>
-<li>Particularly minorities.</li>
-<li>Imagine this scenario. In a population of 100, 65 are Malays, 20 are Chinese, 10 are Indian and 5 are others. If we use SRS, the chance of selecting minorities, e.g., Peribumi Sabahan are very low.</li>
-<li>In the above scenario, if we want to sample only 10 units from the 100 population, what do you think the chance of selecting Peribumi Sabahan?</li>
+<li>Clustering is a method where the population is divided into clusters
+<ul>
+<li>For example, an enumeration block, in which the population is divided by geographical area</li>
+<li>Clustering can increase efficiency and reduce cost, especially in geographical dispersed population</li>
 </ul></li>
 </ul>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href></a><span class="fu">with</span>(ikustaff, </span>
+<span id="cb5-2"><a href></a>     <span class="fu">table</span>(Centre, Ethnicity))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Ethnicity
+Centre  Chinese Indian Malay
+  CBODR       4      0     2
+  CDER        1      0    10
+  CFHR        3      0     9
+  CNCDR       0      3     7
+  CNER        3      1    11
+  COEHR       1      0     4
+  SRC         0      1     4</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:56%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href></a>selctr <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">unique</span>(ikustaff<span class="sc">$</span>Centre), <span class="dv">3</span>)</span>
+<span id="cb7-2"><a href></a>selctr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] &quot;CFHR&quot;  &quot;CBODR&quot; &quot;COEHR&quot;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href></a>ikustaff <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href></a>  <span class="fu">filter</span>(Centre <span class="sc">%in%</span> <span class="fu">c</span>(selctr)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href></a>  <span class="fu">freq</span>(Ethnicity, <span class="at">cumul =</span> F, <span class="at">report.nas =</span> F, <span class="at">headings =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+                Freq        %
+------------- ------ --------
+      Chinese      8    34.78
+        Malay     15    65.22
+        Total     23   100.00</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="stratification" class="slide level2">
+<h2>Stratification</h2>
+<ul>
+<li>Stratification is a method where the population is divided into strata
+<ul>
+<li>For example, the population is divided by gender and ethnicity</li>
+<li>Stratification ensures that important subgroups are adequately represented in the sample</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href></a>ikustaff <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href></a>  <span class="fu">slice_sample</span>(<span class="at">by =</span> Ethnicity, <span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href></a>  <span class="fu">freq</span>(Ethnicity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Frequencies  
+ikustaff$Ethnicity  
+Type: Character  
+
+                Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+------------- ------ --------- -------------- --------- --------------
+      Chinese      5     33.33          33.33     33.33          33.33
+       Indian      5     33.33          66.67     33.33          66.67
+        Malay      5     33.33         100.00     33.33         100.00
+         &lt;NA&gt;      0                               0.00         100.00
+        Total     15    100.00         100.00    100.00         100.00</code></pre>
+</div>
+</div>
 </section>
 <section id="clustering-stratification" class="slide level2">
 <h2>Clustering &amp; Stratification</h2>
@@ -1291,7 +1619,7 @@ font-size: 1.2em;
 <li>Clustering is a method where the population is divided into clusters
 <ul>
 <li>For example, an enumeration block, in which the population is divided by geographical area</li>
-<li>Clustering can increase efficiency and reduce cost, especially in geopgraphical dispersed population</li>
+<li>Clustering can increase efficiency and reduce cost, especially in geographical dispersed population</li>
 </ul></li>
 <li>Stratification is a method where the population is divided into strata
 <ul>
@@ -1386,13 +1714,848 @@ font-size: 1.2em;
 <li>Add setup code chunk</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href></a><span class="in">```{r}</span></span>
-<span id="cb1-2"><a href></a><span class="in">#| label: setup</span></span>
-<span id="cb1-3"><a href></a></span>
-<span id="cb1-4"><a href></a><span class="in">library(tidyverse)</span></span>
-<span id="cb1-5"><a href></a><span class="in">library(haven)</span></span>
-<span id="cb1-6"><a href></a><span class="in">library(survey)</span></span>
-<span id="cb1-7"><a href></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href></a><span class="in">```{r}</span></span>
+<span id="cb13-2"><a href></a><span class="in">#| label: setup</span></span>
+<span id="cb13-3"><a href></a></span>
+<span id="cb13-4"><a href></a><span class="in">library(tidyverse)</span></span>
+<span id="cb13-5"><a href></a><span class="in">library(haven)</span></span>
+<span id="cb13-6"><a href></a><span class="in">library(survey)</span></span>
+<span id="cb13-7"><a href></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="data-import" class="slide level2">
+<h2>Data Import</h2>
+<ul>
+<li>Copy the NHMS dataset in our working directory</li>
+<li>We can put our import data code in setup chunk</li>
+<li>In this example, im using hypercholesterolaemia module in NHMS 2019</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href></a>nhms19ds <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;nhms19ds.sav&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href></a>  <span class="fu">as_factor</span>()</span>
+<span id="cb14-3"><a href></a></span>
+<span id="cb14-4"><a href></a>nhms19ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10,472 × 40
+   state strata_gp A2101  A2104 A2104_grp A2106_5grp A2107 A2108_3grp A2109_4grp
+   &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;      &lt;fct&gt; &lt;fct&gt;      &lt;fct&gt;     
+ 1 Johor Urban     Male      67 65-69     Chinese    Mala… Married    Primary e…
+ 2 Johor Urban     Male      39 35-39     Malay      Mala… Married    Secondary…
+ 3 Johor Urban     Female    41 40-44     Malay      Mala… Married    Secondary…
+ 4 Johor Urban     Male      36 35-39     Malay      Mala… Married    Secondary…
+ 5 Johor Urban     Female    32 30-34     Malay      Mala… Married    Secondary…
+ 6 Johor Urban     Male      69 65-69     Malay      Mala… Married    Primary e…
+ 7 Johor Urban     Female    65 65-69     Malay      Mala… Married    No formal…
+ 8 Johor Urban     Female    68 65-69     Malay      Mala… Widow(er)… Secondary…
+ 9 Johor Urban     Male      21 20-24     Malay      Mala… SIngle     Secondary…
+10 Johor Urban     Female    63 60-64     Malay      Mala… Married    Secondary…
+# ℹ 10,462 more rows
+# ℹ 31 more variables: A2221 &lt;fct&gt;, A2222_7grp &lt;fct&gt;, A2222_5grp &lt;fct&gt;,
+#   indvid &lt;chr&gt;, hh_id &lt;chr&gt;, state_st &lt;dbl&gt;, ebid &lt;chr&gt;, wtfinal_ncd &lt;dbl&gt;,
+#   c01 &lt;fct&gt;, c02 &lt;fct&gt;, c03 &lt;fct&gt;, c03a &lt;fct&gt;, c04a &lt;fct&gt;, c04b &lt;fct&gt;,
+#   c04c &lt;fct&gt;, c04d &lt;fct&gt;, c05 &lt;fct&gt;, c06 &lt;fct&gt;, u303 &lt;fct&gt;, known_chol &lt;fct&gt;,
+#   undiagnosed_chol &lt;fct&gt;, total_chol &lt;fct&gt;, bodyweight1 &lt;fct&gt;,
+#   bodyweight2 &lt;fct&gt;, bodyheight1 &lt;fct&gt;, bodyheight2 &lt;fct&gt;, wc2 &lt;fct&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="data-exploratory" class="slide level2">
+<h2>Data Exploratory</h2>
+<ul>
+<li>Add Level 1 Header
+<ul>
+<li><code># Data Exploratory</code></li>
+</ul></li>
+<li>We can use any tools that we familiar with.
+<ul>
+<li>In this exercise, we will use <code>summarytools</code></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href></a><span class="fu">library</span>(summarytools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href></a><span class="fu">dfSummary</span>(nhms19ds) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href></a>  <span class="fu">stview</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="data-exploratory-1" class="slide level2">
+<h2>Data Exploratory</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href></a><span class="fu">names</span>(nhms19ds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] &quot;state&quot;            &quot;strata_gp&quot;        &quot;A2101&quot;            &quot;A2104&quot;           
+ [5] &quot;A2104_grp&quot;        &quot;A2106_5grp&quot;       &quot;A2107&quot;            &quot;A2108_3grp&quot;      
+ [9] &quot;A2109_4grp&quot;       &quot;A2221&quot;            &quot;A2222_7grp&quot;       &quot;A2222_5grp&quot;      
+[13] &quot;indvid&quot;           &quot;hh_id&quot;            &quot;state_st&quot;         &quot;ebid&quot;            
+[17] &quot;wtfinal_ncd&quot;      &quot;c01&quot;              &quot;c02&quot;              &quot;c03&quot;             
+[21] &quot;c03a&quot;             &quot;c04a&quot;             &quot;c04b&quot;             &quot;c04c&quot;            
+[25] &quot;c04d&quot;             &quot;c05&quot;              &quot;c06&quot;              &quot;u303&quot;            
+[29] &quot;known_chol&quot;       &quot;undiagnosed_chol&quot; &quot;total_chol&quot;       &quot;bodyweight1&quot;     
+[33] &quot;bodyweight2&quot;      &quot;bodyheight1&quot;      &quot;bodyheight2&quot;      &quot;wc2&quot;             
+[37] &quot;wc1&quot;              &quot;weight&quot;           &quot;height&quot;           &quot;wc&quot;              </code></pre>
+</div>
+</div>
+<ul>
+<li>In this dataset, there were several variables related to the outcome, namely
+<ul>
+<li><strong>Overal Hypercholesterolaemia: <code>total_chol</code></strong></li>
+<li>Known Hypercholesterolaemia: <code>known_chol</code></li>
+<li>Unknown/undiagnosed Hypercholesterolaemia: <code>undiagnosed_chol</code></li>
+<li>Capillary (Finger-prick) Total Cholesterol (mmol/L): <code>u303</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="data-cleaning" class="slide level2">
+<h2>Data Cleaning</h2>
+<ul>
+<li>In my dataset, there were missing data in the outcome variable, i.e., <code>total_chol</code>
+<ul>
+<li>Thus this missing data should be excluded first</li>
+<li>We can edit directly at our setup code chunk</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href></a>nhms19ds <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;nhms19ds.sav&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href></a>  <span class="fu">as_factor</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(total_chol))</span>
+<span id="cb20-4"><a href></a></span>
+<span id="cb20-5"><a href></a>nhms19ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10,466 × 40
+   state strata_gp A2101  A2104 A2104_grp A2106_5grp A2107 A2108_3grp A2109_4grp
+   &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;      &lt;fct&gt; &lt;fct&gt;      &lt;fct&gt;     
+ 1 Johor Urban     Male      67 65-69     Chinese    Mala… Married    Primary e…
+ 2 Johor Urban     Male      39 35-39     Malay      Mala… Married    Secondary…
+ 3 Johor Urban     Female    41 40-44     Malay      Mala… Married    Secondary…
+ 4 Johor Urban     Male      36 35-39     Malay      Mala… Married    Secondary…
+ 5 Johor Urban     Female    32 30-34     Malay      Mala… Married    Secondary…
+ 6 Johor Urban     Male      69 65-69     Malay      Mala… Married    Primary e…
+ 7 Johor Urban     Female    65 65-69     Malay      Mala… Married    No formal…
+ 8 Johor Urban     Female    68 65-69     Malay      Mala… Widow(er)… Secondary…
+ 9 Johor Urban     Male      21 20-24     Malay      Mala… SIngle     Secondary…
+10 Johor Urban     Female    63 60-64     Malay      Mala… Married    Secondary…
+# ℹ 10,456 more rows
+# ℹ 31 more variables: A2221 &lt;fct&gt;, A2222_7grp &lt;fct&gt;, A2222_5grp &lt;fct&gt;,
+#   indvid &lt;chr&gt;, hh_id &lt;chr&gt;, state_st &lt;dbl&gt;, ebid &lt;chr&gt;, wtfinal_ncd &lt;dbl&gt;,
+#   c01 &lt;fct&gt;, c02 &lt;fct&gt;, c03 &lt;fct&gt;, c03a &lt;fct&gt;, c04a &lt;fct&gt;, c04b &lt;fct&gt;,
+#   c04c &lt;fct&gt;, c04d &lt;fct&gt;, c05 &lt;fct&gt;, c06 &lt;fct&gt;, u303 &lt;fct&gt;, known_chol &lt;fct&gt;,
+#   undiagnosed_chol &lt;fct&gt;, total_chol &lt;fct&gt;, bodyweight1 &lt;fct&gt;,
+#   bodyweight2 &lt;fct&gt;, bodyheight1 &lt;fct&gt;, bodyheight2 &lt;fct&gt;, wc2 &lt;fct&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="data-cleaning-1" class="slide level2">
+<h2>Data Cleaning</h2>
+<ul>
+<li>In this dataset, the capillary total cholesterol is in factor type.
+<ul>
+<li>We should convert it to numeric type</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href></a>nhms19ds <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;nhms19ds.sav&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href></a>  <span class="fu">as_factor</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(total_chol)) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href></a>  <span class="fu">mutate</span>(<span class="at">u303 =</span> <span class="fu">as.numeric</span>(u303))</span>
+<span id="cb22-5"><a href></a></span>
+<span id="cb22-6"><a href></a>nhms19ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10,466 × 40
+   state strata_gp A2101  A2104 A2104_grp A2106_5grp A2107 A2108_3grp A2109_4grp
+   &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;      &lt;fct&gt; &lt;fct&gt;      &lt;fct&gt;     
+ 1 Johor Urban     Male      67 65-69     Chinese    Mala… Married    Primary e…
+ 2 Johor Urban     Male      39 35-39     Malay      Mala… Married    Secondary…
+ 3 Johor Urban     Female    41 40-44     Malay      Mala… Married    Secondary…
+ 4 Johor Urban     Male      36 35-39     Malay      Mala… Married    Secondary…
+ 5 Johor Urban     Female    32 30-34     Malay      Mala… Married    Secondary…
+ 6 Johor Urban     Male      69 65-69     Malay      Mala… Married    Primary e…
+ 7 Johor Urban     Female    65 65-69     Malay      Mala… Married    No formal…
+ 8 Johor Urban     Female    68 65-69     Malay      Mala… Widow(er)… Secondary…
+ 9 Johor Urban     Male      21 20-24     Malay      Mala… SIngle     Secondary…
+10 Johor Urban     Female    63 60-64     Malay      Mala… Married    Secondary…
+# ℹ 10,456 more rows
+# ℹ 31 more variables: A2221 &lt;fct&gt;, A2222_7grp &lt;fct&gt;, A2222_5grp &lt;fct&gt;,
+#   indvid &lt;chr&gt;, hh_id &lt;chr&gt;, state_st &lt;dbl&gt;, ebid &lt;chr&gt;, wtfinal_ncd &lt;dbl&gt;,
+#   c01 &lt;fct&gt;, c02 &lt;fct&gt;, c03 &lt;fct&gt;, c03a &lt;fct&gt;, c04a &lt;fct&gt;, c04b &lt;fct&gt;,
+#   c04c &lt;fct&gt;, c04d &lt;fct&gt;, c05 &lt;fct&gt;, c06 &lt;fct&gt;, u303 &lt;dbl&gt;, known_chol &lt;fct&gt;,
+#   undiagnosed_chol &lt;fct&gt;, total_chol &lt;fct&gt;, bodyweight1 &lt;fct&gt;,
+#   bodyweight2 &lt;fct&gt;, bodyheight1 &lt;fct&gt;, bodyheight2 &lt;fct&gt;, wc2 &lt;fct&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="setting-up-complex-sampling-design" class="slide level2">
+<h2>Setting Up Complex Sampling Design</h2>
+<ul>
+<li>While R able to recognize factor level, but based on my short personal experience with R, the analysis is simpler if we convert the outcome to binary <code>0</code> and <code>1</code> form.
+<ul>
+<li>We can update our setup chunk code</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href></a>nhms19ds <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;nhms19ds.sav&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href></a>  <span class="fu">as_factor</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb24-3"><a href></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(total_chol)) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-4"><a href></a>  <span class="fu">mutate</span>(<span class="at">u303 =</span> <span class="fu">as.numeric</span>(u303)) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-5"><a href></a>  <span class="fu">mutate</span>(<span class="at">total_cholN =</span> <span class="fu">as.numeric</span>(total_chol) <span class="sc">-</span> <span class="dv">2</span>, </span>
+<span id="cb24-6"><a href></a>         <span class="at">.after =</span> total_chol)</span>
+<span id="cb24-7"><a href></a></span>
+<span id="cb24-8"><a href></a>nhms19ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10,466 × 41
+   state strata_gp A2101  A2104 A2104_grp A2106_5grp A2107 A2108_3grp A2109_4grp
+   &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;      &lt;fct&gt; &lt;fct&gt;      &lt;fct&gt;     
+ 1 Johor Urban     Male      67 65-69     Chinese    Mala… Married    Primary e…
+ 2 Johor Urban     Male      39 35-39     Malay      Mala… Married    Secondary…
+ 3 Johor Urban     Female    41 40-44     Malay      Mala… Married    Secondary…
+ 4 Johor Urban     Male      36 35-39     Malay      Mala… Married    Secondary…
+ 5 Johor Urban     Female    32 30-34     Malay      Mala… Married    Secondary…
+ 6 Johor Urban     Male      69 65-69     Malay      Mala… Married    Primary e…
+ 7 Johor Urban     Female    65 65-69     Malay      Mala… Married    No formal…
+ 8 Johor Urban     Female    68 65-69     Malay      Mala… Widow(er)… Secondary…
+ 9 Johor Urban     Male      21 20-24     Malay      Mala… SIngle     Secondary…
+10 Johor Urban     Female    63 60-64     Malay      Mala… Married    Secondary…
+# ℹ 10,456 more rows
+# ℹ 32 more variables: A2221 &lt;fct&gt;, A2222_7grp &lt;fct&gt;, A2222_5grp &lt;fct&gt;,
+#   indvid &lt;chr&gt;, hh_id &lt;chr&gt;, state_st &lt;dbl&gt;, ebid &lt;chr&gt;, wtfinal_ncd &lt;dbl&gt;,
+#   c01 &lt;fct&gt;, c02 &lt;fct&gt;, c03 &lt;fct&gt;, c03a &lt;fct&gt;, c04a &lt;fct&gt;, c04b &lt;fct&gt;,
+#   c04c &lt;fct&gt;, c04d &lt;fct&gt;, c05 &lt;fct&gt;, c06 &lt;fct&gt;, u303 &lt;dbl&gt;, known_chol &lt;fct&gt;,
+#   undiagnosed_chol &lt;fct&gt;, total_chol &lt;fct&gt;, total_cholN &lt;dbl&gt;,
+#   bodyweight1 &lt;fct&gt;, bodyweight2 &lt;fct&gt;, bodyheight1 &lt;fct&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="setting-up-complex-sampling-design-1" class="slide level2">
+<h2>Setting Up Complex Sampling Design</h2>
+<ul>
+<li>While R able to recognize factor level, but based on my short personal experience with R, the analysis is simpler if we convert the outcome to binary <code>0</code> and <code>1</code> form.
+<ul>
+<li>Hint: we can use cross-tab to check our transformation</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href></a><span class="fu">with</span>(nhms19ds, <span class="fu">table</span>(total_chol, total_cholN))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          total_cholN
+total_chol    0    1
+       N/A    0    0
+       No  5657    0
+       Yes    0 4809</code></pre>
+</div>
+</div>
+</section>
+<section id="setting-up-complex-sampling-design-2" class="slide level2">
+<h2>Setting Up Complex Sampling Design</h2>
+<ul>
+<li>Add Level 1 Header
+<ul>
+<li><code># Complex Sampling Design Plan</code></li>
+</ul></li>
+<li>Specifying the complex sampling design is the first step in analysing complex sampling design data.</li>
+<li>We have to check back with the original research team, how was the study was designed.</li>
+<li>This is the snippet from NHMS 2019 (this dataset)</li>
+</ul>
+<blockquote>
+<p>To ensure national representativeness, two stage stratified random sampling was used. The <strong>two strata are primary stratum, which made up of states of Malaysia, including Federal Territories, and secondary stratum, which made up of urban and rural strata formed within the primary stratum</strong>. Sampling involved two stages; <strong>the Primary Sampling Unit (PSU), which were the EBs</strong> and the Secondary Sampling Unit (SSU), which were the LQs within the selected EBs.</p>
+</blockquote>
+</section>
+<section id="setting-up-complex-sampling-design-3" class="slide level2">
+<h2>Setting Up Complex Sampling Design</h2>
+<ul>
+<li>These are information required for our complex sampling design</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href></a>?svydesign</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="lightable-classic" data-quarto-postprocess="true" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Required Information/Specification</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Common NHMS Variable Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Cluster IDs (PSU)</td>
+<td style="text-align: left;">EB ID</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Strata</td>
+<td style="text-align: left;">State.Strata, State.wt</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sampling Weight</td>
+<td style="text-align: left;">ADW, weight_final, weight</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href></a><span class="fu">names</span>(nhms19ds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="setting-up-complex-sampling-design-4" class="slide level2">
+<h2>Setting Up Complex Sampling Design</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="lightable-classic" data-quarto-postprocess="true" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Required Information/Specification</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Common NHMS Variable Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Cluster IDs (PSU)</td>
+<td style="text-align: left;">EB ID</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Strata</td>
+<td style="text-align: left;">State.Strata, State.wt</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sampling Weight</td>
+<td style="text-align: left;">ADW, weight_final, weight</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href></a><span class="fu">names</span>(nhms19ds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] &quot;state&quot;            &quot;strata_gp&quot;        &quot;A2101&quot;            &quot;A2104&quot;           
+ [5] &quot;A2104_grp&quot;        &quot;A2106_5grp&quot;       &quot;A2107&quot;            &quot;A2108_3grp&quot;      
+ [9] &quot;A2109_4grp&quot;       &quot;A2221&quot;            &quot;A2222_7grp&quot;       &quot;A2222_5grp&quot;      
+[13] &quot;indvid&quot;           &quot;hh_id&quot;            &quot;state_st&quot;         &quot;ebid&quot;            
+[17] &quot;wtfinal_ncd&quot;      &quot;c01&quot;              &quot;c02&quot;              &quot;c03&quot;             
+[21] &quot;c03a&quot;             &quot;c04a&quot;             &quot;c04b&quot;             &quot;c04c&quot;            
+[25] &quot;c04d&quot;             &quot;c05&quot;              &quot;c06&quot;              &quot;u303&quot;            
+[29] &quot;known_chol&quot;       &quot;undiagnosed_chol&quot; &quot;total_chol&quot;       &quot;total_cholN&quot;     
+[33] &quot;bodyweight1&quot;      &quot;bodyweight2&quot;      &quot;bodyheight1&quot;      &quot;bodyheight2&quot;     
+[37] &quot;wc2&quot;              &quot;wc1&quot;              &quot;weight&quot;           &quot;height&quot;          
+[41] &quot;wc&quot;              </code></pre>
+</div>
+</div>
+</section>
+<section id="setting-up-complex-sampling-design-5" class="slide level2">
+<h2>Setting Up Complex Sampling Design</h2>
+<ul>
+<li>We can use <code>svydesign</code> function to specify the complex sampling design
+<ul>
+<li>First, setup the <strong>unweighted</strong> design</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href></a>nhms_unwdsg <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span><span class="dv">1</span>, </span>
+<span id="cb32-2"><a href></a>                         <span class="at">weights =</span> <span class="sc">~</span><span class="dv">1</span>, </span>
+<span id="cb32-3"><a href></a>                         <span class="at">data =</span> nhms19ds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="setting-up-complex-sampling-design-6" class="slide level2">
+<h2>Setting Up Complex Sampling Design</h2>
+<ul>
+<li>We can use <code>svydesign</code> function to specify the complex sampling design
+<ul>
+<li>Then, setup the <strong>weighted</strong> design</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href></a>nhms_svydsg <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span>ebid, </span>
+<span id="cb33-2"><a href></a>                         <span class="at">strata =</span> <span class="sc">~</span>state_st, </span>
+<span id="cb33-3"><a href></a>                         <span class="at">weights =</span> <span class="sc">~</span>wtfinal_ncd, </span>
+<span id="cb33-4"><a href></a>                         <span class="at">data =</span> nhms19ds, </span>
+<span id="cb33-5"><a href></a>                         <span class="at">nest =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="setting-up-complex-sampling-design-7" class="slide level2">
+<h2>Setting Up Complex Sampling Design</h2>
+<ul>
+<li>We can use <code>svydesign</code> function to specify the complex sampling design
+<ul>
+<li>We can use <code>summary( )</code> to check the design</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href></a><span class="fu">summary</span>(nhms_svydsg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Stratified 1 - level Cluster Sampling design (with replacement)
+With (475) clusters.
+svydesign(ids = ~ebid, strata = ~state_st, weights = ~wtfinal_ncd, 
+    data = nhms19ds, nest = T)
+Probabilities:
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+1.405e-05 3.608e-04 7.000e-04 2.850e-03 2.000e-03 1.200e-01 
+Stratum Sizes: 
+             1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17
+obs        584 274 281 263 281 307 331 319 294 245 302 338 307 333 317 265 258
+design.PSU  27  13  13  11  12  12  12  12  12  12  12  12  14  12  16  11  12
+actual.PSU  27  13  13  11  12  12  12  12  12  12  12  12  14  12  16  11  12
+            18  19  20  21  22  23  24  25  26  27  28 29  30
+obs        294 898 224 301 341 405 429 388 358 504 420 99 506
+design.PSU  12  53  11  11  13  20  19  16  14  25  19  4  33
+actual.PSU  12  53  11  11  13  20  19  16  14  25  19  4  33
+Data variables:
+ [1] &quot;state&quot;            &quot;strata_gp&quot;        &quot;A2101&quot;            &quot;A2104&quot;           
+ [5] &quot;A2104_grp&quot;        &quot;A2106_5grp&quot;       &quot;A2107&quot;            &quot;A2108_3grp&quot;      
+ [9] &quot;A2109_4grp&quot;       &quot;A2221&quot;            &quot;A2222_7grp&quot;       &quot;A2222_5grp&quot;      
+[13] &quot;indvid&quot;           &quot;hh_id&quot;            &quot;state_st&quot;         &quot;ebid&quot;            
+[17] &quot;wtfinal_ncd&quot;      &quot;c01&quot;              &quot;c02&quot;              &quot;c03&quot;             
+[21] &quot;c03a&quot;             &quot;c04a&quot;             &quot;c04b&quot;             &quot;c04c&quot;            
+[25] &quot;c04d&quot;             &quot;c05&quot;              &quot;c06&quot;              &quot;u303&quot;            
+[29] &quot;known_chol&quot;       &quot;undiagnosed_chol&quot; &quot;total_chol&quot;       &quot;total_cholN&quot;     
+[33] &quot;bodyweight1&quot;      &quot;bodyweight2&quot;      &quot;bodyheight1&quot;      &quot;bodyheight2&quot;     
+[37] &quot;wc2&quot;              &quot;wc1&quot;              &quot;weight&quot;           &quot;height&quot;          
+[41] &quot;wc&quot;              </code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section id="complex-sampling-design-analysis" class="title-slide slide level1 center">
+<h1>Complex Sampling Design Analysis</h1>
+<ul>
+<li>Descriptive Analysis</li>
+<li>Inferential Analysis</li>
+</ul>
+</section>
+<section id="descriptive-analysis" class="slide level2">
+<h2>Descriptive Analysis</h2>
+<ul>
+<li>Add Level 1 Header
+<ul>
+<li><code># Descriptive Analysis</code></li>
+</ul></li>
+<li>For descriptive analysis, we can refer our NHMS report for reporting.</li>
+<li>There were several parameter that reported, including
+<ul>
+<li>Unweighted Count</li>
+<li>Estimated Population</li>
+<li>Prevalence and Confident Interval</li>
+</ul></li>
+</ul>
+</section>
+<section id="practical-unweighted-count" class="slide level2">
+<h2>Practical: Unweighted Count</h2>
+<ul>
+<li>For unweighted parameter, we use unweighted design.</li>
+<li>For count, <code>svytotal( )</code> is used.
+<ul>
+<li>For this example, the unweighted count for overall is calculated</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href></a><span class="fu">svytotal</span>(<span class="at">x =</span> <span class="sc">~</span>total_cholN, </span>
+<span id="cb36-2"><a href></a>         <span class="at">design =</span> nhms_unwdsg, </span>
+<span id="cb36-3"><a href></a>         <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            total     SE
+total_cholN  4809 50.986</code></pre>
+</div>
+</div>
+</section>
+<section id="practical-estimated-population" class="slide level2">
+<h2>Practical: Estimated Population</h2>
+<ul>
+<li>For estimated population, we use weighted design.</li>
+<li>For count, <code>svytotal( )</code> is used.
+<ul>
+<li>For this example, the estimated population for overall is calculated</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href></a><span class="fu">svytotal</span>(<span class="at">x =</span> <span class="sc">~</span>total_cholN, </span>
+<span id="cb38-2"><a href></a>         <span class="at">design =</span> nhms_svydsg, </span>
+<span id="cb38-3"><a href></a>         <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              total     SE
+total_cholN 8097170 217026</code></pre>
+</div>
+</div>
+</section>
+<section id="practical-prevalence" class="slide level2">
+<h2>Practical: Prevalence</h2>
+<ul>
+<li>For prevalence
+<ul>
+<li>Weighted design is used</li>
+<li><code>svymean( )</code> is used.</li>
+<li>For this example, the prevalence and confident interval for overall is calculated</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href></a><span class="fu">svymean</span>(<span class="at">x =</span> <span class="sc">~</span>total_cholN, </span>
+<span id="cb40-2"><a href></a>        <span class="at">design =</span> nhms_svydsg, </span>
+<span id="cb40-3"><a href></a>        <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               mean     SE
+total_cholN 0.38053 0.0098</code></pre>
+</div>
+</div>
+</section>
+<section id="practical-confident-interva-for-prevalence" class="slide level2">
+<h2>Practical: Confident Interva for Prevalence</h2>
+<ul>
+<li>For confident interval for prevalence
+<ul>
+<li>Weighted design is used</li>
+<li><code>svyciprop( )</code> is used.</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href></a><span class="fu">svyciprop</span>(<span class="at">formula =</span> <span class="sc">~</span>total_cholN, </span>
+<span id="cb42-2"><a href></a>          <span class="at">design =</span> nhms_svydsg) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-3"><a href></a>  <span class="fu">attr</span>(., <span class="st">&quot;ci&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     2.5%     97.5% 
+0.3614726 0.3999622 </code></pre>
+</div>
+</div>
+</section>
+<section id="practical-subpopulation-unweighted-count" class="slide level2">
+<h2>Practical: Subpopulation (Unweighted Count)</h2>
+<ul>
+<li>For subpopulation analysis, we can use <code>svyby( )</code> function</li>
+<li>For example, we want to calculate the unweighted count, by locality</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href></a><span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>total_cholN, </span>
+<span id="cb44-2"><a href></a>      <span class="at">by =</span> <span class="sc">~</span>strata_gp, </span>
+<span id="cb44-3"><a href></a>      <span class="at">design =</span> nhms_unwdsg, </span>
+<span id="cb44-4"><a href></a>      <span class="at">FUN =</span> svytotal, </span>
+<span id="cb44-5"><a href></a>      <span class="at">na.rm.all =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      strata_gp total_cholN       se
+Urban     Urban        2870 45.64191
+Rural     Rural        1939 39.74820</code></pre>
+</div>
+</div>
+</section>
+<section id="practical-subpopulation-estimated-population" class="slide level2">
+<h2>Practical: Subpopulation (Estimated Population)</h2>
+<ul>
+<li>For subpopulation analysis, we can use <code>svyby( )</code> function</li>
+<li>For example, we want to calculate the estimated population, by locality</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href></a><span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>total_cholN, </span>
+<span id="cb46-2"><a href></a>      <span class="at">by =</span> <span class="sc">~</span>strata_gp, </span>
+<span id="cb46-3"><a href></a>      <span class="at">design =</span> nhms_svydsg, </span>
+<span id="cb46-4"><a href></a>      <span class="at">FUN =</span> svytotal, </span>
+<span id="cb46-5"><a href></a>      <span class="at">na.rm.all =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      strata_gp total_cholN        se
+Urban     Urban     6315713 204859.92
+Rural     Rural     1781457  71641.47</code></pre>
+</div>
+</div>
+</section>
+<section id="practical-subpopulation-prevalence" class="slide level2">
+<h2>Practical: Subpopulation (Prevalence)</h2>
+<ul>
+<li>For subpopulation analysis, we can use <code>svyby( )</code> function</li>
+<li>For example, we want to calculate the prevalence, by locality</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href></a><span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>total_cholN, </span>
+<span id="cb48-2"><a href></a>      <span class="at">by =</span> <span class="sc">~</span>strata_gp, </span>
+<span id="cb48-3"><a href></a>      <span class="at">design =</span> nhms_svydsg, </span>
+<span id="cb48-4"><a href></a>      <span class="at">FUN =</span> svymean, </span>
+<span id="cb48-5"><a href></a>      <span class="at">na.rm.all =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      strata_gp total_cholN         se
+Urban     Urban   0.3801917 0.01191876
+Rural     Rural   0.3817329 0.01395934</code></pre>
+</div>
+</div>
+</section>
+<section id="practical-subpopulation-confident-interval-for-prevalence" class="slide level2">
+<h2>Practical: Subpopulation (Confident Interval for Prevalence)</h2>
+<ul>
+<li>For subpopulation analysis, we can use <code>svyby( )</code> function</li>
+<li>For example, we want to calculate the confident interval for prevalence, by locality</li>
+<li>Unfortunately, <code>svyciprop( )</code> is not working with <code>svyby( )</code> function</li>
+<li>We need to subset manually
+<ul>
+<li>But the degree of freedom, <code>df</code> is affected when we subset manually</li>
+<li>We need to add <code>df = degf(design)</code> to correct the <code>df</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="practical-subpopulation-confident-interval-for-prevalence-1" class="slide level2">
+<h2>Practical: Subpopulation (Confident Interval for Prevalence)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href></a>nhms_surdsg_urban <span class="ot">&lt;-</span> <span class="fu">subset</span>(nhms_svydsg, strata_gp <span class="sc">==</span> <span class="st">&quot;Urban&quot;</span>)</span>
+<span id="cb50-2"><a href></a></span>
+<span id="cb50-3"><a href></a><span class="fu">svyciprop</span>(<span class="at">formula =</span> <span class="sc">~</span>total_cholN, </span>
+<span id="cb50-4"><a href></a>          <span class="at">design =</span> nhms_surdsg_urban, </span>
+<span id="cb50-5"><a href></a>          <span class="at">method =</span> <span class="st">&quot;xl&quot;</span>, </span>
+<span id="cb50-6"><a href></a>          <span class="at">df =</span> <span class="fu">degf</span>(nhms_svydsg)) <span class="sc">%&gt;%</span> </span>
+<span id="cb50-7"><a href></a>  <span class="fu">attr</span>(., <span class="st">&quot;ci&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     2.5%     97.5% 
+0.3570622 0.4038783 </code></pre>
+</div>
+</div>
+</section>
+<section id="practical-subpopulation-confident-interval-for-prevalence-2" class="slide level2">
+<h2>Practical: Subpopulation (Confident Interval for Prevalence)</h2>
+<ul>
+<li>Alternatively, we can write custom function (advance) to calculate the confident interval for subpopulation analysis</li>
+</ul>
+</section>
+<section id="practical-subpopulation-confident-interval-for-prevalence-3" class="slide level2">
+<h2>Practical: Subpopulation (Confident Interval for Prevalence)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href></a>svyciprop_by <span class="ot">&lt;-</span> <span class="cf">function</span>(x, design, by) {</span>
+<span id="cb52-2"><a href></a>  by_var <span class="ot">&lt;-</span> <span class="fu">deparse</span>(<span class="fu">substitute</span>(by))</span>
+<span id="cb52-3"><a href></a>    by_levels <span class="ot">&lt;-</span> <span class="fu">unique</span>(design<span class="sc">$</span>variables[[by_var]])</span>
+<span id="cb52-4"><a href></a>    calculate_ci <span class="ot">&lt;-</span> <span class="cf">function</span>(stratum) {</span>
+<span id="cb52-5"><a href></a>    subset_design <span class="ot">&lt;-</span> <span class="fu">subset</span>(design, design<span class="sc">$</span>variables[[by_var]] <span class="sc">==</span> stratum)</span>
+<span id="cb52-6"><a href></a>    result <span class="ot">&lt;-</span> <span class="fu">svyciprop</span>(x, <span class="at">design =</span> subset_design, <span class="at">method =</span> <span class="st">&quot;xl&quot;</span>, <span class="at">df =</span> <span class="fu">degf</span>(design))</span>
+<span id="cb52-7"><a href></a>    <span class="fu">return</span>(<span class="fu">attr</span>(result, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb52-8"><a href></a>  }</span>
+<span id="cb52-9"><a href></a>    ci_results <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">map</span>(by_levels, calculate_ci)</span>
+<span id="cb52-10"><a href></a>    tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">subset =</span> by_levels, <span class="at">ci =</span> ci_results) <span class="sc">%&gt;%</span> </span>
+<span id="cb52-11"><a href></a>    tidyr<span class="sc">::</span><span class="fu">unnest_wider</span>(ci, <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb52-12"><a href></a>    dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;Lower 95% CI&quot;</span> <span class="ot">=</span> <span class="st">&quot;ci_2.5%&quot;</span>, </span>
+<span id="cb52-13"><a href></a>                  <span class="st">&quot;Upper 95% CI&quot;</span> <span class="ot">=</span> <span class="st">&quot;ci_97.5%&quot;</span>)</span>
+<span id="cb52-14"><a href></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="practical-subpopulation-confident-interval-for-prevalence-4" class="slide level2">
+<h2>Practical: Subpopulation (Confident Interval for Prevalence)</h2>
+<ul>
+<li>Alternatively, we can write custom function (advance) to calculate the confident interval for subpopulation analysis</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href></a><span class="fu">svyciprop_by</span>(<span class="at">x =</span> <span class="sc">~</span>total_cholN, <span class="at">design =</span> nhms_svydsg, <span class="at">by =</span> strata_gp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  subset `Lower 95% CI` `Upper 95% CI`
+  &lt;fct&gt;           &lt;dbl&gt;          &lt;dbl&gt;
+1 Urban           0.357          0.404
+2 Rural           0.355          0.410</code></pre>
+</div>
+</div>
+</section>
+<section id="practical-mean-for-continuous-variable" class="slide level2">
+<h2>Practical: Mean for Continuous Variable</h2>
+<ul>
+<li>We can calculat ethe mean for continuous variable using <code>svymean( )</code> function
+<ul>
+<li>for unweighted parameter, use unweighted design</li>
+<li>and for population parameter, use weighted design</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href></a><span class="fu">svymean</span>(<span class="at">x =</span> <span class="sc">~</span>u303, </span>
+<span id="cb55-2"><a href></a>        <span class="at">design =</span> nhms_unwdsg, </span>
+<span id="cb55-3"><a href></a>        <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       mean     SE
+u303 30.858 0.1216</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href></a><span class="fu">svymean</span>(<span class="at">x =</span> <span class="sc">~</span>u303, </span>
+<span id="cb57-2"><a href></a>        <span class="at">design =</span> nhms_svydsg, </span>
+<span id="cb57-3"><a href></a>        <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     mean    SE
+u303 29.7 0.236</code></pre>
+</div>
+</div>
+</section>
+<section id="practical-mean-for-continuous-variable-1" class="slide level2">
+<h2>Practical: Mean for Continuous Variable</h2>
+<ul>
+<li>We can calculate the mean for continuous variable using <code>svymean( )</code> function
+<ul>
+<li>use <code>confint( )</code> to calculate the confident interval</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href></a><span class="fu">svymean</span>(<span class="at">x =</span> <span class="sc">~</span>u303, </span>
+<span id="cb59-2"><a href></a>        <span class="at">design =</span> nhms_unwdsg, </span>
+<span id="cb59-3"><a href></a>        <span class="at">na.rm =</span> T) <span class="sc">%&gt;%</span> </span>
+<span id="cb59-4"><a href></a>  <span class="fu">confint</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        2.5 % 97.5 %
+u303 30.61933 31.096</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href></a><span class="fu">svymean</span>(<span class="at">x =</span> <span class="sc">~</span>u303, </span>
+<span id="cb61-2"><a href></a>        <span class="at">design =</span> nhms_svydsg, </span>
+<span id="cb61-3"><a href></a>        <span class="at">na.rm =</span> T) <span class="sc">%&gt;%</span> </span>
+<span id="cb61-4"><a href></a>  <span class="fu">confint</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        2.5 %  97.5 %
+u303 29.23763 30.1629</code></pre>
+</div>
+</div>
+</section>
+<section id="practical-chi-square-test" class="slide level2">
+<h2>Practical: Chi-square Test</h2>
+<ul>
+<li>We can use <code>svychisq( )</code> function to calculate the chi-square test
+<ul>
+<li><code>svychisq( )</code> function accept <code>formula</code> as input</li>
+<li>we might want to create the cross-tab first, using <code>svytable( )</code> function</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href></a><span class="fu">svytable</span>(<span class="at">formula =</span> <span class="sc">~</span>strata_gp <span class="sc">+</span> total_cholN, <span class="at">design =</span> nhms_svydsg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         total_cholN
+strata_gp        0        1
+    Urban 10296205  6315713
+    Rural  2885306  1781457</code></pre>
+</div>
+</div>
+</section>
+<section id="practical-chi-square-test-1" class="slide level2">
+<h2>Practical: Chi-square Test</h2>
+<ul>
+<li>We can use <code>svychisq( )</code> function to calculate the chi-square test
+<ul>
+<li><code>svychisq( )</code> function accept <code>formula</code> as input</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href></a><span class="fu">svychisq</span>(<span class="sc">~</span>total_cholN <span class="sc">+</span> strata_gp, <span class="at">design =</span> nhms_svydsg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~total_cholN + strata_gp, design = nhms_svydsg)
+F = 0.0070519, ndf = 1, ddf = 445, p-value = 0.9331</code></pre>
+</div>
+</div>
+</section>
+<section id="practical-t-test" class="slide level2">
+<h2>Practical: T-test</h2>
+<ul>
+<li>We can use <code>svyttest( )</code> function to calculate the t-test
+<ul>
+<li><code>svyttest( )</code> function accept <code>formula</code> as input</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href></a><span class="fu">svyttest</span>(u303 <span class="sc">~</span> strata_gp, <span class="at">design =</span> nhms_svydsg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Design-based t-test
+
+data:  u303 ~ strata_gp
+t = -1.0047, df = 444, p-value = 0.3156
+alternative hypothesis: true difference in mean is not equal to 0
+95 percent confidence interval:
+ -1.2722723  0.4114904
+sample estimates:
+difference in mean 
+         -0.430391 </code></pre>
+</div>
+</div>
+</section>
+<section id="practical-linear-regression" class="slide level2">
+<h2>Practical: Linear Regression</h2>
+<ul>
+<li>We can use <code>svyglm( )</code> function to calculate the linear regression
+<ul>
+<li><code>svyglm( )</code> function accept <code>formula</code> as input</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href></a>svylinm_mod <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(u303 <span class="sc">~</span> strata_gp, </span>
+<span id="cb69-2"><a href></a>                    <span class="at">family =</span> <span class="fu">gaussian</span>(), </span>
+<span id="cb69-3"><a href></a>                    <span class="at">design =</span> nhms_svydsg)</span>
+<span id="cb69-4"><a href></a></span>
+<span id="cb69-5"><a href></a><span class="fu">summary</span>(svylinm_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+svyglm(formula = u303 ~ strata_gp, design = nhms_svydsg, family = gaussian())
+
+Survey design:
+svydesign(ids = ~ebid, strata = ~state_st, weights = ~wtfinal_ncd, 
+    data = nhms19ds, nest = T)
+
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     29.7975     0.2912 102.343   &lt;2e-16 ***
+strata_gpRural  -0.4304     0.4284  -1.005    0.316    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for gaussian family taken to be 132.6221)
+
+Number of Fisher Scoring iterations: 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href></a><span class="fu">coef</span>(svylinm_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   (Intercept) strata_gpRural 
+     29.797509      -0.430391 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href></a><span class="fu">confint</span>(svylinm_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   2.5 %     97.5 %
+(Intercept)    29.225300 30.3697171
+strata_gpRural -1.272272  0.4114904</code></pre>
+</div>
+</div>
+</section>
+<section id="practical-logistic-regression" class="slide level2">
+<h2>Practical: Logistic Regression</h2>
+<ul>
+<li>We can use <code>svyglm( )</code> function to calculate the logistic regression
+<ul>
+<li><code>svyglm( )</code> function accept <code>formula</code> as input</li>
+<li><code>family = quasibinomial()</code> is used for logistic regression</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href></a>svylogm_mod <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(total_cholN <span class="sc">~</span> strata_gp, </span>
+<span id="cb75-2"><a href></a>                       <span class="at">family =</span> <span class="fu">quasibinomial</span>(), </span>
+<span id="cb75-3"><a href></a>                       <span class="at">design =</span> nhms_svydsg)</span>
+<span id="cb75-4"><a href></a></span>
+<span id="cb75-5"><a href></a><span class="fu">summary</span>(svylogm_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+svyglm(formula = total_cholN ~ strata_gp, design = nhms_svydsg, 
+    family = quasibinomial())
+
+Survey design:
+svydesign(ids = ~ebid, strata = ~state_st, weights = ~wtfinal_ncd, 
+    data = nhms19ds, nest = T)
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    -0.488735   0.050579  -9.663   &lt;2e-16 ***
+strata_gpRural  0.006535   0.077824   0.084    0.933    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for quasibinomial family taken to be 1.000096)
+
+Number of Fisher Scoring iterations: 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href></a><span class="fu">coef</span>(svylogm_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   (Intercept) strata_gpRural 
+  -0.488734662    0.006535298 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href></a><span class="fu">confint</span>(svylogm_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    2.5 %     97.5 %
+(Intercept)    -0.5881388 -0.3893305
+strata_gpRural -0.1464136  0.1594842</code></pre>
+</div>
 </div>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
