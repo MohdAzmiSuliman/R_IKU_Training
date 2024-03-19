@@ -41,9 +41,14 @@ code.sourceCode {
 ## Demonstration: Plotting NHMS Finding
 
 -   In this demonstration, I'll show some example of data wrangling, including data joining, and plotting the finding to Malaysia Map
+-   The aim of this demonstration is to plot the Overall Hypercholesterolaemia prevalence by state to Malaysian map.
 
 ## Data Import
 
+-   We will use the NHMS 2019 dataset, as in previous slide.
+-   Import using `read_sav( )` function from `haven` package
+-   Remove missing value in outcome variable, i.e., `total_chol`
+-   Convert `total_chol` to numeric, i.e., `total_cholN`
 
 ```{r}
 library(tidyverse)
@@ -52,21 +57,21 @@ library(haven)
 nhms19ds <- read_sav("nhms19ds.sav") %>% 
   as_factor() %>% 
   filter(!is.na(total_chol)) %>% 
-  mutate(known_cholN = as.numeric(known_chol)-2)
+  mutate(total_cholN = as.numeric(total_chol)-2, 
+         .after = total_chol)
 ```
-
 
 ## Specifying The Design
 
+-   This step is same with previous slide
+-   The first step in analyzing complex survey data is to specify the survey design
+-   I also add some option to adjust the lonely PSU
+
 ```{r}
-library(survey).
+library(survey)
 
 options(survey.lonely.psu = 'adjust', 
         survey.adjust.domain.lonely = TRUE)
-
-nhms_unwdsg <- svydesign(id = ~1, 
-                         weights = ~1, 
-                         data = nhms19ds)
 
 nhms_surdsg <- svydesign(id = ~ebid, 
                          strata = ~state_st, 
@@ -75,38 +80,53 @@ nhms_surdsg <- svydesign(id = ~ebid,
                          nest = T)
 ```
 
-
 ## Subpopulation by State
 
+-   We have to estimate the prevalence of hypercholesterolaemia by state, using `svyby( )` function
+
 ```{r}
-tcprev_state <- svyby(formula = ~known_cholN, 
-      by = ~state, 
-      design = nhms_surdsg, 
-      FUN = svymean, 
-      na.rm.all = T)
+tcprev_state <- svyby(formula = ~total_cholN, 
+                      by = ~state, 
+                      design = nhms_surdsg, 
+                      FUN = svymean, 
+                      na.rm.all = T)
 
 tcprev_state
 ```
 
+## Download Malaysia Map
+
+-   Malaysian Map is available in DOSM github.
+-   In R, spatial analysis is done using `sf` package
+-   Instead of download the file, in this example, I'll read directly the map (.geojson file) from the github
+
+```{r}
+#| eval: false
+
+library(sf)
+
+dosm_my_map_link <- "https://raw.githubusercontent.com/dosm-malaysia/data-open/main/datasets/geodata/administrative_1_state.geojson"
+
+read_sf(dosm_my_map_link)
+```
 
 ## Download Malaysia Map
 
 ```{r}
-download.file(
-  url = "https://raw.githubusercontent.com/dosm-malaysia/data-open/main/datasets/geodata/administrative_1_state.geojson",
-  destfile = "administrative_1_state.geojson",
-  mode = "wb")
-
 library(sf)
 
-read_sf("administrative_1_state.geojson")
-```
+dosm_my_map_link <- "https://raw.githubusercontent.com/dosm-malaysia/data-open/main/datasets/geodata/administrative_1_state.geojson"
 
+read_sf(dosm_my_map_link)
+```
 
 ## Cleaning Map Dataset
 
+-   The state name from DOSM github and NHMS dataset is not consistent
+-   Short data wrangling is needed to ensure the state name is consistent
+
 ```{r}
-my_state_sf <- read_sf("administrative_1_state.geojson") %>% 
+my_state_sf <- read_sf(dosm_my_map_link) %>% 
   arrange(code_state) %>% 
   mutate(state = fct_recode(state, 
                             "P. Pinang" = "Pulau Pinang", 
@@ -116,26 +136,311 @@ my_state_sf <- read_sf("administrative_1_state.geojson") %>%
                             "WP Labuan" = "W.P. Labuan"))
 ```
 
-
 ## Joining Map and Survey Data
 
+-   We can join the survey data with the map data using `left_join( )` function
+    -   The combine data frame need to convert to `sf` object using `st_as_sf( )` function
+
 ```{r}
-kcprev_state_mapds <- left_join(kcprev_state, my_state_sf) %>% 
+tcprev_state_mapds <- left_join(tcprev_state, my_state_sf) %>% 
   st_as_sf()
 
-kcprev_state_mapds
+tcprev_state_mapds
 ```
-
 
 ## Plotting The Map
 
+-   Plotting the map is simple using `ggplot( )` function
+
 ```{r}
-kcprev_state_mapds %>% 
-  ggplot(aes(fill = known_cholN)) + 
+#| fig-align: center
+
+tcprev_state_mapds %>% 
+  ggplot(aes(fill = total_cholN)) + 
   geom_sf()
 ```
 
-
 # Pyramid Plot
 
-## Don
+## Pyramid Plot
+
+-   Also known as population pyramid
+-   Graphical presentation to visualize the age and gender distribution of population
+-   NHMS commonly use Pyramid Plot to compare the sample representation with the national population
+-   In this example, we will compare NHMS 2019 with DOSM population.
+
+## Pyramid Plot
+
+![](images/pyramid_plot.png){fig-align="center" width="90%"}
+
+## Pyramid Plot (Preparation)
+
+-   When comparing NHMS with DOSM, we need to ensure that the data is compatible.
+-   In our pyramid plot, only two variable needed, which is **Age** and **Gender**
+-   Let's take a look at our dataset.
+
+```{r}
+nhms19ds
+```
+
+```{r}
+#| echo: false
+
+nhms19ds <- nhms19ds %>% 
+  mutate(A2104_grp = fct_recode(A2104_grp, "75+" = "75  & above"))
+```
+
+## Pyramid Plot (Preparation)
+
+-   When comparing NHMS with DOSM, we need to ensure that the data is compatible.
+-   Let's take a look at our dataset.
+    -   In our dataset, we have both Age (`A2104_grp`) and Gender (`A2101`)
+
+```{r}
+#| eval: false
+
+nhms19ds %>% 
+  select(A2104_grp, A2101) %>%
+  freq()
+```
+
+## Pyramid Plot (Preparation)
+
+```{r}
+#| echo: false
+
+nhms19ds %>% 
+  select(A2104_grp, A2101) %>%
+  freq()
+```
+
+## Pyramid Plot (DOSM)
+
+-   DOSM provide population data by age.
+-   We can refer their OpenDOSM data repository
+    -   <https://open.dosm.gov.my/data-catalogue/population_malaysia>
+-   We can download the dataset
+
+```{r}
+dosmpopds0 <- read_csv("https://storage.dosm.gov.my/population/population_malaysia.csv") 
+
+dosmpopds0
+```
+
+## Pyramid Plot (DOSM)
+
+-   Examining the DOSM dataset show that both required variable are available.
+-   We can wrangle the dataset appropriately
+    -   Filter only to year `2019`
+    -   Exclude `overall_sex` (or include only `male` and `female`)
+    -   Filter only to `overall_ethnicity`
+    -   Exclude `overall_age`
+
+```{r}
+dosmpopds <- dosmpopds0 %>% 
+  filter(date == "2019-01-01",
+         sex != "overall_sex", 
+         ethnicity == "overall_ethnicity", 
+         age != "overall_age")
+```
+
+## Pyramid Plot (DOSM)
+
+```{r}
+dosmpopds
+```
+
+## Pyramid Plot (DOSM)
+
+-   Examining the DOSM dataset show that both required variable are available.
+-   Further transformation require to ensure compability
+    -   Rename `sex` to `A2101`
+    -   recode gender to `Male` and `Female`
+    -   Rename `age` to `A2104_grp`
+    -   Filter and collapse age group to match NHMS
+
+```{r}
+#| eval: false
+
+dosmpopds %>% 
+  select(sex, age) %>% 
+  freq()
+```
+
+## Pyramid Plot (DOSM)
+
+```{r}
+dosmpopds %>% 
+  select(sex, age) %>% 
+  freq()
+```
+
+## Pyramid Plot (DOSM)
+
+-   Examining the DOSM dataset show that both required variable are available.
+-   Further transformation require to ensure compability
+    -   Rename `sex` to `A2101`
+    -   recode gender to `Male` and `Female`
+    -   Rename `age` to `A2104_grp`
+    -   ***Collapse*** age group
+    -   Add `source` (`dosm`)
+
+## Pyramid Plot (DOSM)
+
+```{r}
+dosmpopds <- dosmpopds %>% 
+  mutate(A2101 = fct_recode(sex, 
+                            "Male" = "male", 
+                            "Female" = "female"), 
+         A2104_grp = fct_collapse(age, 
+                              "0-14" = c("0-4", "5-9", "10-14"), 
+                              "75+" = c("75-79", "80-84", "85+")), 
+         source = "dosm") %>% 
+  group_by(A2104_grp, A2101, source) %>% 
+  summarise(population = sum(population)*1000) %>% 
+  ungroup() %>% 
+  filter(A2104_grp != "0-14")
+```
+
+## Pyramid Plot (DOSM)
+
+-   Examining the DOSM dataset show that both required variable are available.
+
+```{r}
+dosmpopds
+```
+
+## Pyramid Plot (NHMS Estimated Population)
+
+-   Our NHMS dataset already have weightage calculated, which post-stratification to the national population, by state, gender and ethnicity.
+-   Using the weightage design, we can estimated total population.
+-   In our nhms dataset, we need to count all sample.
+    -   Let create new variable and put value `1` for all sample.
+
+```{r}
+#| eval: false
+
+nhms19ds <- nhms19ds %>% 
+  mutate(cholall = 1, 
+         .before = 1)
+
+nhms19ds
+```
+
+## Pyramid Plot (NHMS Estimated Population)
+
+```{r}
+nhms19ds <- nhms19ds %>% mutate(cholall = 1, .before = 1)
+nhms19ds
+```
+
+## Pyramid Plot (NHMS Estimated Population)
+
+-   Our NHMS dataset already have weightage calculated, which post-stratification to the national population, by state, gender and ethnicity.
+-   Using the weightage design, we can estimated total population.
+-   We need to create new sampling design plan
+
+```{r}
+nhms_surdsg <- svydesign(id = ~ebid, 
+                         strata = ~state_st, 
+                         weights = ~wtfinal_ncd, 
+                         data = nhms19ds, 
+                         nest = T)
+```
+
+## Pyramid Plot (NHMS Estimated Population)
+
+-   Our NHMS dataset already have weightage calculated, which post-stratification to the national population, by state, gender and ethnicity.
+-   Using the weightage design, we can estimated total population.
+
+```{r}
+nhmspopds <- svyby(formula = ~cholall, 
+                   by = ~ A2101 + A2104_grp, 
+                   design = nhms_surdsg, 
+                   FUN = svytotal) %>% 
+  as_tibble() %>% 
+  select(-se, population = cholall) %>%
+  mutate(source = "nhms")
+```
+
+## Pyramid Plot (NHMS Estimated Population)
+
+-   Our NHMS dataset already have weightage calculated, which post-stratification to the national population, by state, gender and ethnicity.
+-   Using the weightage design, we can estimated total population.
+
+```{r}
+nhmspopds
+```
+
+## Pyramid Plot (Combine Dataset)
+
+-   Using `full_join( )` function, we can combine both dataset
+
+```{r}
+populationds <- full_join(dosmpopds, nhmspopds)
+
+populationds
+```
+
+## Build Pyramid Plot
+
+-   Using `ggplot( )` function, we can build the pyramid plot
+-   Since we want the female is on left side, we need to wrangle a bit.
+
+```{r}
+#| eval: false
+
+populationds <- populationds %>% 
+  mutate(population = if_else(A2101 == "Female", 0-population, population))
+
+populationds %>% 
+  ggplot(aes(x = A2104_grp, y = population, fill = interaction(A2101, source))) +
+  geom_col(position = "dodge") +
+  scale_y_continuous(expand = c(0, 0), name = "Population",
+                      labels = function(x) scales::comma(abs(x))) + 
+  labs(x = "Age Group") +
+  scale_fill_manual(values = hcl(h = c(15, 195, 15, 195),
+                                 c = 100, 
+                                 l = 65, 
+                                 alpha = c(.4, .4, 1, 1)),
+                    name = "") +
+  coord_flip() +
+  facet_wrap(. ~ A2101, scales = "free_x", strip.position = "bottom") +
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.grid.major.y = element_blank(), 
+        legend.position = "bottom",
+        panel.spacing.x = unit(0, "pt"), 
+        strip.background = element_rect(colour = "black"))
+```
+
+## Build Pyramid Plot
+
+```{r}
+#| echo: false
+
+populationds <- populationds %>% 
+  mutate(population = if_else(A2101 == "Female", 0-population, population))
+
+populationds %>% 
+  ggplot(aes(x = A2104_grp, y = population, fill = interaction(A2101, source))) +
+  geom_col(position = "dodge") +
+  scale_y_continuous(expand = c(0, 0), name = "Population",
+                      labels = function(x) scales::comma(abs(x))) + 
+  labs(x = "Age Group") +
+  scale_fill_manual(values = hcl(h = c(15, 195, 15, 195),
+                                 c = 100, 
+                                 l = 65, 
+                                 alpha = c(.4, .4, 1, 1)),
+                    name = "") +
+  coord_flip() +
+  facet_wrap(. ~ A2101, scales = "free_x", strip.position = "bottom") +
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.grid.major.y = element_blank(), 
+        legend.position = "bottom",
+        panel.spacing.x = unit(0, "pt"), 
+        strip.background = element_rect(colour = "black"))
+```

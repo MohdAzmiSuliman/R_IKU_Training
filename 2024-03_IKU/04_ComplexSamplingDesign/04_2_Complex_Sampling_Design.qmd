@@ -148,9 +148,9 @@ ikustaff %>%
 ## Sampling Weight NHMS
 
 -   The weight is calculated as follows:
-    -   W1 = the inverse probabilitty os selecting te EBs of each state
+    -   W1 = the inverse probability os selecting te EBs of each state
     -   W2 = the inverse probability of selecting the LQs over the total frame during the listing activities
-    -   W3 = the inverse probability of successfull LQ from the total listing frame
+    -   W3 = the inverse probability of successful LQ from the total listing frame
     -   F = the non-response adjustment factor for LQ and individual
     -   PS = post-stratification adjustment factor calculated by state, gender and ethnicity
 
