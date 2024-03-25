@@ -397,6 +397,15 @@ summary(nhms_svydsg)
 -   Descriptive Analysis
 -   Inferential Analysis
 
+
+
+# Descriptive Analysis
+
+-   Unweighted Count
+-   Estimated Population
+-   Prevalence and Confident Interval
+-   Subpopulation
+
 ## Descriptive Analysis
 
 -   Add Level 1 Header
@@ -591,6 +600,14 @@ svymean(x = ~u303,
   confint()
 ```
 
+
+
+# Inferential Analysis
+
+-   Chi-square Test
+-   T-test
+-   Linear Regression
+-   Logistic Regression
 
 ## Practical: Chi-square Test
 
