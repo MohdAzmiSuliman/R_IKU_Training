@@ -1527,10 +1527,38 @@ Type: Character
 
                 Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
 ------------- ------ --------- -------------- --------- --------------
-      Chinese      4     40.00          40.00     40.00          40.00
-        Malay      6     60.00         100.00     60.00         100.00
+      Chinese      1     10.00          10.00     10.00          10.00
+        Malay      9     90.00         100.00     90.00         100.00
          &lt;NA&gt;      0                               0.00         100.00
         Total     10    100.00         100.00    100.00         100.00</code></pre>
+</div>
+</div>
+</section>
+<section id="stratification" class="slide level2">
+<h2>Stratification</h2>
+<ul>
+<li>Stratification is a method where the population is divided into strata
+<ul>
+<li>For example, the population is divided by gender and ethnicity</li>
+<li>Stratification ensures that important subgroups are adequately represented in the sample</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href></a>ikustaff <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href></a>  <span class="fu">slice_sample</span>(<span class="at">by =</span> Ethnicity, <span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href></a>  <span class="fu">freq</span>(Ethnicity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Frequencies  
+ikustaff$Ethnicity  
+Type: Character  
+
+                Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+------------- ------ --------- -------------- --------- --------------
+      Chinese      5     33.33          33.33     33.33          33.33
+       Indian      5     33.33          66.67     33.33          66.67
+        Malay      5     33.33         100.00     33.33         100.00
+         &lt;NA&gt;      0                               0.00         100.00
+        Total     15    100.00         100.00    100.00         100.00</code></pre>
 </div>
 </div>
 </section>
@@ -1546,8 +1574,8 @@ Type: Character
 <div class="columns">
 <div class="column" style="width:40%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href></a><span class="fu">with</span>(ikustaff, </span>
-<span id="cb5-2"><a href></a>     <span class="fu">table</span>(Centre, Ethnicity))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href></a><span class="fu">with</span>(ikustaff, </span>
+<span id="cb7-2"><a href></a>     <span class="fu">table</span>(Centre, Ethnicity))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       Ethnicity
 Centre  Chinese Indian Malay
@@ -1564,57 +1592,29 @@ Centre  Chinese Indian Malay
 
 </div><div class="column" style="width:56%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href></a>selctr <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">unique</span>(ikustaff<span class="sc">$</span>Centre), <span class="dv">3</span>)</span>
-<span id="cb7-2"><a href></a>selctr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href></a>selctr <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">unique</span>(ikustaff<span class="sc">$</span>Centre), <span class="dv">3</span>)</span>
+<span id="cb9-2"><a href></a>selctr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;COEHR&quot; &quot;SRC&quot;   &quot;CFHR&quot; </code></pre>
+<pre><code>[1] &quot;CFHR&quot;  &quot;CNCDR&quot; &quot;CBODR&quot;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href></a>ikustaff <span class="sc">%&gt;%</span> </span>
-<span id="cb9-2"><a href></a>  <span class="fu">filter</span>(Centre <span class="sc">%in%</span> <span class="fu">c</span>(selctr)) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-3"><a href></a>  <span class="fu">freq</span>(Ethnicity, <span class="at">cumul =</span> F, <span class="at">report.nas =</span> F, <span class="at">headings =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href></a>ikustaff <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href></a>  <span class="fu">filter</span>(Centre <span class="sc">%in%</span> <span class="fu">c</span>(selctr)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href></a>  <span class="fu">freq</span>(Ethnicity, <span class="at">cumul =</span> F, <span class="at">report.nas =</span> F, <span class="at">headings =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
                 Freq        %
 ------------- ------ --------
-      Chinese      4    18.18
-       Indian      1     4.55
-        Malay     17    77.27
-        Total     22   100.00</code></pre>
+      Chinese      7    25.00
+       Indian      3    10.71
+        Malay     18    64.29
+        Total     28   100.00</code></pre>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="stratification" class="slide level2">
-<h2>Stratification</h2>
-<ul>
-<li>Stratification is a method where the population is divided into strata
-<ul>
-<li>For example, the population is divided by gender and ethnicity</li>
-<li>Stratification ensures that important subgroups are adequately represented in the sample</li>
-</ul></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href></a>ikustaff <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href></a>  <span class="fu">slice_sample</span>(<span class="at">by =</span> Ethnicity, <span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-3"><a href></a>  <span class="fu">freq</span>(Ethnicity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Frequencies  
-ikustaff$Ethnicity  
-Type: Character  
-
-                Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
-------------- ------ --------- -------------- --------- --------------
-      Chinese      5     33.33          33.33     33.33          33.33
-       Indian      5     33.33          66.67     33.33          66.67
-        Malay      5     33.33         100.00     33.33         100.00
-         &lt;NA&gt;      0                               0.00         100.00
-        Total     15    100.00         100.00    100.00         100.00</code></pre>
-</div>
-</div>
-</section>
-<section id="clustering-stratification" class="slide level2">
-<h2>Clustering &amp; Stratification</h2>
+<section id="stratification-clustering" class="slide level2">
+<h2>Stratification &amp; Clustering</h2>
 <ul>
 <li>Clustering is a method where the population is divided into clusters
 <ul>

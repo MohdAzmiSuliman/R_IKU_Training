@@ -68,6 +68,19 @@ ikustaff %>% slice_sample(n = 10) %>% freq(Ethnicity)
 ```
 
 
+## Stratification
+
+-   Stratification is a method where the population is divided into strata
+    -   For example, the population is divided by gender and ethnicity
+    -   Stratification ensures that important subgroups are adequately represented in the sample
+
+```{r}
+ikustaff %>% 
+  slice_sample(by = Ethnicity, n = 5) %>% 
+  freq(Ethnicity)
+```
+
+
 ## Clustering 
 
 -   Clustering is a method where the population is divided into clusters
@@ -104,21 +117,8 @@ ikustaff %>%
 ::::
 
 
-## Stratification
 
--   Stratification is a method where the population is divided into strata
-    -   For example, the population is divided by gender and ethnicity
-    -   Stratification ensures that important subgroups are adequately represented in the sample
-
-```{r}
-ikustaff %>% 
-  slice_sample(by = Ethnicity, n = 5) %>% 
-  freq(Ethnicity)
-```
-
-
-
-## Clustering & Stratification
+## Stratification & Clustering
 
 -   Clustering is a method where the population is divided into clusters
     -   For example, an enumeration block, in which the population is divided by geographical area
