@@ -1,7 +1,11 @@
 ---
 title: "Complex Sampling Design"
-date: last-modified
-date-format: "dddd, DD/MM/YYYY"
+subtitle: "Kursus R: Pengenalan & Praktikal (NCD)"
+author: 
+  -   "Dr. Mohd Azmi Bin Suliman"
+  -   "Pusat Penyelidikan Penyakit Tak Berjangkit, IKU"
+date: 2024-01-23
+date-format: "dddd, DD MMMM YYYY"
 format: 
   html:
     theme: sandstone

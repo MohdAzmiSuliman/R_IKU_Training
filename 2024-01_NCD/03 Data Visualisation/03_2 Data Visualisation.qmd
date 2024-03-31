@@ -1,7 +1,11 @@
 ---
 title: "Data Visualization"
-date: last-modified
-date-format: "dddd, DD/MM/YYYY"
+subtitle: "Kursus R: Pengenalan & Praktikal (NCD)"
+author: 
+  -   "Dr. Mohd Azmi Bin Suliman"
+  -   "Pusat Penyelidikan Penyakit Tak Berjangkit, IKU"
+date: 2024-01-09
+date-format: "dddd, DD MMMM YYYY"
 format: 
   html:
     theme: sandstone
@@ -267,6 +271,8 @@ nhms19_adm
 - download geojson file from dosm github
 
 ```{r}
+#| eval: false
+
 download.file(
   url = "https://raw.githubusercontent.com/dosm-malaysia/data-open/main/datasets/geodata/administrative_1_state.geojson",
   destfile = "administrative_1_state.geojson",
