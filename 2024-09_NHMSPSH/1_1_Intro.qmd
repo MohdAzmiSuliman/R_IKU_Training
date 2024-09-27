@@ -149,33 +149,7 @@ embed-resources: true
 
 ![](images/quarto_rstudio.png)
 
-# Expectation?
-
-## R language as a programming language
-
-These are some of the things that I have learned and used in R:
-
--   Basic/Intermediate data wrangling with tidyverse
--   Basic/Intermediate statistical analysis with R
--   Basic data visualisation with ggplot2
--   Code notebook with Quarto
--   Basic reporting with Quarto (HTML, PDF, Word)
-
-::: notes
-R is not just about statistics and data analysis. As a programming language, R can do various things
-:::
-
-## R language as a programming language
-
-But I am not an expert in R. I am still learning and looking for study group to help improve my R.
-
--   Machine learning with R
--   Making a dashboard with Shiny
--   Making a website with Quarto
--   Making custom functions and packages
--   R as teaching tools
-
-## Further Reading
+# Further Reading
 
 -   [R for Data Science](https://r4ds.had.co.nz/)
 -   [RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)

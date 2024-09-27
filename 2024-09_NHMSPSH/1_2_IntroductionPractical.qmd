@@ -209,7 +209,7 @@ ask the participant to do try running code chunk
 #| echo: false
 
 tibble(Modes = c("Numeric", "Character", "Logical", "Complex", "Raw", "List", "Function", "NULL"),
-       Examples = c("1, 2, 3", "a, b, c", TRUE, 1+0i, "", "", "maen(age)", "")) %>% 
+       Examples = c("1, 2, 3", "a, b, c", TRUE, 1+0i, "", "", "mean(age)", "")) %>% 
   kbl() %>% 
   kable_classic()
 ```
