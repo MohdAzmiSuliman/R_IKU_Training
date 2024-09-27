@@ -27,7 +27,7 @@ execute:
 
 pacman::p_load(tidyverse, haven, summarytools, gtsummary)
 
-asthmads_spss <- read_sav("asthmads_spss.sav") %>% 
+asthmads_spss <- read_sav("Dataset/asthmads_spss.sav") %>% 
   as_factor()
 ```
 
@@ -78,7 +78,7 @@ asthmads_spss <- asthmads_spss %>%
 asthmads_spss <- asthmads_spss %>% 
   mutate(Ht_m = Height/100, .after = "Height")
 
-asthmads_spss
+head(asthmads_spss)
 ```
 
 ## Practical: Arithmetic Transformation
@@ -99,7 +99,7 @@ asthmads_spss <- asthmads_spss %>%
   mutate(BMI_Pre = Weight_Pre/(Ht_m^2), .after = "Weight_Pre") %>% 
   mutate(BMI_Post = Weight_Post/(Ht_m^2), .after = "Weight_Post")
 
-asthmads_spss
+head(asthmads_spss)
 ```
 
 
@@ -112,7 +112,7 @@ asthmads_spss
 asthmads_spss <- asthmads_spss %>% 
   mutate(BMI_Pre = round(BMI_Pre, digits = 2))
 
-asthmads_spss
+head(asthmads_spss)
 ```
 
 
@@ -133,7 +133,7 @@ asthmads_spss
 asthmads_spss <- asthmads_spss %>% 
   mutate(BMI_Post = round(BMI_Post, digits = 2))
 
-asthmads_spss
+head(asthmads_spss)
 ```
 
 
@@ -182,7 +182,7 @@ asthmads_spss <- asthmads_spss %>%
                           breaks = c(0, 18.49, 22.99, 24.99, 100)), 
          .after = "BMI_Pre")
 
-asthmads_spss
+head(asthmads_spss)
 ```
 
 
@@ -222,7 +222,7 @@ asthmads_spss <- asthmads_spss %>%
                           labels = c("Underweight", "Normal", "Overweight", "Obese")), 
          .after = "BMI_Pre")
 
-asthmads_spss
+head(asthmads_spss)
 ```
 
 
@@ -244,7 +244,7 @@ asthmads_spss <- asthmads_spss %>%
                           labels = c("Underweight", "Normal", "Overweight", "Obese")), 
          .after = "BMI_Post")
 
-asthmads_spss
+head(asthmads_spss)
 ```
 
 
@@ -275,7 +275,7 @@ asthmads_spss <- asthmads_spss %>%
   mutate(Gender_F = fct_relevel(Gender, "Female", "Male"), 
          .after = "Gender")
 
-asthmads_spss
+head(asthmads_spss)
 ```
 
 
@@ -290,7 +290,7 @@ asthmads_spss <- asthmads_spss %>%
   mutate(Gender_F = fct_relevel(Gender, "Female"),
          .after = "Gender")
 
-asthmads_spss
+head(asthmads_spss)
 ```
 
 
@@ -335,7 +335,7 @@ asthmads_spss <- asthmads_spss %>%
                           "Intervention" = "Drug B"), 
          .before = Tx2)
 
-asthmads_spss
+head(asthmads_spss)
 ```
 
 
@@ -367,7 +367,7 @@ asthmads_spss <- asthmads_spss %>%
                                   "Non-Obese" = "Overweight"), 
          .after = "BMI_PreCat")
 
-asthmads_spss
+head(asthmads_spss)
 ```
 
 
@@ -400,7 +400,7 @@ asthmads_spss <- asthmads_spss %>%
                                                   "Overweight")), 
          .after = "BMI_PostCat")
 
-asthmads_spss
+head(asthmads_spss)
 ```
 
 
@@ -437,7 +437,7 @@ asthmads_spss <- asthmads_spss %>%
   mutate(Obese_Pre = if_else(BMI_PreCat == "Obese", "Yes", "No"), 
          .after = "BMI_PreCat")
 
-asthmads_spss
+head(asthmads_spss)
 ```
 
 ## Practical: `case_when()` Conditional Transformation
@@ -463,7 +463,7 @@ asthmads_spss <- asthmads_spss %>%
     ), 
     .after = "WC_Pre")
 
-asthmads_spss
+head(asthmads_spss)
 ```
 
 
@@ -494,10 +494,10 @@ asthmads_spss
 -   We need to import it.
 
 ```{r}
-asthmads_pre <- read_sav("asthmads_pre.sav") %>% 
+asthmads_pre <- read_sav("Dataset/asthmads_pre.sav") %>% 
   as_factor()
 
-asthmads_post <- read_sav("asthmads_post.sav") %>%
+asthmads_post <- read_sav("Dataset/asthmads_post.sav") %>%
   as_factor()
 ```
 
@@ -529,7 +529,7 @@ asthmads_post
 ```{r}
 asthmads_join <- left_join(asthmads_pre, asthmads_post, by = "idR")
 
-asthmads_join
+head(asthmads_join)
 ```
 
 
@@ -586,3 +586,6 @@ asthma_long <- asthma_wide %>%
 
 asthma_long
 ```
+
+
+# Finish! All the best~

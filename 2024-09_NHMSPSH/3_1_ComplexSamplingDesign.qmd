@@ -62,7 +62,7 @@ code.sourceCode {
 -   In SRS, mathematically, the sample may not adequately represent the population, particularly minorities.
 
 ```{r}
-ikustaff <- readxl::read_excel("StaffByCentre.xlsx")
+ikustaff <- readxl::read_excel("Dataset/StaffByCentre.xlsx")
 ikustaff %>% freq(Ethnicity)
 ikustaff %>% slice_sample(n = 10) %>% freq(Ethnicity)
 ```

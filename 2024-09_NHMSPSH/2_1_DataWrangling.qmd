@@ -604,3 +604,5 @@ asthmads_spss %>%
 asthmads_spss %>% 
   mutate(BMI_Pre = Weight_Pre/(Height/100)^2, .after = Weight_Pre) 
 ```
+
+# Finish! See you tomorrow~
