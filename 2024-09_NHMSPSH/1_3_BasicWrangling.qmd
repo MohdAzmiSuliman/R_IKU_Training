@@ -62,9 +62,8 @@ code.sourceCode {
 ```{r}
 #| echo: false
 
-tibble(Package = c("tidyverse", "haven", "readxl", 
-                   "lubridate", "ggplot2", "dplyr", 
-                   "stringr", "forcats", "broom", "modelr"), 
+tibble(Package = c("tidyverse", "haven", "readxl", "lubridate", 
+                   "ggplot2", "dplyr", "stringr", "forcats"), 
        Description = c("collection of packages designed for data science", 
                        "import/export SPSS, Stata and SAS files", 
                        "import/export excel files", 
@@ -72,9 +71,7 @@ tibble(Package = c("tidyverse", "haven", "readxl",
                        "data visualisation", 
                        "data manipulation", 
                        "string manipulation", 
-                       "factor manipulation", 
-                       "tidy statistical output", 
-                       "modelling functions")) %>% 
+                       "factor manipulation")) %>% 
   kbl() %>% 
   kable_classic()
 ```
@@ -204,7 +201,7 @@ asthma_ds <- as_factor(asthma_ds0)
 ## Import Dataset
 
 ```{r}
-asthma_ds
+head(asthma_ds)
 ```
 
 # Simple Data Wrangling
@@ -217,7 +214,7 @@ asthma_ds
 ```{r}
 asthma_ds1 <- select(asthma_ds, idR:Weight_Post)
 
-asthma_ds1
+head(asthma_ds1)
 ```
 
 ## Arithmetic Transformation
@@ -230,7 +227,7 @@ asthma_ds2 <- asthma_ds1
 asthma_ds2$Ht_m <- asthma_ds2$Height/100
 asthma_ds2$BMI_Pre <- asthma_ds2$Weight_Pre/(asthma_ds2$Ht_m^2)
 
-asthma_ds2
+head(asthma_ds2)
 ```
 
 ## Binning Continuous Variable
@@ -258,9 +255,10 @@ tibble(`BMI Category` = c("Underweight", "Normal",
 asthma_ds3 <- asthma_ds2
 asthma_ds3$BMI_PreCat <- cut(asthma_ds3$BMI_Pre,
                              breaks = c(0, 18.49, 22.99, 24.99, 100),
-                             labels = c("Underweight", "Normal", "Overweight", "Obese"))
+                             labels = c("Underweight", "Normal", 
+                                        "Overweight", "Obese"))
   
-asthma_ds3
+head(asthma_ds3)
 ```
 
 # Tidyverse
@@ -275,23 +273,50 @@ asthma_ds3
 ```{r}
 #| echo: false
 
-tibble(Package = c("ggplot2", "dplyr", "tidyr", 
-                   "readr", "purrr", "tibble", 
-                   "stringr", "forcats", "broom", "modelr"), 
-       Description = c("data visualisation", 
-                       "data manipulation", 
-                       "data tidying", 
-                       "data import", 
-                       "functional programming", 
-                       "data structure", 
-                       "string manipulation", 
-                       "factor manipulation", 
-                       "tidy statistical output", 
-                       "modelling functions")) %>% 
-  kbl() %>% 
-  kable_classic()
+tidyverse_table <- tibble(
+  Package = c("ggplot2", "dplyr", "tidyr", 
+              "readr", "purrr", "tibble", 
+              "stringr", "forcats", "broom", "modelr"), 
+  Description = c("data visualisation", 
+                  "data manipulation", 
+                  "data tidying", 
+                  "data import", 
+                  "functional programming", 
+                  "data structure", 
+                  "string manipulation", 
+                  "factor manipulation", 
+                  "tidy statistical output", 
+                  "modelling functions")
+)
 
+# Split the table into two halves
+first_half <- tidyverse_table[1:5, ]
+second_half <- tidyverse_table[6:10, ]
 ```
+
+::: {.columns}
+:::: {.column width='50%'}
+
+```{r}
+#| echo: false
+
+kable(first_half) %>% kable_classic()
+```
+
+::::
+:::: {.column width='50%'}
+
+```{r}
+#| echo: false
+
+kable(second_half) %>% kable_classic()
+```
+
+::::
+:::
+
+
+
 
 ## How does tidyverse make code more readable?
 
@@ -309,7 +334,7 @@ tibble(Package = c("ggplot2", "dplyr", "tidyr",
 ```{r}
 asthma_ds4 <- asthma_ds1
 asthma_ds4 <- mutate(asthma_ds4, Ht_m = Height/100)
-asthma_ds4
+head(asthma_ds4)
 ```
 
 
@@ -328,8 +353,9 @@ asthma_ds3$Ht_m <- asthma_ds3$Height/100
 asthma_ds3$BMI_Pre <- asthma_ds3$Weight_Pre/(asthma_ds3$Ht_m^2)
 asthma_ds3$BMI_PreCat <- cut(asthma_ds3$BMI_Pre,
                              breaks = c(0, 18.49, 22.99, 24.99, 100),
-                             labels = c("Underweight", "Normal", "Overweight", "Obese"))
-asthma_ds3
+                             labels = c("Underweight", "Normal", 
+                                        "Overweight", "Obese"))
+head(asthma_ds3)
 ```
 
 
@@ -342,9 +368,10 @@ asthma_ds5 <- read_sav("asthma_ds.sav") %>%
   mutate(Ht_m = Height/100,
          BMI_Pre = Weight_Pre/(Ht_m^2),
          BMI_PreCat = cut(BMI_Pre, breaks = c(0, 18.49, 22.99, 24.99, 100),
-                          labels = c("Underweight", "Normal", "Overweight", "Obese")))
+                          labels = c("Underweight", "Normal", 
+                                     "Overweight", "Obese")))
 
-asthma_ds5
+head(asthma_ds5)
 ```
 
 
