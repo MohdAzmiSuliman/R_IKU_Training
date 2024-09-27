@@ -1,0 +1,151 @@
+"","id","idR","Gender","Age","WorkStatus","Height","Weight_Pre","WC_Pre","PA_HW","Weight_Post","WC_Post","Tx2","PEFR_Pre","PEFR_Post","SxWheeze_Pre","SxWheeze_Post","PS_Pre","PS_Post"
+"1",1,"ejGs","Female",34,"Unemployed",179,84.2,77,3,75.5,72,"Placebo",397,355,"No","No",5,5
+"2",2,"A4pG","Male",31,"Unemployed",169,81.8,94,1,75.4,89,"Placebo",472,445,"Yes","Yes",4,2
+"3",3,"qkCO","Male",25,"Employed",164,88.5,95,4,80.2,90,"Placebo",476,481,"Yes","Yes",4,3
+"4",4,"jcFZ","Female",33,"Unemployed",136,53.2,85,2,47.7,78,"Placebo",416,382,"No","No",5,5
+"5",5,"qVSA","Male",28,"Unemployed",172,71.3,90,3,61.8,83,"Drug A",452,475,"No","No",4,3
+"6",6,"wDAR","Male",33,"Unemployed",178,87.3,92,2,81.8,84,"Placebo",484,497,"Yes","No",6,4
+"7",7,"FuAU","Female",31,"Unemployed",140,48.8,80,4,41.9,73,"Drug A",366,336,"Yes","No",5,3
+"8",8,"fnKz","Female",34,"Employed",140,49.1,82,2,44,71,"Placebo",435,413,"No","No",5,3
+"9",9,"0YTi","Male",31,"Employed",171,60.1,85,3,52.1,75,"Placebo",425,434,"No","No",5,4
+"10",10,"pfMa","Male",28,"Employed",163,93.1,101,5,83,94,"Placebo",437,413,"No","No",5,3
+"11",11,"LTBL","Male",34,"Unemployed",164,72.5,93,5,60.8,81,"Placebo",433,422,"Yes","No",4,3
+"12",12,"nxm1","Female",25,"Unemployed",149,69.6,89,6,61.8,80,"Drug A",419,483,"No","No",6,5
+"13",13,"9osc","Male",31,"Unemployed",187,110.4,99,3,100.9,86,"Placebo",408,375,"Yes","Yes",6,5
+"14",14,"qYJb","Male",35,"Employed",175,104.9,95,3,93.2,93,"Drug A",472,504,"Yes","No",5,5
+"15",15,"tMX1","Female",32,"Employed",147,59.1,84,4,51.9,72,"Placebo",413,444,"Yes","No",5,5
+"16",16,"BuPu","Female",34,"Unemployed",147,54.9,80,4,48.8,71,"Drug A",410,449,"Yes","No",5,4
+"17",17,"Cdab","Male",30,"Unemployed",179,77.6,89,1,73.4,80,"Drug A",398,454,"Yes","No",5,5
+"18",18,"19ZE","Male",26,"Unemployed",186,102.9,93,1,93.9,88,"Drug A",458,480,"No","No",6,6
+"19",19,"R0Zt","Male",32,"Employed",174,81.1,94,0,74.1,85,"Placebo",495,473,"Yes","No",6,4
+"20",20,"J7Cf","Female",34,"Unemployed",151,60.6,80,4,52.8,72,"Placebo",376,366,"Yes","Yes",6,5
+"21",21,"34tj","Male",32,"Employed",173,81.2,90,0,74.4,82,"Placebo",467,450,"No","Yes",4,2
+"22",22,"lFgD","Female",32,"Employed",138,53.6,86,2,50.7,76,"Placebo",446,470,"Yes","Yes",4,2
+"23",23,"WNXq","Female",34,"Unemployed",146,49.4,81,2,47.1,68,"Placebo",414,388,"No","No",6,5
+"24",24,"RHeH","Male",26,"Employed",175,67.5,87,3,59.4,79,"Placebo",462,509,"No","Yes",6,4
+"25",25,"GfAA","Male",25,"Unemployed",183,67.7,85,2,60.2,78,"Drug A",461,539,"Yes","Yes",5,3
+"26",26,"IZ64","Male",26,"Unemployed",178,106.5,96,7,88.9,87,"Placebo",449,442,"Yes","No",5,4
+"27",27,"kSO3","Male",32,"Employed",163,79.8,97,9,68.2,85,"Drug A",477,541,"No","No",5,4
+"28",28,"tbiI","Male",31,"Unemployed",183,54,82,2,45.9,73,"Placebo",412,447,"No","Yes",4,2
+"29",29,"ADX5","Female",26,"Unemployed",153,42.2,70,1,38.7,66,"Drug B",431,453,"No","No",6,6
+"30",30,"hWtl","Female",34,"Unemployed",147,53.2,78,3,47.8,72,"Drug A",349,394,"No","No",5,3
+"31",31,"plm0","Male",35,"Employed",182,105.7,95,0,96.9,85,"Placebo",427,440,"Yes","No",5,5
+"32",32,"Jq4r","Male",33,"Employed",178,64.7,84,0,60.6,80,"Placebo",426,363,"No","No",6,5
+"33",33,"eCVR","Female",31,"Unemployed",161,86.8,91,1,79,81,"Drug A",431,431,"No","No",6,6
+"34",34,"PQWh","Female",31,"Unemployed",159,43.7,72,5,35.4,63,"Placebo",398,400,"Yes","Yes",4,4
+"35",35,"4MAD","Female",31,"Unemployed",163,59.9,81,2,54.4,72,"Drug A",413,422,"No","Yes",5,3
+"36",36,"WgrQ","Female",28,"Unemployed",164,58.2,77,1,53.1,67,"Placebo",361,336,"Yes","No",5,3
+"37",37,"vltQ","Female",30,"Unemployed",141,39.3,75,2,35.8,69,"Drug B",408,422,"Yes","No",5,4
+"38",38,"3Fht","Female",33,"Employed",143,51.6,80,5,45.4,70,"Placebo",432,444,"Yes","No",6,6
+"39",39,"Fx2Q","Female",29,"Unemployed",143,36.6,74,4,31.4,67,"Placebo",386,387,"No","Yes",5,3
+"40",40,"PvJ3","Male",32,"Employed",171,91.4,96,1,86.6,94,"Placebo",433,415,"No","Yes",6,6
+"41",41,"NhQg","Female",26,"Employed",177,103,89,10,84.2,78,"Drug A",410,457,"Yes","No",4,2
+"42",42,"473d","Female",27,"Unemployed",152,64.8,84,4,58.3,78,"Drug B",446,528,"No","Yes",6,6
+"43",43,"3Zvn","Female",26,"Employed",154,45.4,75,4,37.7,65,"Placebo",402,427,"Yes","Yes",5,4
+"44",44,"yzKe","Female",33,"Unemployed",148,61.6,86,3,56.2,76,"Placebo",422,427,"Yes","Yes",4,3
+"45",45,"YmGe","Male",29,"Employed",187,103.9,93,1,96.1,87,"Placebo",463,429,"Yes","Yes",4,3
+"46",46,"fYZb","Female",28,"Unemployed",161,50.5,72,2,46.6,66,"Placebo",386,415,"No","No",4,3
+"47",47,"O99x","Female",35,"Unemployed",140,42.7,81,2,39.5,73,"Placebo",403,415,"No","No",4,4
+"48",48,"HjpA","Male",27,"Employed",182,85.8,88,1,76.8,84,"Placebo",419,432,"Yes","Yes",6,6
+"49",49,"Oote","Male",31,"Employed",179,116.4,99,2,108,92,"Placebo",449,421,"Yes","No",5,3
+"50",50,"7t9X","Male",28,"Employed",171,74,91,3,68.4,81,"Drug B",474,513,"Yes","No",5,4
+"51",51,"6YE8","Male",34,"Employed",165,59.4,90,2,53,77,"Drug B",452,532,"Yes","No",4,2
+"52",52,"mFdG","Female",35,"Unemployed",139,46.9,79,2,43.1,69,"Drug A",420,466,"Yes","No",5,4
+"53",53,"Pq7w","Male",29,"Employed",173,109.6,102,4,97.9,95,"Drug B",474,526,"Yes","No",6,5
+"54",54,"YqZp","Male",33,"Employed",188,117.9,97,2,107.8,87,"Placebo",464,475,"Yes","No",5,4
+"55",55,"jTnx","Female",30,"Unemployed",167,85.7,85,2,79,76,"Drug B",423,474,"Yes","No",4,3
+"56",56,"oJJa","Male",29,"Employed",177,89.8,95,1,82.9,88,"Drug B",478,540,"Yes","No",6,4
+"57",57,"3BbR","Male",30,"Employed",170,87.6,100,1,80,88,"Placebo",434,407,"No","Yes",6,6
+"58",58,"SCE0","Female",32,"Unemployed",139,48.6,82,6,43.3,71,"Drug A",405,470,"Yes","No",5,4
+"59",59,"276L","Female",28,"Unemployed",132,63.9,93,1,59.9,82,"Placebo",395,323,"No","No",5,5
+"60",60,"Jhi7","Female",29,"Employed",152,63.5,84,0,60.9,76,"Drug A",407,486,"No","No",5,3
+"61",61,"7BFf","Female",29,"Unemployed",146,50.2,81,2,44.7,72,"Drug B",420,482,"Yes","Yes",4,2
+"62",62,"qatZ","Female",27,"Unemployed",155,77.8,87,0,74.5,78,"Placebo",407,455,"Yes","Yes",4,4
+"63",63,"pIXb","Male",25,"Unemployed",192,129.1,99,2,119.9,92,"Placebo",448,466,"No","No",6,5
+"64",64,"7Acb","Female",29,"Unemployed",163,68.7,85,2,62.1,75,"Drug B",424,470,"Yes","No",6,5
+"65",65,"eqpL","Female",27,"Employed",144,78.6,90,1,73.3,84,"Placebo",392,345,"Yes","No",5,5
+"66",66,"Q4of","Male",27,"Unemployed",167,76.2,95,0,73.2,84,"Drug B",417,426,"Yes","Yes",5,4
+"67",67,"UQc2","Male",26,"Employed",177,101.7,97,0,94.4,94,"Drug B",431,444,"Yes","No",5,5
+"68",68,"Z4b7","Male",34,"Employed",163,89.5,101,0,84.2,93,"Placebo",472,447,"Yes","Yes",4,2
+"69",69,"KGzB","Male",31,"Employed",177,88.8,93,2,78.9,86,"Drug A",461,546,"No","Yes",5,3
+"70",70,"iCMU","Male",30,"Employed",177,106.7,99,5,96.5,88,"Placebo",481,535,"Yes","Yes",6,4
+"71",71,"t9Uw","Male",27,"Unemployed",151,52.4,87,0,48.5,82,"Drug A",410,429,"No","Yes",5,3
+"72",72,"R9Ht","Male",35,"Unemployed",164,81.3,94,2,75.4,87,"Placebo",440,448,"No","No",4,4
+"73",73,"Eb6S","Male",28,"Unemployed",165,91.1,97,2,85.5,92,"Drug A",463,535,"Yes","Yes",6,4
+"74",74,"Cb72","Female",29,"Employed",138,45.7,82,3,40.3,70,"Drug A",436,485,"Yes","No",4,2
+"75",75,"xUur","Male",32,"Employed",171,99.4,99,2,92.4,94,"Drug A",480,588,"Yes","No",6,4
+"76",76,"XdVU","Male",31,"Employed",157,79.4,96,6,72.3,95,"Drug B",469,490,"No","No",6,4
+"77",77,"bCU0","Male",32,"Unemployed",176,62.1,85,6,50.2,79,"Drug B",485,545,"No","Yes",6,4
+"78",78,"0nt7","Male",27,"Unemployed",181,89.8,92,4,83.3,82,"Drug B",477,562,"Yes","Yes",5,5
+"79",79,"XWDs","Female",35,"Employed",168,80.4,85,4,71.4,76,"Placebo",376,350,"Yes","No",5,5
+"80",80,"Q78J","Male",26,"Employed",162,59.2,90,1,52.9,82,"Placebo",490,521,"No","Yes",5,5
+"81",81,"H3Bi","Female",34,"Unemployed",146,56,80,1,52.1,71,"Placebo",432,412,"Yes","Yes",5,5
+"82",82,"7znc","Male",25,"Employed",174,67.7,85,2,60.7,81,"Placebo",461,427,"No","No",6,5
+"83",83,"jEI6","Female",29,"Unemployed",163,44.2,74,1,38.6,59,"Placebo",408,423,"Yes","Yes",4,2
+"84",84,"3TVs","Female",34,"Unemployed",171,109,91,0,105.1,84,"Drug B",396,456,"Yes","No",4,3
+"85",85,"XLEi","Male",34,"Employed",188,125,100,2,118,96,"Drug A",423,466,"Yes","No",4,3
+"86",86,"9q3d","Female",25,"Employed",151,80.8,94,6,72.7,81,"Placebo",414,418,"Yes","Yes",6,6
+"87",87,"aByU","Male",26,"Unemployed",174,94.2,97,3,87.6,86,"Drug A",474,504,"No","No",5,5
+"88",88,"FgjK","Female",31,"Employed",164,78.9,86,6,67.8,75,"Drug B",421,411,"No","No",6,5
+"89",89,"P2av","Male",34,"Employed",171,98.2,96,2,92.3,91,"Drug B",449,507,"Yes","Yes",6,5
+"90",90,"s46g","Male",34,"Employed",188,101.6,93,0,95.4,89,"Drug A",466,535,"Yes","No",5,3
+"91",91,"iWos","Male",25,"Employed",160,78,94,3,69.9,85,"Placebo",412,411,"No","Yes",4,2
+"92",92,"a5jp","Female",30,"Unemployed",136,50.3,82,4,44.1,75,"Placebo",355,362,"Yes","No",6,6
+"93",93,"jjrZ","Male",35,"Employed",177,93.4,97,2,87.7,89,"Drug A",469,484,"Yes","Yes",6,5
+"94",94,"5hK9","Male",30,"Employed",190,127.5,100,2,119.4,95,"Placebo",460,441,"Yes","Yes",4,3
+"95",95,"TJSW","Female",33,"Unemployed",148,53.1,79,3,49.3,73,"Placebo",399,409,"No","Yes",5,5
+"96",96,"P8zg","Male",33,"Unemployed",165,72.4,92,0,67.5,85,"Drug A",431,486,"No","No",6,6
+"97",97,"GqBY","Female",32,"Unemployed",151,67,84,2,60.9,77,"Drug A",414,485,"Yes","Yes",6,4
+"98",98,"Nv9H","Male",35,"Employed",175,89.6,97,0,85.3,86,"Drug A",420,477,"No","No",4,3
+"99",99,"difq","Male",27,"Unemployed",170,76.2,88,5,64.1,80,"Placebo",418,422,"Yes","No",6,6
+"100",100,"WcAM","Male",29,"Employed",195,110.8,94,5,95.3,82,"Placebo",460,471,"Yes","No",5,5
+"101",101,"ekym","Male",26,"Employed",193,103,92,8,86.8,83,"Drug A",475,516,"Yes","No",6,5
+"102",102,"60AA","Female",26,"Unemployed",148,49.4,75,4,41.2,66,"Drug A",429,545,"Yes","No",5,3
+"103",103,"21lP","Male",32,"Employed",155,87.3,102,2,80.6,95,"Placebo",450,440,"Yes","Yes",4,2
+"104",104,"tU2a","Male",34,"Unemployed",168,87.9,95,1,80.9,87,"Drug A",462,522,"Yes","No",6,5
+"105",105,"TwJH","Male",26,"Unemployed",152,45.1,87,6,36.6,75,"Drug B",493,571,"No","No",4,3
+"106",106,"daeG","Female",33,"Unemployed",135,49.6,78,4,42.7,76,"Drug A",432,454,"No","Yes",5,5
+"107",107,"px56","Male",27,"Employed",167,90.9,95,5,82.6,90,"Drug A",435,479,"Yes","No",4,4
+"108",108,"Ebyg","Female",32,"Unemployed",129,52.3,85,4,47.2,75,"Drug B",407,469,"No","No",6,4
+"109",109,"yE0T","Female",28,"Unemployed",145,57.2,84,1,51.1,74,"Drug B",395,508,"Yes","No",6,4
+"110",110,"rlza","Male",34,"Unemployed",178,118.6,102,1,111.6,97,"Drug B",468,530,"No","No",5,3
+"111",111,"wxco","Female",29,"Employed",137,55.7,80,5,49,72,"Drug B",430,452,"Yes","No",6,6
+"112",112,"glsj","Male",27,"Employed",169,85.1,94,9,72.8,84,"Placebo",457,482,"Yes","Yes",4,3
+"113",113,"001t","Male",33,"Employed",174,89.3,95,6,75,84,"Drug A",477,500,"No","No",5,4
+"114",114,"bepQ","Female",32,"Unemployed",152,81.2,88,7,71.6,79,"Placebo",390,439,"Yes","Yes",5,3
+"115",115,"00Hz","Female",27,"Unemployed",155,86.8,93,0,82.5,85,"Drug A",409,442,"No","Yes",4,3
+"116",116,"ruiW","Male",26,"Unemployed",170,67.2,90,1,62.1,77,"Placebo",415,460,"Yes","Yes",4,3
+"117",117,"TlGf","Female",32,"Unemployed",155,50.8,74,1,47.1,72,"Placebo",427,399,"Yes","No",6,6
+"118",118,"4oRl","Male",27,"Employed",177,104,97,0,101.1,93,"Placebo",455,416,"Yes","Yes",6,6
+"119",119,"zQZF","Female",33,"Unemployed",148,51.1,77,0,48,68,"Drug A",393,425,"Yes","No",6,4
+"120",120,"VW35","Male",29,"Employed",175,67.6,89,0,61.7,79,"Placebo",429,439,"Yes","Yes",6,6
+"121",121,"hJ5a","Male",25,"Employed",177,77.5,92,1,70,80,"Placebo",459,457,"Yes","Yes",4,4
+"122",122,"QMq1","Male",30,"Employed",174,78.7,91,1,69,85,"Placebo",446,395,"Yes","No",5,4
+"123",123,"hSI3","Male",30,"Unemployed",179,75.6,88,2,68.7,80,"Placebo",465,405,"No","Yes",6,6
+"124",124,"kiuF","Female",30,"Employed",154,49.2,78,2,42.3,67,"Drug A",395,490,"No","No",4,3
+"125",125,"HTvv","Female",29,"Unemployed",142,78.3,91,7,69.5,83,"Placebo",424,416,"Yes","No",6,6
+"126",126,"Ayvq","Female",26,"Employed",168,94.5,89,4,86.3,81,"Drug A",428,504,"Yes","Yes",6,4
+"127",127,"ntUS","Male",28,"Unemployed",175,68.4,83,8,54.1,81,"Drug A",418,481,"Yes","No",4,2
+"128",128,"4S5I","Male",30,"Employed",171,87.3,97,1,81.2,87,"Drug B",479,579,"Yes","No",6,6
+"129",129,"Lm6x","Male",30,"Employed",174,108.4,104,4,97.7,90,"Placebo",507,455,"No","No",5,3
+"130",130,"nNMs","Male",30,"Employed",178,88.4,91,1,81,87,"Drug A",431,481,"Yes","Yes",5,4
+"131",131,"ybKF","Male",29,"Employed",170,84.9,99,3,75.8,88,"Placebo",511,480,"No","No",5,4
+"132",132,"8hqh","Male",29,"Employed",177,80.1,91,6,65,77,"Placebo",473,542,"Yes","No",4,2
+"133",133,"Sv7B","Female",27,"Employed",140,58.4,84,2,54,74,"Drug B",410,480,"No","No",6,4
+"134",134,"qYgt","Male",33,"Unemployed",184,92,89,2,81.9,86,"Drug A",478,519,"Yes","No",5,4
+"135",135,"e2Td","Male",31,"Employed",167,95.9,97,1,88.6,91,"Drug A",483,537,"Yes","No",5,3
+"136",136,"1Zoz","Female",34,"Unemployed",156,77.1,88,3,68.9,78,"Drug B",403,461,"Yes","Yes",5,4
+"137",137,"Ybzv","Male",26,"Unemployed",173,112.4,102,5,101.8,94,"Drug A",437,454,"Yes","No",5,4
+"138",138,"471w","Female",30,"Unemployed",167,81.4,85,0,76.9,79,"Placebo",434,393,"Yes","Yes",4,3
+"139",139,"5yRM","Female",32,"Unemployed",147,59.6,84,2,51.9,69,"Placebo",395,430,"Yes","Yes",6,6
+"140",140,"CoKk","Male",33,"Unemployed",169,49.7,82,1,42.8,77,"Drug B",443,558,"Yes","No",5,5
+"141",141,"BGAW","Male",26,"Unemployed",190,79.8,87,1,70.8,80,"Placebo",467,443,"No","No",6,4
+"142",142,"udsR","Male",32,"Employed",181,87.8,91,3,79.2,83,"Drug B",444,497,"No","Yes",4,4
+"143",143,"xp3k","Female",35,"Unemployed",146,73.4,88,2,68.1,85,"Drug A",416,477,"Yes","No",4,2
+"144",144,"Td5y","Male",27,"Employed",181,58,80,2,52.1,78,"Placebo",427,386,"Yes","No",6,6
+"145",145,"JOCA","Male",26,"Unemployed",170,83.6,95,4,72.8,81,"Placebo",462,438,"Yes","Yes",4,3
+"146",146,"byQi","Male",30,"Unemployed",166,81.4,91,0,76.1,85,"Drug A",451,494,"No","No",4,3
+"147",147,"7y8o","Female",32,"Unemployed",149,60.2,81,2,52.2,75,"Drug A",408,451,"Yes","No",4,4
+"148",148,"mH0E","Female",31,"Employed",156,65.3,80,0,62.7,76,"Drug B",427,517,"Yes","No",4,2
+"149",149,"22pz","Female",32,"Unemployed",144,40,73,1,36.4,66,"Placebo",406,385,"Yes","No",5,3
+"150",150,"m0bj","Male",34,"Unemployed",172,69.2,88,1,63.2,81,"Placebo",423,381,"Yes","No",4,3

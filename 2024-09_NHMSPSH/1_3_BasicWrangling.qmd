@@ -161,7 +161,7 @@ library(tibble)
 library(tidyverse)
 library(haven)
 
-asthma_ds0 <- read_sav("asthma_ds.sav")
+asthma_ds0 <- read_sav("Dataset/asthma_ds.sav")
 ```
 
 ::: notes
@@ -345,7 +345,7 @@ head(asthma_ds4)
 ## Example of Data Wrangling **without** Pipe Operator
 
 ```{r}
-asthma_ds0 <- read_sav("asthma_ds.sav")
+asthma_ds0 <- read_sav("Dataset/asthma_ds.sav")
 asthma_ds1 <- as_factor(asthma_ds0)
 asthma_ds2 <- select(asthma_ds1, idR:Weight_Post)
 asthma_ds3 <- asthma_ds2
@@ -362,7 +362,7 @@ head(asthma_ds3)
 ## Example of Data Wrangling **with** Pipe Operator
 
 ```{r}
-asthma_ds5 <- read_sav("asthma_ds.sav") %>%
+asthma_ds5 <- read_sav("Dataset/asthma_ds.sav") %>%
   as_factor() %>%
   select(idR:Weight_Post) %>%
   mutate(Ht_m = Height/100,

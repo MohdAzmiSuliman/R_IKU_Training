@@ -149,9 +149,9 @@ library(tidyverse)
 ```{r}
 library(haven)
 
-asthmads_spss <- read_sav("asthmads_spss.sav") %>% 
+asthmads_spss <- read_sav("Dataset/asthmads_spss.sav") %>% 
   as_factor()
-asthmads_spss
+head(asthmads_spss)
 ```
 
 ## Data Import (CSV)
@@ -164,14 +164,14 @@ asthmads_spss
 ```{r}
 #| eval: false
 
-asthmads_csvraw <- read_csv("asthmads_nolab.csv")
+asthmads_csvraw <- read_csv("Dataset/asthmads_nolab.csv")
 asthmads_csvraw
 ```
 
 ## Data Import (CSV)
 
 ```{r}
-asthmads_csvraw <- read_csv("asthmads_nolab.csv")
+asthmads_csvraw <- read_csv("Dataset/asthmads_nolab.csv")
 asthmads_csvraw
 ```
 
@@ -181,7 +181,7 @@ asthmads_csvraw
 -   Some CSV file store the '*raw*' data, without any label or value label.
 
 ```{r}
-asthmads_csvraw <- read_csv("asthmads_nolab.csv")
+asthmads_csvraw <- read_csv("Dataset/asthmads_nolab.csv")
 asthmads_csvraw
 ```
 
@@ -191,8 +191,8 @@ asthmads_csvraw
 -   Some CSV file store the '*label*' data, with string as value - but may not contain the underlying level for factors column.
 
 ```{r}
-asthmads_csvlab <- read_csv("asthmads_csv.csv")
-asthmads_csvlab
+asthmads_csvlab <- read_csv("Dataset/asthmads_csv.csv")
+head(asthmads_csvlab)
 ```
 
 ```{r}
@@ -208,7 +208,7 @@ levels(asthmads_csvlab$Gender)
 
 ```{r}
 my_state_pop <- read_csv("https://storage.dosm.gov.my/population/population_state.csv")
-my_state_pop
+head(my_state_pop)
 ```
 
 ## Data Import (Online)
@@ -295,7 +295,13 @@ asthmads_spss %>%
 -   `head()` and `tail()` function is used to display the first and last few rows of the data frame
 
 ```{r}
+#| eval: false
+
 head(asthmads_spss)
+```
+
+
+```{r}
 tail(asthmads_spss)
 ```
 
@@ -355,7 +361,8 @@ Row Operations
 
 ```{r}
 asthmads_spss %>% 
-  filter(Gender == "Female")
+  filter(Gender == "Female") %>% 
+  head()
 ```
 
 ## Row Operation: Filter
@@ -365,7 +372,8 @@ asthmads_spss %>%
 
 ```{r}
 asthmads_spss %>% 
-  filter(Gender != "Female")
+  filter(Gender != "Female") %>% 
+  head()
 ```
 
 ## Row Operation: Filter
@@ -376,7 +384,8 @@ asthmads_spss %>%
 ```{r}
 asthmads_spss %>% 
   filter(Gender == "Female", 
-         Age <= 45)
+         Age <= 45) %>% 
+  head()
 ```
 
 ## Row Operation: Filter
@@ -386,7 +395,8 @@ asthmads_spss %>%
 
 ```{r}
 asthmads_spss %>% 
-  filter(Gender == "Female" & Age <= 45)
+  filter(Gender == "Female" & Age <= 45) %>% 
+  head()
 ```
 
 ## Row Operation: Filter
@@ -396,7 +406,8 @@ asthmads_spss %>%
 
 ```{r}
 asthmads_spss %>% 
-  filter(Gender == "Female" | Age <= 45)
+  filter(Gender == "Female" | Age <= 45) %>% 
+  head()
 ```
 
 ## Row Operation: Filer
@@ -406,7 +417,8 @@ asthmads_spss %>%
 
 ```{r}
 asthmads_spss %>% 
-  filter(Tx2 %in% c("Drug A", "Drug B"))
+  filter(Tx2 %in% c("Drug A", "Drug B")) %>% 
+  head()
 ```
 
 ## Row Operation: Arrange
@@ -415,7 +427,8 @@ asthmads_spss %>%
 
 ```{r}
 asthmads_spss %>% 
-  arrange(Age)
+  arrange(Age) %>% 
+  head()
 ```
 
 ## Row Operation: Arrange
@@ -425,7 +438,8 @@ asthmads_spss %>%
 
 ```{r}
 asthmads_spss %>% 
-  arrange(desc(Age))
+  arrange(desc(Age)) %>% 
+  head()
 ```
 
 ## Row Operation: Arrange
@@ -435,7 +449,8 @@ asthmads_spss %>%
 
 ```{r}
 asthmads_spss %>% 
-  arrange(Age, Weight_Pre)
+  arrange(Age, Weight_Pre) %>% 
+  head()
 ```
 
 ## Row Operation: Distinct
@@ -445,7 +460,8 @@ asthmads_spss %>%
 
 ```{r}
 asthmads_spss %>% 
-  distinct(Age, .keep_all = TRUE)
+  distinct(Age, .keep_all = TRUE) %>% 
+  head()
 ```
 
 ## Row Operation: Distinct
@@ -456,7 +472,8 @@ asthmads_spss %>%
 
 ```{r}
 asthmads_spss %>% 
-  distinct(Gender, WorkStatus, Tx2)
+  distinct(Gender, WorkStatus, Tx2) %>% 
+  head()
 ```
 
 # Basic Data Wrangling, Column Operations
@@ -488,7 +505,8 @@ Column Operations
 
 ```{r}
 asthmads_spss %>% 
-  mutate(Height = Height/100)
+  mutate(Height = Height/100) %>% 
+  head()
 ```
 
 ## Column Operation: Mutate
@@ -498,7 +516,8 @@ asthmads_spss %>%
 
 ```{r}
 asthmads_spss %>% 
-  mutate(BMI_Pre = Weight_Pre/(Height/100)^2)
+  mutate(BMI_Pre = Weight_Pre/(Height/100)^2) %>% 
+  head()
 ```
 
 ## Column Operation: Mutate
@@ -515,7 +534,8 @@ asthmads_spss %>%
 
 ```{r}
 asthmads_spss %>% 
-  select(Gender:Weight_Pre)
+  select(Gender:Weight_Pre) %>% 
+  head()
 ```
 
 ## Column Operation: Select
@@ -525,7 +545,8 @@ asthmads_spss %>%
 
 ```{r}
 asthmads_spss %>% 
-  select(-c(Weight_Pre:Weight_Post))
+  select(-c(Weight_Pre:Weight_Post)) %>% 
+  head()
 ```
 
 ## Column Operation: Rename
@@ -534,7 +555,8 @@ asthmads_spss %>%
 
 ```{r}
 asthmads_spss %>% 
-  rename(Ht_cm = Height)
+  rename(Ht_cm = Height) %>% 
+  head()
 ```
 
 ## Column Operation: Relocate
@@ -544,7 +566,8 @@ asthmads_spss %>%
 
 ```{r}
 asthmads_spss %>% 
-  relocate(Weight_Post, .after = Weight_Pre)
+  relocate(Weight_Post, .after = Weight_Pre) %>% 
+  head()
 ```
 
 ## Column Operation: Relocate
@@ -555,7 +578,8 @@ asthmads_spss %>%
 ```{r}
 asthmads_spss %>% 
   relocate(Weight_Post, .after = Weight_Pre) %>% 
-  relocate(Height, .after = Weight_Post)
+  relocate(Height, .after = Weight_Post) %>% 
+  head()
 ```
 
 ## Column Operation: Relocate
