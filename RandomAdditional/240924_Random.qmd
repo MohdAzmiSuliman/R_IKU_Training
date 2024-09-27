@@ -1,0 +1,72 @@
+---
+title: "Random"
+date: last-modified
+date-format: "dddd, DD/MM/YYYY"
+format: 
+  html:
+    theme: flatly
+    code-fold: true
+    code-copy: hover
+    code-overflow: wrap
+    code-tools: true
+    df-print: paged
+    default-image-extension: svg
+    embed-resources: true
+    page-layout: full
+    reference-location: margin
+    title-block-banner: true
+    title-block-style: default
+    fontsize: .9em
+    monofont: 'Fira Code'
+execute: 
+  echo: true
+  warning: true
+number-sections: true
+toc: true
+fig-dpi: 320
+dpi: 320
+---
+
+```{r}
+#| label: setup
+
+pacman::p_load(tidyverse, haven, labelled, arrow)
+
+pop_dist <- read_parquet("https://storage.dosm.gov.my/population/population_district.parquet")
+```
+
+
+```{r}
+pop_dist %>% 
+  distinct(district, .keep_all = T) %>% 
+  count(state, district) %>% 
+  count(state) %>% 
+  arrange(n)
+```
+
+```{r}
+pop_dist %>% 
+  filter(state == "Selangor", 
+         district %in% c("Kuala Langat", "Kuala Selangor", "Sabak Bernam", 
+                         "Petaling", "Gombak"), 
+         date == dmy("01/01/2023"), 
+         sex != "both", 
+         age %in% c("20-24", "24-29", "30-34", "35-39", "40-44", "45-49", 
+                    "50-54", "55-59"), 
+         ethnicity %in% c("bumi_malay", "chinese", "indian")) %>% 
+  mutate(age2 = case_when(
+    age %in% c("20-24", "24-29") ~ "20-29",
+    age %in% c("30-34", "35-39") ~ "30-39",
+    age %in% c("40-44", "45-49") ~ "40-49",
+    age %in% c("50-54", "55-59") ~ "50-59"
+  )) %>% 
+  group_by(state, district, date, sex, ethnicity, age2) %>% 
+  summarise(population = sum(population, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  group_by(district) %>% 
+  summarise(population = sum(population, na.rm = TRUE)) 
+
+pop_dist %>% 
+  count(ethnicity)
+```
+

@@ -1,0 +1,186 @@
+---
+title: "Introduction to R, RStudio and Quarto"
+subtitle: "Kursus R: Pengenalan dan Praktikal"
+format: 
+  clean-revealjs: 
+    slide-number: true
+    lightbox: true
+    footer: "Introduction to R, RStudio and Quarto"
+author:
+  - name: Mohd Azmi Bin Suliman
+    orcid: 0000-0002-2125-3811
+    email: azmi.suliman@moh.gov.my
+    affiliations: Pusat Penyelidikan Penyakit Tak Berjangkit, Institut Kesihatan Umum
+date: 2024-10-02
+date-format: "dddd, DD MMMM YYYY"
+embed-resources: true
+---
+
+# R
+
+## Introduction to R
+
+-   R programming language is a lot like magic...
+-   Except instead of spells, we have a function.
+
+. . . 
+
+-   R users are like magician.
+    -   We can rely on functions that have been developed for them.
+    -   We can also create our own.
+    -   We do not have to pay for the use of them.
+    -   And once experienced enough, we are almost unlimited in our ability to change our environment.
+
+## Open Source?
+
+-   **Free!** We don't have to pay to use R.
+-   We can use it on **any computer**.
+-   We have full access to algorithm and our implementation.
+-   We can modify the code to suit our needs.
+-   Promote **REPRODUCIBLE RESEARCH** by providing open and accessible tools.
+-   It is **CUTTING EDGE**
+
+## What is R?
+
+-   R is a programming language.
+-   R is a high-level language.
+    -   Code that is easy to read and write, close to human language
+-   R is an interpreted computer language.
+    -   Execute line-by-line
+    -   No need to compile
+    -   The software that interprets R language and executes codes
+-   Provide an extensive, coherent and integrated collection of tools for data analysis.
+
+## Is it relevance to me?
+
+-   IKU is one of **RESEARCH INSTITUTE** in Malaysia
+    -   That mean our main job is doing research (and related activities)
+-   We depend on data to make decisions
+    -   80% of our time is spent on data **preparation and cleaning**
+-   We also require effective data visualization to communicate our findings
+
+## Pros and Cons
+
+::: columns
+::: {.column width="48%"}
+**Pros**
+
+-   Fast and Free
+-   State of the art
+-   Active user community
+-   **It forces We to *think* about our analysis.**
+-   **New techniques available without delayed**
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+**Cons**
+
+-   Steep learning curve
+-   Some commercial support
+-   In the beginning, data prep & cleaning can be messier and more mistake-prone
+-   It is easy to make mistakes and not know.
+-   *Limited in handling huge dataset*
+-   *It can be not easy to choose the best package for We need*
+:::
+:::
+
+## SPSS and R
+
+-   Learning (and using) R requires a new paradigm of thinking.
+    -   R is a programming language, and We will be writing code 99% of the time.
+-   This is not an exam. We don't have to remember everything.
+-   Google (and *AI chatbox*) is our friend
+
+## SPSS and R
+
+-   Learning (and using) R requires a new paradigm of thinking.
+-   Almost everything in R is an objects
+    -   We can create, modify, and delete
+    -   Import external files
+    -   Many different options are available at the same time.
+    -   The dataset can be any dimension.
+-   SPSS only available one dataset at a time
+    -   SPSS datasets are rectangular
+
+## Learning R
+
+-   CRAN website, manuals
+-   Because R is interactive, errors are our friends!
+-   `?lm` gives We help on the lm function.
+-   Reading help files can be very helpful.
+-   **MOST IMPORTANT** - the more time We spend using R, the more comfortable We become with it
+
+## R consoles
+
+![](images/r_console_0.png)
+
+
+# RStudio
+
+## RStudio for Statistical Analysis Workflow
+
+-   RStudio is an integrated development environment (IDE) for R.
+-   It includes a console and syntax highlighting editor 
+-   Supports direct code execution and tools for 
+    -   Plotting
+    -   History
+    -   Debugging
+    -   Workspace management
+-   Support version control (git)
+
+## RStudio GUI
+
+![](images/rstudio_ide_0.png)
+
+# Quarto
+
+##  {background-iframe="https://quarto.org/"}
+
+## Quarto as Notebook
+
+-   In my sessions, Quarto will be use as notebook
+-   Code output will be display in the same document
+-   Quarto is pre-installed in RStudio
+
+## Quarto as Notebook
+
+![](images/quarto_rstudio.png)
+
+# Expectation?
+
+## R language as a programming language
+
+These are some of the things that I have learned and used in R:
+
+-   Basic/Intermediate data wrangling with tidyverse
+-   Basic/Intermediate statistical analysis with R
+-   Basic data visualisation with ggplot2
+-   Code notebook with Quarto
+-   Basic reporting with Quarto (HTML, PDF, Word)
+
+::: notes
+R is not just about statistics and data analysis. As a programming language, R can do various things
+:::
+
+## R language as a programming language
+
+But I am not an expert in R. I am still learning and looking for study group to help improve my R.
+
+-   Machine learning with R
+-   Making a dashboard with Shiny
+-   Making a website with Quarto
+-   Making custom functions and packages
+-   R as teaching tools
+
+## Further Reading
+
+-   [R for Data Science](https://r4ds.had.co.nz/)
+-   [RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
+-   [Quarto Documentation](https://quarto.org/)
+-   [Graphic with ggplot2](https://ggplot2-book.org/)
+-   [Tidyverse](https://www.tidyverse.org/)
+-   [Advanced R](https://adv-r.hadley.nz/)
+

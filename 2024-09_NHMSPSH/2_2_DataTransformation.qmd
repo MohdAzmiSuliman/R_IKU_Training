@@ -1,0 +1,588 @@
+---
+title: "Data Transformation in R"
+subtitle: "Kursus R: Pengenalan dan Praktikal (Sesi 2)"
+format: 
+  clean-revealjs: 
+    slide-number: true
+    lightbox: true
+    auto-stretch: false
+    footer: "Data Transformation in R"
+author:
+  - name: Mohd Azmi Bin Suliman
+    orcid: 0000-0002-2125-3811
+    email: azmi.suliman@moh.gov.my
+    affiliations: Pusat Penyelidikan Penyakit Tak Berjangkit, Institut Kesihatan Umum
+date: 2024-10-02
+date-format: "dddd, DD MMMM YYYY"
+embed-resources: true
+execute: 
+  echo: true
+---
+
+# Data Transformation
+
+```{r}
+#| label: setup
+#| echo: false
+
+pacman::p_load(tidyverse, haven, summarytools, gtsummary)
+
+asthmads_spss <- read_sav("asthmads_spss.sav") %>% 
+  as_factor()
+```
+
+```{css}
+#| echo: false
+
+code.sourceCode {
+  font-size: 1.2em;
+}
+```
+
+-   Number
+-   Factor
+-   Conditional
+-   Join and Reshape
+
+
+## Setup: Data Transformation
+
+-   Create New Level 1 Header
+    -   `# Data Transformation`
+
+# Number Transformation
+
+## Practical: Arithmetic Transformation
+
+-   We can perform basic numerical transformation using R
+    -   Don't forget to use `mutate` function to create new variable
+-   For example, convert height from cm to m
+    -   Input: Height (`Height`)
+    -   Output: Height in meter (`Ht_m`)
+    -   Overwrite current dataset
+    -   **Hint**: use `.before` or `.after` parameter to arrange the new variable
+
+
+```{r}
+asthmads_spss <- asthmads_spss %>% 
+  mutate(Ht_m = Height/100, .after = "Height")
+```
+
+## Practical: Arithmetic Transformation
+
+-   For example, convert height in cm (`Height`) cm to height in m (`Ht_m`)
+
+```{r}
+#| code-line-numbers: "2"
+
+asthmads_spss <- asthmads_spss %>% 
+  mutate(Ht_m = Height/100, .after = "Height")
+
+asthmads_spss
+```
+
+## Practical: Arithmetic Transformation
+
+-   Now try yourself!
+    -   Calculate BMI_Pre and BMI_Post
+    -   **Hint**: Use `%>%` pipe operator to chain the transformation
+
+## Practical: Arithmetic Transformation
+
+-   Now try yourself!
+    -   Calculate BMI_Pre and BMI_Post
+
+```{r}
+#| code-line-numbers: "2,3"
+
+asthmads_spss <- asthmads_spss %>% 
+  mutate(BMI_Pre = Weight_Pre/(Ht_m^2), .after = "Weight_Pre") %>% 
+  mutate(BMI_Post = Weight_Post/(Ht_m^2), .after = "Weight_Post")
+
+asthmads_spss
+```
+
+
+## Practical: Rounding
+
+-   We can round the numerical variable using `round` function
+    -   We can round to nearest decimal point by specifying `digits` parameter
+
+```{r}
+asthmads_spss <- asthmads_spss %>% 
+  mutate(BMI_Pre = round(BMI_Pre, digits = 2))
+
+asthmads_spss
+```
+
+
+## Practical: Rounding
+
+-   Now try yourself!
+    -   Round BMI_Post to 2 decimal points
+
+
+## Practical: Rounding
+
+-   Now try yourself!
+    -   Round BMI_Post to 2 decimal points
+
+```{r}
+#| code-line-numbers: "2"
+
+asthmads_spss <- asthmads_spss %>% 
+  mutate(BMI_Post = round(BMI_Post, digits = 2))
+
+asthmads_spss
+```
+
+
+## Practical: Rounding
+
+-   Please note that in R, rounding is done by to the nearest even number
+    -   aka Banker's rounding
+
+```{r}
+round(1.5)
+round(2.5)
+```
+
+## Practical: Binning (Categorizing Numerical Variable)
+
+-   We use `cut` function to categorize numerical variable
+    -   For example, we want to categorize BMI_Pre into 
+        -   Underweight (< 18.5)
+        -   Normal (18.5 - 22.9)
+        -   Overweight (23 - 24.9)
+        -   Obese (> 25)
+    -   We use `breaks` parameter to specify the cut-off points
+
+```{r}
+#| code-line-numbers: "2-4"
+#| eval: false
+
+asthmads_spss <- asthmads_spss %>% 
+  mutate(BMI_PreCat = cut(BMI_Pre,
+                          breaks = c(0, 18.49, 22.99, 24.99, 100)), 
+         .after = "BMI_Pre")
+
+asthmads_spss
+```
+
+
+## Practical: Binning (Categorizing Numerical Variable)
+
+-   Note: We need to specified small number for the first and large number for the last category
+
+```{r}
+#| code-line-numbers: "2-4"
+
+asthmads_spss <- asthmads_spss %>% 
+  mutate(BMI_PreCat = cut(BMI_Pre,
+                          breaks = c(0, 18.49, 22.99, 24.99, 100)), 
+         .after = "BMI_Pre")
+
+asthmads_spss
+```
+
+
+## Practical: Binning (Categorizing Numerical Variable)
+
+-   We use `cut` function to categorize numerical variable
+    -   For example, we want to categorize BMI_Pre into 
+        -   Underweight (< 18.5)
+        -   Normal (18.5 - 22.9)
+        -   Overweight (23 - 24.9)
+        -   Obese (> 25)
+    -   We use `labels` parameter to label the bin.
+
+```{r}
+#| code-line-numbers: "2-5"
+#| eval: false
+
+asthmads_spss <- asthmads_spss %>% 
+  mutate(BMI_PreCat = cut(BMI_Pre,
+                          breaks = c(0, 18.49, 22.99, 24.99, 100), 
+                          labels = c("Underweight", "Normal", "Overweight", "Obese")), 
+         .after = "BMI_Pre")
+
+asthmads_spss
+```
+
+## Practical: Binning (Categorizing Numerical Variable)
+
+-   Note the `labels =` should be one less than `breaks =`
+
+```{r}
+#| code-line-numbers: "2-5"
+
+asthmads_spss <- asthmads_spss %>% 
+  mutate(BMI_PreCat = cut(BMI_Pre,
+                          breaks = c(0, 18.49, 22.99, 24.99, 100), 
+                          labels = c("Underweight", "Normal", "Overweight", "Obese")), 
+         .after = "BMI_Pre")
+
+asthmads_spss
+```
+
+
+## Practical: Binning
+
+-   Now try yourself!
+    -   Categorized BMI_Post into the same category as BMI_Pre
+
+
+## Practical: Binning
+
+-   Now try yourself!
+    -   Categorized BMI_Post into the same category as BMI_Pre
+
+```{r}
+asthmads_spss <- asthmads_spss %>% 
+  mutate(BMI_PostCat = cut(BMI_Post,
+                          breaks = c(0, 18.49, 22.99, 24.99, 100), 
+                          labels = c("Underweight", "Normal", "Overweight", "Obese")), 
+         .after = "BMI_Post")
+
+asthmads_spss
+```
+
+
+
+# Factor Transformation
+
+## Practical: Modifying Factor Order
+
+-   We can modify the order of factor using `fct_relevel` function
+    -   For example, we want to change the order of `Gender` 
+    -   First we check the current order of `Gender` using `levels` function
+
+
+```{r}
+levels(asthmads_spss$Gender)
+```
+
+
+## Practical: Modifying Factor Order
+
+-   We can modify the order of factor using `fct_relevel` function
+    -   For example, we want to change the order of `Gender` 
+    -   We can either write the full order, or the first order
+
+
+```{r}
+asthmads_spss <- asthmads_spss %>% 
+  mutate(Gender_F = fct_relevel(Gender, "Female", "Male"), 
+         .after = "Gender")
+
+asthmads_spss
+```
+
+
+## Practical: Modifying Factor Order
+
+-   We can modify the order of factor using `fct_relevel` function
+    -   For example, we want to change the order of `Gender` 
+    -   We can either write the full order, or the first order
+
+```{r}
+asthmads_spss <- asthmads_spss %>%
+  mutate(Gender_F = fct_relevel(Gender, "Female"),
+         .after = "Gender")
+
+asthmads_spss
+```
+
+
+## Practical: Modifying Factor Order
+
+-   We can modify the order of factor using `fct_relevel` function
+    -   For example, we want to change the order of `Gender` 
+
+```{r}
+levels(asthmads_spss$Gender)
+levels(asthmads_spss$Gender_F)
+```
+
+## Practical: Recode Factor 
+
+-   We can also recode factor using `fct_recode` function
+    -   For example, we want to change Treatment Group (`Tx2`) to Intervention Group (`Tx1`)
+        -   `Placebo` to `Control` 
+        -   `Drug A` and `Drug B` to `Intervention`
+    -   Note: Recode factor does not change the order of the factor
+
+```{r}
+#| eval: false
+
+asthmads_spss <- asthmads_spss %>%
+  mutate(Tx1 = fct_recode(Tx2, 
+                          "Control" = "Placebo", 
+                          "Intervention" = "Drug A", 
+                          "Intervention" = "Drug B"), 
+         .before = Tx2)
+
+asthmads_spss
+```
+
+## Practical: Recode Factor 
+
+```{r}
+asthmads_spss <- asthmads_spss %>%
+  mutate(Tx1 = fct_recode(Tx2, 
+                          "Control" = "Placebo", 
+                          "Intervention" = "Drug A", 
+                          "Intervention" = "Drug B"), 
+         .before = Tx2)
+
+asthmads_spss
+```
+
+
+## Practical: Recode Factor 
+
+-   We can also recode factor using `fct_recode` function
+    -   can also be use to collapse the factor
+
+```{r}
+#| eval: false
+
+asthmads_spss <- asthmads_spss %>%
+  mutate(Obese_PreCat = fct_recode(BMI_PreCat, 
+                                  "Non-Obese" = "Underweight", 
+                                  "Non-Obese" = "Normal", 
+                                  "Non-Obese" = "Overweight"), 
+         .after = "BMI_PreCat")
+
+asthmads_spss
+```
+
+## Practical: Recode Factor 
+
+```{r}
+asthmads_spss <- asthmads_spss %>%
+  mutate(Obese_PreCat = fct_recode(BMI_PreCat, 
+                                  "Non-Obese" = "Underweight", 
+                                  "Non-Obese" = "Normal", 
+                                  "Non-Obese" = "Overweight"), 
+         .after = "BMI_PreCat")
+
+asthmads_spss
+```
+
+
+## Practical: Collapse Factor
+
+-   In previous example, we use `fct_recode` to collapse the factor
+-   Collapsing factor have their own function, i.e., `fct_collapse`
+
+```{r}
+#| eval: false
+
+asthmads_spss <- asthmads_spss %>%
+  mutate(Obese_PostCat = fct_collapse(BMI_PostCat, 
+                                      "Non-Obese" = c("Underweight", 
+                                                      "Normal", 
+                                                      "Overweight")), 
+         .after = "BMI_PostCat")
+
+asthmads_spss
+```
+
+
+## Practical: Collapse Factor
+
+```{r}
+asthmads_spss <- asthmads_spss %>%
+  mutate(Obese_PostCat = fct_collapse(BMI_PostCat, 
+                                  "Non-Obese" = c("Underweight", 
+                                                  "Normal", 
+                                                  "Overweight")), 
+         .after = "BMI_PostCat")
+
+asthmads_spss
+```
+
+
+
+# Conditional Transformation
+
+## Conditional Transformation
+
+-   Sometimes, we want to create new variable based on certain condition.
+-   Commonly, two functions are used for conditional transformation:
+    -   `if_else()`
+    -   `case_when()`
+
+## Practical: `if_else()` Conditional Transformation
+
+-   For simple conditional transformation, `if_else()` function is preferable
+-   `if_else()` function also were common in other software like Excel, SPSS, etc.
+
+```{r}
+#| eval: false
+
+asthmads_spss <- asthmads_spss %>%
+  mutate(Obese_Pre = if_else(BMI_PreCat == "Obese", "Yes", "No"), 
+         .after = "BMI_PreCat")
+
+asthmads_spss
+```
+
+
+## Practical: `if_else()` Conditional Transformation
+
+```{r}
+asthmads_spss <- asthmads_spss %>%
+  mutate(Obese_Pre = if_else(BMI_PreCat == "Obese", "Yes", "No"), 
+         .after = "BMI_PreCat")
+
+asthmads_spss
+```
+
+## Practical: `case_when()` Conditional Transformation
+
+-   For more complex conditional transformation, `case_when()` function is preferable
+    -   For example, nested `if_else()` in `if_else()` function
+-   In this example, we want to categorise abdominal obesity (`Abd_Obese`), based on this criteria:
+    -   If Male and Waist Circumference >= 90 cm: `Abdominal Obese`
+    -   If Male and Waist Circumference < 90 cm: `No Abdominal Obese`
+    -   If Female and Waist Circumference >= 80 cm: `Abdominal Obese`
+    -   If Female and Waist Circumference < 80 cm: `No Abdominal Obese`
+
+
+## Practical: `case_when()` Conditional Transformation
+
+```{r}
+asthmads_spss <- asthmads_spss %>%
+  mutate(AbdObese_Pre = case_when(
+    WC_Pre >= 90 & Gender == "Male" ~ "Abdominal Obese", 
+    WC_Pre < 90 & Gender == "Male" ~ "No Abdominal Obese", 
+    WC_Pre >= 80 & Gender == "Female" ~ "Abdominal Obese", 
+    WC_Pre < 80 & Gender == "Female" ~ "No Abdominal Obese"
+    ), 
+    .after = "WC_Pre")
+
+asthmads_spss
+```
+
+
+
+# Join and Reshape
+
+-   `inner_join()`
+-   `left_join()`
+-   `right_join()`
+-   `full_join()`
+-   `pivot_longer()`
+-   `pivot_wider()`
+
+## Join Dataset
+
+-   Occasionally we have two dataset that correspond to same individual
+    -   e.g., pre and post intervention
+    -   e.g., demographic and clinical data
+-   We can join the dataset using `*_join()` function
+    -   `inner_join()`, `left_join()`, `right_join()`, `full_join()`
+    -   matching key is required, e.g., id
+-   Add another Level 1 Header
+    -   `## Join Dataset`
+
+## Practical: Join Dataset
+
+-   In this example, we have two SPSS dataset.
+-   We need to import it.
+
+```{r}
+asthmads_pre <- read_sav("asthmads_pre.sav") %>% 
+  as_factor()
+
+asthmads_post <- read_sav("asthmads_post.sav") %>%
+  as_factor()
+```
+
+## Practical: Join Dataset
+
+-   In the `asthmads_pre` dataset, we have baseline measurement and identifier `idR`
+
+```{r}
+asthmads_pre
+```
+
+
+## Practical: Join Dataset
+
+-   In the `asthmads_post` dataset, we have missing baseline measurement
+-   But we have post measurment and identifier `idR`
+
+```{r}
+asthmads_post
+```
+
+
+## Practical: Join Dataset
+
+-   We can use `*_join()` function to join the dataset
+    -   The function can automatically detect the matching key
+    -   However, preferably we specify the matching key using `by` parameter
+
+```{r}
+asthmads_join <- left_join(asthmads_pre, asthmads_post, by = "idR")
+
+asthmads_join
+```
+
+
+## Reshape Dataset
+
+-   Sometimes, we want to reshape the dataset
+    -   From wide to long
+    -   From long to wide
+-   For example, certain analysis only accept long format
+-   Add another Level 1 Header
+    -   `## Reshape Dataset`
+
+
+## Practical: Reshape Dataset
+
+-   In this example, we have wide dataset with `idR`, `PEFR_Pre`, and `PEFR_Post`
+
+```{r}
+asthma_wide <- asthmads_join %>% 
+  select(idR:Tx2, PEFR_Pre, PEFR_Post)
+
+asthma_wide
+```
+
+
+## Practical: Reshape Dataset
+
+-   We can use `pivot_longer()` function to reshape the dataset
+    -   We specify the `cols` parameter to specify the columns to be reshaped
+    -   We specify the `names_to` parameter to specify the new column name for the reshaped columns
+    -   We specify the `values_to` parameter to specify the new column name for the values of the reshaped columns
+
+```{r}
+#| eval: false
+
+asthma_long <- asthma_wide %>% 
+  pivot_longer(cols = c(PEFR_Pre, PEFR_Post), 
+               names_to = "Time", 
+               names_prefix = "PEFR_",
+               values_to = "PEFR")
+
+asthma_long
+```
+
+
+## Practical: Reshape Dataset
+
+```{r}
+asthma_long <- asthma_wide %>% 
+  pivot_longer(cols = c(PEFR_Pre, PEFR_Post), 
+               names_to = "Time", 
+               names_prefix = "PEFR_",
+               values_to = "PEFR")
+
+asthma_long
+```

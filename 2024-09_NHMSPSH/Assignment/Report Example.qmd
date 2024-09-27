@@ -1,0 +1,84 @@
+---
+title: "Example"
+date: last-modified
+date-format: "dddd, DD MMMM YYYY"
+format: 
+  html:
+    theme: sandstone
+    code-fold: show
+    code-copy: hover
+    code-overflow: wrap
+    code-tools: true
+    df-print: paged
+    default-image-extension: svg
+    embed-resources: true
+    page-layout: full
+    reference-location: margin
+    title-block-banner: true
+    title-block-style: default
+    fontsize: 1.2em
+    monofont: 'Fira Code'
+number-sections: true
+toc: true
+fig-dpi: 320
+dpi: 320
+code-annotations: select
+---
+
+# Setup
+
+```{r}
+#| label: setup
+
+pacman::p_load(tidyverse, haven, labelled, gtsummary)
+```
+
+
+# Analysis
+
+## Dataset
+
+```{r}
+selsimds0 <- read_sav("20240926_SelSimData.sav")
+
+selsimds <- selsimds0 %>% 
+  to_factor()
+
+selsimds
+```
+
+## Wrangling
+
+```{r}
+selsimds1 <- selsimds %>% 
+  mutate(agegp = cut(age, 
+                     breaks = seq(19, 59, 10), 
+                     labels = c("20-29", "30-39", "40-49", "50-59")), 
+         bmi = weight / height^2, 
+         bmi_cat = cut(bmi, 
+                       breaks = c(0, 18.49, 22.99, 24.99, 100), 
+                       labels = c("Underweight", "Normal", "Overweight", "Obese")), 
+         dm_stat = cut(hba1c, 
+                       breaks = c(0, 6.4, 100), 
+                       labels = c("Normal", "Diabetic"))) %>% 
+  relocate(bmi, bmi_cat, .after = weight) %>% 
+  relocate(dm_stat, .after = hba1c)
+
+selsimds1
+```
+
+## Descriptive
+
+```{r}
+selsimds1 %>% 
+  select(district, gender, agegp, ethnicity, bmi, bmi_cat, PAhour, 
+         hba1c, dm_stat) %>% 
+  tbl_summary()
+```
+
+## DM Prevalence
+
+```{r}
+
+```
+

@@ -1,0 +1,673 @@
+---
+title: "Complex Sampling Design"
+subtitle: "Kursus R: Pengenalan dan Praktikal (Sesi 3)"
+format: 
+  clean-revealjs: 
+    slide-number: true
+    lightbox: true
+    auto-stretch: false
+    footer: "Complex Sampling Design"
+author:
+  - name: Mohd Azmi Bin Suliman
+    orcid: 0000-0002-2125-3811
+    email: azmi.suliman@moh.gov.my
+    affiliations: Pusat Penyelidikan Penyakit Tak Berjangkit, Institut Kesihatan Umum
+date: 2024-10-02
+date-format: "dddd, DD MMMM YYYY"
+embed-resources: true
+execute: 
+  echo: true
+---
+
+# Complex Sampling Design
+
+```{r}
+#| echo: false
+
+pacman::p_load(tidyverse, haven, summarytools, gtsummary, kableExtra)
+```
+
+```{css}
+#| echo: false
+
+code.sourceCode {
+  font-size: 1.2em;
+}
+```
+
+-   What/Why?
+-   Sampling Plan
+-   Descriptive Analysis
+-   Inferential Analysis
+
+# Complex Sampling Design
+
+## Why?
+
+-   Government agencies usually conduct census to get overview picture of the population
+    -   However, it is costly and time consuming.
+    -   For example, the Malaysian Census (Banci) was conducted every 10 years.
+-   Therefore, sampling is more feasible - less costly and time consuming.
+    -   However, simple random sampling may not be feasible.
+
+## Why Not SRS?
+
+-   In research involving large population or geographic area, simple random sampling (SRS) may not be feasible.
+-   In SRS, it is assumed that each unit has equal chance of being selected.
+    -   To ensure each unit has equal chance, it is necessary to have complete list of population.
+    -   In reality, even DOSM don't have the complete list of population.
+
+## Why Not SRS?
+
+-   In SRS, mathematically, the sample may not adequately represent the population, particularly minorities.
+
+```{r}
+ikustaff <- readxl::read_excel("StaffByCentre.xlsx")
+ikustaff %>% freq(Ethnicity)
+ikustaff %>% slice_sample(n = 10) %>% freq(Ethnicity)
+```
+
+
+## Stratification
+
+-   Stratification is a method where the population is divided into strata
+    -   For example, the population is divided by gender and ethnicity
+    -   Stratification ensures that important subgroups are adequately represented in the sample
+
+```{r}
+ikustaff %>% 
+  slice_sample(by = Ethnicity, n = 5) %>% 
+  freq(Ethnicity)
+```
+
+
+## Clustering 
+
+-   Clustering is a method where the population is divided into clusters
+    -   For example, an enumeration block, in which the population is divided by geographical area
+    -   Clustering can increase efficiency and reduce cost, especially in geographical dispersed population
+
+::::{.columns}
+:::{.column width="40%"}
+
+```{r}
+with(ikustaff, 
+     table(Centre, Ethnicity))
+```
+
+:::
+
+:::{.column width="4%"}
+
+:::
+
+:::{.column width="56%"}
+
+```{r}
+selctr <- sample(unique(ikustaff$Centre), 3)
+selctr
+
+ikustaff %>% 
+  filter(Centre %in% c(selctr)) %>% 
+  freq(Ethnicity, cumul = F, report.nas = F, headings = F)
+```
+
+:::
+
+::::
+
+
+
+## Stratification & Clustering
+
+-   Clustering is a method where the population is divided into clusters
+    -   For example, an enumeration block, in which the population is divided by geographical area
+    -   Clustering can increase efficiency and reduce cost, especially in geographical dispersed population
+-   Stratification is a method where the population is divided into strata
+    -   For example, the population is divided by gender and ethnicity
+    -   Stratification ensures that important subgroups are adequately represented in the sample
+-   However, clustering and stratification affect the sampling probability.
+-   Thus the need for complex sampling design.
+
+## Complex Sampling Design in NHMS
+
+-   Our NHMS apply complex sampling design.
+-   This is snippet from our NHMS 2022 MCH
+
+> This survey used a two-stage stratified random sampling design encompassing all states and federal territories in Malaysia to ensure national representation. The primary stratum included all states and federal territories, while the secondary stratum represented urban and rural areas. Enumeration Blocks (EBs) were the primary sampling units (PSUs), and living quarters (LQs) within each selected EB were the secondary sampling units (SSUs). DOSM randomly selected PSUs based on sample size.
+
+## Sampling Weight
+
+-   In complex sampling design, each unit may have different probability of being selected.
+-   Therefore, each unit is assigned a weight.
+-   To correctly estimate the population parameter, the weight must be taken into account.
+-   This is snippet from our NHMS 2022 MCH
+
+> A weight factor was applied to each individual to adjust for the varying probabilities of selection (design weight), non-response rate, and post-stratification factors which were adjusted for the Malaysian population projection by DOSM in the year 2022.
+
+## Sampling Weight NHMS
+
+-   The weight is calculated as follows:
+    -   W1 = the inverse probability os selecting te EBs of each state
+    -   W2 = the inverse probability of selecting the LQs over the total frame during the listing activities
+    -   W3 = the inverse probability of successful LQ from the total listing frame
+    -   F = the non-response adjustment factor for LQ and individual
+    -   PS = post-stratification adjustment factor calculated by state, gender and ethnicity
+
+# Practical!
+
+-   Setting up complex sampling design plan
+-   Descriptive analysis
+-   Inferenial analysis
+
+## Setting Up (Create New Project & Quarto Notebook)
+
+1.  Open RStudio
+2.  Create New Project
+    -   `File` \> `New Project` \> `New Directory` \> `New Project`
+3.  Set the name and directory.
+    -   Name: `Complex Sampling Design`
+    -   Directory: `.../Documents/RStudio`
+4.  Click `Create Project`
+5.  Create a new Quarto document
+    -   `File` \> `New File` \> `Quarto Document...`
+6.  Set the title
+    -   Title: `Complex Sampling Design`
+    -   Untick `Use the visual editor`
+7. Click `Create Empty Document`
+8. Edit the YAML
+    -   Add the `embed-resources: true` parameter
+    
+## Setting Up (Load Libraries)
+
+-   Add Level 1 Header
+    -   `# Setup, Dataset and Library`
+-   Add setup code chunk
+
+```{r}
+#| echo: fenced
+#| label: setup
+
+library(tidyverse)
+library(haven)
+library(survey)
+```
+
+
+## Data Import
+
+-   Copy the NHMS dataset in our working directory
+-   We can put our import data code in setup chunk
+-   In this example, im using hypercholesterolaemia module in NHMS 2019
+
+```{r}
+nhms19ds <- read_sav("nhms19ds.sav") %>% 
+  as_factor()
+
+nhms19ds
+```
+
+## Data Exploratory
+
+-   Add Level 1 Header
+    -   `# Data Exploratory`
+-   We can use any tools that we familiar with.
+    -   In this exercise, we will use `summarytools`
+
+
+```{r}
+library(summarytools)
+```
+
+```{r}
+#| eval: false
+
+dfSummary(nhms19ds) %>% 
+  stview()
+```
+
+## Data Exploratory
+
+```{r}
+names(nhms19ds)
+```
+
+-   In this dataset, there were several variables related to the outcome, namely
+    -   **Overal Hypercholesterolaemia: `total_chol`**
+    -   Known Hypercholesterolaemia: `known_chol`
+    -   Unknown/undiagnosed Hypercholesterolaemia: `undiagnosed_chol`
+    -   Capillary (Finger-prick) Total Cholesterol (mmol/L): `u303`
+
+
+## Data Cleaning
+
+-   In my dataset, there were missing data in the outcome variable, i.e., `total_chol`
+    -   Thus this missing data should be excluded first
+    -   We can edit directly at our setup code chunk
+
+```{r}
+nhms19ds <- read_sav("nhms19ds.sav") %>% 
+  as_factor() %>% 
+  filter(!is.na(total_chol))
+
+nhms19ds
+```
+
+
+## Data Cleaning
+
+-   In this dataset, the capillary total cholesterol is in factor type.
+    -   We should convert it to numeric type
+
+```{r}
+nhms19ds <- read_sav("nhms19ds.sav") %>% 
+  as_factor() %>% 
+  filter(!is.na(total_chol)) %>% 
+  mutate(u303 = as.numeric(u303))
+
+nhms19ds
+```
+
+
+
+## Setting Up Complex Sampling Design
+
+-   While R able to recognize factor level, but based on my short personal experience with R, the analysis is simpler if we convert the outcome to binary `0` and `1` form.
+    -   We can update our setup chunk code
+
+```{r}
+nhms19ds <- read_sav("nhms19ds.sav") %>% 
+  as_factor() %>% 
+  filter(!is.na(total_chol)) %>% 
+  mutate(u303 = as.numeric(u303)) %>% 
+  mutate(total_cholN = as.numeric(total_chol) - 2, 
+         .after = total_chol)
+
+nhms19ds
+```
+
+
+## Setting Up Complex Sampling Design
+
+-   While R able to recognize factor level, but based on my short personal experience with R, the analysis is simpler if we convert the outcome to binary `0` and `1` form.
+    -   Hint: we can use cross-tab to check our transformation
+
+```{r}
+with(nhms19ds, table(total_chol, total_cholN))
+```
+
+## Setting Up Complex Sampling Design
+
+-   Add Level 1 Header
+    -   `# Complex Sampling Design Plan`
+-   Specifying the complex sampling design is the first step in analysing complex sampling design data.
+-   We have to check back with the original research team, how was the study was designed.
+-   This is the snippet from NHMS 2019 (this dataset)
+
+> To ensure national representativeness, two stage stratified random sampling was used. The **two strata are primary stratum, which made up of states of Malaysia, including Federal Territories, and secondary stratum, which made up of urban and rural strata formed within the primary stratum**. Sampling involved two stages; **the Primary Sampling Unit (PSU), which were the EBs** and the Secondary Sampling Unit (SSU), which were the LQs within the selected EBs. 
+
+
+## Setting Up Complex Sampling Design
+
+-   These are information required for our complex sampling design
+
+```{r}
+#| eval: false
+
+?svydesign
+```
+
+```{r}
+#| echo: false
+
+tibble(
+  "Required Information/Specification" = c(
+    "Cluster IDs (PSU)", "Strata", "Sampling Weight"), 
+  "Common NHMS Variable Name" = c(
+    "EB ID", "State.Strata, State.wt", "ADW, weight_final, weight")
+  ) %>% 
+  kbl() %>% 
+  kable_classic()
+```
+
+```{r}
+#| eval: false
+
+names(nhms19ds)
+```
+
+
+## Setting Up Complex Sampling Design
+
+```{r}
+#| echo: false
+
+tibble(
+  "Required Information/Specification" = c(
+    "Cluster IDs (PSU)", "Strata", "Sampling Weight"), 
+  "Common NHMS Variable Name" = c(
+    "EB ID", "State.Strata, State.wt", "ADW, weight_final, weight")
+  ) %>% 
+  kbl() %>% 
+  kable_classic()
+```
+
+```{r}
+names(nhms19ds)
+```
+
+
+## Setting Up Complex Sampling Design
+
+-   We can use `svydesign` function to specify the complex sampling design
+    -   First, setup the **unweighted** design
+
+```{r}
+nhms_unwdsg <- svydesign(ids = ~1, 
+                         weights = ~1, 
+                         data = nhms19ds)
+
+```
+
+
+## Setting Up Complex Sampling Design
+
+-   We can use `svydesign` function to specify the complex sampling design
+    -   Then, setup the **weighted** design
+
+```{r}
+nhms_svydsg <- svydesign(ids = ~ebid, 
+                         strata = ~state_st, 
+                         weights = ~wtfinal_ncd, 
+                         data = nhms19ds, 
+                         nest = T)
+```
+
+## Setting Up Complex Sampling Design
+
+-   We can use `svydesign` function to specify the complex sampling design
+    -   We can use `summary( )` to check the design
+
+```{r}
+summary(nhms_svydsg)
+```
+
+# Complex Sampling Design Analysis
+
+-   Descriptive Analysis
+-   Inferential Analysis
+
+
+
+# Descriptive Analysis
+
+-   Unweighted Count
+-   Estimated Population
+-   Prevalence and Confident Interval
+-   Subpopulation
+
+## Descriptive Analysis
+
+-   Add Level 1 Header
+    -   `# Descriptive Analysis`
+-   For descriptive analysis, we can refer our NHMS report for reporting.
+-   There were several parameter that reported, including
+    -   Unweighted Count
+    -   Estimated Population
+    -   Prevalence and Confident Interval
+    
+## Practical: Unweighted Count
+
+-   For unweighted parameter, we use unweighted design.
+-   For count, `svytotal( )` is used.
+    - For this example, the unweighted count for overall is calculated
+
+```{r}
+svytotal(x = ~total_cholN, 
+         design = nhms_unwdsg, 
+         na.rm = T)
+```
+
+## Practical: Estimated Population
+
+-   For estimated population, we use weighted design.
+-   For count, `svytotal( )` is used.
+    - For this example, the estimated population for overall is calculated
+
+```{r}
+svytotal(x = ~total_cholN, 
+         design = nhms_svydsg, 
+         na.rm = T)
+```
+
+
+## Practical: Prevalence 
+
+-   For prevalence  
+    -   Weighted design is used
+    -   `svymean( )` is used.
+    - For this example, the prevalence and confident interval for overall is calculated
+
+```{r}
+svymean(x = ~total_cholN, 
+        design = nhms_svydsg, 
+        na.rm = T)
+```
+
+
+## Practical: Confident Interva for Prevalence
+
+-   For confident interval for prevalence
+    -   Weighted design is used
+    -   `svyciprop( )` is used.
+
+```{r}
+svyciprop(formula = ~total_cholN, 
+          design = nhms_svydsg) %>% 
+  attr(., "ci")
+```
+
+
+## Practical: Subpopulation (Unweighted Count)
+
+-   For subpopulation analysis, we can use `svyby( )` function
+-   For example, we want to calculate the unweighted count, by locality
+
+```{r}
+svyby(formula = ~total_cholN, 
+      by = ~strata_gp, 
+      design = nhms_unwdsg, 
+      FUN = svytotal, 
+      na.rm.all = T)
+
+```
+
+
+## Practical: Subpopulation (Estimated Population)
+
+-   For subpopulation analysis, we can use `svyby( )` function
+-   For example, we want to calculate the estimated population, by locality
+
+```{r}
+svyby(formula = ~total_cholN, 
+      by = ~strata_gp, 
+      design = nhms_svydsg, 
+      FUN = svytotal, 
+      na.rm.all = T)
+
+```
+
+
+## Practical: Subpopulation (Prevalence)
+
+-   For subpopulation analysis, we can use `svyby( )` function
+-   For example, we want to calculate the prevalence, by locality
+
+```{r}
+svyby(formula = ~total_cholN, 
+      by = ~strata_gp, 
+      design = nhms_svydsg, 
+      FUN = svymean, 
+      na.rm.all = T)
+```
+
+
+## Practical: Subpopulation (Confident Interval for Prevalence)
+
+-   For subpopulation analysis, we can use `svyby( )` function
+-   For example, we want to calculate the confident interval for prevalence, by locality
+-   Unfortunately, `svyciprop( )` is not working with `svyby( )` function
+-   We need to subset manually
+    -   But the degree of freedom, `df` is affected when we subset manually
+    -   We need to add `df = degf(design)` to correct the `df`
+
+
+## Practical: Subpopulation (Confident Interval for Prevalence)
+
+```{r}
+nhms_surdsg_urban <- subset(nhms_svydsg, strata_gp == "Urban")
+
+svyciprop(formula = ~total_cholN, 
+          design = nhms_surdsg_urban, 
+          method = "xl", 
+          df = degf(nhms_svydsg)) %>% 
+  attr(., "ci")
+```
+
+
+## Practical: Subpopulation (Confident Interval for Prevalence)
+
+-   Alternatively, we can write custom function (advance) to calculate the confident interval for subpopulation analysis
+
+## Practical: Subpopulation (Confident Interval for Prevalence)
+
+```{r}
+svyciprop_by <- function(x, design, by) {
+  by_var <- deparse(substitute(by))
+    by_levels <- unique(design$variables[[by_var]])
+    calculate_ci <- function(stratum) {
+    subset_design <- subset(design, design$variables[[by_var]] == stratum)
+    result <- svyciprop(x, design = subset_design, method = "xl", df = degf(design))
+    return(attr(result, "ci"))
+  }
+    ci_results <- purrr::map(by_levels, calculate_ci)
+    tibble::tibble(subset = by_levels, ci = ci_results) %>% 
+    tidyr::unnest_wider(ci, names_sep = "_") %>% 
+    dplyr::rename("Lower 95% CI" = "ci_2.5%", 
+                  "Upper 95% CI" = "ci_97.5%")
+}
+```
+
+## Practical: Subpopulation (Confident Interval for Prevalence)
+
+-   Alternatively, we can write custom function (advance) to calculate the confident interval for subpopulation analysis
+
+```{r}
+svyciprop_by(x = ~total_cholN, design = nhms_svydsg, by = strata_gp)
+```
+
+## Practical: Mean for Continuous Variable
+
+-   We can calculat ethe mean for continuous variable using `svymean( )` function
+    -   for unweighted parameter, use unweighted design
+    -   and for population parameter, use weighted design
+
+```{r}
+svymean(x = ~u303, 
+        design = nhms_unwdsg, 
+        na.rm = T)
+
+svymean(x = ~u303, 
+        design = nhms_svydsg, 
+        na.rm = T)
+```
+
+
+## Practical: Mean for Continuous Variable
+
+-   We can calculate the mean for continuous variable using `svymean( )` function
+    -   use `confint( )` to calculate the confident interval
+
+```{r}
+svymean(x = ~u303, 
+        design = nhms_unwdsg, 
+        na.rm = T) %>% 
+  confint()
+
+svymean(x = ~u303, 
+        design = nhms_svydsg, 
+        na.rm = T) %>% 
+  confint()
+```
+
+
+
+# Inferential Analysis
+
+-   Chi-square Test
+-   T-test
+-   Linear Regression
+-   Logistic Regression
+
+## Practical: Chi-square Test
+
+-   We can use `svychisq( )` function to calculate the chi-square test
+    -   `svychisq( )` function accept `formula` as input
+    -   we might want to create the cross-tab first, using `svytable( )` function
+
+```{r}
+svytable(formula = ~strata_gp + total_cholN, design = nhms_svydsg)
+```
+
+
+## Practical: Chi-square Test
+
+-   We can use `svychisq( )` function to calculate the chi-square test
+    -   `svychisq( )` function accept `formula` as input
+
+```{r}
+svychisq(~total_cholN + strata_gp, design = nhms_svydsg)
+```
+
+## Practical: T-test 
+
+-   We can use `svyttest( )` function to calculate the t-test
+    -   `svyttest( )` function accept `formula` as input
+
+```{r}
+svyttest(u303 ~ strata_gp, design = nhms_svydsg)
+```
+
+## Practical: Linear Regression
+
+-   We can use `svyglm( )` function to calculate the linear regression
+    -   `svyglm( )` function accept `formula` as input
+
+```{r}
+svylinm_mod <- svyglm(u303 ~ strata_gp, 
+                    family = gaussian(), 
+                    design = nhms_svydsg)
+
+summary(svylinm_mod)
+
+coef(svylinm_mod)
+confint(svylinm_mod)
+```
+
+
+## Practical: Logistic Regression
+
+-   We can use `svyglm( )` function to calculate the logistic regression
+    -   `svyglm( )` function accept `formula` as input
+    -   `family = quasibinomial()` is used for logistic regression
+
+```{r}
+svylogm_mod <- svyglm(total_cholN ~ strata_gp, 
+                       family = quasibinomial(), 
+                       design = nhms_svydsg)
+
+summary(svylogm_mod)
+
+coef(svylogm_mod)
+confint(svylogm_mod)
+```

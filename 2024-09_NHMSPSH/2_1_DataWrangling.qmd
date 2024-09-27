@@ -1,0 +1,582 @@
+---
+title: "Data Wrangling in R"
+subtitle: "Kursus R: Pengenalan dan Praktikal (Sesi 2)"
+format: 
+  clean-revealjs: 
+    slide-number: true
+    lightbox: true
+    auto-stretch: false
+    footer: "Data Wrangling in R"
+author:
+  - name: Mohd Azmi Bin Suliman
+    orcid: 0000-0002-2125-3811
+    email: azmi.suliman@moh.gov.my
+    affiliations: Pusat Penyelidikan Penyakit Tak Berjangkit, Institut Kesihatan Umum
+date: 2024-10-02
+date-format: "dddd, DD MMMM YYYY"
+embed-resources: true
+execute: 
+  echo: true
+---
+
+# Data Wrangling
+
+```{r}
+#| echo: false
+
+pacman::p_load(tidyverse, haven, summarytools, gtsummary)
+```
+
+```{css}
+#| echo: false
+
+code.sourceCode {
+  font-size: 1.2em;
+}
+```
+
+## What is Data Wrangling?
+
+-   Common data analysis look like this
+
+![source: r4ds.hadley.nz](images/R4DS_wrangling.png)
+
+## What is Data Wrangling?
+
+-   Real world data commonly messy
+-   80% of time taken spend on data cleaning
+-   Improving data quality \> improving the accracy and efficiency
+-   Data wrangling involving **tidying** and **transforming** data, from raw form to analysis-ready data.
+-   Common data wrangling action
+    -   Label data
+    -   Recategorise categorical variable - usually collapsing groups
+    -   Binning continuous variable
+
+# Let's Try!
+
+Setup your project & quarto document.
+
+## Create New Project
+
+-   RStudio allows for project management.
+    -   Project as a 'container' for our work.
+
+1.  Open RStudio.
+2.  Create a new project.
+    -   `File` \> `New Project` \> `New Directory` \> `New Project`
+3.  Set the name and directory.
+    -   Name: `Statistical Tests in R`
+    -   Directory: `.../Documents/RStudio`
+4.  Click `Create Project`
+
+## Create New Project
+
+![](images/New_Project.png)
+
+## Create New Quarto Document
+
+Quarto as R Notebook.
+
+1.  Create a new Quarto document.
+    -   `File` \> `New File` \> `Quarto Document...`
+2.  Set the title
+    -   Title: `Data Wrangling in R`
+    -   Untick `Use the visual editor.`
+3.  Click `Create Empty Document`
+4.  Edit the YAML
+    -   Add the `embed-resources: true` parameter.
+
+## Create a New Quarto Document
+
+![](images/New_Qmd.png)
+
+## Notebook Setup
+
+-   In Quarto document, we can set one of the code chunk as our setup chunk
+-   This setup chunk will be run first before any other code chunk
+-   We can set the global options, load the packages, etc.
+-   Only one setup chunk is allowed in a document
+-   Add Level 1 header
+    -   `# Setup, Dataset and Library`
+-   Add setup code chunk
+
+```{r}
+#| echo: fenced
+#| label: setup
+
+library(tidyverse)
+```
+
+# Data Import
+
+-   SPSS
+-   CSV
+-   Online
+
+## Practical: Data Import
+
+-   Create New Level 1 Header
+    -   `# Data Import`
+
+## Data Import
+
+-   Commonly data were collected & stored elsewhere
+-   The data can be in various formats: Excel, SPSS, CSV, etc.
+-   The data sources includes
+    -   Surveys
+    -   Clinical Trials
+    -   Records: Clinical, Health, Returns, Governments
+-   In `base` R, R can read text file with delimiter, e.g., CSV file
+-   To read other format, we can use additional packages
+    -   `readxl` package for Excel file
+    -   `haven` package for SPSS, SAS, Stata, etc.
+    -   `rio` package have single function to simplify data import
+
+## Data Import (SPSS)
+
+-   In IKU, we commonly deal with SPSS data files, with `.sav` file extension.
+-   One of SPSS `.sav` advantage as data storage is the ability to store metadata
+    -   variable labels
+    -   value labels
+    -   missing values
+-   In R, `haven` package can read SPSS data file
+
+## Data Import (SPSS)
+
+-   In R, `haven` package can read SPSS data file
+    -   Add `as_factor()` function to extract the label and applied to the data frame
+
+```{r}
+library(haven)
+
+asthmads_spss <- read_sav("asthmads_spss.sav") %>% 
+  as_factor()
+asthmads_spss
+```
+
+## Data Import (CSV)
+
+-   Comma separated value, CSV file is a plain text file that store tabular data
+-   In R, we can use `read.csv()` function to read CSV file
+-   We can also use `read_csv()` function from `readr` package, which offer more granular options
+    -   Since we already load `tidyverse` package in the setup code chunk, no need to load `readr` package
+
+```{r}
+#| eval: false
+
+asthmads_csvraw <- read_csv("asthmads_nolab.csv")
+asthmads_csvraw
+```
+
+## Data Import (CSV)
+
+```{r}
+asthmads_csvraw <- read_csv("asthmads_nolab.csv")
+asthmads_csvraw
+```
+
+## Data Import (CSV)
+
+-   Unlike SPSS SAV file, CSV file does not store metadata
+-   Some CSV file store the '*raw*' data, without any label or value label.
+
+```{r}
+asthmads_csvraw <- read_csv("asthmads_nolab.csv")
+asthmads_csvraw
+```
+
+## Data Import (CSV)
+
+-   Unlike SPSS SAV file, CSV file does not store metadata
+-   Some CSV file store the '*label*' data, with string as value - but may not contain the underlying level for factors column.
+
+```{r}
+asthmads_csvlab <- read_csv("asthmads_csv.csv")
+asthmads_csvlab
+```
+
+```{r}
+levels(asthmads_csvlab$Gender)
+```
+
+## Data Import (Online)
+
+-   We can also import data from online source
+-   For example, we can import data from DOSM Open Data Portal
+    -   <https://open.dosm.gov.my/data-catalogue>
+    -   Population by State
+
+```{r}
+my_state_pop <- read_csv("https://storage.dosm.gov.my/population/population_state.csv")
+my_state_pop
+```
+
+## Data Import (Online)
+
+-   We can also import data from online source
+-   Or if you prefer to save the data on your disk, you can download directly in R
+    -   using `download.file()` function
+    -   add `mode = "wb"` parameter to download binary file (maximum compatibility)
+
+```{r}
+#| eval: false
+
+download.file(url = "https://storage.dosm.gov.my/population/population_state.csv", 
+              destfile = "my_state_pop.csv", 
+              mode = "wb")
+my_state_pop <- read_csv("my_state_pop.csv")
+my_state_pop
+```
+
+# Basic Data Exploration
+
+## Practical: Data Exploration Setup
+
+-   Add Level 1 Header
+    -   `# Basic Data Exploration`
+
+## Basic Data Exploration
+
+-   Usually done after data import, and maybe repeated several times during data wrangling process
+-   Common data exploration includes
+    -   `summary()`
+    -   `str()`
+    -   `head()` / `tail()`
+    -   `glimpse()` (from `tidyverse` package)
+    -   `dfSummary()` (from `summarytools` package)
+
+## Practical: `summary()`
+
+-   `summary()` function is a generic function used to summarised R object.
+-   For data frame, `summary()` will return the summary statistics for each column
+
+```{r}
+summary(asthmads_spss)
+```
+
+## Practical: `summary()`
+
+-   `summary()` can also be done to specific column/s
+
+```{r}
+asthmads_spss %>% 
+  select(Age) %>% 
+  summary()
+
+asthmads_spss %>% 
+  select(Gender:Height) %>% 
+  summary()
+```
+
+## Practical: `str()`
+
+-   `str()` function is used to display the internal structure of an R object
+
+```{r}
+str(asthmads_spss)
+```
+
+## Practical: `str()`
+
+-   `str()` function can also be done to specific column/s
+
+```{r}
+asthmads_spss %>% 
+  select(Age) %>% 
+  str()
+
+asthmads_spss %>% 
+  select(Gender:Height) %>% 
+  str()
+```
+
+## Practical: `head()` and `tail()`
+
+-   `head()` and `tail()` function is used to display the first and last few rows of the data frame
+
+```{r}
+head(asthmads_spss)
+tail(asthmads_spss)
+```
+
+## Practical: `glimpse()` from `tidyverse` package
+
+-   `glimpse()` function is used to display the internal structure of an R object, similar to `str()`
+
+```{r}
+glimpse(asthmads_spss)
+```
+
+## Practical: `dfSummary()` from `summarytools` package
+
+-   `dfSummary()` function is used to display the summary statistics for each column
+
+```{r}
+#| eval: false
+
+library(summarytools)
+
+asthmads_spss %>% 
+  dfSummary() %>% 
+  stview()
+```
+
+# Basic Data Wrangling
+
+## Practical: Data Wrangling Setup
+
+-   Add Level 1 Header
+    -   `# Data Transformation`
+
+# Basic Data Wrangling, Row Operations
+
+Row Operations
+
+-   `filter()`
+-   `arrange()`
+-   `distinct()`
+
+## Row Operation
+
+-   Common row operation includes
+    -   `filter()`, which subset the data based on condition, without changing the order of the data
+    -   `arrange()`, which sort the data based on condition
+    -   `distinct()`, which find rows with unique value
+
+## Row Operation
+
+-   Create new level 2 header
+    -   `## Data Wrangling: Row Operations`
+
+## Row Operation: Filter
+
+-   `filter()` function is used to subset the data based on condition
+-   The order of the data will not be changed
+
+```{r}
+asthmads_spss %>% 
+  filter(Gender == "Female")
+```
+
+## Row Operation: Filter
+
+-   `filter()` function is used to subset the data based on condition
+-   Use relational operator to set the condition
+
+```{r}
+asthmads_spss %>% 
+  filter(Gender != "Female")
+```
+
+## Row Operation: Filter
+
+-   `filter()` function is used to subset the data based on condition
+-   Can apply multiple condition
+
+```{r}
+asthmads_spss %>% 
+  filter(Gender == "Female", 
+         Age <= 45)
+```
+
+## Row Operation: Filter
+
+-   `filter()` function is used to subset the data based on condition
+-   Can use logical operator
+
+```{r}
+asthmads_spss %>% 
+  filter(Gender == "Female" & Age <= 45)
+```
+
+## Row Operation: Filter
+
+-   `filter()` function is used to subset the data based on condition
+-   Can use logical operator
+
+```{r}
+asthmads_spss %>% 
+  filter(Gender == "Female" | Age <= 45)
+```
+
+## Row Operation: Filer
+
+-   `filter()` function is used to subset the data based on condition
+-   to select several character string, use `%in%` operator
+
+```{r}
+asthmads_spss %>% 
+  filter(Tx2 %in% c("Drug A", "Drug B"))
+```
+
+## Row Operation: Arrange
+
+-   `arrange()` function is used to sort the data based on condition
+
+```{r}
+asthmads_spss %>% 
+  arrange(Age)
+```
+
+## Row Operation: Arrange
+
+-   `arrange()` function is used to sort the data based on condition
+-   add `desc()` function to sort in descending order
+
+```{r}
+asthmads_spss %>% 
+  arrange(desc(Age))
+```
+
+## Row Operation: Arrange
+
+-   `arrange()` function is used to sort the data based on condition
+-   can use multiple column
+
+```{r}
+asthmads_spss %>% 
+  arrange(Age, Weight_Pre)
+```
+
+## Row Operation: Distinct
+
+-   `distinct()` function is used to find rows with unique value
+    -   set parameter `.keep_all = TRUE` to keep all columns
+
+```{r}
+asthmads_spss %>% 
+  distinct(Age, .keep_all = TRUE)
+```
+
+## Row Operation: Distinct
+
+-   `distinct()` function is used to find rows with unique value
+    -   If column is specified, only the specified column will be used to find unique value
+    -   Multiple column can be specified
+
+```{r}
+asthmads_spss %>% 
+  distinct(Gender, WorkStatus, Tx2)
+```
+
+# Basic Data Wrangling, Column Operations
+
+Column Operations
+
+-   `mutate()`
+-   `select()`
+-   `rename()`
+-   `relocate`()\`
+
+## Column Operation
+
+-   Common column operation includes
+    -   `mutate()`, which add new column or modify existing column
+    -   `select()`, which select column
+    -   `rename()`, which rename column
+    -   `relocate()`, which change the order of the column
+
+## Column Operation
+
+-   Create new level 2 header
+    -   `## Data Wrangling: Column Operations`
+
+## Column Operation: Mutate
+
+-   `mutate()` function is used to add new column or modify existing column
+    -   if the variable exist, it will be overwritten, and placed at current column
+
+```{r}
+asthmads_spss %>% 
+  mutate(Height = Height/100)
+```
+
+## Column Operation: Mutate
+
+-   `mutate()` function is used to add new column or modify existing column
+    -   if the variable not exist, it will be created, and placed at the final column
+
+```{r}
+asthmads_spss %>% 
+  mutate(BMI_Pre = Weight_Pre/(Height/100)^2)
+```
+
+## Column Operation: Mutate
+
+-   `mutate()` function is used to add new column or modify existing column
+-   Several parameters can be specified
+    -   `.keep` parameter to control which columns are retained in the output
+    -   `.before` and `.after` parameter to control the position of the new column
+
+## Column Operation: Select
+
+-   `select()` function is used to select column
+    -   Use `:` operator to select range of column
+
+```{r}
+asthmads_spss %>% 
+  select(Gender:Weight_Pre)
+```
+
+## Column Operation: Select
+
+-   `select()` function is used to select column
+    -   Use `-` operator to exclude column
+
+```{r}
+asthmads_spss %>% 
+  select(-c(Weight_Pre:Weight_Post))
+```
+
+## Column Operation: Rename
+
+-   `rename()` function is used to rename column
+
+```{r}
+asthmads_spss %>% 
+  rename(Ht_cm = Height)
+```
+
+## Column Operation: Relocate
+
+-   `relocate()` function is used to change the order of the column
+    -   can be single column or multiple columns
+
+```{r}
+asthmads_spss %>% 
+  relocate(Weight_Post, .after = Weight_Pre)
+```
+
+## Column Operation: Relocate
+
+-   `relocate()` function is used to change the order of the column
+    -   note that only one target column per line
+
+```{r}
+asthmads_spss %>% 
+  relocate(Weight_Post, .after = Weight_Pre) %>% 
+  relocate(Height, .after = Weight_Post)
+```
+
+## Column Operation: Relocate
+
+-   `relocate()` function is used to change the order of the column
+-   Hint: if you want to move column after creating new column, you can specify the location directly from the mutate function
+-   rather than this
+
+```{r}
+#| eval: false
+
+asthmads_spss %>% 
+  mutate(BMI_Pre = Weight_Pre/(Height/100)^2) %>% 
+  relocate(BMI_Pre, .after = Weight_Pre)
+```
+
+-   you can do this
+
+```{r}
+#| eval: false
+
+asthmads_spss %>% 
+  mutate(BMI_Pre = Weight_Pre/(Height/100)^2, .after = Weight_Pre) 
+```

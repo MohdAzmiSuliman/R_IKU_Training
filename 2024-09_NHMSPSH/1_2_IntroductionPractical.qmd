@@ -1,0 +1,495 @@
+---
+title: "Introduction Practical"
+subtitle: "Kursus R: Pengenalan dan Praktikal"
+format: 
+  clean-revealjs: 
+    slide-number: true
+    lightbox: true
+    auto-stretch: false
+    footer: "R Practical"
+author:
+  - name: Mohd Azmi Bin Suliman
+    orcid: 0000-0002-2125-3811
+    email: azmi.suliman@moh.gov.my
+    affiliations: Pusat Penyelidikan Penyakit Tak Berjangkit, Institut Kesihatan Umum
+date: 2024-10-02
+date-format: "dddd, DD MMMM YYYY"
+embed-resources: true
+execute: 
+  echo: true
+---
+
+# Getting to know R
+
+```{r}
+#| label: setup
+#| echo: false
+
+pacman::p_load(tidyverse, kableExtra)
+```
+
+```{css}
+#| echo: false
+
+code.sourceCode {
+  font-size: 1.3em;
+}
+```
+
+## Typical R Session
+
+-   Open your R console.
+
+![](images/r_console_0.png){width="80%"}
+
+## Typical R Session
+
+-   R console is where you can type in the R command/code.
+
+![](images/r_console_1.png){width="80%"}
+
+## Typical R Session
+
+-   The output of the command is shown below the command.
+
+![](images/r_console_2.png){width="80%"}
+
+# RStudio, the IDE for R
+
+## RStudio Layout
+
+-   When you first open RStudio, you will usually see a layout like this.
+
+![](images/rstudio_ide_0.png){width="80%"}
+
+## RStudio Layout
+
+-   There are four (4) panes in RStudio.
+
+![](images/rstudio_ide_1.png){width="80%"}
+
+## Setting up your RStudio
+
+-   Different people may use R and RStudio differently.
+-   Having a sensible workflow can improve your work.
+    1.  Treat individual R process and the associated workspace as disposable.
+    2.  Use IDE & Project Management
+    3.  **Specified your default working directory**
+    4.  Save your work in a script (or Quarto)
+    5.  Always start with a blank slate.
+        -   When quit R, **DO NOT SAVE WORKSPACE.**
+        -   When starting R, **DO NOT RESTORE WORKSPACE.**
+-   Further reading: [What They Forgot to Teach You About R](https://rstats.wtf/)
+
+## Setting up your RStudio
+
+1.  Open your RStudio.
+2.  Go to `Tools` \> `Global Options` \> `General`
+
+## Setting up your RStudio
+
+1.  Open your RStudio.
+2.  Go to `Tools` \> `Global Options` \> `General`
+
+### Default Working Directory
+
+3.  Set your default working directory.
+    -   Set working directory inside RStudio folder in your Document folder
+    -   Click `Browse...` \> Create New Folder \> name it `RStudio` \> Select Folder \> OK
+
+## Setting up your RStudio
+
+1.  Open your RStudio.
+2.  Go to `Tools` \> `Global Options` \> `General`
+
+### Blank slate setting
+
+4.  Unchecked these
+    -   `Restore most recently opened project at startup`
+    -   `Restore previously open source documents at startup`
+    -   `Restore .RData into workspace at startup`
+    -   Save workspace to .RData on exit: `Never`
+    -   `Always save history (even when not saving .RData)`
+
+# Creating Project (and have sensible workflow)
+
+## RStudio Project
+
+-   RStudio have built in project management.
+-   RStudio project act as a container for your work.
+-   All the codes, data, scripts and outputs are organized in one place
+-   Allow for easy sharing and collaboration
+-   You might forget what you did last time, but having a project will help you to revisit your old work.
+
+## Create a new project
+
+-   Go to `File` \> `New Project...`
+-   `New Directory` \> `New Project`
+-   Name your project `R_Practical`
+-   Don't forget to check your working directory
+-   Click `Browse...` \> Select `RStudio` folder \> Select `Open`
+-   Click `Create Project`
+
+# Quarto, Notebook for R
+
+:::{.notes}
+As mentioned previously:
+
+-   Quarto is an open-source scientific and technical publishing system
+-   But for this session, Quarto will be used as notebook for R
+:::
+
+## Setting up your Quarto
+
+-   Go to `File` \> `New File` \> `Quarto Document...`
+-   Add your title `Test Quarto Document`
+-   Add the author (*optional*)
+-   Select `HTML`
+-   Set engine as `Knitr`
+-   **UNTICK** `Use visual markdown editor`
+-   Click `Create`
+
+## Setting up your Quarto
+
+-   **WAIT!!**, we need to ensure that it is standalone.
+    -   Add `embed-resources: true` to the YAML header.
+
+![](images/quarto_embedyaml_test.png){width="80%"}
+
+:::{.notes}
+ask the participant to do try running code chunk
+:::
+
+# Now let get familiar with Quarto Notebook
+
+# Key Concepts: Objects and Data Types
+
+## TODO: Setting up blank Quarto Document
+
+-   Go to `File` \> `New File` \> `Quarto Document...`
+-   Add your title `Sesi 1 Pengenalan`
+-   Add the author (*optional*)
+-   Select `HTML`
+-   Set engine as `Knitr`
+-   **UNTICK** `Use visual markdown editor`
+-   Click `Create Blank Document`
+-   Add `embed-resources: true` to the YAML header.
+
+## TODO: Setting up blank Quarto Document
+
+![](images/quarto_embedyaml_0.png){width="80%"}
+
+
+## R Objects
+
+-   Almost everything in R is objects: functions, datasets, results, and models.
+-   Script can be thought of as a way to make objects.
+-   Your goal is usually to write a script that, by its end, has created the objects that you need.
+    -   statistical results
+    -   graphics
+
+## R Objects
+
+![](images/r_object_example.png)
+
+## R modes
+
+::: columns
+::: {.column width="48%"}
+-   Modes of an object in R refers to the basic type of its elements.
+    -   lower-level descriptions
+-   R has several modes of objects
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+```{r}
+#| echo: false
+
+tibble(Modes = c("Numeric", "Character", "Logical", "Complex", "Raw", "List", "Function", "NULL"),
+       Examples = c("1, 2, 3", "a, b, c", TRUE, 1+0i, "", "", "maen(age)", "")) %>% 
+  kbl() %>% 
+  kable_classic()
+```
+:::
+:::
+
+## Data Structure
+
+-   In R, the data can be in various forms.
+    -   Arrays
+    -   Vectors
+    -   Lists
+    -   Factors
+    -   Matrices
+    -   Data Frames
+
+:::{.notes}
+skip arrays
+:::
+
+
+## Vectors (Logical)
+
+-   A vector is a sequence of data elements of the same basic type
+-   There are five types of vectors in R: Logical, Numeric, Integer, Complex, Character
+
+-   Logical Vector
+```{r}
+logical_vector <- c(TRUE, FALSE, TRUE)
+logical_vector
+```
+
+## Vectors (Numeric)
+
+-   A vector is a sequence of data elements of the same basic type
+-   There are five types of vectors in R: Logical, Numeric, Integer, Complex, Character
+
+-   Numeric Vector
+```{r}
+numeric_vector <- c(1, 2, 3)
+numeric_vector
+```
+
+## Vectors (Character)
+
+-   A vector is a sequence of data elements of the same basic type
+-   There are five types of vectors in R: Logical, Numeric, Integer, Complex, Character
+
+-   Character Vector
+```{r}
+character_vector <- c("a", "b", "c")
+character_vector
+```
+
+
+## Lists
+
+-   A list is a special type of vector that can contain elements of different types.
+
+```{r}
+list_vector <- list(1, "a", TRUE)
+list_vector
+```
+
+## Factors
+
+-   A factor is a vector that can contain only predefined values. 
+-   Used to store categorical data.
+
+```{r}
+education_levels <- c("MSc", "BSc", "Dip", "PhD")
+education_factor <- factor(education_levels, ordered = TRUE,
+                           levels = c("Dip", "BSc", "MSc", "PhD"))
+education_factor
+```
+
+## Matrix
+
+-   A matrix is a 2D array-like structure.
+-   Unlike a list, a matrix only holds single basic types.
+
+```{r}
+example_matrix <- matrix(1:9, nrow = 3, ncol = 3)
+example_matrix
+```
+
+## Data Frame
+
+::: columns
+::: {.column width="48%"}
+-   Most familiar to Excel and SPSS user
+-   Unlike a matrix, a data frame allows for different data types in each column.
+-   A data frame is a table or a 2D array-like structure.
+    -   Each column contains values of one variable.
+    -   Each row contains one set of values from each column
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+![](images/r_object_example.png)
+:::
+:::
+
+## Data Frame
+
+::: columns
+::: {.column width="48%"}
+-   Data frame is the most common way of storing data in R.
+-   Allow user to perform row-wise, column-wise and cell-wise functions
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+![](images/r_object_example.png)
+:::
+:::
+
+# Operators and Functions
+
+## Operators
+
+-   R has several operators.
+    -   Arithmetic
+    -   Assignment
+    -   Logical
+    -   Relational
+    -   Special
+
+## Arithmetic Operators
+
+-   Addition
+
+```{r}
+
+
+1 + 2
+```
+
+-   Subtraction
+
+```{r}
+
+
+2-1
+```
+
+-   Multiplication
+
+```{r}
+
+
+3*4
+```
+
+-   Division
+
+```{r}
+
+
+4/2
+```
+
+## Assignment Operators
+
+-   Assignment operators are used to assign values to variables.
+-   R accept four types of assignment operators: `<-`, `<<-`, `=`, `->`
+
+```{r}
+
+
+a <- 5
+a
+
+b = 7
+b
+
+9 -> c
+c
+```
+
+## Logical Operators
+
+-   Logical operators are used to combine or compare logical values
+
+::: columns
+::: {.column width="48%"}
+-   Basic logical operators
+    -   `!`: NOT
+    -   `&`: AND
+    -   `|`: OR
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+```{r}
+
+
+TRUE | FALSE
+TRUE & FALSE
+!TRUE
+!FALSE
+```
+:::
+:::
+
+## Logical Operators
+
+-   Logical operators are used to combine or compare logical values
+
+::: columns
+::: {.column width="49%"}
+-   Equality and relational operators
+    -   `==`: equal
+    -   `!=`: not equal
+    -   `>`: greater than
+    -   `<`: less than
+    -   `>=`: greater than or equal to
+    -   `<=`: less than or equal to
+:::
+
+::: {.column width="2%"}
+:::
+
+::: {.column width="49%"}
+```{r}
+
+
+1 == 1
+1 != 1
+1 > 1
+1 < 1
+1 >= 1
+1 <= 1
+```
+:::
+::::
+
+## Special Operators
+
+:::: columns
+::: {.column width="49%"}
+-   Special operators are used to perform special operations.
+    -   `:`: sequence
+    -   `%in%`: match
+    -   `%*%`: matrix multiplication
+    -   `%/%`: integer division
+    -   `%%`: modulus
+:::
+
+::: {.column width="2%"}
+:::
+
+::: {.column width="49%"}
+```{r}
+
+
+1:5
+5 %in% 1:10
+2 %*% 3
+5 %/% 2
+5 %% 2
+```
+:::
+::::
+
+
+## Functions
+
+-   Functions are a set of commands grouped together to perform a specific task.
+-   R has many built-in functions.
+-   Functions are called by their name followed by parentheses `()`
+
+```{r}
+sqrt(4)
+```
+
+-   R also allow the user to create their own function (advance)
