@@ -1634,22 +1634,17 @@ font-size: 1.2em;
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href></a>selsimdmds <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;Dataset/SelSimDataClean.sav&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb2-2"><a href></a>  <span class="fu">as_factor</span>()</span>
 <span id="cb2-3"><a href></a></span>
-<span id="cb2-4"><a href></a>selsimdmds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href></a><span class="fu">head</span>(selsimdmds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 158 × 22
-      id district gender   age agegp ethnicity height weight   bmi PAhour hba1c
-   &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
- 1     1 Gombak   Female    55 50-59 Malay        164   75.8  28.2      5   8  
- 2     2 Gombak   Male      57 50-59 Malay        169   91.6  32.1      4   7.4
- 3     4 Gombak   Female    50 50-59 Chinese      165   71.7  26.3      5   6.1
- 4     5 Gombak   Male      37 30-39 Malay        164   68.4  25.4      5   6.3
- 5     6 Gombak   Male      35 30-39 Chinese      160   60.2  23.5      2   4.7
- 6     7 Gombak   Female    38 30-39 Malay        162   63.6  24.2      2   5.4
- 7     9 Gombak   Male      31 30-39 Malay        166   83.6  30.3      4   6.9
- 8    10 Gombak   Male      37 30-39 Malay        163   75.2  28.3      5   8.4
- 9    12 Gombak   Female    27 20-29 Chinese      166   72    26.1      2   3.5
-10    13 Gombak   Male      21 20-29 Malay        166   67.4  24.5      4   6  
-# ℹ 148 more rows
+<pre><code># A tibble: 6 × 22
+     id district gender   age agegp ethnicity height weight   bmi PAhour hba1c
+  &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1     1 Gombak   Female    55 50-59 Malay        164   75.8  28.2      5   8  
+2     2 Gombak   Male      57 50-59 Malay        169   91.6  32.1      4   7.4
+3     4 Gombak   Female    50 50-59 Chinese      165   71.7  26.3      5   6.1
+4     5 Gombak   Male      37 30-39 Malay        164   68.4  25.4      5   6.3
+5     6 Gombak   Male      35 30-39 Chinese      160   60.2  23.5      2   4.7
+6     7 Gombak   Female    38 30-39 Malay        162   63.6  24.2      2   5.4
 # ℹ 11 more variables: dm_status &lt;fct&gt;, pop_d &lt;dbl&gt;, sampnum_d &lt;dbl&gt;, W1 &lt;dbl&gt;,
 #   W2 &lt;dbl&gt;, totresp_d &lt;dbl&gt;, NRF &lt;dbl&gt;, totresp_ps &lt;dbl&gt;, pop_ps &lt;dbl&gt;,
 #   PS &lt;dbl&gt;, final_weight &lt;dbl&gt;</code></pre>
@@ -1694,22 +1689,17 @@ font-size: 1.2em;
 <span id="cb6-3"><a href></a>  <span class="fu">mutate</span>(<span class="at">dm_statusN =</span> <span class="fu">as.numeric</span>(dm_status) <span class="sc">-</span> <span class="dv">1</span>, </span>
 <span id="cb6-4"><a href></a>         <span class="at">.after =</span> dm_status)</span>
 <span id="cb6-5"><a href></a></span>
-<span id="cb6-6"><a href></a>selsimdmds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-6"><a href></a><span class="fu">head</span>(selsimdmds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 158 × 23
-      id district gender   age agegp ethnicity height weight   bmi PAhour hba1c
-   &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
- 1     1 Gombak   Female    55 50-59 Malay        164   75.8  28.2      5   8  
- 2     2 Gombak   Male      57 50-59 Malay        169   91.6  32.1      4   7.4
- 3     4 Gombak   Female    50 50-59 Chinese      165   71.7  26.3      5   6.1
- 4     5 Gombak   Male      37 30-39 Malay        164   68.4  25.4      5   6.3
- 5     6 Gombak   Male      35 30-39 Chinese      160   60.2  23.5      2   4.7
- 6     7 Gombak   Female    38 30-39 Malay        162   63.6  24.2      2   5.4
- 7     9 Gombak   Male      31 30-39 Malay        166   83.6  30.3      4   6.9
- 8    10 Gombak   Male      37 30-39 Malay        163   75.2  28.3      5   8.4
- 9    12 Gombak   Female    27 20-29 Chinese      166   72    26.1      2   3.5
-10    13 Gombak   Male      21 20-29 Malay        166   67.4  24.5      4   6  
-# ℹ 148 more rows
+<pre><code># A tibble: 6 × 23
+     id district gender   age agegp ethnicity height weight   bmi PAhour hba1c
+  &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1     1 Gombak   Female    55 50-59 Malay        164   75.8  28.2      5   8  
+2     2 Gombak   Male      57 50-59 Malay        169   91.6  32.1      4   7.4
+3     4 Gombak   Female    50 50-59 Chinese      165   71.7  26.3      5   6.1
+4     5 Gombak   Male      37 30-39 Malay        164   68.4  25.4      5   6.3
+5     6 Gombak   Male      35 30-39 Chinese      160   60.2  23.5      2   4.7
+6     7 Gombak   Female    38 30-39 Malay        162   63.6  24.2      2   5.4
 # ℹ 12 more variables: dm_status &lt;fct&gt;, dm_statusN &lt;dbl&gt;, pop_d &lt;dbl&gt;,
 #   sampnum_d &lt;dbl&gt;, W1 &lt;dbl&gt;, W2 &lt;dbl&gt;, totresp_d &lt;dbl&gt;, NRF &lt;dbl&gt;,
 #   totresp_ps &lt;dbl&gt;, pop_ps &lt;dbl&gt;, PS &lt;dbl&gt;, final_weight &lt;dbl&gt;</code></pre>
@@ -1743,13 +1733,18 @@ dm_status   0  1
 </ul></li>
 <li>Specifying the complex sampling design is the first step in analysing complex sampling design data.</li>
 <li>We have to check back with the original research team, how was the study was designed.</li>
+</ul>
+</section>
+<section id="setting-up-complex-sampling-design-3" class="slide level2">
+<h2>Setting Up Complex Sampling Design</h2>
+<ul>
 <li>This is the snippet from NHMS 2019 (this dataset)</li>
 </ul>
 <blockquote>
 <p>To ensure national representativeness, two stage stratified random sampling was used. The <strong>two strata are primary stratum, which made up of states of Malaysia, including Federal Territories, and secondary stratum, which made up of urban and rural strata formed within the primary stratum</strong>. Sampling involved two stages; <strong>the Primary Sampling Unit (PSU), which were the EBs</strong> and the Secondary Sampling Unit (SSU), which were the LQs within the selected EBs.</p>
 </blockquote>
 </section>
-<section id="setting-up-complex-sampling-design-3" class="slide level2">
+<section id="setting-up-complex-sampling-design-4" class="slide level2">
 <h2>Setting Up Complex Sampling Design</h2>
 <ul>
 <li>These are information required for our complex sampling design</li>
@@ -1786,7 +1781,7 @@ dm_status   0  1
 </div>
 </div>
 </section>
-<section id="setting-up-complex-sampling-design-4" class="slide level2">
+<section id="setting-up-complex-sampling-design-5" class="slide level2">
 <h2>Setting Up Complex Sampling Design</h2>
 <ul>
 <li>We can use <code>svydesign</code> function to specify the complex sampling design
@@ -1800,7 +1795,7 @@ dm_status   0  1
 <span id="cb11-3"><a href></a>                           <span class="at">data =</span> selsimdmds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="setting-up-complex-sampling-design-5" class="slide level2">
+<section id="setting-up-complex-sampling-design-6" class="slide level2">
 <h2>Setting Up Complex Sampling Design</h2>
 <ul>
 <li>We can use <code>svydesign</code> function to specify the complex sampling design
@@ -1810,13 +1805,12 @@ dm_status   0  1
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href></a>selsim_svydsg <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span><span class="dv">1</span>, </span>
-<span id="cb12-2"><a href></a>                           <span class="at">strata =</span> <span class="sc">~</span>district, </span>
-<span id="cb12-3"><a href></a>                           <span class="at">weights =</span> <span class="sc">~</span>final_weight, </span>
-<span id="cb12-4"><a href></a>                           <span class="at">data =</span> selsimdmds, </span>
-<span id="cb12-5"><a href></a>                           <span class="at">nest =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-2"><a href></a>                           <span class="at">weights =</span> <span class="sc">~</span>final_weight, </span>
+<span id="cb12-3"><a href></a>                           <span class="at">data =</span> selsimdmds, </span>
+<span id="cb12-4"><a href></a>                           <span class="at">nest =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="setting-up-complex-sampling-design-6" class="slide level2">
+<section id="setting-up-complex-sampling-design-7" class="slide level2">
 <h2>Setting Up Complex Sampling Design</h2>
 <ul>
 <li>We can use <code>svydesign</code> function to specify the complex sampling design
@@ -1827,17 +1821,12 @@ dm_status   0  1
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href></a><span class="fu">summary</span>(selsim_svydsg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Stratified Independent Sampling design (with replacement)
-svydesign(ids = ~1, strata = ~district, weights = ~final_weight, 
-    data = selsimdmds, nest = T)
+<pre><code>Independent Sampling design (with replacement)
+svydesign(ids = ~1, weights = ~final_weight, data = selsimdmds, 
+    nest = T)
 Probabilities:
      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
 8.178e-06 7.805e-05 2.062e-04 5.818e-04 7.031e-04 6.000e-03 
-Stratum Sizes: 
-           Gombak Kuala Langat Kuala Selangor Petaling Sabak Bernam
-obs            30           32             32       28           36
-design.PSU     30           32             32       28           36
-actual.PSU     30           32             32       28           36
 Data variables:
  [1] &quot;id&quot;           &quot;district&quot;     &quot;gender&quot;       &quot;age&quot;          &quot;agegp&quot;       
  [6] &quot;ethnicity&quot;    &quot;height&quot;       &quot;weight&quot;       &quot;bmi&quot;          &quot;PAhour&quot;      
@@ -1851,7 +1840,6 @@ Data variables:
 <h1>Complex Sampling Design Analysis</h1>
 <ul>
 <li>Descriptive Analysis</li>
-<li>Inferential Analysis</li>
 </ul>
 </section>
 
@@ -1915,7 +1903,7 @@ dm_statusN    74 6.2922</code></pre>
 <span id="cb17-3"><a href></a>         <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            total     SE
-dm_statusN 740866 122889</code></pre>
+dm_statusN 740866 132739</code></pre>
 </div>
 </div>
 </section>
@@ -1935,7 +1923,7 @@ dm_statusN 740866 122889</code></pre>
 <span id="cb19-3"><a href></a>        <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              mean     SE
-dm_statusN 0.39264 0.0673</code></pre>
+dm_statusN 0.39264 0.0674</code></pre>
 </div>
 </div>
 </section>
@@ -1953,8 +1941,8 @@ dm_statusN 0.39264 0.0673</code></pre>
 <span id="cb21-2"><a href></a>          <span class="at">design =</span> selsim_svydsg) <span class="sc">%&gt;%</span> </span>
 <span id="cb21-3"><a href></a>  <span class="fu">attr</span>(., <span class="st">&quot;ci&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     2.5%     97.5% 
-0.2701292 0.5303420 </code></pre>
+<pre><code>    2.5%    97.5% 
+0.270001 0.530504 </code></pre>
 </div>
 </div>
 </section>
@@ -1990,9 +1978,9 @@ Female Female         30 4.945564</code></pre>
 <span id="cb25-4"><a href></a>      <span class="at">FUN =</span> svytotal, </span>
 <span id="cb25-5"><a href></a>      <span class="at">na.rm.all =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>       gender dm_statusN        se
-Male     Male   416090.8 102995.37
-Female Female   324774.8  87670.39</code></pre>
+<pre><code>       gender dm_statusN       se
+Male     Male   416090.8 105104.5
+Female Female   324774.8  91072.9</code></pre>
 </div>
 </div>
 </section>
@@ -2010,8 +1998,8 @@ Female Female   324774.8  87670.39</code></pre>
 <span id="cb27-5"><a href></a>      <span class="at">na.rm.all =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       gender dm_statusN         se
-Male     Male  0.4416367 0.10194805
-Female Female  0.3437781 0.08932007</code></pre>
+Male     Male  0.4416367 0.10235204
+Female Female  0.3437781 0.08827912</code></pre>
 </div>
 </div>
 </section>
@@ -2036,8 +2024,8 @@ hba1c 6.462 0.1158</code></pre>
 <span id="cb31-2"><a href></a>        <span class="at">design =</span> selsim_svydsg, </span>
 <span id="cb31-3"><a href></a>        <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        mean     SE
-hba1c 6.4256 0.1659</code></pre>
+<pre><code>        mean    SE
+hba1c 6.4256 0.165</code></pre>
 </div>
 </div>
 </section>
@@ -2064,7 +2052,7 @@ hba1c 6.235037 6.689014</code></pre>
 <span id="cb35-4"><a href></a>  <span class="fu">confint</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         2.5 %   97.5 %
-hba1c 6.100501 6.750643</code></pre>
+hba1c 6.102196 6.748947</code></pre>
 </div>
 </div>
 <div class="quarto-auto-generated-content">

@@ -155,7 +155,7 @@ library(survey)
 selsimdmds <- read_sav("Dataset/SelSimDataClean.sav") %>% 
   as_factor()
 
-selsimdmds
+head(selsimdmds)
 ```
 
 ## Data Exploratory
@@ -182,7 +182,7 @@ selsimdmds <- read_sav("Dataset/SelSimDataClean.sav") %>%
   mutate(dm_statusN = as.numeric(dm_status) - 1, 
          .after = dm_status)
 
-selsimdmds
+head(selsimdmds)
 ```
 
 
@@ -201,6 +201,9 @@ with(selsimdmds, table(dm_status, dm_statusN))
     -   `# Complex Sampling Design Plan`
 -   Specifying the complex sampling design is the first step in analysing complex sampling design data.
 -   We have to check back with the original research team, how was the study was designed.
+
+## Setting Up Complex Sampling Design
+
 -   This is the snippet from NHMS 2019 (this dataset)
 
 > To ensure national representativeness, two stage stratified random sampling was used. The **two strata are primary stratum, which made up of states of Malaysia, including Federal Territories, and secondary stratum, which made up of urban and rural strata formed within the primary stratum**. Sampling involved two stages; **the Primary Sampling Unit (PSU), which were the EBs** and the Secondary Sampling Unit (SSU), which were the LQs within the selected EBs. 
@@ -248,7 +251,6 @@ selsim_unwdsg <- svydesign(ids = ~1,
 
 ```{r}
 selsim_svydsg <- svydesign(ids = ~1, 
-                           strata = ~district, 
                            weights = ~final_weight, 
                            data = selsimdmds, 
                            nest = T)
@@ -266,7 +268,6 @@ summary(selsim_svydsg)
 # Complex Sampling Design Analysis
 
 -   Descriptive Analysis
--   Inferential Analysis
 
 # Descriptive Analysis
 
@@ -374,7 +375,6 @@ svyby(formula = ~dm_statusN,
 -   For example, we want to calculate the prevalence, by locality
 
 ```{r}
-
 svyby(formula = ~dm_statusN, 
       by = ~gender, 
       design = selsim_svydsg, 
@@ -390,8 +390,6 @@ svyby(formula = ~dm_statusN,
     -   and for population parameter, use weighted design
 
 ```{r}
-
-
 svymean(x = ~hba1c, 
         design = selsim_unwdsg, 
         na.rm = T)
@@ -408,8 +406,6 @@ svymean(x = ~hba1c,
     -   use `confint( )` to calculate the confident interval
 
 ```{r}
-
-
 svymean(x = ~hba1c, 
         design = selsim_unwdsg, 
         na.rm = T) %>% 
