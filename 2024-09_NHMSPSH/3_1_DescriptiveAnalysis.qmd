@@ -1,0 +1,311 @@
+---
+title: "Statistical Tests in R: Descriptive Analysis"
+subtitle: "Kursus R: Pengenalan dan Praktikal (Sesi 3)"
+format: 
+  clean-revealjs: 
+    slide-number: true
+    lightbox: true
+    auto-stretch: false
+    footer: "Descriptive Analysis"
+author:
+  - name: Mohd Azmi Bin Suliman
+    orcid: 0000-0002-2125-3811
+    email: azmi.suliman@moh.gov.my
+    affiliations: Pusat Penyelidikan Penyakit Tak Berjangkit, Institut Kesihatan Umum
+date: 2024-10-04
+date-format: "dddd, DD MMMM YYYY"
+embed-resources: true
+execute: 
+  echo: true
+---
+
+# Statistical Tests in R: Descriptive Analysis
+
+```{r}
+#| echo: false
+
+pacman::p_load(tidyverse, haven, summarytools, gtsummary)
+```
+
+```{css}
+#| echo: false
+
+code.sourceCode {
+  font-size: 1.2em;
+}
+```
+
+## Descriptive Analysis
+
+-   Descriptive analysis refers to summarising and describing the main features of a dataset.
+-   Count and percentage for categorical data.
+-   Mean, median, standard deviation, and range for numerical data.
+-   Data visualisation is also part of descriptive analysis.
+
+## Descriptive Analysis
+
+-   There are many ways to perform descriptive analysis in R.
+-   We can use the base function, or commonly, people use the tidyverse package for descriptive analysis.
+-   In this session, I will introduce `summarytools` and `gtsummary` packages for descriptive analysis.
+    -   Easier to use
+    -   More informative.
+    -   Nicer outcome (especially when rendering the Quarto document!)
+
+# Let's Try!
+
+Setup your project & quarto document.
+
+## Create New Project
+
+-   Remember last week? RStudio allows for project management.
+    -   Project as a 'container' for our work.
+
+1.  Open RStudio.
+2.  Create a new project.
+    -   `File` \> `New Project` \> `New Directory` \> `New Project`
+3.  Set the name and directory.
+    -   Name: `Statistical Tests in R`
+    -   Directory: `.../Documents/RStudio`
+4.  Click `Create Project`
+
+## Create New Project
+
+![](images/New_Project.png)
+
+## Create New Quarto Document
+
+Quarto as R Notebook.
+
+1.  Create a new Quarto document.
+    -   `File` \> `New File` \> `Quarto Document...`
+2.  Set the title
+    -   Title: `Statistical Tests in R`
+    -   Untick `Use the visual editor.`
+3.  Click `Create Empty Document`
+4.  Edit the YAML
+    -   Add the `embed-resources: true` parameter.
+
+## Create a New Quarto Document
+
+![](images/New_Qmd.png)
+
+## Import Dataset
+
+1.  Copy the `asthmads_clean.sav` dataset into the working directory.
+    -   Download the dataset from the Google Drive folder.
+    -   Open the folder to which the dataset was downloaded.
+    -   Copy the dataset.
+    -   Open your working directory.
+    -   `File` pane \> `⚙️ More` \> `Show Folder in New Window`
+    -   Paste the dataset into the working directory.
+2.  In the Quarto document, add a new level 1 header & level 2 header
+    -   `# Preparation`
+    -   `## Data Import`
+
+## Import Dataset
+
+3.  Import the dataset. We will use `asthmads_clean.sav` dataset
+    -   `File` \> `Import Dataset` \> `From SPSS...`
+    -   Select the dataset `asthmads_clean.sav`
+    -   Click `Open`
+    -   Untick `Open Data Viewer`
+    -   Click the clipboard symbol 📋
+
+## Import Dataset
+
+![](images/Import_Dataset.png)
+
+## Import Dataset
+
+4.  Paste the code into the r code chunk
+5.  Use the `as_factor` function to read the label and apply to the dataset
+    -   We can use %\>% pipe operator to use `as_factor` function
+    -   Don't forget to load the `tidyverse` package first
+
+```{r}
+library(tidyverse)
+library(haven)
+asthmads_clean <- read_sav("Dataset/asthmads_clean.sav") %>% 
+  as_factor()
+```
+
+## Import Dataset
+
+```{r}
+asthmads_clean
+```
+
+# Let's Try!
+
+Descriptive Analysis with gtsummary
+
+## Descriptive Analysis with `gtsummary`
+
+-   The primary function of Quarto is for publishing.
+-   There are various package that can help us to explore our data
+-   However, if we want to publish the document, we need a better-looking table.
+-   The `gtsummary` package is an excellent package for this purpose.
+
+```{r}
+library(gtsummary)
+```
+
+## Descriptive Analysis with `gtsummary`
+
+-   using the `tbl_summary` function to summarise the data.
+-   Note: *The variable column (Characteristic) will automatically read the variable's label, if available.*
+
+```{r}
+#| eval: false
+
+asthmads_clean %>% 
+  select(Gender:BMI_PostCat) %>%
+  tbl_summary()
+```
+
+##
+
+```{r}
+#| echo: false
+
+asthmads_clean %>% 
+  select(Gender:BMI_PostCat) %>%
+  tbl_summary()
+```
+
+
+
+## Descriptive Analysis with `gtsummary`
+
+-   we can customise it.
+    -   change the variable label using the `label =` parameter
+
+```{r}
+#| code-line-numbers: "3-7"
+#| eval: false
+
+asthmads_clean %>% 
+  select(Gender:BMI_PostCat) %>%
+  tbl_summary(label = list(Ht_m = "Height (m)", 
+                           BMI_Pre = "BMI (Pre)", 
+                           BMI_PreCat = "BMI Category (Pre)",
+                           BMI_Post = "BMI (Post)", 
+                           BMI_PostCat = "BMI Category (Post)"))
+
+```
+
+
+```{r}
+#| echo: false
+
+asthmads_clean %>% 
+  select(Gender:BMI_PostCat) %>%
+  tbl_summary(label = list(Ht_m = "Height (m)", 
+                           BMI_Pre = "BMI (Pre)", 
+                           BMI_PreCat = "BMI Category (Pre)",
+                           BMI_Post = "BMI (Post)", 
+                           BMI_PostCat = "BMI Category (Post)"))
+
+```
+
+
+## Descriptive Analysis with `gtsummary`
+
+-   we can customise it.
+    -   change the digit using the `digits =` parameter
+
+```{r}
+#| code-line-numbers: "4-6"
+#| eval: false
+
+asthmads_clean %>% 
+  select(Gender:BMI_PostCat) %>%
+  tbl_summary(label = list(Ht_m = "Height (m)"),
+              digits = list(all_continuous() ~ 2, 
+                            all_categorical() ~ c(0,1), 
+                            Age ~ 0))
+```
+
+##
+
+
+```{r}
+#| echo: false
+
+asthmads_clean %>% 
+  select(Gender:BMI_PostCat) %>%
+  tbl_summary(label = list(Ht_m = "Height (m)"),
+              digits = list(all_continuous() ~ 2, 
+                            all_categorical() ~ c(0,1), 
+                            Age ~ 0))
+```
+
+
+
+## Descriptive Analysis with `gtsummary`
+
+-   we can customise it.
+    -   by default, the numerical variables are reported in Median (IQR)
+    -   change it to Mean (SD) using the `stat =` parameter
+
+```{r}
+#| code-line-numbers: "7"
+#| eval: false
+
+asthmads_clean %>% 
+  select(Gender:BMI_PostCat) %>%
+  tbl_summary(label = list(Ht_m = "Height (m)"),
+              digits = list(all_continuous() ~ 2, 
+                            all_categorical() ~ c(0,1), 
+                            Age ~ 0), 
+              stat = list(all_continuous() ~ "{mean} ({sd})"))
+```
+
+##
+
+
+```{r}
+#| echo: false
+
+asthmads_clean %>% 
+  select(Gender:BMI_PostCat) %>%
+  tbl_summary(label = list(Ht_m = "Height (m)"),
+              digits = list(all_continuous() ~ 2, 
+                            all_categorical() ~ c(0,1), 
+                            Age ~ 0), 
+              stat = list(all_continuous() ~ "{mean} ({sd})"))
+```
+
+
+# Grouped Summaries with `gtsummary`
+
+## Grouped Summaries with `gtsummary`
+
+-   We can also perform grouped summaries using the `by =` parameter.
+
+```{r}
+#| code-line-numbers: "3"
+#| eval: false
+
+asthmads_clean %>% 
+  select(Gender:BMI_PostCat) %>%
+  tbl_summary(by = Gender, 
+              label = list(Ht_m = "Height (m)"),
+              digits = list(all_continuous() ~ 2, 
+                            all_categorical() ~ c(0,1), 
+                            Age ~ 0), 
+              stat = list(all_continuous() ~ "{mean} ({sd})"))
+```
+
+```{r}
+#| echo: false
+
+asthmads_clean %>% 
+  select(Gender:BMI_PostCat) %>%
+  tbl_summary(by = Gender, 
+              label = list(Ht_m = "Height (m)"),
+              digits = list(all_continuous() ~ 2, 
+                            all_categorical() ~ c(0,1), 
+                            Age ~ 0), 
+              stat = list(all_continuous() ~ "{mean} ({sd})"))
+```

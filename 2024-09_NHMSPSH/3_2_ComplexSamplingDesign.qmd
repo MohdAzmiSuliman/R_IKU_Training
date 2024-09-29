@@ -12,7 +12,7 @@ author:
     orcid: 0000-0002-2125-3811
     email: azmi.suliman@moh.gov.my
     affiliations: Pusat Penyelidikan Penyakit Tak Berjangkit, Institut Kesihatan Umum
-date: 2024-10-02
+date: 2024-10-04
 date-format: "dddd, DD MMMM YYYY"
 embed-resources: true
 execute: 
@@ -61,80 +61,31 @@ code.sourceCode {
 
 -   In SRS, mathematically, the sample may not adequately represent the population, particularly minorities.
 
-```{r}
-ikustaff <- readxl::read_excel("Dataset/StaffByCentre.xlsx")
-ikustaff %>% freq(Ethnicity)
-ikustaff %>% slice_sample(n = 10) %>% freq(Ethnicity)
-```
-
-
-## Stratification
+. . . 
 
 -   Stratification is a method where the population is divided into strata
     -   For example, the population is divided by gender and ethnicity
     -   Stratification ensures that important subgroups are adequately represented in the sample
 
-```{r}
-ikustaff %>% 
-  slice_sample(by = Ethnicity, n = 5) %>% 
-  freq(Ethnicity)
-```
-
-
-## Clustering 
+. . . 
 
 -   Clustering is a method where the population is divided into clusters
     -   For example, an enumeration block, in which the population is divided by geographical area
     -   Clustering can increase efficiency and reduce cost, especially in geographical dispersed population
 
-::::{.columns}
-:::{.column width="40%"}
 
-```{r}
-with(ikustaff, 
-     table(Centre, Ethnicity))
-```
+## Complex Sampling Design in NHMS
 
-:::
-
-:::{.column width="4%"}
-
-:::
-
-:::{.column width="56%"}
-
-```{r}
-selctr <- sample(unique(ikustaff$Centre), 3)
-selctr
-
-ikustaff %>% 
-  filter(Centre %in% c(selctr)) %>% 
-  freq(Ethnicity, cumul = F, report.nas = F, headings = F)
-```
-
-:::
-
-::::
-
-
-
-## Stratification & Clustering
-
--   Clustering is a method where the population is divided into clusters
-    -   For example, an enumeration block, in which the population is divided by geographical area
-    -   Clustering can increase efficiency and reduce cost, especially in geographical dispersed population
--   Stratification is a method where the population is divided into strata
-    -   For example, the population is divided by gender and ethnicity
-    -   Stratification ensures that important subgroups are adequately represented in the sample
 -   However, clustering and stratification affect the sampling probability.
 -   Thus the need for complex sampling design.
 
-## Complex Sampling Design in NHMS
+. . . 
 
 -   Our NHMS apply complex sampling design.
 -   This is snippet from our NHMS 2022 MCH
 
-> This survey used a two-stage stratified random sampling design encompassing all states and federal territories in Malaysia to ensure national representation. The primary stratum included all states and federal territories, while the secondary stratum represented urban and rural areas. Enumeration Blocks (EBs) were the primary sampling units (PSUs), and living quarters (LQs) within each selected EB were the secondary sampling units (SSUs). DOSM randomly selected PSUs based on sample size.
+> The survey employed a two-stage stratified random sampling design covering all states and federal territories in Malaysia for national representation. States and territories formed the primary stratum, while urban and rural areas were the secondary stratum. DOSM randomly selected Enumeration Blocks (PSUs) and living quarters (SSUs) based on sample size. 
+
 
 ## Sampling Weight
 
@@ -148,7 +99,7 @@ ikustaff %>%
 ## Sampling Weight NHMS
 
 -   The weight is calculated as follows:
-    -   W1 = the inverse probability os selecting te EBs of each state
+    -   W1 = the inverse probability of selecting the EBs of each state
     -   W2 = the inverse probability of selecting the LQs over the total frame during the listing activities
     -   W3 = the inverse probability of successful LQ from the total listing frame
     -   F = the non-response adjustment factor for LQ and individual
@@ -201,73 +152,23 @@ library(survey)
 -   In this example, im using hypercholesterolaemia module in NHMS 2019
 
 ```{r}
-nhms19ds <- read_sav("nhms19ds.sav") %>% 
+selsimdmds <- read_sav("Dataset/SelSimDataClean.sav") %>% 
   as_factor()
 
-nhms19ds
+selsimdmds
 ```
 
 ## Data Exploratory
 
 -   Add Level 1 Header
     -   `# Data Exploratory`
--   We can use any tools that we familiar with.
-    -   In this exercise, we will use `summarytools`
-
-
-```{r}
-library(summarytools)
-```
-
-```{r}
-#| eval: false
-
-dfSummary(nhms19ds) %>% 
-  stview()
-```
-
-## Data Exploratory
-
-```{r}
-names(nhms19ds)
-```
-
 -   In this dataset, there were several variables related to the outcome, namely
-    -   **Overal Hypercholesterolaemia: `total_chol`**
-    -   Known Hypercholesterolaemia: `known_chol`
-    -   Unknown/undiagnosed Hypercholesterolaemia: `undiagnosed_chol`
-    -   Capillary (Finger-prick) Total Cholesterol (mmol/L): `u303`
-
-
-## Data Cleaning
-
--   In my dataset, there were missing data in the outcome variable, i.e., `total_chol`
-    -   Thus this missing data should be excluded first
-    -   We can edit directly at our setup code chunk
+    -   glucose control level: `hba1c`
+    -   **Diabetes Status: `dm_status`**
 
 ```{r}
-nhms19ds <- read_sav("nhms19ds.sav") %>% 
-  as_factor() %>% 
-  filter(!is.na(total_chol))
-
-nhms19ds
+names(selsimdmds)
 ```
-
-
-## Data Cleaning
-
--   In this dataset, the capillary total cholesterol is in factor type.
-    -   We should convert it to numeric type
-
-```{r}
-nhms19ds <- read_sav("nhms19ds.sav") %>% 
-  as_factor() %>% 
-  filter(!is.na(total_chol)) %>% 
-  mutate(u303 = as.numeric(u303))
-
-nhms19ds
-```
-
 
 
 ## Setting Up Complex Sampling Design
@@ -276,14 +177,12 @@ nhms19ds
     -   We can update our setup chunk code
 
 ```{r}
-nhms19ds <- read_sav("nhms19ds.sav") %>% 
+selsimdmds <- read_sav("Dataset/SelSimDataClean.sav") %>% 
   as_factor() %>% 
-  filter(!is.na(total_chol)) %>% 
-  mutate(u303 = as.numeric(u303)) %>% 
-  mutate(total_cholN = as.numeric(total_chol) - 2, 
-         .after = total_chol)
+  mutate(dm_statusN = as.numeric(dm_status) - 1, 
+         .after = dm_status)
 
-nhms19ds
+selsimdmds
 ```
 
 
@@ -293,7 +192,7 @@ nhms19ds
     -   Hint: we can use cross-tab to check our transformation
 
 ```{r}
-with(nhms19ds, table(total_chol, total_cholN))
+with(selsimdmds, table(dm_status, dm_statusN))
 ```
 
 ## Setting Up Complex Sampling Design
@@ -330,43 +229,15 @@ tibble(
   kable_classic()
 ```
 
-```{r}
-#| eval: false
-
-names(nhms19ds)
-```
-
-
-## Setting Up Complex Sampling Design
-
-```{r}
-#| echo: false
-
-tibble(
-  "Required Information/Specification" = c(
-    "Cluster IDs (PSU)", "Strata", "Sampling Weight"), 
-  "Common NHMS Variable Name" = c(
-    "EB ID", "State.Strata, State.wt", "ADW, weight_final, weight")
-  ) %>% 
-  kbl() %>% 
-  kable_classic()
-```
-
-```{r}
-names(nhms19ds)
-```
-
-
 ## Setting Up Complex Sampling Design
 
 -   We can use `svydesign` function to specify the complex sampling design
     -   First, setup the **unweighted** design
 
 ```{r}
-nhms_unwdsg <- svydesign(ids = ~1, 
-                         weights = ~1, 
-                         data = nhms19ds)
-
+selsim_unwdsg <- svydesign(ids = ~1, 
+                           weights = ~1, 
+                           data = selsimdmds)
 ```
 
 
@@ -376,11 +247,11 @@ nhms_unwdsg <- svydesign(ids = ~1,
     -   Then, setup the **weighted** design
 
 ```{r}
-nhms_svydsg <- svydesign(ids = ~ebid, 
-                         strata = ~state_st, 
-                         weights = ~wtfinal_ncd, 
-                         data = nhms19ds, 
-                         nest = T)
+selsim_svydsg <- svydesign(ids = ~1, 
+                           strata = ~district, 
+                           weights = ~final_weight, 
+                           data = selsimdmds, 
+                           nest = T)
 ```
 
 ## Setting Up Complex Sampling Design
@@ -389,15 +260,13 @@ nhms_svydsg <- svydesign(ids = ~ebid,
     -   We can use `summary( )` to check the design
 
 ```{r}
-summary(nhms_svydsg)
+summary(selsim_svydsg)
 ```
 
 # Complex Sampling Design Analysis
 
 -   Descriptive Analysis
 -   Inferential Analysis
-
-
 
 # Descriptive Analysis
 
@@ -423,8 +292,8 @@ summary(nhms_svydsg)
     - For this example, the unweighted count for overall is calculated
 
 ```{r}
-svytotal(x = ~total_cholN, 
-         design = nhms_unwdsg, 
+svytotal(x = ~dm_statusN, 
+         design = selsim_unwdsg, 
          na.rm = T)
 ```
 
@@ -435,8 +304,8 @@ svytotal(x = ~total_cholN,
     - For this example, the estimated population for overall is calculated
 
 ```{r}
-svytotal(x = ~total_cholN, 
-         design = nhms_svydsg, 
+svytotal(x = ~dm_statusN, 
+         design = selsim_svydsg, 
          na.rm = T)
 ```
 
@@ -449,8 +318,8 @@ svytotal(x = ~total_cholN,
     - For this example, the prevalence and confident interval for overall is calculated
 
 ```{r}
-svymean(x = ~total_cholN, 
-        design = nhms_svydsg, 
+svymean(x = ~dm_statusN, 
+        design = selsim_svydsg, 
         na.rm = T)
 ```
 
@@ -462,8 +331,8 @@ svymean(x = ~total_cholN,
     -   `svyciprop( )` is used.
 
 ```{r}
-svyciprop(formula = ~total_cholN, 
-          design = nhms_svydsg) %>% 
+svyciprop(formula = ~dm_statusN, 
+          design = selsim_svydsg) %>% 
   attr(., "ci")
 ```
 
@@ -474,9 +343,9 @@ svyciprop(formula = ~total_cholN,
 -   For example, we want to calculate the unweighted count, by locality
 
 ```{r}
-svyby(formula = ~total_cholN, 
-      by = ~strata_gp, 
-      design = nhms_unwdsg, 
+svyby(formula = ~dm_statusN, 
+      by = ~gender, 
+      design = selsim_unwdsg, 
       FUN = svytotal, 
       na.rm.all = T)
 
@@ -489,9 +358,10 @@ svyby(formula = ~total_cholN,
 -   For example, we want to calculate the estimated population, by locality
 
 ```{r}
-svyby(formula = ~total_cholN, 
-      by = ~strata_gp, 
-      design = nhms_svydsg, 
+
+svyby(formula = ~dm_statusN, 
+      by = ~gender, 
+      design = selsim_svydsg, 
       FUN = svytotal, 
       na.rm.all = T)
 
@@ -504,67 +374,14 @@ svyby(formula = ~total_cholN,
 -   For example, we want to calculate the prevalence, by locality
 
 ```{r}
-svyby(formula = ~total_cholN, 
-      by = ~strata_gp, 
-      design = nhms_svydsg, 
+
+svyby(formula = ~dm_statusN, 
+      by = ~gender, 
+      design = selsim_svydsg, 
       FUN = svymean, 
       na.rm.all = T)
 ```
 
-
-## Practical: Subpopulation (Confident Interval for Prevalence)
-
--   For subpopulation analysis, we can use `svyby( )` function
--   For example, we want to calculate the confident interval for prevalence, by locality
--   Unfortunately, `svyciprop( )` is not working with `svyby( )` function
--   We need to subset manually
-    -   But the degree of freedom, `df` is affected when we subset manually
-    -   We need to add `df = degf(design)` to correct the `df`
-
-
-## Practical: Subpopulation (Confident Interval for Prevalence)
-
-```{r}
-nhms_surdsg_urban <- subset(nhms_svydsg, strata_gp == "Urban")
-
-svyciprop(formula = ~total_cholN, 
-          design = nhms_surdsg_urban, 
-          method = "xl", 
-          df = degf(nhms_svydsg)) %>% 
-  attr(., "ci")
-```
-
-
-## Practical: Subpopulation (Confident Interval for Prevalence)
-
--   Alternatively, we can write custom function (advance) to calculate the confident interval for subpopulation analysis
-
-## Practical: Subpopulation (Confident Interval for Prevalence)
-
-```{r}
-svyciprop_by <- function(x, design, by) {
-  by_var <- deparse(substitute(by))
-    by_levels <- unique(design$variables[[by_var]])
-    calculate_ci <- function(stratum) {
-    subset_design <- subset(design, design$variables[[by_var]] == stratum)
-    result <- svyciprop(x, design = subset_design, method = "xl", df = degf(design))
-    return(attr(result, "ci"))
-  }
-    ci_results <- purrr::map(by_levels, calculate_ci)
-    tibble::tibble(subset = by_levels, ci = ci_results) %>% 
-    tidyr::unnest_wider(ci, names_sep = "_") %>% 
-    dplyr::rename("Lower 95% CI" = "ci_2.5%", 
-                  "Upper 95% CI" = "ci_97.5%")
-}
-```
-
-## Practical: Subpopulation (Confident Interval for Prevalence)
-
--   Alternatively, we can write custom function (advance) to calculate the confident interval for subpopulation analysis
-
-```{r}
-svyciprop_by(x = ~total_cholN, design = nhms_svydsg, by = strata_gp)
-```
 
 ## Practical: Mean for Continuous Variable
 
@@ -573,12 +390,14 @@ svyciprop_by(x = ~total_cholN, design = nhms_svydsg, by = strata_gp)
     -   and for population parameter, use weighted design
 
 ```{r}
-svymean(x = ~u303, 
-        design = nhms_unwdsg, 
+
+
+svymean(x = ~hba1c, 
+        design = selsim_unwdsg, 
         na.rm = T)
 
-svymean(x = ~u303, 
-        design = nhms_svydsg, 
+svymean(x = ~hba1c, 
+        design = selsim_svydsg, 
         na.rm = T)
 ```
 
@@ -589,85 +408,17 @@ svymean(x = ~u303,
     -   use `confint( )` to calculate the confident interval
 
 ```{r}
-svymean(x = ~u303, 
-        design = nhms_unwdsg, 
+
+
+svymean(x = ~hba1c, 
+        design = selsim_unwdsg, 
         na.rm = T) %>% 
   confint()
 
-svymean(x = ~u303, 
-        design = nhms_svydsg, 
+svymean(x = ~hba1c, 
+        design = selsim_svydsg, 
         na.rm = T) %>% 
   confint()
 ```
 
 
-
-# Inferential Analysis
-
--   Chi-square Test
--   T-test
--   Linear Regression
--   Logistic Regression
-
-## Practical: Chi-square Test
-
--   We can use `svychisq( )` function to calculate the chi-square test
-    -   `svychisq( )` function accept `formula` as input
-    -   we might want to create the cross-tab first, using `svytable( )` function
-
-```{r}
-svytable(formula = ~strata_gp + total_cholN, design = nhms_svydsg)
-```
-
-
-## Practical: Chi-square Test
-
--   We can use `svychisq( )` function to calculate the chi-square test
-    -   `svychisq( )` function accept `formula` as input
-
-```{r}
-svychisq(~total_cholN + strata_gp, design = nhms_svydsg)
-```
-
-## Practical: T-test 
-
--   We can use `svyttest( )` function to calculate the t-test
-    -   `svyttest( )` function accept `formula` as input
-
-```{r}
-svyttest(u303 ~ strata_gp, design = nhms_svydsg)
-```
-
-## Practical: Linear Regression
-
--   We can use `svyglm( )` function to calculate the linear regression
-    -   `svyglm( )` function accept `formula` as input
-
-```{r}
-svylinm_mod <- svyglm(u303 ~ strata_gp, 
-                    family = gaussian(), 
-                    design = nhms_svydsg)
-
-summary(svylinm_mod)
-
-coef(svylinm_mod)
-confint(svylinm_mod)
-```
-
-
-## Practical: Logistic Regression
-
--   We can use `svyglm( )` function to calculate the logistic regression
-    -   `svyglm( )` function accept `formula` as input
-    -   `family = quasibinomial()` is used for logistic regression
-
-```{r}
-svylogm_mod <- svyglm(total_cholN ~ strata_gp, 
-                       family = quasibinomial(), 
-                       design = nhms_svydsg)
-
-summary(svylogm_mod)
-
-coef(svylogm_mod)
-confint(svylogm_mod)
-```
