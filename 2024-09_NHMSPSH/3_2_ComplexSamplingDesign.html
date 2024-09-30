@@ -1499,13 +1499,184 @@ font-size: 1.2em;
 <li>In reality, even DOSM don’t have the complete list of population.</li>
 </ul></li>
 </ul>
+<div class="fragment">
+<ul>
+<li>In SRS, mathematically, the sample may not adequately represent the population, particularly minorities.</li>
+<li>In the next slide, I’ll simulate the effect of SRS in a hypothetical population.</li>
+</ul>
+</div>
+</section>
+<section id="simulation" class="slide level2">
+<h2>Simulation</h2>
+<ul>
+<li>Information of number of population was taken from OpenDOSM Population Table by Administrative Districts, 2023.</li>
+</ul>
+<p>Link: https://open.dosm.gov.my/data-catalogue/population_district</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href></a><span class="fu">library</span>(arrow)</span>
+<span id="cb1-2"><a href></a>pop_mydist <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="st">&quot;https://storage.dosm.gov.my/population/population_district.parquet&quot;</span>)</span>
+<span id="cb1-3"><a href></a></span>
+<span id="cb1-4"><a href></a>pop_my23 <span class="ot">&lt;-</span> pop_mydist <span class="sc">%&gt;%</span> </span>
+<span id="cb1-5"><a href></a>  <span class="fu">filter</span>(date <span class="sc">==</span> <span class="fu">dmy</span>(<span class="st">&quot;01/01/23&quot;</span>), </span>
+<span id="cb1-6"><a href></a>         sex <span class="sc">!=</span> <span class="st">&quot;both&quot;</span>, </span>
+<span id="cb1-7"><a href></a>         age <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;20-24&quot;</span>, <span class="st">&quot;24-29&quot;</span>, <span class="st">&quot;30-34&quot;</span>, <span class="st">&quot;35-39&quot;</span>, <span class="st">&quot;40-44&quot;</span>, <span class="st">&quot;45-49&quot;</span>, </span>
+<span id="cb1-8"><a href></a>                    <span class="st">&quot;50-54&quot;</span>, <span class="st">&quot;55-59&quot;</span>), </span>
+<span id="cb1-9"><a href></a>         ethnicity <span class="sc">==</span> <span class="st">&quot;overall&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-10"><a href></a>  <span class="fu">mutate</span>(<span class="at">population =</span> population<span class="sc">*</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="simulation-1" class="slide level2">
+<h2>Simulation</h2>
+<ul>
+<li>From the DOSM dataset, we know that, the selected population contained
+<ul>
+<li>16 states</li>
+<li>160 district (Daerah Pentadbiran)</li>
+<li>Total population of approx. 16.3 million</li>
+</ul></li>
+</ul>
+<p>Note: In the dataset, each 1 unit of population is 1,000 population. But in our dataset, I’ve multiplied by 10, so each 1 unit of population is 100 population.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href></a>pop_simdist <span class="ot">&lt;-</span> pop_my23 <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href></a>  <span class="fu">group_by</span>(state, district) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href></a>  <span class="fu">summarise</span>(<span class="at">population =</span> <span class="fu">sum</span>(population)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="simulation-2" class="slide level2">
+<h2>Simulation</h2>
+<ul>
+<li>Below is the snippet of the dataset</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href></a>pop_simdist <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href></a>  <span class="fu">summarise</span>(<span class="at">total_state =</span> <span class="fu">n_distinct</span>(state), </span>
+<span id="cb3-3"><a href></a>            <span class="at">total_district =</span> <span class="fu">n_distinct</span>(district), </span>
+<span id="cb3-4"><a href></a>            <span class="at">total_population =</span> scales<span class="sc">::</span><span class="fu">comma</span>(<span class="fu">sum</span>(population)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  total_state total_district total_population
+        &lt;int&gt;          &lt;int&gt; &lt;chr&gt;           
+1          16            160 163,619         </code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb5-2"><a href></a>pop_simdist <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  state           district    population
+  &lt;chr&gt;           &lt;chr&gt;            &lt;dbl&gt;
+1 W.P. Labuan     W.P. Labuan        487
+2 Kedah           Kuala Muda        2536
+3 Pahang          Maran              548
+4 Sarawak         Lundu              162
+5 Negeri Sembilan Tampin             404</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="simulation-3" class="slide level2">
+<h2>Simulation</h2>
+<ul>
+<li>In this simulation, we will randomly select 100 units from the population.</li>
+<li>Will all districts have representative?</li>
+<li>Below is total number of district that have the populations included in sample.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb7-2"><a href></a>pop_simdist <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href></a>  <span class="fu">count</span>(state, district) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-5"><a href></a>  <span class="fu">count</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-6"><a href></a>  <span class="fu">rename</span>(<span class="at">sample_district =</span> n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="simulation-4" class="slide level2">
+<h2>Simulation</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb8-2"><a href></a>pop_simdist <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href></a>  <span class="fu">count</span>(state, district) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-5"><a href></a>  <span class="fu">count</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-6"><a href></a>  <span class="fu">rename</span>(<span class="at">sample_district =</span> n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 15 × 2
+   state             sample_district
+   &lt;chr&gt;                       &lt;int&gt;
+ 1 Johor                           4
+ 2 Kedah                           8
+ 3 Kelantan                        8
+ 4 Melaka                          2
+ 5 Negeri Sembilan                 6
+ 6 Pahang                          7
+ 7 Perak                           5
+ 8 Pulau Pinang                    3
+ 9 Sabah                          19
+10 Sarawak                        21
+11 Selangor                        7
+12 Terengganu                      7
+13 W.P. Kuala Lumpur               1
+14 W.P. Labuan                     1
+15 W.P. Putrajaya                  1</code></pre>
+</div>
+</div>
+</section>
+<section id="simulation-5" class="slide level2">
+<h2>Simulation</h2>
+<ul>
+<li>Compare that with the total district in Malaysia</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href></a>sel_dist <span class="ot">&lt;-</span> pop_simdist <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href></a>  <span class="fu">count</span>(state, district) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href></a>  <span class="fu">count</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-5"><a href></a>  <span class="fu">rename</span>(<span class="at">sample_district =</span> n) </span>
+<span id="cb10-6"><a href></a></span>
+<span id="cb10-7"><a href></a>all_dist <span class="ot">&lt;-</span> pop_simdist <span class="sc">%&gt;%</span> </span>
+<span id="cb10-8"><a href></a>  <span class="fu">count</span>(state, district) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-9"><a href></a>  <span class="fu">count</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-10"><a href></a>  <span class="fu">rename</span>(<span class="at">all_district =</span> n)</span>
+<span id="cb10-11"><a href></a></span>
+<span id="cb10-12"><a href></a>sel_dist <span class="sc">%&gt;%</span> </span>
+<span id="cb10-13"><a href></a>  <span class="fu">left_join</span>(all_dist, <span class="at">by =</span> <span class="st">&quot;state&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-14"><a href></a>  <span class="fu">mutate</span>(<span class="at">perc =</span> scales<span class="sc">::</span><span class="fu">percent</span>(sample_district <span class="sc">/</span> all_district))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="simulation-6" class="slide level2">
+<h2>Simulation</h2>
+<ul>
+<li>As you can see below, with random selection, not all district will be represented.</li>
+<li>We can imagine how these random selection will affect other selection criteria, e.g., gender, age, etc.</li>
+</ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 14 × 4
+   state             sample_district all_district perc  
+   &lt;chr&gt;                       &lt;int&gt;        &lt;int&gt; &lt;chr&gt; 
+ 1 Johor                           7           10 70.0% 
+ 2 Kedah                           6           12 50.0% 
+ 3 Kelantan                        9           11 81.8% 
+ 4 Melaka                          1            3 33.3% 
+ 5 Negeri Sembilan                 3            7 42.9% 
+ 6 Pahang                          8           11 72.7% 
+ 7 Perak                           7           13 53.8% 
+ 8 Pulau Pinang                    2            5 40.0% 
+ 9 Sabah                          18           27 66.7% 
+10 Sarawak                        25           40 62.5% 
+11 Selangor                        5            9 55.6% 
+12 Terengganu                      7            8 87.5% 
+13 W.P. Kuala Lumpur               1            1 100.0%
+14 W.P. Labuan                     1            1 100.0%</code></pre>
+</div>
+</div>
 </section>
 <section id="why-not-srs-1" class="slide level2">
 <h2>Why Not SRS?</h2>
-<ul>
-<li>In SRS, mathematically, the sample may not adequately represent the population, particularly minorities.</li>
-</ul>
-<div class="fragment">
 <ul>
 <li>Stratification is a method where the population is divided into strata
 <ul>
@@ -1513,7 +1684,6 @@ font-size: 1.2em;
 <li>Stratification ensures that important subgroups are adequately represented in the sample</li>
 </ul></li>
 </ul>
-</div>
 <div class="fragment">
 <ul>
 <li>Clustering is a method where the population is divided into clusters
@@ -1614,27 +1784,26 @@ font-size: 1.2em;
 <li>Add setup code chunk</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href></a><span class="in">```{r}</span></span>
-<span id="cb1-2"><a href></a><span class="in">#| label: setup</span></span>
-<span id="cb1-3"><a href></a></span>
-<span id="cb1-4"><a href></a><span class="in">library(tidyverse)</span></span>
-<span id="cb1-5"><a href></a><span class="in">library(haven)</span></span>
-<span id="cb1-6"><a href></a><span class="in">library(survey)</span></span>
-<span id="cb1-7"><a href></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href></a><span class="in">```{r}</span></span>
+<span id="cb12-2"><a href></a><span class="in">#| label: setup</span></span>
+<span id="cb12-3"><a href></a></span>
+<span id="cb12-4"><a href></a><span class="in">library(tidyverse)</span></span>
+<span id="cb12-5"><a href></a><span class="in">library(haven)</span></span>
+<span id="cb12-6"><a href></a><span class="in">library(survey)</span></span>
+<span id="cb12-7"><a href></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="data-import" class="slide level2">
 <h2>Data Import</h2>
 <ul>
-<li>Copy the NHMS dataset in our working directory</li>
+<li>Copy the simulation dataset in our working directory</li>
 <li>We can put our import data code in setup chunk</li>
-<li>In this example, im using hypercholesterolaemia module in NHMS 2019</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href></a>selsimdmds <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;Dataset/SelSimDataClean.sav&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-2"><a href></a>  <span class="fu">as_factor</span>()</span>
-<span id="cb2-3"><a href></a></span>
-<span id="cb2-4"><a href></a><span class="fu">head</span>(selsimdmds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href></a>selsimdmds <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;Dataset/SelSimDataClean.sav&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href></a>  <span class="fu">as_factor</span>()</span>
+<span id="cb13-3"><a href></a></span>
+<span id="cb13-4"><a href></a><span class="fu">head</span>(selsimdmds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 22
      id district gender   age agegp ethnicity height weight   bmi PAhour hba1c
@@ -1665,7 +1834,7 @@ font-size: 1.2em;
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href></a><span class="fu">names</span>(selsimdmds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href></a><span class="fu">names</span>(selsimdmds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] &quot;id&quot;           &quot;district&quot;     &quot;gender&quot;       &quot;age&quot;          &quot;agegp&quot;       
  [6] &quot;ethnicity&quot;    &quot;height&quot;       &quot;weight&quot;       &quot;bmi&quot;          &quot;PAhour&quot;      
@@ -1684,12 +1853,12 @@ font-size: 1.2em;
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href></a>selsimdmds <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;Dataset/SelSimDataClean.sav&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href></a>  <span class="fu">as_factor</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb6-3"><a href></a>  <span class="fu">mutate</span>(<span class="at">dm_statusN =</span> <span class="fu">as.numeric</span>(dm_status) <span class="sc">-</span> <span class="dv">1</span>, </span>
-<span id="cb6-4"><a href></a>         <span class="at">.after =</span> dm_status)</span>
-<span id="cb6-5"><a href></a></span>
-<span id="cb6-6"><a href></a><span class="fu">head</span>(selsimdmds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href></a>selsimdmds <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;Dataset/SelSimDataClean.sav&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href></a>  <span class="fu">as_factor</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href></a>  <span class="fu">mutate</span>(<span class="at">dm_statusN =</span> <span class="fu">as.numeric</span>(dm_status) <span class="sc">-</span> <span class="dv">1</span>, </span>
+<span id="cb17-4"><a href></a>         <span class="at">.after =</span> dm_status)</span>
+<span id="cb17-5"><a href></a></span>
+<span id="cb17-6"><a href></a><span class="fu">head</span>(selsimdmds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 23
      id district gender   age agegp ethnicity height weight   bmi PAhour hba1c
@@ -1715,7 +1884,7 @@ font-size: 1.2em;
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href></a><span class="fu">with</span>(selsimdmds, <span class="fu">table</span>(dm_status, dm_statusN))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href></a><span class="fu">with</span>(selsimdmds, <span class="fu">table</span>(dm_status, dm_statusN))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          dm_statusN
 dm_status   0  1
@@ -1750,7 +1919,7 @@ dm_status   0  1
 <li>These are information required for our complex sampling design</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href></a>?svydesign</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href></a>?svydesign</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -1790,9 +1959,9 @@ dm_status   0  1
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href></a>selsim_unwdsg <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span><span class="dv">1</span>, </span>
-<span id="cb11-2"><a href></a>                           <span class="at">weights =</span> <span class="sc">~</span><span class="dv">1</span>, </span>
-<span id="cb11-3"><a href></a>                           <span class="at">data =</span> selsimdmds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href></a>selsim_unwdsg <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span><span class="dv">1</span>, </span>
+<span id="cb22-2"><a href></a>                           <span class="at">weights =</span> <span class="sc">~</span><span class="dv">1</span>, </span>
+<span id="cb22-3"><a href></a>                           <span class="at">data =</span> selsimdmds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="setting-up-complex-sampling-design-6" class="slide level2">
@@ -1804,10 +1973,10 @@ dm_status   0  1
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href></a>selsim_svydsg <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span><span class="dv">1</span>, </span>
-<span id="cb12-2"><a href></a>                           <span class="at">weights =</span> <span class="sc">~</span>final_weight, </span>
-<span id="cb12-3"><a href></a>                           <span class="at">data =</span> selsimdmds, </span>
-<span id="cb12-4"><a href></a>                           <span class="at">nest =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href></a>selsim_svydsg <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span><span class="dv">1</span>, </span>
+<span id="cb23-2"><a href></a>                           <span class="at">weights =</span> <span class="sc">~</span>final_weight, </span>
+<span id="cb23-3"><a href></a>                           <span class="at">data =</span> selsimdmds, </span>
+<span id="cb23-4"><a href></a>                           <span class="at">nest =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="setting-up-complex-sampling-design-7" class="slide level2">
@@ -1819,7 +1988,7 @@ dm_status   0  1
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href></a><span class="fu">summary</span>(selsim_svydsg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href></a><span class="fu">summary</span>(selsim_svydsg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Independent Sampling design (with replacement)
 svydesign(ids = ~1, weights = ~final_weight, data = selsimdmds, 
@@ -1879,9 +2048,9 @@ Data variables:
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href></a><span class="fu">svytotal</span>(<span class="at">x =</span> <span class="sc">~</span>dm_statusN, </span>
-<span id="cb15-2"><a href></a>         <span class="at">design =</span> selsim_unwdsg, </span>
-<span id="cb15-3"><a href></a>         <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href></a><span class="fu">svytotal</span>(<span class="at">x =</span> <span class="sc">~</span>dm_statusN, </span>
+<span id="cb26-2"><a href></a>         <span class="at">design =</span> selsim_unwdsg, </span>
+<span id="cb26-3"><a href></a>         <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           total     SE
 dm_statusN    74 6.2922</code></pre>
@@ -1898,9 +2067,9 @@ dm_statusN    74 6.2922</code></pre>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href></a><span class="fu">svytotal</span>(<span class="at">x =</span> <span class="sc">~</span>dm_statusN, </span>
-<span id="cb17-2"><a href></a>         <span class="at">design =</span> selsim_svydsg, </span>
-<span id="cb17-3"><a href></a>         <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href></a><span class="fu">svytotal</span>(<span class="at">x =</span> <span class="sc">~</span>dm_statusN, </span>
+<span id="cb28-2"><a href></a>         <span class="at">design =</span> selsim_svydsg, </span>
+<span id="cb28-3"><a href></a>         <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            total     SE
 dm_statusN 740866 132739</code></pre>
@@ -1918,9 +2087,9 @@ dm_statusN 740866 132739</code></pre>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href></a><span class="fu">svymean</span>(<span class="at">x =</span> <span class="sc">~</span>dm_statusN, </span>
-<span id="cb19-2"><a href></a>        <span class="at">design =</span> selsim_svydsg, </span>
-<span id="cb19-3"><a href></a>        <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href></a><span class="fu">svymean</span>(<span class="at">x =</span> <span class="sc">~</span>dm_statusN, </span>
+<span id="cb30-2"><a href></a>        <span class="at">design =</span> selsim_svydsg, </span>
+<span id="cb30-3"><a href></a>        <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              mean     SE
 dm_statusN 0.39264 0.0674</code></pre>
@@ -1937,9 +2106,9 @@ dm_statusN 0.39264 0.0674</code></pre>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href></a><span class="fu">svyciprop</span>(<span class="at">formula =</span> <span class="sc">~</span>dm_statusN, </span>
-<span id="cb21-2"><a href></a>          <span class="at">design =</span> selsim_svydsg) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-3"><a href></a>  <span class="fu">attr</span>(., <span class="st">&quot;ci&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href></a><span class="fu">svyciprop</span>(<span class="at">formula =</span> <span class="sc">~</span>dm_statusN, </span>
+<span id="cb32-2"><a href></a>          <span class="at">design =</span> selsim_svydsg) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-3"><a href></a>  <span class="fu">attr</span>(., <span class="st">&quot;ci&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    2.5%    97.5% 
 0.270001 0.530504 </code></pre>
@@ -1953,11 +2122,11 @@ dm_statusN 0.39264 0.0674</code></pre>
 <li>For example, we want to calculate the unweighted count, by locality</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href></a><span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>dm_statusN, </span>
-<span id="cb23-2"><a href></a>      <span class="at">by =</span> <span class="sc">~</span>gender, </span>
-<span id="cb23-3"><a href></a>      <span class="at">design =</span> selsim_unwdsg, </span>
-<span id="cb23-4"><a href></a>      <span class="at">FUN =</span> svytotal, </span>
-<span id="cb23-5"><a href></a>      <span class="at">na.rm.all =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href></a><span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>dm_statusN, </span>
+<span id="cb34-2"><a href></a>      <span class="at">by =</span> <span class="sc">~</span>gender, </span>
+<span id="cb34-3"><a href></a>      <span class="at">design =</span> selsim_unwdsg, </span>
+<span id="cb34-4"><a href></a>      <span class="at">FUN =</span> svytotal, </span>
+<span id="cb34-5"><a href></a>      <span class="at">na.rm.all =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       gender dm_statusN       se
 Male     Male         44 5.652349
@@ -1972,11 +2141,11 @@ Female Female         30 4.945564</code></pre>
 <li>For example, we want to calculate the estimated population, by locality</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href></a><span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>dm_statusN, </span>
-<span id="cb25-2"><a href></a>      <span class="at">by =</span> <span class="sc">~</span>gender, </span>
-<span id="cb25-3"><a href></a>      <span class="at">design =</span> selsim_svydsg, </span>
-<span id="cb25-4"><a href></a>      <span class="at">FUN =</span> svytotal, </span>
-<span id="cb25-5"><a href></a>      <span class="at">na.rm.all =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href></a><span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>dm_statusN, </span>
+<span id="cb36-2"><a href></a>      <span class="at">by =</span> <span class="sc">~</span>gender, </span>
+<span id="cb36-3"><a href></a>      <span class="at">design =</span> selsim_svydsg, </span>
+<span id="cb36-4"><a href></a>      <span class="at">FUN =</span> svytotal, </span>
+<span id="cb36-5"><a href></a>      <span class="at">na.rm.all =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       gender dm_statusN       se
 Male     Male   416090.8 105104.5
@@ -1991,11 +2160,11 @@ Female Female   324774.8  91072.9</code></pre>
 <li>For example, we want to calculate the prevalence, by locality</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href></a><span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>dm_statusN, </span>
-<span id="cb27-2"><a href></a>      <span class="at">by =</span> <span class="sc">~</span>gender, </span>
-<span id="cb27-3"><a href></a>      <span class="at">design =</span> selsim_svydsg, </span>
-<span id="cb27-4"><a href></a>      <span class="at">FUN =</span> svymean, </span>
-<span id="cb27-5"><a href></a>      <span class="at">na.rm.all =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href></a><span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>dm_statusN, </span>
+<span id="cb38-2"><a href></a>      <span class="at">by =</span> <span class="sc">~</span>gender, </span>
+<span id="cb38-3"><a href></a>      <span class="at">design =</span> selsim_svydsg, </span>
+<span id="cb38-4"><a href></a>      <span class="at">FUN =</span> svymean, </span>
+<span id="cb38-5"><a href></a>      <span class="at">na.rm.all =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       gender dm_statusN         se
 Male     Male  0.4416367 0.10235204
@@ -2013,16 +2182,16 @@ Female Female  0.3437781 0.08827912</code></pre>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href></a><span class="fu">svymean</span>(<span class="at">x =</span> <span class="sc">~</span>hba1c, </span>
-<span id="cb29-2"><a href></a>        <span class="at">design =</span> selsim_unwdsg, </span>
-<span id="cb29-3"><a href></a>        <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href></a><span class="fu">svymean</span>(<span class="at">x =</span> <span class="sc">~</span>hba1c, </span>
+<span id="cb40-2"><a href></a>        <span class="at">design =</span> selsim_unwdsg, </span>
+<span id="cb40-3"><a href></a>        <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       mean     SE
 hba1c 6.462 0.1158</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href></a><span class="fu">svymean</span>(<span class="at">x =</span> <span class="sc">~</span>hba1c, </span>
-<span id="cb31-2"><a href></a>        <span class="at">design =</span> selsim_svydsg, </span>
-<span id="cb31-3"><a href></a>        <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href></a><span class="fu">svymean</span>(<span class="at">x =</span> <span class="sc">~</span>hba1c, </span>
+<span id="cb42-2"><a href></a>        <span class="at">design =</span> selsim_svydsg, </span>
+<span id="cb42-3"><a href></a>        <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        mean    SE
 hba1c 6.4256 0.165</code></pre>
@@ -2038,18 +2207,18 @@ hba1c 6.4256 0.165</code></pre>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href></a><span class="fu">svymean</span>(<span class="at">x =</span> <span class="sc">~</span>hba1c, </span>
-<span id="cb33-2"><a href></a>        <span class="at">design =</span> selsim_unwdsg, </span>
-<span id="cb33-3"><a href></a>        <span class="at">na.rm =</span> T) <span class="sc">%&gt;%</span> </span>
-<span id="cb33-4"><a href></a>  <span class="fu">confint</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href></a><span class="fu">svymean</span>(<span class="at">x =</span> <span class="sc">~</span>hba1c, </span>
+<span id="cb44-2"><a href></a>        <span class="at">design =</span> selsim_unwdsg, </span>
+<span id="cb44-3"><a href></a>        <span class="at">na.rm =</span> T) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-4"><a href></a>  <span class="fu">confint</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         2.5 %   97.5 %
 hba1c 6.235037 6.689014</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href></a><span class="fu">svymean</span>(<span class="at">x =</span> <span class="sc">~</span>hba1c, </span>
-<span id="cb35-2"><a href></a>        <span class="at">design =</span> selsim_svydsg, </span>
-<span id="cb35-3"><a href></a>        <span class="at">na.rm =</span> T) <span class="sc">%&gt;%</span> </span>
-<span id="cb35-4"><a href></a>  <span class="fu">confint</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href></a><span class="fu">svymean</span>(<span class="at">x =</span> <span class="sc">~</span>hba1c, </span>
+<span id="cb46-2"><a href></a>        <span class="at">design =</span> selsim_svydsg, </span>
+<span id="cb46-3"><a href></a>        <span class="at">na.rm =</span> T) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-4"><a href></a>  <span class="fu">confint</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         2.5 %   97.5 %
 hba1c 6.102196 6.748947</code></pre>

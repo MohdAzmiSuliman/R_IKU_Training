@@ -24,7 +24,8 @@ execute:
 ```{r}
 #| echo: false
 
-pacman::p_load(tidyverse, haven, summarytools, gtsummary, kableExtra)
+pacman::p_load(tidyverse, arrow, haven, summarytools, gtsummary, 
+               kableExtra)
 ```
 
 ```{css}
@@ -57,7 +58,7 @@ code.sourceCode {
     -   To ensure each unit has equal chance, it is necessary to have complete list of population.
     -   In reality, even DOSM don't have the complete list of population.
 
-## Why Not SRS?
+. . . 
 
 -   In SRS, mathematically, the sample may not adequately represent the population, particularly minorities.
 -   In the next slide, I'll simulate the effect of SRS in a hypothetical population.
@@ -70,7 +71,6 @@ Link: https://open.dosm.gov.my/data-catalogue/population_district
 
 ```{r}
 library(arrow)
-
 pop_mydist <- read_parquet("https://storage.dosm.gov.my/population/population_district.parquet")
 
 pop_my23 <- pop_mydist %>% 
@@ -80,19 +80,41 @@ pop_my23 <- pop_mydist %>%
                     "50-54", "55-59"), 
          ethnicity == "overall") %>% 
   mutate(population = population*10)
+```
 
+## Simulation
+
+-   From the DOSM dataset, we know that, the selected population contained 
+    -   16 states
+    -   160 district (Daerah Pentadbiran)
+    -   Total population of approx. 16.3 million
+    
+Note: In the dataset, each 1 unit of population is 1,000 population. But in our dataset, I've multiplied by 10, so each 1 unit of population is 100 population.
+
+```{r}
 pop_simdist <- pop_my23 %>% 
   group_by(state, district) %>% 
   summarise(population = sum(population)) %>% 
   ungroup()
+```
 
-pop_simdist %>% 
-  slice_sample(n = 5)
+## Simulation
 
+-   Below is the snippet of the dataset
+
+```{r}
 pop_simdist %>% 
   summarise(total_state = n_distinct(state), 
             total_district = n_distinct(district), 
             total_population = scales::comma(sum(population)))
+```
+
+. . . 
+
+```{r}
+set.seed(123)
+pop_simdist %>% 
+  slice_sample(n = 5)
 ```
 
 ## Simulation
@@ -102,8 +124,9 @@ pop_simdist %>%
 -   Below is total number of district that have the populations included in sample.
 
 ```{r}
-set.seed(123)
+#| eval: false
 
+set.seed(123)
 pop_simdist %>% 
   slice_sample(n = 100) %>% 
   count(state, district) %>% 
@@ -113,11 +136,47 @@ pop_simdist %>%
 
 ## Simulation
 
+```{r}
+set.seed(123)
+pop_simdist %>% 
+  slice_sample(n = 100) %>% 
+  count(state, district) %>% 
+  count(state) %>% 
+  rename(sample_district = n)
+```
+
+
+## Simulation
+
 -   Compare that with the total district in Malaysia
+
+```{r}
+#| eval: false
+
+sel_dist <- pop_simdist %>% 
+  slice_sample(n = 100) %>% 
+  count(state, district) %>% 
+  count(state) %>% 
+  rename(sample_district = n) 
+
+all_dist <- pop_simdist %>% 
+  count(state, district) %>% 
+  count(state) %>% 
+  rename(all_district = n)
+
+sel_dist %>% 
+  left_join(all_dist, by = "state") %>% 
+  mutate(perc = scales::percent(sample_district / all_district))
+```
+
+## Simulation
+
 -   As you can see below, with random selection, not all district will be represented.
 -   We can imagine how these random selection will affect other selection criteria, e.g., gender, age, etc.
 
 ```{r}
+#| echo: false
+
 sel_dist <- pop_simdist %>% 
   slice_sample(n = 100) %>% 
   count(state, district) %>% 
@@ -222,9 +281,8 @@ library(survey)
 
 ## Data Import
 
--   Copy the NHMS dataset in our working directory
+-   Copy the simulation dataset in our working directory
 -   We can put our import data code in setup chunk
--   In this example, im using hypercholesterolaemia module in NHMS 2019
 
 ```{r}
 selsimdmds <- read_sav("Dataset/SelSimDataClean.sav") %>% 
