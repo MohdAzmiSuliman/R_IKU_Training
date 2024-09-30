@@ -60,8 +60,83 @@ code.sourceCode {
 ## Why Not SRS?
 
 -   In SRS, mathematically, the sample may not adequately represent the population, particularly minorities.
+-   In the next slide, I'll simulate the effect of SRS in a hypothetical population.
 
-. . . 
+## Simulation
+
+- Information of number of population was taken from OpenDOSM Population Table by Administrative Districts, 2023.
+
+Link: https://open.dosm.gov.my/data-catalogue/population_district
+
+```{r}
+library(arrow)
+
+pop_mydist <- read_parquet("https://storage.dosm.gov.my/population/population_district.parquet")
+
+pop_my23 <- pop_mydist %>% 
+  filter(date == dmy("01/01/23"), 
+         sex != "both", 
+         age %in% c("20-24", "24-29", "30-34", "35-39", "40-44", "45-49", 
+                    "50-54", "55-59"), 
+         ethnicity == "overall") %>% 
+  mutate(population = population*10)
+
+pop_simdist <- pop_my23 %>% 
+  group_by(state, district) %>% 
+  summarise(population = sum(population)) %>% 
+  ungroup()
+
+pop_simdist %>% 
+  slice_sample(n = 5)
+
+pop_simdist %>% 
+  summarise(total_state = n_distinct(state), 
+            total_district = n_distinct(district), 
+            total_population = scales::comma(sum(population)))
+```
+
+## Simulation
+
+-   In this simulation, we will randomly select 100 units from the population.
+-   Will all districts have representative?
+-   Below is total number of district that have the populations included in sample.
+
+```{r}
+set.seed(123)
+
+pop_simdist %>% 
+  slice_sample(n = 100) %>% 
+  count(state, district) %>% 
+  count(state) %>% 
+  rename(sample_district = n)
+```
+
+## Simulation
+
+-   Compare that with the total district in Malaysia
+-   As you can see below, with random selection, not all district will be represented.
+-   We can imagine how these random selection will affect other selection criteria, e.g., gender, age, etc.
+
+```{r}
+sel_dist <- pop_simdist %>% 
+  slice_sample(n = 100) %>% 
+  count(state, district) %>% 
+  count(state) %>% 
+  rename(sample_district = n) 
+
+all_dist <- pop_simdist %>% 
+  count(state, district) %>% 
+  count(state) %>% 
+  rename(all_district = n)
+
+sel_dist %>% 
+  left_join(all_dist, by = "state") %>% 
+  mutate(perc = scales::percent(sample_district / all_district))
+```
+
+
+
+## Why Not SRS?
 
 -   Stratification is a method where the population is divided into strata
     -   For example, the population is divided by gender and ethnicity
